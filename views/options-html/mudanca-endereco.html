@@ -1,35 +1,59 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mudança de Endereço</title>
+    <title>Mudança de Endereço - CedNet Helpdesk</title>
+    <link rel="icon" href="/images/LogoCedNet.ico">
+    <link rel="stylesheet" href="/css/mudanca-endereco.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <div class="container">
 
-    <h1 class="page-title">Mudança de Endereço</h1>
+        <div class="page-header">
+            <a href="/" class="btn-back">← Voltar</a>
+            <h1 class="page-title">📦 Mudança de Endereço</h1>
+        </div>
 
-    <div class="card-coleta">
-        <p class="subtitle">Coleta de Dados</p>
-        <div class="container">
-            <label>Via de Contato</label>
-            <div class="radio-group">
-                <label><input type="radio" name="via" value="Central"> Central</label>
-                <label><input type="radio" name="via" value="OPA"> OPA! Suite</label>
+        <!-- Coleta de Dados -->
+        <div class="card">
+            <p class="card-title">Coleta de Dados</p>
+
+            <div class="field">
+                <label>Via de Contato</label>
+                <div class="radio-group">
+                    <label class="radio-label"><input type="radio" name="via" value="Central"> Central</label>
+                    <label class="radio-label"><input type="radio" name="via" value="OPA"> OPA! Suite</label>
+                </div>
+            </div>
+
+            <hr class="sep">
+
+            <div class="field">
+                <label>Nome do Solicitante</label>
+                <input type="text" name="nome" placeholder="Ex: Pietro de Alexandria Picoli">
+            </div>
+
+            <div class="field">
+                <label>Contato</label>
+                <input type="text" name="contato" placeholder="Ex: (XX) XXXXX-XXXX" maxlength="15">
             </div>
         </div>
 
-        <div class="container">
-            <label>Nome do Solicitante</label>
-            <input type="text" name="nome" placeholder="Ex: Pietro de Alexandria Picoli">
+        <!-- Área -->
+        <div class="card">
+            <p class="card-title">Área</p>
+            <div class="field">
+                <label>Selecione a Área</label>
+                <div class="radio-group">
+                    <label class="radio-label"><input type="radio" name="area" value="Urbana"> Urbana</label>
+                    <label class="radio-label"><input type="radio" name="area" value="Rural"> Rural</label>
+                </div>
+            </div>
         </div>
 
-        <div class="container">
-            <label>Contato: </label>
-            <input type="text" name="contato" placeholder="Ex: (XX) XXXXX-XXXX" maxlength="15">
-        </div>
     </div>
-
-
 </body>
 </html>
