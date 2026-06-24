@@ -71,6 +71,20 @@
                     <input type="text" name="horario" placeholder="Ex: Após às 18h">
                 </div>
             </div>
+
+            <div class="field">
+                <label>Telhado</label>
+                <div class="radio-group">
+                    <label class="radio-label"><input type="radio" name="tipo-telhado-urbano" value="zinco" onchange="tipoDeTelhado(this)"> Zinco</label>
+                    <label class="radio-label"><input type="radio" name="tipo-telhado-urbano" value="eternit" onchange="tipoDeTelhado(this)"> Eternit</label>
+                    <label class="radio-label"><input type="radio" name="tipo-telhado-urbano" value="ceramica" onchange="tipoDeTelhado(this)"> Cerâmica</label>
+                    <label class="radio-label"><input type="radio" name="tipo-telhado-urbano" value="outro-telhado" onchange="tipoDeTelhado(this)"> Outro</label>
+                </div>
+                <div class="field" id="outro-telhado-urbano" style="display:none">
+                    <label>Informe o tipo de Telhado</label>
+                    <input type="text" name="telha" placeholder="Ex: PVC">
+                </div>
+            </div>
         </div>
 
         <!-- Card Rural -->
@@ -89,6 +103,20 @@
                     <label>Informe o Horário</label>
                     <input type="text" name="horario" placeholder="Ex: Após às 18h">
                 </div>
+
+                <div class="field">
+                <label>Telhado</label>
+                <div class="radio-group">
+                    <label class="radio-label"><input type="radio" name="tipo-telhado-rural" value="zinco" onchange="tipoDeTelhado(this)"> Zinco</label>
+                    <label class="radio-label"><input type="radio" name="tipo-telhado-rural" value="eternit" onchange="tipoDeTelhado(this)"> Eternit</label>
+                    <label class="radio-label"><input type="radio" name="tipo-telhado-rural" value="ceramica" onchange="tipoDeTelhado(this)"> Cerâmica</label>
+                    <label class="radio-label"><input type="radio" name="tipo-telhado-rural" value="outro-telhado" onchange="tipoDeTelhado(this)"> Outro</label>
+                </div>
+                <div class="field" id="outro-telhado-rural" style="display:none">
+                    <label>Informe o tipo de Telhado</label>
+                    <input type="text" name="telha" placeholder="Ex: PVC">
+                </div>
+            </div>
             </div>
             
         </div>
@@ -98,6 +126,10 @@
         function horarioEspecifico(el) {
             const area = el.name.includes('urbana') ? 'urbana' : 'rural';
             document.getElementById('horario-especifico-' + area).style.display = el.value === 'horario-especifico' ? 'block' : 'none';
+        }
+        function tipoDeTelhado(el) {
+            const area = el.name.includes('urbano') ? 'urbano' : 'rural'; 
+            document.getElementById('outro-telhado-' + area).style.display = el.value === 'outro-telhado' ? 'block' : 'none';
         }
     </script>
     <script src="/js/sharedFunctions/functionToggleCards.js"></script>
