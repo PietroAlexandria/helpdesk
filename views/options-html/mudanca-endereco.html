@@ -38,7 +38,11 @@
 
             <div class="field">
                 <label>Contato</label>
-                <input type="text" name="contato" placeholder="Ex: (XX) XXXXX-XXXX" maxlength="15">
+                <input type="text" name="contato" placeholder="Ex: (XX) XXXXX-XXXX" maxlength="15" oninput="mascaraContato(this)">
+            </div>
+
+            <div class="field">
+                <label>Motivo - Mudança de Endereço</label>
             </div>
         </div>
 
@@ -63,6 +67,7 @@
                 <div class="radio-group">
                     <label class="radio-label"><input type="radio" name="disponibilidade-urbana" value="manha" onchange="horarioEspecifico(this)"> Manhã</label>
                     <label class="radio-label"><input type="radio" name="disponibilidade-urbana" value="tarde" onchange="horarioEspecifico(this)"> Tarde</label>
+                    <label class="radio-label"><input type="radio" name="disponibilidade-urbana" value="qualquerHoraio" onchange="horarioEspecifico(this)"> Qualquer Horário</label>
                     <label class="radio-label"><input type="radio" name="disponibilidade-urbana" value="horario-especifico" onchange="horarioEspecifico(this)"> Horário Específico</label>
                 </div>
                 <div class="field" id="horario-especifico-urbana" style="display:none">
@@ -81,6 +86,7 @@
                 <div class="radio-group">
                     <label class="radio-label"><input type="radio" name="disponibilidade-rural" value="manha" onchange="horarioEspecifico(this)"> Manhã</label>
                     <label class="radio-label"><input type="radio" name="disponibilidade-rural" value="tarde" onchange="horarioEspecifico(this)"> Tarde</label>
+                    <label class="radio-label"><input type="radio" name="disponibilidade-rural" value="qualquerHoraio" onchange="horarioEspecifico(this)"> Qualquer Horário</label>
                     <label class="radio-label"><input type="radio" name="disponibilidade-rural" value="horario-especifico" onchange="horarioEspecifico(this)"> Horário Específico</label>
                 </div>
                 <div class="field" id="horario-especifico-rural" style="display:none">
@@ -103,5 +109,6 @@
             document.getElementById('horario-especifico-' + area).style.display = el.value === 'horario-especifico' ? 'block' : 'none';
         }
     </script>
+    <script src="/js/sharedFunctions/functionContact.js"></script>
 </body>
 </html>
