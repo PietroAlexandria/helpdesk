@@ -40,10 +40,6 @@
                 <label>Contato</label>
                 <input type="text" name="contato" placeholder="Ex: (XX) XXXXX-XXXX" maxlength="15" oninput="mascaraContato(this)">
             </div>
-
-            <div class="field">
-                <label>Motivo - Mudança de Endereço</label>
-            </div>
         </div>
 
         <!-- Área -->
@@ -52,8 +48,8 @@
             <div class="field">
                 <label>Selecione a Área</label>
                 <div class="radio-group">
-                    <label class="radio-label"><input type="radio" name="area" value="Urbana" onchange="mostrarArea(this.value)"> Urbana</label>
-                    <label class="radio-label"><input type="radio" name="area" value="Rural" onchange="mostrarArea(this.value)"> Rural</label>
+                    <label class="radio-label"><input type="radio" name="area" value="Urbana" onchange="toggleCards(this.value, { Urbana: 'card-urbana', Rural: 'card-rural' })"> Urbana</label>
+                    <label class="radio-label"><input type="radio" name="area" value="Rural" onchange="toggleCards(this.value, { Urbana: 'card-urbana', Rural: 'card-rural' })"> Rural</label>
                 </div>
             </div>
         </div>
@@ -99,16 +95,12 @@
 
     </div>
     <script>
-        function mostrarArea(valor) {
-            document.getElementById('card-urbana').style.display = valor === 'Urbana' ? 'block' : 'none';
-            document.getElementById('card-rural').style.display = valor === 'Rural' ? 'block' : 'none';
-        }
-
         function horarioEspecifico(el) {
             const area = el.name.includes('urbana') ? 'urbana' : 'rural';
             document.getElementById('horario-especifico-' + area).style.display = el.value === 'horario-especifico' ? 'block' : 'none';
         }
     </script>
+    <script src="/js/sharedFunctions/functionToggleCards.js"></script>
     <script src="/js/sharedFunctions/functionContact.js"></script>
 </body>
 </html>
