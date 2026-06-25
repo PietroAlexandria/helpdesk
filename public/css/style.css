@@ -83,6 +83,25 @@ body {
     transition: all 0.2s ease;
     text-align: left;
     letter-spacing: 0.2px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-icon {
+    font-size: 1.1rem;
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.btn-text {
+    flex: 1;
 }
 
 .btn-menu:hover {

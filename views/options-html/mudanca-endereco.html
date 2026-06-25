@@ -99,7 +99,69 @@
 
             <div class="field">
                 <label>CEP</label>
-                <input type="text" name="cep" id="cep" placeholder="Ex: XXXXX-XXX">
+                <input type="text" name="cep" id="cep" placeholder="Ex: XXXXX-XXX" maxlength="9" oninput="mascaraCep(this)" onblur="buscarCep(this.value)">
+            </div>
+
+            <div class="field">
+                <label for="uf">Estado</label>
+                <select name="uf" id="uf">
+                    <option value="">Selecione a UF</option>
+                    <option value="sp">SP</option>
+                    <option value="pr">PR</option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label for="cidade">Cidade</label>
+                <select name="cidade" id="cidade">
+                    <option value="">Selecione a cidade</option>
+                    <option value="aguasStaBarbara">Águas de Santa Bárbara </option>
+                    <option value="arandu">Arandu                          </option>
+                    <option value="bernardinoDeCampos">Bernardino de Campos</option>
+                    <option value="cambara">Cambará                        </option>
+                    <option value="carlopolis">Carlópolis                  </option>
+                    <option value="cerqueiraCesar">Cerqueira César         </option>
+                    <option value="chavantes">Chavantes                    </option>
+                    <option value="espStoTurvo">Espírito Santo do Turvo    </option>
+                    <option value="fartura">Fartura                        </option>
+                    <option value="ipaussu">Ipaussu                        </option>
+                    <option value="itai">Itaí                              </option>
+                    <option value="jacarezinho">Jacarezinho                </option>
+                    <option value="manduri">Manduri                        </option>
+                    <option value="ourinhos">Ourinhos                      </option>
+                    <option value="paranapanema">Paranapanema              </option>
+                    <option value="piraju">Piraju                          </option>
+                    <option value="ribClaro">Ribeirão Claro                </option>
+                    <option value="saltoItarare">Salto do Itararé          </option>
+                    <option value="saltoGrande">Salto Grande               </option>
+                    <option value="staCruzRioPardo">Santa Cruz do Rio Pardo</option>
+                    <option value="santanaItarare">Santana do Itararé      </option>
+                    <option value="taguai">Taguaí                          </option>
+                    <option value="taquarituba">Taquarituba                </option>
+                    <option value="tejupa">Tejupá                          </option>
+                </select>
+            </div>
+
+            <div class="field">
+                <label>Bairro</label>
+                <input type="text" name="bairro" id="bairro" placeholder="Ex: Bairro CedNet II">
+            </div>
+
+            <div class="field">
+                <label>Rua</label>
+                <input type="text" name="logradouro" id="logradouro" placeholder="Ex: Rua Santos Dumont">
+            </div>
+
+            <div class="field">
+                <label>Número da Casa/APTO</label>
+                <input type="text" name="number" id="number" placeholder="Ex: 131">
+            </div>
+
+            <div class="field">
+                <label>Login PPPoE</label>
+                <input type="text" name="loginpppoe" id="loginpppoe" placeholder="Ex: 123Pietro"> <br>
+                <label>Senha PPPoE</label>
+                <input type="text" name="senhapppoe" id="senhapppoe" placeholder="Ex: 456Pietro">
             </div>
         </div>
 
@@ -149,6 +211,7 @@
         }
     </script>
     <script src="/js/sharedFunctions/functionToggleCards.js"></script>
-    <script src="/js/sharedFunctions/functionContact.js"></script>
+    <script src="/js/sharedFunctions/functionContact.js"    ></script>
+    <script src="/js/sharedFunctions/functionCep.js"></script>
 </body>
 </html>
