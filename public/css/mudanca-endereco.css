@@ -46,6 +46,13 @@ body {
     letter-spacing: -0.3px;
 }
 
+.page-rural {
+    font-size: 1.0rem;
+    font-weight: 700;
+    color: #000000;
+    letter-spacing: -0.3px;
+}
+
 .card {
     background: #ffffff;
     border-radius: 16px;

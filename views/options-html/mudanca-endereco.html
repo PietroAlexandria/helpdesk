@@ -136,6 +136,10 @@
             <hr class="sep">
 
             <div class="field">
+                <label class="field-subtitle"><span>Novo Endereço</span></label>
+            </div>
+
+            <div class="field">
                 <label>CEP</label>
                 <input type="text" name="cep" id="cep" placeholder="Ex: XXXXX-XXX" maxlength="9" oninput="mascaraCep(this)" onblur="buscarCep(this.value)">
             </div>
@@ -210,7 +214,12 @@
         <!-- Card Rural ------------------------------------------------------------------------------------------------------------------------------->
         <div class="card" id="card-rural" style="display:none">
             <p class="card-title">Mudança de Endereço - Rural</p>
+
+            <h1 class="page-rural">TRANSFIRA O ATENDIMENTO PARA SETOR COMERCIAL RURAL - VIABILIDADE</h1>
+
+            <hr class="sep">
             
+            <!--
             <div class="field">
                 <label class="field-subtitle">Disponibilidade</label>
                 <div class="radio-group">
@@ -225,19 +234,20 @@
                 </div>
 
                 <div class="field">
-                <label class="field-subtitle">Telhado</label>
-                <div class="radio-group">
-                    <label class="radio-btn"><input type="radio" name="tipo-telhado-rural" value="zinco" onchange="tipoDeTelhado(this)"><span>Zinco</span></label>
-                    <label class="radio-btn"><input type="radio" name="tipo-telhado-rural" value="eternit" onchange="tipoDeTelhado(this)"><span>Eternit</span></label>
-                    <label class="radio-btn"><input type="radio" name="tipo-telhado-rural" value="ceramica" onchange="tipoDeTelhado(this)"><span>Cerâmica</span></label>
-                    <label class="radio-btn"><input type="radio" name="tipo-telhado-rural" value="outro-telhado" onchange="tipoDeTelhado(this)"><span>Outro</span></label>
-                </div>
-                <div class="field" id="outro-telhado-rural" style="display:none">
-                    <label>Informe o tipo de Telhado</label>
-                    <input type="text" name="telha" placeholder="Ex: PVC">
+                    <label class="field-subtitle">Telhado</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="tipo-telhado-rural" value="zinco" onchange="tipoDeTelhado(this)"><span>Zinco</span></label>
+                        <label class="radio-btn"><input type="radio" name="tipo-telhado-rural" value="eternit" onchange="tipoDeTelhado(this)"><span>Eternit</span></label>
+                        <label class="radio-btn"><input type="radio" name="tipo-telhado-rural" value="ceramica" onchange="tipoDeTelhado(this)"><span>Cerâmica</span></label>
+                        <label class="radio-btn"><input type="radio" name="tipo-telhado-rural" value="outro-telhado" onchange="tipoDeTelhado(this)"><span>Outro</span></label>
+                    </div>
+                    <div class="field" id="outro-telhado-rural" style="display:none">
+                        <label>Informe o tipo de Telhado</label>
+                        <input type="text" name="telha" placeholder="Ex: PVC">
+                    </div>
                 </div>
             </div>
-            </div>
+            -->
         </div>
 
     </div>
