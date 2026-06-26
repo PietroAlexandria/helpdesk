@@ -249,3 +249,19 @@ body {
     transform: translateY(0);
     box-shadow: none;
 }
+
+.watermark {
+    font-size: 0.75rem;
+    color: #a0aec0;
+    text-align: center;
+}
+
+.watermark a {
+    color: #1565c0;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.watermark a:hover {
+    text-decoration: underline;
+}
