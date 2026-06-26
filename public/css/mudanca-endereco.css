@@ -156,3 +156,89 @@ body {
     border-top: 1px solid #e8edf5;
     margin: 16px 0;
 }
+
+.btn-copy {
+    width: 100%;
+    padding: 11px 16px;
+    background: #f0f5ff;
+    color: #1565c0;
+    border: 1.5px solid #c7d9f8;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    letter-spacing: 0.2px;
+}
+
+.btn-copy:hover {
+    background: #1565c0;
+    border-color: #1565c0;
+    color: #ffffff;
+}
+
+.btn-copy:active {
+    transform: scale(0.98);
+}
+
+.menu-buttons {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 32px;
+}
+
+.menu-buttons a {
+    text-decoration: none;
+}
+
+.btn-menu {
+    width: 100%;
+    padding: 14px 20px;
+    background: linear-gradient(135deg, #1565c0, #1e88e5);
+    color: #ffffff;
+    border: none;
+    border-radius: 12px;
+    font-size: 0.95rem;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    text-align: left;
+    letter-spacing: 0.2px;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.btn-icon {
+    font-size: 1.1rem;
+    width: 32px;
+    height: 32px;
+    background: rgba(255, 255, 255, 0.2);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+}
+
+.btn-text {
+    flex: 1;
+}
+
+.btn-menu:hover {
+    background: linear-gradient(135deg, #0d47a1, #1565c0);
+    transform: translateY(-2px);
+    box-shadow: 0 6px 20px rgba(21, 101, 192, 0.4);
+}
+
+.btn-menu:active {
+    transform: translateY(0);
+    box-shadow: none;
+}
