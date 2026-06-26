@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sem Conexão - CedNet Helpdesk</title>
+    <link rel="icon" href="/images/LogoCedNet.ico">
+    <link rel="stylesheet" href="/css/sem-conexao.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="container">
+
+        <div class="page-header">
+            <a href="/" class="btn-back">← Voltar</a>
+            <h1 class="page-title">📡 Sem Conexão</h1>
+        </div>
+
+        <!-- Coleta de Dados ------------------------------------------------------------------------------------------------------------------------------->
+        <div class="card">
+            <p class="card-title">Coleta de Dados</p>
+
+            <div class="field">
+                <label class="field-subtitle">Via de Contato</label>
+                <div class="radio-group">
+                    <label class="radio-btn"><input type="radio" name="via" value="Central"><span>Central</span></label>
+                    <label class="radio-btn"><input type="radio" name="via" value="OPA"><span>OPA! Suite</span></label>
+                </div>
+            </div>
+
+            <hr class="sep">
+
+            <div class="field">
+                <label>Nome do Solicitante</label>
+                <input type="text" name="nome" placeholder="Ex: Pietro de Alexandria Picoli">
+            </div>
+
+            <div class="field">
+                <label>Contato</label>
+                <input type="text" name="contato" placeholder="Ex: (XX) XXXXX-XXXX" maxlength="15" oninput="mascaraContato(this)">
+            </div>
+        </div>
+
+        <div class="card">
+            <p class="card-title">Tipo de Conexão</p>
+            <div class="field">
+                <label class="field-subtitle">Selecione o tipo de conexão</label>
+                <div class="radio-group">
+                    <label class="radio-btn"><input type="radio" name="type" value="Fibra" onchange="toggleCards(this.value, { Fibra: 'card-fibra', Radio: 'card-radio' })"><span>Fibra</span></label>
+                    <label class="radio-btn"><input type="radio" name="type" value="Radio" onchange="toggleCards(this.value, { Fibra: 'card-fibra', Radio: 'card-radio' })"><span>Rádio</span></label>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card Sem Conexão - FIBRA ------------------------------------------------------------------------------------------------------------------------------->
+
+        <div class="card" id="card-fibra" style="display:none">
+
+            <div class="field">
+                <label>CAIXA</label>
+                <div class="radio-group">
+                    <label class="radio-btn"><input type="radio" name="cx" value="cxOn"><span>ONLINE</span></label>
+                    <label class="radio-btn"><input type="radio" name="cx" value="cxOff"><span>OFFLINE</span></label>
+                </div>
+            </div>
+
+            <hr class="sep">
+
+            <div class="field">
+                <label>ONU</label>
+                <div class="radio-group">
+                    <label class="radio-btn"><input type="radio" name="onu" value="onuOn"><span>ONLINE</span></label>
+                    <label class="radio-btn"><input type="radio" name="onu" value="onuOff"><span>OFFLINE</span></label>
+                </div>
+            </div>
+
+            <hr class="sep">
+
+            <div class="field">
+                <label>PPPoE</label>
+                <div class="radio-group">
+                    <label class="radio-btn"><input type="radio" name="pppoe" value="pppoeOn"><span>ONLINE</span></label>
+                    <label class="radio-btn"><input type="radio" name="pppoe" value="pppoeOff"><span>OFFLINE</span></label>
+                </div>
+            </div>
+
+            <hr class="sep">
+
+            <div class="field">
+                <label>PPPoE</label>
+                <div class="radio-group">
+                    <label class="radio-btn"><input type="radio" name="pppoe" value="pppoeOn"><span>ONLINE</span></label>
+                    <label class="radio-btn"><input type="radio" name="pppoe" value="pppoeOff"><span>OFFLINE</span></label>
+                </div>
+            </div>
+
+            <hr class="sep">
+
+            <div class="field">
+                <label>Descrição</label>
+            <textarea name="descricao" id="descricao"></textarea>
+            </div>
+        </div>
+
+        <!-- Card Sem Conexão - RÁDIO ------------------------------------------------------------------------------------------------------------------------------->
+        <div class="card" id="card-radio" style="display:none">
+
+            <div class="field">
+                <label>BASE</label>
+                <div class="radio-group">
+                    <label class="radio-btn"><input type="radio" name="base" value="baseOn"><span>ONLINE</span></label>
+                    <label class="radio-btn"><input type="radio" name="base" value="baseOff"><span>OFFLINE</span></label>
+                </div>
+            </div>
+
+            <hr class="sep">
+
+            <div class="field">
+                <label>RÁDIO</label>
+                <div class="radio-group">
+                    <label class="radio-btn"><input type="radio" name="radio" value="radioOn"><span>ONLINE</span></label>
+                    <label class="radio-btn"><input type="radio" name="radio" value="radioOff"><span>OFFLINE</span></label>
+                </div>
+            </div>
+
+            <hr class="sep">
+
+            <div class="field">
+                <label>PPPoE</label>
+                <div class="radio-group">
+                    <label class="radio-btn"><input type="radio" name="pppoe" value="pppoeOn"><span>ONLINE</span></label>
+                    <label class="radio-btn"><input type="radio" name="pppoe" value="pppoeOff"><span>OFFLINE</span></label>
+                </div>
+            </div>
+
+            <hr class="sep">
+
+            <div class="field">
+                <label>PPPoE</label>
+                <div class="radio-group">
+                    <label class="radio-btn"><input type="radio" name="pppoe" value="pppoeOn"><span>ONLINE</span></label>
+                    <label class="radio-btn"><input type="radio" name="pppoe" value="pppoeOff"><span>OFFLINE</span></label>
+                </div>
+            </div>
+
+            <hr class="sep">
+
+            <div class="field">
+                <label>Descrição</label>
+                <textarea name="descricao" id="descricao"></textarea>
+            </div>
+
+        </div>
+
+        <!-- Watermark ------------------------------------------------------------------------------------------------------------------------------->
+        <div class="card">
+                <div class="watermark">Desenvolvido por Pietro de Alexandria Picoli — <a href="https://github.com/PietroAlexandria" target="_blank">GitHub</a></div>
+        </div>
+    </div>
+    
+     <script src="/js/sharedFunctions/functionToggleCards.js"></script>
+</body>
+</html>
