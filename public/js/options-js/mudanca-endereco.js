@@ -1,13 +1,20 @@
+function mostrarAlerta(mensagem, tipo = 'erro') {
+    const toast = document.getElementById('toast');
+    toast.textContent = tipo === 'erro' ? '⚠️ ' + mensagem : '✅ ' + mensagem;
+    toast.className = `toast ${tipo} show`;
+    setTimeout(() => { toast.className = `toast ${tipo}`; }, 3000);
+}
+
 function copiarColetaDados(botao) {
     const via     = document.querySelector('input[name="via"]:checked')?.value || '';
     const nome    = document.querySelector('input[name="nome"]')?.value || '';
     const contato = document.querySelector('input[name="contato"]')?.value || '';
     const area    = document.querySelector('input[name="area"]:checked')?.value || '';
 
-    if (!via)     { alert('Selecione uma VIA de contato!'); return; }
-    if (!nome)    { alert('Preencha o campo NOME!'); return; }
-    if (!contato || contato.length < 10) { alert('Preencha o campo CONTATO!'); return; }
-    if (!area)    { alert('Selecione uma área (Rural ou Urbana)!'); return; }
+    if (!via)                        { mostrarAlerta('Selecione uma VIA de contato!'); return; }
+    if (!nome)                       { mostrarAlerta('Preencha o campo NOME!'); return; }
+    if (!contato || contato.length < 10) { mostrarAlerta('Preencha o campo CONTATO!'); return; }
+    if (!area)                       { mostrarAlerta('Selecione uma área (Rural ou Urbana)!'); return; }
 
     const texto = `Cliente entrou em contato via ${via}
 Nome: ${nome}
@@ -16,7 +23,7 @@ Motivo: Mudança de Endereço - ${area}`;
 
     navigator.clipboard.writeText(texto)
     .then(() => feedbackBtn(botao, '📋 Copiar Coleta'))
-    .catch(() => alert('Erro ao copiar!'));
+    .catch(() => mostrarAlerta('Erro ao copiar!'));
 }
 
 function copiarForm(botao) {
@@ -25,16 +32,16 @@ function copiarForm(botao) {
     const contato = document.querySelector('input[name="contato"]')?.value || '';
     const area    = document.querySelector('input[name="area"]:checked')?.value || '';
 
-    if (!via)     { alert('Selecione uma VIA de contato!'); return; }
-    if (!nome)    { alert('Preencha o campo NOME!'); return; }
-    if (!contato || contato.length < 10) { alert('Preencha o campo CONTATO!'); return; }
-    if (!area)    { alert('Selecione uma área (Rural ou Urbana)!'); return; }
+    if (!via)     { mostrarAlerta('Selecione uma VIA de contato!'); return; }
+    if (!nome)    { mostrarAlerta('Preencha o campo NOME!'); return; }
+    if (!contato || contato.length < 10) { mostrarAlerta('Preencha o campo CONTATO!'); return; }
+    if (!area)    { mostrarAlerta('Selecione uma área (Rural ou Urbana)!'); return; }
 
     const taxaVal = document.querySelector('input[name="taxa"]:checked')?.value || '';
-    if (area === 'Urbana' && !taxaVal) { alert('Selecione a TAXA!'); return; }
+    if (area === 'Urbana' && !taxaVal) { mostrarAlerta('Selecione a TAXA!'); return; }
 
     const equipamentosVal = document.querySelector('input[name="equipamentos"]:checked')?.value || '';
-    if (area === 'Urbana' && !equipamentosVal) { alert('Selecione referente a equipamentos!'); return; }
+    if (area === 'Urbana' && !equipamentosVal) { mostrarAlerta('Selecione referente a equipamentos!'); return; }
 
     const areaKey    = area === 'Urbana' ? 'urbana' : 'rural';
     const telhadoKey = area === 'Urbana' ? 'urbano' : 'rural';
@@ -98,13 +105,13 @@ Senha PPPoE: ${senhaPPPOE}`;
 
     navigator.clipboard.writeText(texto)
     .then(() => feedbackBtn(botao, '📋 Copiar Formulário'))
-    .catch(() => alert('Erro ao copiar!'));
+    .catch(() => mostrarAlerta('Erro ao copiar!'));
 }
 
 function feedbackBtn(botao, textoOriginal) {
+    mostrarAlerta('Copiado com sucesso!', 'sucesso');
     botao.textContent = '✅ Copiado!';
     botao.disabled = true;
-
     setTimeout(() => {
         botao.textContent = textoOriginal;
         botao.disabled = false;

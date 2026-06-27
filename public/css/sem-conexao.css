@@ -310,6 +310,43 @@ body {
     text-decoration: underline;
 }
 
+.toast {
+    position: fixed;
+    bottom: 24px;
+    left: 50%;
+    transform: translateX(-50%) translateY(80px);
+    padding: 12px 20px;
+    border-radius: 12px;
+    font-size: 0.9rem;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.15);
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    opacity: 0;
+    transition: all 0.3s ease;
+    z-index: 9999;
+    white-space: nowrap;
+}
+
+.toast.show {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+}
+
+.toast.erro {
+    background: #fff0f0;
+    color: #c0392b;
+    border: 1.5px solid #fbb;
+}
+
+.toast.sucesso {
+    background: #f0fff4;
+    color: #1a7a3c;
+    border: 1.5px solid #a3e6b8;
+}
+
 /* Jira Section */
 .jira-header {
     display: flex;
