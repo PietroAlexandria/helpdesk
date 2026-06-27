@@ -210,6 +210,8 @@ body {
     border-color: #1565c0;
     box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.15);
 }
+
+.sep {
     border: none;
     border-top: 1px solid #e8edf5;
     margin: 16px 0;
