@@ -158,7 +158,58 @@ body {
     color: #ffffff;
 }
 
-.sep {
+.campo-contato {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.campo-contato input {
+    flex: 1;
+}
+
+.btn-remove {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    background: #fff0f0;
+    color: #dc2626;
+    border: 1.5px solid #fbb;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+}
+
+.btn-remove:hover {
+    background: #dc2626;
+    border-color: #dc2626;
+    color: #fff;
+}
+
+.field textarea {
+    padding: 11px 14px;
+    border: 1.5px solid #dbe4f0;
+    border-radius: 10px;
+    font-size: 0.875rem;
+    font-family: 'Inter', sans-serif;
+    color: #0a2a5e;
+    outline: none;
+    resize: vertical;
+    max-width: 100%;
+    min-height: 110px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.field textarea:focus {
+    border-color: #1565c0;
+    box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.15);
+}
     border: none;
     border-top: 1px solid #e8edf5;
     margin: 16px 0;

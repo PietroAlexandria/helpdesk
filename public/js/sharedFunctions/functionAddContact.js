@@ -9,7 +9,7 @@ function adicionarContato() {
     div.id = 'contato-' + contadorContatos;
 
     div.innerHTML = `
-        <input type="text" name="contato" maxlength="15" placeholder="(XX) XXXXX-XXXX" oninput="mascaraContato(this)">
+        <input type="text" name="contatoAg" maxlength="15" placeholder="(XX) XXXXX-XXXX" oninput="mascaraContato(this)">
         <button class="btn-remove" onclick="removerContato(${contadorContatos})">X</button>
     `;
 

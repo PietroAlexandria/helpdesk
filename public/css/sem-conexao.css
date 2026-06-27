@@ -111,6 +111,40 @@ body {
     color: #a0aec0;
 }
 
+.campo-contato {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.campo-contato input {
+    flex: 1;
+}
+
+.btn-remove {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    background: #fff0f0;
+    color: #dc2626;
+    border: 1.5px solid #fbb;
+    border-radius: 8px;
+    font-size: 1rem;
+    font-weight: 700;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+}
+
+.btn-remove:hover {
+    background: #dc2626;
+    border-color: #dc2626;
+    color: #fff;
+}
+
 .field textarea {
     padding: 11px 14px;
     border: 1.5px solid #dbe4f0;
@@ -120,6 +154,7 @@ body {
     color: #0a2a5e;
     outline: none;
     resize: vertical;
+    max-width: 100%;
     min-height: 110px;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
@@ -184,7 +219,12 @@ body {
 .radio-btn input[type="radio"][value="radioOn"]:checked + span,
 .radio-btn input[type="radio"][value="pppoeOn"]:checked + span,
 .radio-btn input[type="radio"][value="onuOn"]:checked + span,
-.radio-btn input[type="radio"][value="cxOn"]:checked + span {
+.radio-btn input[type="radio"][value="cxOn"]:checked + span,
+.radio-btn input[type="radio"][value="agendamentoNao"]:checked + span,
+.radio-btn input[type="radio"][value="TRativado"]:checked + span,
+.radio-btn input[type="radio"][value="onuOn"]:checked + span ,
+.radio-btn input[type="radio"][value="routerOn"]:checked + span,
+.radio-btn input[type="radio"][value="losNao"]:checked + span  {
     background: #16a34a;
     border-color: #16a34a;
     color: #ffffff;
@@ -196,7 +236,12 @@ body {
 .radio-btn input[type="radio"][value="radioOff"]:checked + span,
 .radio-btn input[type="radio"][value="pppoeOff"]:checked + span,
 .radio-btn input[type="radio"][value="onuOff"]:checked + span,
-.radio-btn input[type="radio"][value="cxOff"]:checked + span {
+.radio-btn input[type="radio"][value="cxOff"]:checked + span,
+.radio-btn input[type="radio"][value="agendamentoSim"]:checked + span,
+.radio-btn input[type="radio"][value="ativarTR"]:checked + span,
+.radio-btn input[type="radio"][value="onuOff"]:checked + span ,
+.radio-btn input[type="radio"][value="routerOff"]:checked + span,
+.radio-btn input[type="radio"][value="losSim"]:checked + span {
     background: #dc2626;
     border-color: #dc2626;
     color: #ffffff;
