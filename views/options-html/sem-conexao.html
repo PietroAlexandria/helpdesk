@@ -51,55 +51,109 @@
                     <label class="radio-btn"><input type="radio" name="type" value="Radio" onchange="toggleCards(this.value, { Fibra: 'card-fibra', Radio: 'card-radio' })"><span>Rádio</span></label>
                 </div>
             </div>
+
+            <div class="field">
+                <button class="btn-copy" onclick="copiarColetaDados(this)">📋 Copiar Coleta</button>
+            </div>
         </div>
 
         <!-- Card Sem Conexão - FIBRA ------------------------------------------------------------------------------------------------------------------------------->
 
         <div class="card" id="card-fibra" style="display:none">
 
+            <!-- Para futuras implementações!
+            <div class="field">
+                <label>ID Contrato</label>
+                <input type="text" name="id_contrato" placeholder="Ex: 123456">
+            </div>
+            -->
+
             <div class="field">
                 <label>CAIXA</label>
                 <div class="radio-group">
-                    <label class="radio-btn"><input type="radio" name="cx" value="cxOn"><span>ONLINE</span></label>
-                    <label class="radio-btn"><input type="radio" name="cx" value="cxOff"><span>OFFLINE</span></label>
+                    <label class="radio-btn"><input type="radio" name="cx" value="cxOn" onchange="toggleCards(this.value, {cxOn: 'field-cxOn', cxOff: 'field-cxOff'})"><span>ONLINE</span></label>
+                    <label class="radio-btn"><input type="radio" name="cx" value="cxOff" onchange="toggleCards(this.value, {cxOn: 'field-cxOn', cxOff: 'field-cxOff'})"><span>OFFLINE</span></label>
                 </div>
             </div>
 
-            <hr class="sep">
+            <div class="field" id="field-cxOff" style="display:none">
+                <div class="field">
+                    <div class="jira-header">
+                        <label>Há chamado no JIRA em aberto?</label>
+                        <a class="btn-jira-link" href="https://grupocednet.atlassian.net/servicedesk/customer/user/requests?reporter=all&statuses=open" target="_blank">🔎 Ver Chamados</a>
+                    </div>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="jira" value="jiraSim" onchange="toggleCards(this.value, {jiraSim: 'field-jiraSim', jiraNao: 'field-jiraNao'})"><span>Sim</span></label>
+                        <label class="radio-btn"><input type="radio" name="jira" value="jiraNao" onchange="toggleCards(this.value, {jiraSim: 'field-jiraSim', jiraNao: 'field-jiraNao'})"><span>Não</span></label>
+                    </div>
 
-            <div class="field">
-                <label>ONU</label>
-                <div class="radio-group">
-                    <label class="radio-btn"><input type="radio" name="onu" value="onuOn"><span>ONLINE</span></label>
-                    <label class="radio-btn"><input type="radio" name="onu" value="onuOff"><span>OFFLINE</span></label>
+                    <div class="field" id="field-jiraSim" style="display:none">
+                        <div class="jira-info-box jira-exists">
+                            <span>✅ Chamado já existe! Cole o link abaixo.</span>
+                        </div>
+                        <input type="text" name="link-jira-disp" placeholder="Ex: https://grupocednet.atlassian.net/.../GC-00000">
+                        <div style="margin-top: 5px">
+                            <button class="btn-copy" onclick="copiarChamadoDisponivel(this)">📋 Copiar Chamado</button>
+                        </div>
+                    </div>
+
+                    <div class="field" id="field-jiraNao" style="display:none">
+                        <div class="jira-info-box jira-new">
+                            <span>⚠️ Nenhum chamado aberto. Crie um agora:</span>
+                            <a href="https://grupocednet.atlassian.net/servicedesk/customer/portal/3/group/35" target="_blank" class="btn-jira-open">🔗 Abrir Chamado — Fibra Óptica</a>
+                        </div>
+                        <input type="text" name="link-jira-criado" placeholder="Ex: https://grupocednet.atlassian.net/.../GC-00000">
+                        <div style="margin-top: 5px">
+                            <button class="btn-copy" onclick="copiarChamadoCriado(this)">📋 Copiar Chamado</button>
+                        </div>
+                    </div>
                 </div>
             </div>
 
-            <hr class="sep">
+            <div class="field" id="field-cxOn" style="display:none">
 
-            <div class="field">
-                <label>PPPoE</label>
-                <div class="radio-group">
-                    <label class="radio-btn"><input type="radio" name="pppoe" value="pppoeOn"><span>ONLINE</span></label>
-                    <label class="radio-btn"><input type="radio" name="pppoe" value="pppoeOff"><span>OFFLINE</span></label>
+                <hr class="sep">
+
+                <div class="field">
+                    <label>ONU</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="onu" value="onuOn"><span>ONLINE</span></label>
+                        <label class="radio-btn"><input type="radio" name="onu" value="onuOff"><span>OFFLINE</span></label>
+                    </div>
                 </div>
-            </div>
 
-            <hr class="sep">
+                <hr class="sep">
 
-            <div class="field">
-                <label>PPPoE</label>
-                <div class="radio-group">
-                    <label class="radio-btn"><input type="radio" name="pppoe" value="pppoeOn"><span>ONLINE</span></label>
-                    <label class="radio-btn"><input type="radio" name="pppoe" value="pppoeOff"><span>OFFLINE</span></label>
+                <div class="field">
+                    <label>PPPoE</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="pppoe" value="pppoeOn"><span>ONLINE</span></label>
+                        <label class="radio-btn"><input type="radio" name="pppoe" value="pppoeOff"><span>OFFLINE</span></label>
+                    </div>
                 </div>
-            </div>
 
-            <hr class="sep">
+                <hr class="sep">
 
-            <div class="field">
-                <label>Descrição</label>
-            <textarea name="descricao" id="descricao"></textarea>
+                <div class="field">
+                    <label>Descrição</label>
+                <textarea name="descricao" id="descricao" placeholder="Ex: 
+Cliente informou que energia havia tido queda a 1h, mas conexão não voltou mesmo após energia voltar. 
+Solicitado reboot e PatchCord, mas sem sucesso. 
+Alarme DmView: ONU Loss of signal, Receive dying gasp of ONU 
+Cliente com DGi e LOSi, possível problema na fibra."></textarea>
+                </div>
+
+                <hr class="sep">
+
+                <div class="field">
+                    <label>Necessário Agendamento?</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="agendamento" value="sim"><span>Sim</span></label>
+                        <label class="radio-btn"><input type="radio" name="agendamento" value="nao"><span>Não</span></label>
+                    </div>
+                </div>
+
+                <hr class="sep">
             </div>
         </div>
 
@@ -160,5 +214,7 @@
     </div>
     
      <script src="/js/sharedFunctions/functionToggleCards.js"></script>
+    <script src="/js/sharedFunctions/functionContact.js"     ></script>
+    <script src="/js/options-js/sem-conexao.js"              ></script>
 </body>
 </html>

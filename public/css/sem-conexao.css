@@ -106,8 +106,27 @@ body {
     box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.15);
 }
 
-.field input[type="text"]::placeholder {
+.field input[type="text"]::placeholder,
+.field textarea::placeholder {
     color: #a0aec0;
+}
+
+.field textarea {
+    padding: 11px 14px;
+    border: 1.5px solid #dbe4f0;
+    border-radius: 10px;
+    font-size: 0.875rem;
+    font-family: 'Inter', sans-serif;
+    color: #0a2a5e;
+    outline: none;
+    resize: vertical;
+    min-height: 110px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+
+.field textarea:focus {
+    border-color: #1565c0;
+    box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.15);
 }
 
 .field select {
@@ -156,6 +175,30 @@ body {
 .radio-btn input[type="radio"]:checked + span {
     background: #1565c0;
     border-color: #1565c0;
+    color: #ffffff;
+}
+
+/* Status ONLINE - verde */
+.radio-btn input[type="radio"][value$="On"]:checked + span,
+.radio-btn input[type="radio"][value="baseOn"]:checked + span,
+.radio-btn input[type="radio"][value="radioOn"]:checked + span,
+.radio-btn input[type="radio"][value="pppoeOn"]:checked + span,
+.radio-btn input[type="radio"][value="onuOn"]:checked + span,
+.radio-btn input[type="radio"][value="cxOn"]:checked + span {
+    background: #16a34a;
+    border-color: #16a34a;
+    color: #ffffff;
+}
+
+/* Status OFFLINE - vermelho */
+.radio-btn input[type="radio"][value$="Off"]:checked + span,
+.radio-btn input[type="radio"][value="baseOff"]:checked + span,
+.radio-btn input[type="radio"][value="radioOff"]:checked + span,
+.radio-btn input[type="radio"][value="pppoeOff"]:checked + span,
+.radio-btn input[type="radio"][value="onuOff"]:checked + span,
+.radio-btn input[type="radio"][value="cxOff"]:checked + span {
+    background: #dc2626;
+    border-color: #dc2626;
     color: #ffffff;
 }
 
@@ -265,4 +308,76 @@ body {
 
 .watermark a:hover {
     text-decoration: underline;
+}
+
+/* Jira Section */
+.jira-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    margin-bottom: 10px;
+}
+
+.jira-header label {
+    margin-bottom: 0;
+}
+
+.btn-jira-link {
+    white-space: nowrap;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #1565c0;
+    background: #eef4ff;
+    border: 1.5px solid #c7d9f8;
+    border-radius: 8px;
+    padding: 4px 10px;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.btn-jira-link:hover {
+    background: #1565c0;
+    color: #fff;
+    border-color: #1565c0;
+}
+
+.jira-info-box {
+    border-radius: 10px;
+    padding: 12px 14px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    margin-bottom: 4px;
+}
+
+.jira-exists {
+    background: #f0fdf4;
+    border: 1.5px solid #86efac;
+    color: #15803d;
+}
+
+.jira-new {
+    background: #fff7ed;
+    border: 1.5px solid #fdba74;
+    color: #c2410c;
+}
+
+.btn-jira-open {
+    display: inline-block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: #ea580c;
+    border-radius: 8px;
+    padding: 7px 12px;
+    text-decoration: none;
+    transition: all 0.2s;
+    align-self: flex-start;
+}
+
+.btn-jira-open:hover {
+    background: #c2410c;
 }
