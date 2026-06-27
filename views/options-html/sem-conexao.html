@@ -135,7 +135,7 @@
                 <hr class="sep">
 
                 <div class="field">
-                    <label>Descrição</label>
+                    <label>Descrição da OS</label>
                 <textarea name="descricao" id="descricao" placeholder="Ex: 
 Cliente informou que energia havia tido queda a 1h, mas conexão não voltou mesmo após energia voltar. 
 Solicitado reboot e PatchCord, mas sem sucesso. 
@@ -148,12 +148,16 @@ Cliente com DGi e LOSi, possível problema na fibra."></textarea>
                 <div class="field">
                     <label>Necessário Agendamento?</label>
                     <div class="radio-group">
-                        <label class="radio-btn"><input type="radio" name="agendamento" value="sim"><span>Sim</span></label>
-                        <label class="radio-btn"><input type="radio" name="agendamento" value="nao"><span>Não</span></label>
+                        <label class="radio-btn"><input type="radio" name="agendamento" value="agendamentoSim" onchange="toggleCards(this.value, { agdSim: 'agendamentoSim', agdNao: 'agendamentoNao' })"><span>Sim</span></label>
+                        <label class="radio-btn"><input type="radio" name="agendamento" value="agendamentoNao" onchange="toggleCards(this.value, { agdSim: 'agendamentoSim', agdNao: 'agendamentoNao' })"><span>Não</span></label>
                     </div>
                 </div>
 
                 <hr class="sep">
+
+                <div class="field-agendamentoSim"></div>
+
+                <div class="field-agendamentoNao"></div>
             </div>
         </div>
 
@@ -201,7 +205,7 @@ Cliente com DGi e LOSi, possível problema na fibra."></textarea>
             <hr class="sep">
 
             <div class="field">
-                <label>Descrição</label>
+                <label>Descrição da OS</label>
                 <textarea name="descricao" id="descricao"></textarea>
             </div>
 
