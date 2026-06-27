@@ -148,18 +148,64 @@ Cliente com DGi e LOSi, possível problema na fibra."></textarea>
                 <div class="field">
                     <label>Necessário Agendamento?</label>
                     <div class="radio-group">
-                        <label class="radio-btn"><input type="radio" name="agendamento" value="agendamentoSim" onchange="toggleCards(this.value, { agdSim: 'agendamentoSim', agdNao: 'agendamentoNao' })"><span>Sim</span></label>
-                        <label class="radio-btn"><input type="radio" name="agendamento" value="agendamentoNao" onchange="toggleCards(this.value, { agdSim: 'agendamentoSim', agdNao: 'agendamentoNao' })"><span>Não</span></label>
+                        <label class="radio-btn"><input type="radio" name="agendamento" value="agendamentoSim" onchange="toggleCards(this.value, { agendamentoSim: 'field-agendamentoSim', agendamentoNao: 'field-agendamentoNao' })"><span>Sim</span></label>
+                        <label class="radio-btn"><input type="radio" name="agendamento" value="agendamentoNao" onchange="toggleCards(this.value, { agendamentoSim: 'field-agendamentoSim', agendamentoNao: 'field-agendamentoNao' })"><span>Não</span></label>
                     </div>
                 </div>
 
-                <hr class="sep">
-
-                <div class="field-agendamentoSim"></div>
-
-                <div class="field-agendamentoNao"></div>
+                <div class="field" id="field-agendamentoNao" style="display:none"></div>
             </div>
         </div>
+
+        <!-- Card Agendamento - FIBRA ------------------------------------------------------------------------------------------------------------------------------->
+        <div class="card" id="field-agendamentoSim" style="display:none">
+            <div class="field">
+                <label>Agendado por</label>
+                <input type="text" name="nome" placeholder="Ex: Pietro de Alexandria Picoli">
+            </div>
+
+            <div class="field">
+                <label>Contato</label>
+                <div class="campo-contato" name="lista-contatos" id="lista-contatos">
+                    <input type="text" name="contato" maxlength="15" placeholder="(XX) XXXXX-XXXX" oninput="mascaraContato(this)">
+                </div>
+                <button class="btn-copy" name="btn-addCtt" onclick="adicionarContato()">+ Adicionar contato</button>
+            </div>
+        </div>
+
+        <hr class="sep">
+            
+            <div class="field">
+                <label class="field-subtitle">Disponibilidade</label>
+                <div class="radio-group">
+                    <label class="radio-btn"><input type="radio" name="disponibilidade-urbana" value="manha" onchange="horarioEspecifico(this)"><span>Manhã</span></label>
+                    <label class="radio-btn"><input type="radio" name="disponibilidade-urbana" value="tarde" onchange="horarioEspecifico(this)"><span>Tarde</span></label>
+                    <label class="radio-btn"><input type="radio" name="disponibilidade-urbana" value="qualquerHoraio" onchange="horarioEspecifico(this)"><span>Qualquer Horário</span></label>
+                    <label class="radio-btn"><input type="radio" name="disponibilidade-urbana" value="horario-especifico" onchange="horarioEspecifico(this)"><span>Horário Específico</span></label>
+                </div>
+                <div class="field" id="horario-especifico-urbana" style="display:none">
+                    <label>Informe o Horário</label>
+                    <input type="text" name="horario" placeholder="Ex: Após às 18h">
+                </div>
+            </div>
+
+            <hr class="sep">
+
+            <div class="field">
+                <label class="field-subtitle">Telhado</label>
+                <div class="radio-group">
+                    <label class="radio-btn"><input type="radio" name="tipo-telhado-urbano" value="zinco" onchange="tipoDeTelhado(this)"><span>Zinco</span></label>
+                    <label class="radio-btn"><input type="radio" name="tipo-telhado-urbano" value="eternit" onchange="tipoDeTelhado(this)"><span>Eternit</span></label>
+                    <label class="radio-btn"><input type="radio" name="tipo-telhado-urbano" value="ceramica" onchange="tipoDeTelhado(this)"><span>Cerâmica</span></label>
+                    <label class="radio-btn"><input type="radio" name="tipo-telhado-urbano" value="outro-telhado" onchange="tipoDeTelhado(this)"><span>Outro</span></label>
+                </div>
+                <div class="field" id="outro-telhado-urbano" style="display:none">
+                    <label>Informe o tipo de Telhado</label>
+                    <input type="text" name="telha" placeholder="Ex: PVC">
+                </div>
+            </div>
+
+            <hr class="sep">
 
         <!-- Card Sem Conexão - RÁDIO ------------------------------------------------------------------------------------------------------------------------------->
         <div class="card" id="card-radio" style="display:none">
@@ -255,10 +301,24 @@ Cliente com DGi e LOSi, possível problema na fibra."></textarea>
         </div>
     </div>
     
-    <script src="/js/sharedFunctions/functionMostrarAlerta.js"></script>
-    <script src="/js/sharedFunctions/functionToggleCards.js"  ></script>
-    <script src="/js/sharedFunctions/functionContact.js"      ></script>
-    <script src="/js/options-js/sem-conexao.js"               ></script>
+    <script>
+        function horarioEspecifico(el) {
+            const area = el.name.includes('urbana') ? 'urbana' : 'rural';
+            document.getElementById('horario-especifico-' + area).style.display = el.value === 'horario-especifico' ? 'block' : 'none';
+        }
+        function tipoDeTelhado(el) {
+            const area = el.name.includes('urbano') ? 'urbano' : 'rural'; 
+            document.getElementById('outro-telhado-' + area).style.display = el.value === 'outro-telhado' ? 'block' : 'none';
+        }
+        function dataEspecifica(el) { 
+            document.getElementById('dataMudancaEsp').style.display = el.value === 'naoMudou' ? 'block' : 'none'
+        }
+    </script>
+    <script src="/js/sharedFunctions/functionMostrarAlerta.js" ></script>
+    <script src="/js/sharedFunctions/functionToggleCards.js"   ></script>
+    <script src="/js/sharedFunctions/functionContact.js"       ></script>
+    <script src="/js/sharedFunctions/functionAddContact.js"    ></script>
+    <script src="/js/options-js/sem-conexao.js"                ></script>
     <div id="toast" class="toast"></div>
 </body>
 </html>
