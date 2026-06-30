@@ -392,6 +392,52 @@ body {
     border: 1.5px solid #a3e6b8;
 }
 
+/* Zabbix Section */
+.btn-zabbix-link {
+    white-space: nowrap;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #c01515;
+    background: #eef4ff;
+    border: 1.5px solid #c7d9f8;
+    border-radius: 8px;
+    padding: 4px 10px;
+    text-decoration: none;
+    transition: all 0.2s;
+}
+
+.btn-zabbix-link:hover {
+    background: #c01515;
+    color: #fff;
+    border-color: #c01515;
+}
+
+.btn-zabbix-open {
+    display: inline-block;
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: #ffffff;
+    background: #ea580c;
+    border-radius: 8px;
+    padding: 7px 12px;
+    text-decoration: none;
+    transition: all 0.2s;
+    align-self: flex-start;
+}
+
+.btn-zabbix-open:hover {
+    background: #c2410c;
+}
+
+.badge-z {
+  background-color: #d62828; /* troque pelo vermelho que você quiser */
+  color: #fff;
+  font-weight: bold;
+  padding: 2px 6px;
+  border-radius: 4px;
+  display: inline-block;
+}
+
 /* Jira Section */
 .jira-header {
     display: flex;
