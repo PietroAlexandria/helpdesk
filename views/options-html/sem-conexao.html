@@ -84,8 +84,8 @@
                         <a class="btn-zabbix-link" href="https://zabbix.cednet.com.br/zabbix.php?action=dashboard.view&dashboardid=1" target="_blank"><span class="badge-z">Z </span> Zabbix</a>
                     </div>
                     <div class="radio-group">
-                        <label class="radio-btn"><input type="radio" name="jira" value="jiraSim" onchange="toggleCards(this.value, {jiraSim: 'field-jiraSim-fibra', jiraNao: 'field-jiraNao-fibra'})"><span>Sim</span></label>
-                        <label class="radio-btn"><input type="radio" name="jira" value="jiraNao" onchange="toggleCards(this.value, {jiraSim: 'field-jiraSim-fibra', jiraNao: 'field-jiraNao-fibra'})"><span>Não</span></label>
+                        <label class="radio-btn"><input type="radio" name="jira-fibra" value="jiraSim" onchange="toggleCards(this.value, {jiraSim: 'field-jiraSim-fibra', jiraNao: 'field-jiraNao-fibra'})"><span>Sim</span></label>
+                        <label class="radio-btn"><input type="radio" name="jira-fibra" value="jiraNao" onchange="toggleCards(this.value, {jiraSim: 'field-jiraSim-fibra', jiraNao: 'field-jiraNao-fibra'})"><span>Não</span></label>
                     </div>
 
                     <div class="field" id="field-jiraSim-fibra" style="display:none">
@@ -259,8 +259,8 @@ Após 16h - 04/07"></textarea>
                         <a class="btn-zabbix-link" href="https://zabbix.cednet.com.br/zabbix.php?action=dashboard.view&dashboardid=1" target="_blank"><span class="badge-z">Z </span> Zabbix</a>
                     </div>
                     <div class="radio-group">
-                        <label class="radio-btn"><input type="radio" name="jira" value="jiraSim" onchange="toggleCards(this.value, {jiraSim: 'field-jiraSim-radio', jiraNao: 'field-jiraNao-radio'})"><span>Sim</span></label>
-                        <label class="radio-btn"><input type="radio" name="jira" value="jiraNao" onchange="toggleCards(this.value, {jiraSim: 'field-jiraSim-radio', jiraNao: 'field-jiraNao-radio'})"><span>Não</span></label>
+                        <label class="radio-btn"><input type="radio" name="jira-radio" value="jiraSim" onchange="toggleCards(this.value, {jiraSim: 'field-jiraSim-radio', jiraNao: 'field-jiraNao-radio'})"><span>Sim</span></label>
+                        <label class="radio-btn"><input type="radio" name="jira-radio" value="jiraNao" onchange="toggleCards(this.value, {jiraSim: 'field-jiraSim-radio', jiraNao: 'field-jiraNao-radio'})"><span>Não</span></label>
                     </div>
 
                     <div class="field" id="field-jiraSim-radio" style="display:none">
@@ -308,18 +308,8 @@ Após 16h - 04/07"></textarea>
                 <div class="field">
                     <label>PPPoE</label>
                     <div class="radio-group">
-                        <label class="radio-btn"><input type="radio" name="pppoe" value="pppoeOn"><span>ONLINE</span></label>
-                        <label class="radio-btn"><input type="radio" name="pppoe" value="pppoeOff"><span>OFFLINE</span></label>
-                    </div>
-                </div>
-
-                <hr class="sep">
-
-                <div class="field">
-                    <label>PPPoE</label>
-                    <div class="radio-group">
-                        <label class="radio-btn"><input type="radio" name="pppoe" value="pppoeOn"><span>ONLINE</span></label>
-                        <label class="radio-btn"><input type="radio" name="pppoe" value="pppoeOff"><span>OFFLINE</span></label>
+                        <label class="radio-btn"><input type="radio" name="pppoe-radio" value="pppoeOn-radio"><span>ONLINE</span></label>
+                        <label class="radio-btn"><input type="radio" name="pppoe-radio" value="pppoeOff-radio"><span>OFFLINE</span></label>
                     </div>
                 </div>
 
@@ -327,11 +317,91 @@ Após 16h - 04/07"></textarea>
 
                 <div class="field">
                     <label>Descrição da OS</label>
-                    <textarea name="descricao" id="descricao"></textarea>
+                    <textarea name="descricao-radio" id="descricao-radio" placeholder="Realizado Reboot e PatchCord na PoE.
+Realizado Reboot no rádio.
+Cliente prossegue sem conexão.
+Verificado e necessário agendamento."></textarea>
                 </div>
+
+                <hr class="sep">
+
+                <div class="field">
+                    <label>Necessário Agendamento?</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="agendamento-radio" value="agendamentoSim_radio" onchange="toggleCards(this.value, { agendamentoSim_radio: 'field-agendamentoSim-radio', agendamentoNao_radio: 'field-agendamentoNao-radio' })"><span>Sim</span></label>
+                        <label class="radio-btn"><input type="radio" name="agendamento-radio" value="agendamentoNao_radio" onchange="toggleCards(this.value, { agendamentoSim_radio: 'field-agendamentoSim-radio', agendamentoNao_radio: 'field-agendamentoNao-radio' })"><span>Não</span></label>
+                    </div>
+                </div>
+
+                <div class="field" id="field-agendamentoNao-radio" style="display:none"></div>
 
             </div>
 
+        </div>
+
+        <div class="card" id="field-agendamentoSim-radio" style="display:none">
+            <div class="field">
+                <label>Agendado por</label>
+                <input type="text" name="nomeAg-radio" placeholder="Ex: Pietro de Alexandria Picoli">
+            </div>
+
+            <div class="field">
+                <label>Contato</label>
+                <div id="lista-contatos-radio">
+                    <div class="campo-contato-radio">
+                        <input type="text" name="contatoAg-radio" id="contatoAg-radio" maxlength="15" placeholder="(XX) XXXXX-XXXX" oninput="mascaraContato(this)">
+                    </div>
+                </div>
+                <button class="btn-copy" name="btn-addCtt" onclick="adicionarContatoRadio()">+ Adicionar contato</button>
+            </div>
+        
+            <hr class="sep">
+            
+            <div class="field">
+                <label class="field-subtitle">Disponibilidade</label>
+                <div class="radio-group">
+                    <label class="radio-btn"><input type="radio" name="disponibilidade-agendamento-radio" value="manha" onchange="horarioEspecifico(this)"><span>Manhã</span></label>
+                    <label class="radio-btn"><input type="radio" name="disponibilidade-agendamento-radio" value="tarde" onchange="horarioEspecifico(this)"><span>Tarde</span></label>
+                    <label class="radio-btn"><input type="radio" name="disponibilidade-agendamento-radio" value="qualquerHoraio" onchange="horarioEspecifico(this)"><span>Qualquer Horário</span></label>
+                    <label class="radio-btn"><input type="radio" name="disponibilidade-agendamento-radio" value="horario-especifico" onchange="horarioEspecifico(this)"><span>Horário Específico</span></label>
+                </div>
+                <div class="field" id="horario-especifico-agendamento-radio" style="display:none">
+                    <label>Informe o Horário</label>
+                    <textarea type="textarea" name="horarioEsp-Radio" placeholder="Ex: Após às 18h - 03/07 
+Após 16h - 04/07"></textarea>
+                </div>
+            </div>
+
+            <hr class="sep">
+
+            <div class="field">
+                <label>Login PPPoE</label>
+                <input type="text" name="loginpppoe-radio" id="loginpppoe-radio" placeholder="Ex: 123Pietro"> <br>
+                <label>Senha PPPoE</label>
+                <input type="text" name="senhapppoe-radio" id="senhapppoe-radio" placeholder="Ex: 456Pietro"> <br>
+                <label>IP Rádio</label>
+                <input type="text" name="ipRadio" id="ipRadio" placeholder="Ex: 10.0.0.1"> <br>
+                <label>IP Base</label>
+                <input type="text" name="ipBase" id="ipBase" placeholder="Ex: 10.0.0.2"> <br>
+                <label>Encrypt BASE</label>
+                <input type="text" name="encryptBase" id="encryptBase" placeholder="Ex: a1b2c3d4e5f6"> <br>
+                <label>Link da Localização</label>
+                <input type="text" name="loc" id="loc" placeholder="Ex: https://maps.app.goo.gl/4FTkMUAyrg9Y28Mu7"> <br>
+            </div>
+
+            <hr class="sep">
+
+            <div class="field">
+                <label>Ativar TR069?</label>
+                <div class="radio-group">
+                    <label class="radio-btn"><input type="radio" name="tr069-radio" value="ativarTR-radio" onchange="horarioEspecifico(this)"><span>Ativar</span></label>
+                    <label class="radio-btn"><input type="radio" name="tr069-radio" value="TRativado-radio" onchange="horarioEspecifico(this)"><span>Sem Necessidade</span></label>
+                </div>
+            </div>
+
+            <div class="field">
+                <button class="btn-copy" onclick="copiarAgendamentoRadio(this)">📋 Copiar Agendamento</button>
+            </div>
         </div>
 
         <!-- Watermark ------------------------------------------------------------------------------------------------------------------------------->
@@ -342,7 +412,13 @@ Após 16h - 04/07"></textarea>
     
     <script>
         function horarioEspecifico(el) {
-            document.getElementById('horario-especifico-agendamento').style.display = el.value === 'horario-especifico' ? 'block' : 'none';
+            const idMap = {
+                'disponibilidade-agendamento': 'horario-especifico-agendamento',
+                'disponibilidade-agendamento-radio': 'horario-especifico-agendamento-radio'
+            };
+            const targetId = idMap[el.name];
+            if (!targetId) return;
+            document.getElementById(targetId).style.display = el.value === 'horario-especifico' ? 'block' : 'none';
         }
     </script>
     <script src="/js/sharedFunctions/functionMostrarAlerta.js" ></script>

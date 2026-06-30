@@ -27,8 +27,10 @@ function copiarAgendamentoFibra(botao) {
     const contatosAg = [...document.querySelectorAll('#lista-contatos input[name="contatoAg"]')]
         .map(el => el.value.trim())
         .filter(v => v);
+        const contatoAgInvalido = contatoAg.some(c => c.replace(/\D/g, '').length < 14);
+        if (contatosAg.length === 0 || contatoAgInvalido) { mostrarAlerta('Preencha o campo CONTATO com pelo menos 14 dígitos!'); return; }
     const contato = contatosAg.join(' / ');
-    if (!contato || contato.length < 10) { mostrarAlerta('Preencha o campo CONTATO!'); return; }
+    if (!contato || contato.length < 14) { mostrarAlerta('Preencha o campo CONTATO!'); return; }
 
     //ON/OFF
     const caixaSelec = document.querySelector('input[name="cx"]:checked')?.value || '';
@@ -104,6 +106,82 @@ ${tr069} `;
 
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar Chamado'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+}
+
+// AGENDAMENTO RÁDIO
+function copiarAgendamentoRadio(botao) {
+    const nomeAgRadio = document.querySelector('input[name="nomeAg-radio"]')?.value || '';
+    if (!nomeAgRadio) { mostrarAlerta('Preencha o campo NOME!'); return; }
+
+    const contatosAgRadio = [...document.querySelectorAll('#lista-contatos-radio input[name="contatoAg-radio"]')]
+        .map(el => el.value.trim())
+        .filter(v => v);
+        const contatoAgInvalidoRadio = contatoAgRadio.some(c => c.replace(/\D/g, '').length < 14);
+        if (contatosAgRadio.length === 0 || contatoAgInvalidoRadio) { mostrarAlerta('Preencha o campo CONTATO com pelo menos 14 dígitos!'); return; }
+    const contatoRadio = contatosAgRadio.join(' / ');
+    if (!contatoRadio || contatoRadio.length < 14) { mostrarAlerta('Preencha o campo CONTATO!'); return; }
+
+    const baseSelec = document.querySelector('input[name="base"]:checked')?.value || '';
+    let base = '';
+    if (baseSelec === 'baseOn') { base = 'ON'; } else if (baseSelec === 'baseOff') { base = 'OFF'; }
+
+    const radioSelec = document.querySelector('input[name="radio"]:checked')?.value || '';
+    let radio = '';
+    if (radioSelec === 'radioOn') { radio = 'ON'; } else if (radioSelec === 'radioOff') { radio = 'OFF'; }
+
+    const pppoeSelec_Radio = document.querySelector('input[name="pppoe-radio"]:checked')?.value || '';
+    let pppoe_Radio = '';
+    if (pppoeSelec_Radio === 'pppoeOn-radio') { pppoe_Radio = 'ON'; } else if (pppoeSelec_Radio === 'pppoeOff-radio') { pppoe_Radio = 'OFF'; }
+
+    if (!base || !radio || !pppoe_Radio) { mostrarAlerta('Selecione as opções de Base, Rádio e PPPoE!'); return; }
+
+    const diagnostico = document.querySelector('textarea[name="descricao-radio"]')?.value || '';
+
+    const dispSelecionada = document.querySelector('input[name="disponibilidade-agendamento-radio"]:checked')?.value || '';
+    let disponibilidade = '';
+    if (dispSelecionada === 'manha')                { disponibilidade = 'Manhã'; }
+    else if (dispSelecionada === 'tarde')            { disponibilidade = 'Tarde'; }
+    else if (dispSelecionada === 'qualquerHoraio')   { disponibilidade = 'Qualquer Horário'; }
+    else if (dispSelecionada === 'horario-especifico') { disponibilidade = document.querySelector('textarea[name="horarioEsp-Radio"]')?.value || ''; }
+
+    const loginPPPOE_Radio  = document.getElementById('loginpppoe-radio')?.value || '';
+    const senhaPPPOE_Radio  = document.getElementById('senhapppoe-radio')?.value || '';
+    const ipRadio           = document.getElementById('ipRadio')?.value || '';
+    const ipBase            = document.getElementById('ipBase')?.value || '';
+    const encryptBase       = document.getElementById('encryptBase')?.value || '';
+    const loc               = document.getElementById('loc')?.value || '';
+
+    const trSelecionado_Radio = document.querySelector('input[name="tr069-radio"]:checked')?.value || '';
+    let tr069_Radio = '';
+    if (trSelecionado_Radio === 'ativarTR-radio') {
+        tr069_Radio = `Por gentileza, ATIVAR o TR-069 no roteador do cliente e VERIFICAR com o suporte técnico se está ativo corretamente. 
+Caso não seja compatível, INFORMAR na finalização da O.S.`;
+    }
+
+    const texto = `Agendado por ${nomeAgRadio} 
+Contato: ${contatoRadio} 
+Disponibilidade: ${disponibilidade} 
+
+Diagnostico: ${diagnostico} 
+
+BASE: ${base} 
+Rádio: ${radio} 
+PPPoE: ${pppoe_Radio} 
+
+IP Rádio: ${ipRadio} 
+IP Base: ${ipBase} 
+Encrypt BASE: ${encryptBase} 
+
+Login PPPoE: ${loginPPPOE_Radio} 
+Senha PPPoE: ${senhaPPPOE_Radio} 
+
+Localização: ${loc} 
+
+${tr069_Radio}`;
+
+    navigator.clipboard.writeText(texto)
+        .then(() => feedbackBtn(botao, '📋 Copiar Agendamento'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
 }
 

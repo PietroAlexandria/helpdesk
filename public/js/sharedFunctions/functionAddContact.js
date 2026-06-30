@@ -20,3 +20,26 @@ function removerContato(id) {
     const el = document.getElementById('contato-' + id);
     if (el) {el.remove();}
 }
+
+let contadorContatosRadio = 1;
+
+function adicionarContatoRadio() {
+    contadorContatosRadio++;
+    const listaContatosRadio = document.getElementById('lista-contatos-radio');
+
+    const div = document.createElement('div');
+    div.classList.add('campo-contato-radio');
+    div.id = 'contato-radio-' + contadorContatosRadio;
+
+    div.innerHTML = `
+        <input type="text" name="contatoAg-radio" maxlength="15" placeholder="(XX) XXXXX-XXXX" oninput="mascaraContato(this)">
+        <button class="btn-remove" onclick="removerContatoRadio(${contadorContatosRadio})">X</button>
+    `;
+
+    listaContatosRadio.appendChild(div);
+}
+
+function removerContatoRadio(id) {
+    const el = document.getElementById('contato-radio-' + id);
+    if (el) {el.remove();}
+}
