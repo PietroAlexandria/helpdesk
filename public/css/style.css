@@ -84,8 +84,10 @@ body {
     letter-spacing: 0.2px;
     display: flex;
     align-items: center;
-    justify-content: center;
+    justify-content: flex-start;
     gap: 12px;
+    text-decoration: none;
+    color: #ffffff;
 }
 
 .btn-icon {
@@ -101,6 +103,8 @@ body {
 }
 
 .btn-text {
+    flex: 1;
+    text-align: left;
 }
 
 .btn-menu:hover {
