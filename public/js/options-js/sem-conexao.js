@@ -6,7 +6,7 @@ function copiarColetaDados(botao) {
 
     if (!via)     { mostrarAlerta('Selecione uma VIA de contato!'); return; }
     if (!nome)    { mostrarAlerta('Preencha o campo NOME!'); return; }
-    if (!contato || contato.length < 10) { mostrarAlerta('Preencha o campo CONTATO!'); return; }
+    if (!contato || contato.length < 14) { mostrarAlerta('Preencha o campo CONTATO!'); return; }
     if (!type)    { mostrarAlerta('Selecione um tipo de conexão (Fibra ou Rádio)!'); return; }
 
     const texto = `Cliente entrou em contato via ${via}
@@ -109,6 +109,46 @@ ${tr069} `;
         .catch(() => mostrarAlerta('Erro ao copiar!'));
 }
 
+function copiarResolucaoFibra(botao) {
+    //ON/OFF
+    const caixaSelec = document.querySelector('input[name="cx"]:checked')?.value || '';
+    let caixa = '';
+    if (caixaSelec === 'cxOn') { caixa = 'ON'; } else if (caixaSelec === 'cxOff') { caixa = 'Estava OFFLINE'; }
+
+    const onuSelec = document.querySelector('input[name="onu"]:checked')?.value || '';
+    let onu = '';
+    if (onuSelec === 'onuOn') { onu = 'ON'; } else if (onuSelec === 'onuOff') { onu = 'Estava OFFLINE'; }
+
+    const routerSelec = document.querySelector('input[name="router"]:checked')?.value || '';
+    let router = '';
+    if (routerSelec === 'routerOn') { router = 'ON'; } else if (routerSelec === 'routerOff') { router = 'Estava OFFLINE'; }
+
+    if (!caixa || !onu || !router) { mostrarAlerta('Selecione as opções de Caixa, ONU e Router!'); return; }
+
+    //LOS
+    const losSelecionada = document.querySelector('input[name="los"]:checked')?.value || '';
+    let los = '';
+    if (losSelecionada === 'losSim')    { los = 'ONU alarmava LOS'; }
+    else if (losSelecionada === 'losNao')   { los = 'ONU não alarmava LOS'; }
+
+    //DIAGNOSTICO 
+    const diagnostico = document.querySelector('textarea[name="descricao"]')?.value || '';
+
+    const texto = `Caixa: ${caixa} 
+ONU: ${onu} 
+Router: ${router} 
+
+${los} 
+
+Descrição da resolução: ${diagnostico}
+
+Problema Solucionado!`;
+
+    navigator.clipboard.writeText(texto)
+        .then(() => feedbackBtn(botao, '📋 Copiar Agendamento'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+}
+
 // AGENDAMENTO RÁDIO
 function copiarAgendamentoRadio(botao) {
     const nomeAgRadio = document.querySelector('input[name="nomeAg-radio"]')?.value || '';
@@ -179,6 +219,36 @@ Senha PPPoE: ${senhaPPPOE_Radio}
 Localização: ${loc} 
 
 ${tr069_Radio}`;
+
+    navigator.clipboard.writeText(texto)
+        .then(() => feedbackBtn(botao, '📋 Copiar Agendamento'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+}
+
+function copiarResolucaoRadio(botao) {
+    const baseSelec = document.querySelector('input[name="base"]:checked')?.value || '';
+    let base = '';
+    if (baseSelec === 'baseOn') { base = 'ON'; } else if (baseSelec === 'baseOff') { base = 'Estava OFFLINE'; }
+
+    const radioSelec = document.querySelector('input[name="radio"]:checked')?.value || '';
+    let radio = '';
+    if (radioSelec === 'radioOn') { radio = 'ON'; } else if (radioSelec === 'radioOff') { radio = 'Estava OFFLINE'; }
+
+    const pppoeSelec_Radio = document.querySelector('input[name="pppoe-radio"]:checked')?.value || '';
+    let pppoe_Radio = '';
+    if (pppoeSelec_Radio === 'pppoeOn-radio') { pppoe_Radio = 'ON'; } else if (pppoeSelec_Radio === 'pppoeOff-radio') { pppoe_Radio = 'Estava OFFLINE'; }
+
+    if (!base || !radio || !pppoe_Radio) { mostrarAlerta('Selecione as opções de Base, Rádio e PPPoE!'); return; }
+
+    const diagnostico = document.querySelector('textarea[name="descricao-radio"]')?.value || '';
+
+    const texto = `BASE: ${base}
+Rádio: ${radio}
+PPPoE: ${pppoe_Radio}
+
+Descrição da resolução: ${diagnostico}
+
+Problema Solucionado!`;
 
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar Agendamento'))
