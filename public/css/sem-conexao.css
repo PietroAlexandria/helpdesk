@@ -121,6 +121,16 @@ body {
     flex: 1;
 }
 
+.campo-contato-radio {
+    display: flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.campo-contato-radio input {
+    flex: 1;
+}
+
 .btn-remove {
     flex-shrink: 0;
     width: 32px;
