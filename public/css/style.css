@@ -81,10 +81,10 @@ body {
     font-family: 'Inter', sans-serif;
     cursor: pointer;
     transition: all 0.2s ease;
-    text-align: left;
     letter-spacing: 0.2px;
     display: flex;
     align-items: center;
+    justify-content: center;
     gap: 12px;
 }
 
@@ -101,7 +101,6 @@ body {
 }
 
 .btn-text {
-    flex: 1;
 }
 
 .btn-menu:hover {
