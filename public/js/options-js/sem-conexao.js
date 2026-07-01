@@ -62,7 +62,7 @@ function copiarAgendamentoFibra(botao) {
     if (dispSelecionada === 'manha')             { disponibilidade = 'Manhã'; }
     else if (dispSelecionada === 'tarde')         { disponibilidade = 'Tarde'; }
     else if (dispSelecionada === 'qualquerHoraio') { disponibilidade = 'Qualquer Horário'; }
-    else if (dispSelecionada === 'horario-especifico') { disponibilidade = document.querySelector('input[name="horarioEsp"]')?.value || ''; }
+    else if (dispSelecionada === 'horario-especifico') { disponibilidade = document.querySelector('textarea[name="horarioEsp"]')?.value || ''; }
 
     // EQUIPAMENTOS 
     const loginPPPOE     = document.getElementById('loginpppoe')?.value || '';
@@ -105,7 +105,7 @@ Senha PPPoE: ${senhaPPPOE}
 ${tr069} `;
 
     navigator.clipboard.writeText(texto)
-        .then(() => feedbackBtn(botao, '📋 Copiar Chamado'))
+        .then(() => feedbackBtn(botao, '📋 Copiar Agendamento'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
 }
 
