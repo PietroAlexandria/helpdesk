@@ -55,6 +55,12 @@ function copiarForm(botao) {
     else if (telhaSelecionada === 'ceramica')      { telhado = 'Cerâmica'; }
     else if (telhaSelecionada === 'outro-telhado') { telhado = document.querySelector('input[name="telha"]')?.value || ''; }
 
+    // Poste
+    const posteSelecionado = document.querySelector('input[name="poste"]:checked')?.value || '';
+    let poste = '';
+    if (posteSelecionado === 'sim')             { poste = 'Há mais de um poste de energia no local'; }
+    else if (posteSelecionado === 'nao')        { poste = 'Há apenas um poste de energia no local'; }
+
     // Campos de endereço
     const enderecoAntigo = document.querySelector('input[name="enderecoAntigo"]')?.value || '';
     const cep            = document.getElementById('cep')?.value || '';
@@ -84,6 +90,8 @@ Cliente ${taxa} da taxa.
 Cliente ciente do custo de R$50,00 de mão de obra por cômodo + R$3,75 o metro do cabo de rede + R$2,50 por ponteira RJ45 caso for preciso realizar passagem de cabo de rede durante a mudança. 
 Cliente ciente do prazo de 48 horas úteis para a mudança de endereço. 
 Cliente ${mudar}${dataFormatada ? ` em ${dataFormatada}` : ''} e ${equipamentos} os equipamentos. 
+
+Poste: ${poste}. 
 
 Telhado: ${telhado}. 
 
