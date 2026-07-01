@@ -27,10 +27,10 @@ function copiarAgendamentoFibra(botao) {
     const contatosAg = [...document.querySelectorAll('#lista-contatos input[name="contatoAg"]')]
         .map(el => el.value.trim())
         .filter(v => v);
-        const contatoAgInvalido = contatoAg.some(c => c.replace(/\D/g, '').length < 14);
-        if (contatosAg.length === 0 || contatoAgInvalido) { mostrarAlerta('Preencha o campo CONTATO com pelo menos 14 dígitos!'); return; }
+        const contatosAgInvalido = contatosAg.some(c => c.replace(/\D/g, '').length < 10);
+        if (contatosAg.length === 0 || contatosAgInvalido) { mostrarAlerta('Preencha o campo CONTATO com pelo menos 10 dígitos!'); return; }
     const contato = contatosAg.join(' / ');
-    if (!contato || contato.length < 14) { mostrarAlerta('Preencha o campo CONTATO!'); return; }
+    if (!contato) { mostrarAlerta('Preencha o campo CONTATO!'); return; }
 
     //ON/OFF
     const caixaSelec = document.querySelector('input[name="cx"]:checked')?.value || '';
@@ -157,10 +157,10 @@ function copiarAgendamentoRadio(botao) {
     const contatosAgRadio = [...document.querySelectorAll('#lista-contatos-radio input[name="contatoAg-radio"]')]
         .map(el => el.value.trim())
         .filter(v => v);
-        const contatoAgInvalidoRadio = contatoAgRadio.some(c => c.replace(/\D/g, '').length < 14);
-        if (contatosAgRadio.length === 0 || contatoAgInvalidoRadio) { mostrarAlerta('Preencha o campo CONTATO com pelo menos 14 dígitos!'); return; }
-    const contatoRadio = contatosAgRadio.join(' / ');
-    if (!contatoRadio || contatoRadio.length < 14) { mostrarAlerta('Preencha o campo CONTATO!'); return; }
+        const contatosAgInvalidoRadio = contatosAgRadio.some(c => c.replace(/\D/g, '').length < 14);
+        if (contatosAgRadio.length === 0 || contatosAgInvalidoRadio) { mostrarAlerta('Preencha o campo CONTATO com pelo menos 14 dígitos!'); return; }
+    const contatosRadio = contatosAgRadio.join(' / ');
+    if (!contatosRadio) { mostrarAlerta('Preencha o campo CONTATO!'); return; }
 
     const baseSelec = document.querySelector('input[name="base"]:checked')?.value || '';
     let base = '';
@@ -200,7 +200,7 @@ Caso não seja compatível, INFORMAR na finalização da O.S.`;
     }
 
     const texto = `Agendado por ${nomeAgRadio} 
-Contato: ${contatoRadio} 
+Contato: ${contatosRadio} 
 Disponibilidade: ${disponibilidade} 
 
 Diagnostico: ${diagnostico} 
