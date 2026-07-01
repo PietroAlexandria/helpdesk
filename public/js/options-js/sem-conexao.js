@@ -157,8 +157,8 @@ function copiarAgendamentoRadio(botao) {
     const contatosAgRadio = [...document.querySelectorAll('#lista-contatos-radio input[name="contatoAg-radio"]')]
         .map(el => el.value.trim())
         .filter(v => v);
-        const contatosAgInvalidoRadio = contatosAgRadio.some(c => c.replace(/\D/g, '').length < 14);
-        if (contatosAgRadio.length === 0 || contatosAgInvalidoRadio) { mostrarAlerta('Preencha o campo CONTATO com pelo menos 14 dígitos!'); return; }
+        const contatosAgInvalidoRadio = contatosAgRadio.some(c => c.replace(/\D/g, '').length < 10);
+        if (contatosAgRadio.length === 0 || contatosAgInvalidoRadio) { mostrarAlerta('Preencha o campo CONTATO com pelo menos 10 dígitos!'); return; }
     const contatosRadio = contatosAgRadio.join(' / ');
     if (!contatosRadio) { mostrarAlerta('Preencha o campo CONTATO!'); return; }
 
