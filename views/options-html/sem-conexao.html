@@ -33,7 +33,7 @@
 
             <div class="field">
                 <label>Nome do Solicitante</label>
-                <input type="text" name="nome" placeholder="Ex: Pietro de Alexandria Picoli">
+                <input type="text" name="nome" id="nome" placeholder="Ex: Pietro de Alexandria Picoli">
             </div>
 
             <div class="field">
@@ -183,7 +183,7 @@ Cliente com DGi e LOSi, possível problema na fibra."></textarea>
         <div class="card" id="field-agendamentoSim" style="display:none">
             <div class="field">
                 <label>Agendado por</label>
-                <input type="text" name="nomeAg" placeholder="Ex: Pietro de Alexandria Picoli">
+                <input type="text" name="nomeAg" id="nomeAg" placeholder="Ex: Pietro de Alexandria Picoli">
             </div>
 
             <div class="field">
@@ -354,7 +354,7 @@ Verificado e necessário agendamento."></textarea>
         <div class="card" id="field-agendamentoSim-radio" style="display:none">
             <div class="field">
                 <label>Agendado por</label>
-                <input type="text" name="nomeAg-radio" placeholder="Ex: Pietro de Alexandria Picoli">
+                <input type="text" name="nomeAg-radio" id="nomeAg-radio" placeholder="Ex: Pietro de Alexandria Picoli">
             </div>
 
             <div class="field">
@@ -439,7 +439,9 @@ Verificado e necessário agendamento."></textarea>
     <script src="/js/sharedFunctions/functionToggleCards.js"   ></script>
     <script src="/js/sharedFunctions/functionContact.js"       ></script>
     <script src="/js/sharedFunctions/functionAddContact.js"    ></script>
+    <script src="/js/sharedFunctions/functionCopyName.js"      ></script>
     <script src="/js/options-js/sem-conexao.js"                ></script>
+    <script> linkName('nome','nomeAg'); linkName('nome','nomeAg-radio'); </script>
     <div id="toast" class="toast"></div>
 </body>
 </html>
