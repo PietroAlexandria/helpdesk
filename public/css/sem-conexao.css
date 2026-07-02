@@ -512,6 +512,35 @@ body {
   display: inline-block;
 }
 
+/* Grafana Section */
+.btn-grafana-link {
+    white-space: nowrap;
+    font-size: 0.78rem;
+    font-weight: 600;
+    color: #bf841f;
+    background: #eef4ff;
+    border: 1.5px solid #c7d9f8;
+    border-radius: 8px;
+    padding: 4px 10px;
+    text-decoration: none;
+    transition: all 0.2s;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+}
+
+.btn-grafana-link:hover {
+    background: #bf841f;
+    color: #fff;
+    border-color: #bf841f;
+}
+
+.grafana-img {
+    width: 22px;
+    height: 22px;
+}
+
 /* Zabbix Section */
 .btn-zabbix-link {
     white-space: nowrap;
