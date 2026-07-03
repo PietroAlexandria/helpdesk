@@ -11,7 +11,7 @@
 
 ## ✨ O que é isso?
 
-O **CedNet Helpdesk** é um web service interno desenvolvido para operadores de suporte técnico de ISP. Em vez de digitar tudo num bloco de notas, o atendente preenche formulários guiados, e o sistema monta automaticamente o registro estruturado — deixando o cliente esperando menos e o atendimento mais preciso.
+O **CedNet Helpdesk** é um web service interno desenvolvido para operadores de suporte técnico de ISP. Em vez de digitar tudo num bloco de notas, o atendente preenche formulários guiados e o sistema monta automaticamente o registro estruturado — deixando o cliente esperando menos e o atendimento mais preciso.
 
 **Acesse agora:** [https://helpdesk-izcw.onrender.com](https://helpdesk-izcw.onrender.com)
 
@@ -22,10 +22,10 @@ O **CedNet Helpdesk** é um web service interno desenvolvido para operadores de 
 | Módulo | Descrição |
 |---|---|
 | 🔗 **Guia de Ativações** | Redireciona para o portal de SVAs do Grupo CedNet |
-| 📡 **Sem Conexão** | Diagnóstico de Fibra (CX, ONU, PPPoE) e Rádio (BASE, RÁDIO, PPPoE) |
-| 🐢 **Conexão Lenta** | Fluxo de atendimento para instabilidade e lentidão |
+| 📡 **Sem Conexão** | Diagnóstico de Fibra (CX, ONU, PPPoE) e Rádio (BASE, RÁDIO, PPPoE) com agendamento e integração JIRA |
+| 🐢 **Conexão Lenta** | Fluxo de atendimento para instabilidade e lentidão, com suporte a Fibra e Rádio |
 | 📦 **Mudança de Endereço** | Coleta completa (endereço, CEP auto-fill, telhado, disponibilidade, equipamentos) |
-| 🛠️ **Suporte de SVA's** | Fluxo de suporte para serviços de valor agregado |
+| 🛠️ **Suporte de SVA's** | Acessos (CedNet Play, CedNet Plus), GloboPlay, Setup BOX, CedNet Play, Premiere e Outro SVA |
 
 ---
 
@@ -45,33 +45,40 @@ dev tool     Nodemon (hot-reload)
 ## 📁 Estrutura do Projeto
 
 ```
-AI ON/
-├── server.js                        # Entrada principal — configura Express e rotas
-├── index.js                         # Hello World (placeholder)
+helpdesk/
+├── server.js                          # Entrada principal — configura Express e rotas
 ├── package.json
 │
 ├── views/
-│   ├── index.html                   # Menu principal
+│   ├── index.html                     # Menu principal
 │   └── options-html/
-│       ├── sem-conexao.html         # Módulo sem conexão
-│       ├── conexao-lenta.html       # Módulo conexão lenta
-│       ├── mudanca-endereco.html    # Módulo mudança de endereço
-│       └── sva.html                 # Módulo SVA
+│       ├── sem-conexao.html           # Módulo sem conexão
+│       ├── conexao-lenta.html         # Módulo conexão lenta
+│       ├── mudanca-endereco.html      # Módulo mudança de endereço
+│       └── sva.html                   # Módulo SVA
 │
 └── public/
     ├── css/
-    │   ├── style.css                # Estilos do menu
-    │   ├── sem-conexao.css
-    │   └── mudanca-endereco.css
+    │   ├── style.css                  # Estilos do menu principal
+    │   ├── sem-conexao.css            # Estilos do módulo sem conexão
+    │   ├── conexao-lenta.css          # Estilos do módulo conexão lenta
+    │   ├── mudanca-endereco.css       # Estilos do módulo mudança de endereço
+    │   └── sva.css                    # Estilos do módulo SVA
     ├── images/
     │   └── LogoCedNet.ico
     └── js/
-        ├── sharedFunctions/
-        │   ├── functionCep.js       # Máscara + auto-fill via ViaCEP
-        │   ├── functionContact.js   # Máscara de telefone (fixo e celular)
-        │   └── functionToggleCards.js
-        └── options-js/
-            └── mudanca-endereco.js  # Lógica de cópia do formulário
+        ├── sharedFunctions/           # Funções reutilizadas entre módulos
+        │   ├── functionCep.js         # Máscara de CEP + auto-fill via ViaCEP
+        │   ├── functionContact.js     # Máscara de telefone (fixo e celular)
+        │   ├── functionToggleCards.js # Exibição/ocultação de cards por mapa de valores
+        │   ├── functionMostrarAlerta.js # Toast notifications (erro e sucesso)
+        │   ├── functionAddContact.js  # Adição dinâmica de múltiplos contatos
+        │   └── functionCopyName.js    # Sincronização de nome entre campos (linkName)
+        └── options-js/                # Lógica específica de cada módulo
+            ├── sem-conexao.js
+            ├── conexao-lenta.js
+            ├── mudanca-endereco.js
+            └── sva.js
 ```
 
 ---
@@ -123,25 +130,11 @@ A aplicação sobe em [http://localhost:3000](http://localhost:3000).
 
 - **Auto-fill de CEP** — integração com a API pública [ViaCEP](https://viacep.com.br), preenchendo rua, bairro, UF e cidade automaticamente ao digitar o CEP no módulo de mudança de endereço.
 - **Máscara de telefone inteligente** — identifica fixo (10 dígitos) e celular (11 dígitos), inclusive ao colar números com DDI +55.
-- **Toggle de cards** — função genérica `toggleCards()` controla a visibilidade de seções sem duplicar lógica entre módulos.
+- **Toggle de cards genérico** — `toggleCards(valor, mapa)` controla a visibilidade de seções por um mapa de valores sem duplicar lógica entre módulos.
+- **Toast notifications** — `mostrarAlerta(mensagem, tipo)` substitui `alert()` com notificações visuais não-bloqueantes de erro e sucesso.
+- **Múltiplos contatos dinâmicos** — `adicionarContato()` permite incluir e remover contatos em tempo real nos formulários de agendamento.
+- **Sincronização de nome** — `linkName(origem, destino)` espelha o nome da coleta de dados automaticamente nos cards de agendamento.
 - **Deploy com porta dinâmica** — usa `process.env.PORT || 3000`, compatível com Render e qualquer PaaS.
-
----
-
-## 🤝 Contribuindo
-
-Sinta-se à vontade para abrir issues e pull requests! O projeto está em desenvolvimento ativo.
-
-```bash
-# Crie uma branch para sua feature
-git checkout -b feature/minha-feature
-
-# Commit com mensagem descritiva
-git commit -m "feat: adiciona módulo de conexão lenta"
-
-# Push e abra um PR
-git push origin feature/minha-feature
-```
 
 ---
 
