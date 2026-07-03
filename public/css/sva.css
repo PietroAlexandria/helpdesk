@@ -637,3 +637,60 @@ body {
     width: 14px;
     height: 14px;
 }
+
+/* Info Box — Acessos */
+.info-box {
+    background: #f0f5ff;
+    border: 1.5px solid #c7d9f8;
+    border-radius: 12px;
+    padding: 14px 16px;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
+.info-box-title {
+    font-size: 0.78rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #1565c0;
+    margin-bottom: 4px;
+}
+
+.info-box p {
+    font-size: 0.875rem;
+    color: #0a2a5e;
+    line-height: 1.5;
+}
+
+.info-label {
+    font-weight: 600;
+}
+
+.info-box-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 4px;
+}
+
+.btn-copy-sm {
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    color: #1565c0;
+    background: #ffffff;
+    border: 1.5px solid #c7d9f8;
+    border-radius: 8px;
+    padding: 4px 10px;
+    cursor: pointer;
+    transition: all 0.2s;
+    white-space: nowrap;
+}
+
+.btn-copy-sm:hover {
+    background: #1565c0;
+    border-color: #1565c0;
+    color: #ffffff;
+}

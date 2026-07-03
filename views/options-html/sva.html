@@ -43,13 +43,149 @@
 
         <div class="card">
             <div class="field">
+                <label class="field-subtitle">Tipo de SVA</label>
+                <div class="radio-group">
+                    <label class="radio-btn"><input type="radio" name="sva" value="acessos"    onchange="toggleCards(this.value, {acessos:'card-acessos', globoPlay:'card-globoPlay', setupBox:'card-setupBox', cednetPlay:'card-cednetPlay', premiere:'card-premiere', outroSva:'card-outroSva'})"><span>🔑 Acessos</span></label>
+                    <label class="radio-btn"><input type="radio" name="sva" value="globoPlay"  onchange="toggleCards(this.value, {acessos:'card-acessos', globoPlay:'card-globoPlay', setupBox:'card-setupBox', cednetPlay:'card-cednetPlay', premiere:'card-premiere', outroSva:'card-outroSva'})"><span>🔴 GloboPlay</span></label>
+                    <label class="radio-btn"><input type="radio" name="sva" value="setupBox"   onchange="toggleCards(this.value, {acessos:'card-acessos', globoPlay:'card-globoPlay', setupBox:'card-setupBox', cednetPlay:'card-cednetPlay', premiere:'card-premiere', outroSva:'card-outroSva'})"><span>📺 Setup BOX</span></label>
+                    <label class="radio-btn"><input type="radio" name="sva" value="cednetPlay" onchange="toggleCards(this.value, {acessos:'card-acessos', globoPlay:'card-globoPlay', setupBox:'card-setupBox', cednetPlay:'card-cednetPlay', premiere:'card-premiere', outroSva:'card-outroSva'})"><span>▶️ CedNet Play</span></label>
+                    <label class="radio-btn"><input type="radio" name="sva" value="premiere"   onchange="toggleCards(this.value, {acessos:'card-acessos', globoPlay:'card-globoPlay', setupBox:'card-setupBox', cednetPlay:'card-cednetPlay', premiere:'card-premiere', outroSva:'card-outroSva'})"><span>⚽ Premiere</span></label>
+                    <label class="radio-btn"><input type="radio" name="sva" value="outroSva"   onchange="toggleCards(this.value, {acessos:'card-acessos', globoPlay:'card-globoPlay', setupBox:'card-setupBox', cednetPlay:'card-cednetPlay', premiere:'card-premiere', outroSva:'card-outroSva'})"><span>🔧 Outro SVA</span></label>
+                </div>
+            </div>
+            <div class="field">
                 <button class="btn-copy" onclick="copiarColetaDados(this)">📋 Copiar Coleta</button>
+            </div>
+        </div>
+
+        <!-- Card Acessos -->
+        <div class="card" id="card-acessos" style="display:none">
+            <p class="card-title">🔑 Acessos</p>
+            <div class="field">
+                <div class="info-box">
+                    <div class="info-box-header">
+                        <p class="info-box-title">▶️ CedNet Play</p>
+                        <button class="btn-copy-sm" onclick="copiarAcesso('cednetPlay', this)">📋 Copiar</button>
+                    </div>
+                    <p><span class="info-label">Login:</span> E-mail cadastral</p>
+                    <p><span class="info-label">Senha:</span> CPF do/a titular (sem pontos e traços)</p>
+                </div>
+            </div>
+            <div class="field">
+                <div class="info-box">
+                    <div class="info-box-header">
+                        <p class="info-box-title">➕ CedNet Plus</p>
+                        <button class="btn-copy-sm" onclick="copiarAcesso('cednetPlus', this)">📋 Copiar</button>
+                    </div>
+                    <p><span class="info-label">Login:</span> CPF do/a titular (sem pontos e traços, apenas números)</p>
+                    <p><span class="info-label">Senha:</span> CPF do/a titular (sem pontos e traços)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Card GloboPlay -->
+        <div class="card" id="card-globoPlay" style="display:none">
+            <p class="card-title">🔴 GloboPlay</p>
+            <div class="field">
+                <label>Qual o problema?</label>
+                <div class="radio-group">
+                    <label class="radio-btn"><input type="radio" name="problema-globoPlay" value="Não consegue acessar / fazer login"><span>Não consegue logar</span></label>
+                    <label class="radio-btn"><input type="radio" name="problema-globoPlay" value="Assinatura não ativa na plataforma"><span>Assinatura não ativa</span></label>
+                    <label class="radio-btn"><input type="radio" name="problema-globoPlay" value="Erro ao reproduzir conteúdo"><span>Erro ao reproduzir</span></label>
+                    <label class="radio-btn"><input type="radio" name="problema-globoPlay" value="Aplicativo com falha ou travando"><span>App travando</span></label>
+                </div>
+            </div>
+            <div class="field">
+                <label>Observação</label>
+                <textarea name="obs-globoPlay" placeholder="Descreva detalhes adicionais..."></textarea>
+            </div>
+            <div class="field">
+                <button class="btn-copy" onclick="copiarSva(this)">📋 Copiar Atendimento</button>
+            </div>
+        </div>
+
+        <!-- Card Setup BOX -->
+        <div class="card" id="card-setupBox" style="display:none">
+            <p class="card-title">📺 Setup BOX</p>
+            <div class="field">
+                <label>Qual o problema?</label>
+                <div class="radio-group">
+                    <label class="radio-btn"><input type="radio" name="problema-setupBox" value="Sem sinal / tela preta"><span>Sem sinal / tela preta</span></label>
+                    <label class="radio-btn"><input type="radio" name="problema-setupBox" value="Equipamento sem resposta"><span>Sem resposta</span></label>
+                    <label class="radio-btn"><input type="radio" name="problema-setupBox" value="Canais não carregam"><span>Canais não carregam</span></label>
+                    <label class="radio-btn"><input type="radio" name="problema-setupBox" value="Controle remoto sem funcionar"><span>Controle sem funcionar</span></label>
+                </div>
+            </div>
+            <div class="field">
+                <label>Observação</label>
+                <textarea name="obs-setupBox" placeholder="Descreva detalhes adicionais..."></textarea>
+            </div>
+            <div class="field">
+                <button class="btn-copy" onclick="copiarSva(this)">📋 Copiar Atendimento</button>
+            </div>
+        </div>
+
+        <!-- Card CedNet Play -->
+        <div class="card" id="card-cednetPlay" style="display:none">
+            <p class="card-title">▶️ CedNet Play</p>
+            <div class="field">
+                <label>Qual o problema?</label>
+                <div class="radio-group">
+                    <label class="radio-btn"><input type="radio" name="problema-cednetPlay" value="Não consegue acessar / fazer login"><span>Não consegue logar</span></label>
+                    <label class="radio-btn"><input type="radio" name="problema-cednetPlay" value="App não carrega na TV"><span>App não carrega</span></label>
+                    <label class="radio-btn"><input type="radio" name="problema-cednetPlay" value="Erro ao reproduzir conteúdo"><span>Erro ao reproduzir</span></label>
+                    <label class="radio-btn"><input type="radio" name="problema-cednetPlay" value="Aplicativo com falha ou travando"><span>App travando</span></label>
+                </div>
+            </div>
+            <div class="field">
+                <label>Observação</label>
+                <textarea name="obs-cednetPlay" placeholder="Descreva detalhes adicionais..."></textarea>
+            </div>
+            <div class="field">
+                <button class="btn-copy" onclick="copiarSva(this)">📋 Copiar Atendimento</button>
+            </div>
+        </div>
+
+        <!-- Card Premiere -->
+        <div class="card" id="card-premiere" style="display:none">
+            <p class="card-title">⚽ Premiere</p>
+            <div class="field">
+                <label>Qual o problema?</label>
+                <div class="radio-group">
+                    <label class="radio-btn"><input type="radio" name="problema-premiere" value="Não consegue acessar / fazer login"><span>Não consegue logar</span></label>
+                    <label class="radio-btn"><input type="radio" name="problema-premiere" value="Assinatura não ativa na plataforma"><span>Assinatura não ativa</span></label>
+                    <label class="radio-btn"><input type="radio" name="problema-premiere" value="Erro ao reproduzir conteúdo"><span>Erro ao reproduzir</span></label>
+                    <label class="radio-btn"><input type="radio" name="problema-premiere" value="Aplicativo com falha ou travando"><span>App travando</span></label>
+                </div>
+            </div>
+            <div class="field">
+                <label>Observação</label>
+                <textarea name="obs-premiere" placeholder="Descreva detalhes adicionais..."></textarea>
+            </div>
+            <div class="field">
+                <button class="btn-copy" onclick="copiarSva(this)">📋 Copiar Atendimento</button>
+            </div>
+        </div>
+
+        <!-- Card Outro SVA -->
+        <div class="card" id="card-outroSva" style="display:none">
+            <p class="card-title">🔧 Outro SVA</p>
+            <div class="field">
+                <label>Nome do SVA</label>
+                <input type="text" name="nome-outroSva" placeholder="Ex: HBO Max, Disney+...">
+            </div>
+            <div class="field">
+                <label>Descrição do problema</label>
+                <textarea name="obs-outroSva" placeholder="Descreva o problema relatado pelo cliente..."></textarea>
+            </div>
+            <div class="field">
+                <button class="btn-copy" onclick="copiarSva(this)">📋 Copiar Atendimento</button>
             </div>
         </div>
 
         <!-- Watermark ------------------------------------------------------------------------------------------------------------------------------->
         <div class="card">
-                <div class="watermark">Desenvolvido por Pietro de Alexandria Picoli — <a href="https://github.com/PietroAlexandria" target="_blank">GitHub</a></div>
+            <div class="watermark">Desenvolvido por Pietro de Alexandria Picoli — <a href="https://github.com/PietroAlexandria" target="_blank">GitHub</a></div>
         </div>
     </div>
     
