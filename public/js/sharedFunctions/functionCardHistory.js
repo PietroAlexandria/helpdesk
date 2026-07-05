@@ -44,3 +44,5 @@ function renderizarHistorico() {
         </div>
     `).join('');
 }
+
+renderizarHistorico();
