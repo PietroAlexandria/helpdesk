@@ -66,11 +66,17 @@ function copiarAgendamentoFibra(botao) {
 
     // EQUIPAMENTOS 
     const loginPPPOE     = document.getElementById('loginpppoe')?.value || '';
+    if (!loginPPPOE) { mostrarAlerta('Preencha o campo LOGIN PPPoE!'); return; }
     const senhaPPPOE     = document.getElementById('senhapppoe')?.value || '';
+    if (!senhaPPPOE) { mostrarAlerta('Preencha o campo SENHA PPPoE!'); return; }
     const olt            = document.getElementById('olt')?.value || '';
+    if (!olt) { mostrarAlerta('Preencha o campo OLT!'); return; }
     const cxDesc         = document.getElementById('cxDesc')?.value || '';
+    if (!cxDesc) { mostrarAlerta('Preencha o campo CAIXA!'); return; }
     const pon            = document.getElementById('pon')?.value || '';
+    if (!pon) { mostrarAlerta('Preencha o campo PON!'); return; }
     const mac            = document.getElementById('mac')?.value || '';
+    if (!mac) { mostrarAlerta('Preencha o campo MAC!'); return; }
 
     // TR069
     const trSelecionado = document.querySelector(`input[name="tr069"]:checked`)?.value || '';
@@ -188,11 +194,17 @@ function copiarAgendamentoRadio(botao) {
     else if (dispSelecionada === 'horario-especifico') { disponibilidade = document.querySelector('textarea[name="horarioEsp-Radio"]')?.value || ''; }
 
     const loginPPPOE_Radio  = document.getElementById('loginpppoe-radio')?.value || '';
+    if (!loginPPPOE_Radio) { mostrarAlerta('Preencha o campo LOGIN PPPoE!'); return; }
     const senhaPPPOE_Radio  = document.getElementById('senhapppoe-radio')?.value || '';
+    if (!senhaPPPOE_Radio) { mostrarAlerta('Preencha o campo SENHA PPPoE!'); return; }
     const ipRadio           = document.getElementById('ipRadio')?.value || '';
+    if (!ipRadio) { mostrarAlerta('Preencha o campo IP Rádio!'); return; }
     const ipBase            = document.getElementById('ipBase')?.value || '';
+    if (!ipBase) { mostrarAlerta('Preencha o campo IP Base!'); return; }
     const encryptBase       = document.getElementById('encryptBase')?.value || '';
+    if (!encryptBase) { mostrarAlerta('Preencha o campo Encrypt BASE!'); return; }
     const loc               = document.getElementById('loc')?.value || '';
+    if (!loc) { mostrarAlerta('Preencha o campo LOCALIZAÇÃO!'); return; }
 
     const trSelecionado_Radio = document.querySelector('input[name="tr069-radio"]:checked')?.value || '';
     let tr069_Radio = '';
