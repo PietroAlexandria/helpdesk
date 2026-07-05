@@ -107,6 +107,7 @@ ${tr069} `;
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar Agendamento'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
+    salvarHistorico(texto);
 }
 
 function copiarResolucaoFibra(botao) {
@@ -147,6 +148,7 @@ Problema Solucionado!`;
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar Agendamento'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
+    salvarHistorico(texto);
 }
 
 // AGENDAMENTO RÁDIO
@@ -223,6 +225,7 @@ ${tr069_Radio}`;
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar Agendamento'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
+    salvarHistorico(texto);
 }
 
 function copiarResolucaoRadio(botao) {
@@ -253,6 +256,7 @@ Problema Solucionado!`;
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar Agendamento'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
+    salvarHistorico(texto);
 }
 
 // FIBRA --------------------------------------------------------------------------------------------------------------------------------
@@ -267,8 +271,9 @@ Cliente afetado pelo chamado:
 ${linkChamadoDispFibra}`;
 
     navigator.clipboard.writeText(texto)
-    .then(() => feedbackBtn(botao, '📋 Copiar Chamado'))
-    .catch(() => mostrarAlerta('Erro ao copiar!'));
+        .then(() => feedbackBtn(botao, '📋 Copiar Chamado'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+    salvarHistorico(texto);
 }
 
 function copiarChamadoCriadoFibra(botao) {
@@ -282,8 +287,9 @@ Cliente afetado pelo chamado:
 ${linkChamadoCriadoFibra}`;
 
     navigator.clipboard.writeText(texto)
-    .then(() => feedbackBtn(botao, '📋 Copiar Chamado'))
-    .catch(() => mostrarAlerta('Erro ao copiar!'));
+        .then(() => feedbackBtn(botao, '📋 Copiar Chamado'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+    salvarHistorico(texto);
 }
 
 // RÁDIO --------------------------------------------------------------------------------------------------------------------------------
@@ -298,8 +304,9 @@ Cliente afetado pelo chamado:
 ${linkChamadoDispRadio}`;
 
     navigator.clipboard.writeText(texto)
-    .then(() => feedbackBtn(botao, '📋 Copiar Chamado'))
-    .catch(() => mostrarAlerta('Erro ao copiar!'));
+        .then(() => feedbackBtn(botao, '📋 Copiar Chamado'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+    salvarHistorico(texto);
 }
 
 function copiarChamadoCriadoRadio(botao) {
@@ -313,8 +320,9 @@ Cliente afetado pelo chamado:
 ${linkChamadoCriadoRadio}`;
 
     navigator.clipboard.writeText(texto)
-    .then(() => feedbackBtn(botao, '📋 Copiar Chamado'))
-    .catch(() => mostrarAlerta('Erro ao copiar!'));
+        .then(() => feedbackBtn(botao, '📋 Copiar Chamado'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+    salvarHistorico(texto); // Salva o texto no histórico
 }
 
 function feedbackBtn(botao, textoOriginal) {

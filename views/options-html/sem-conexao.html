@@ -427,7 +427,10 @@
         </div>
 
         <div class="history-container">
-            <div class="history-header">Histórico</div>
+            <div class="history-header">
+                <span>📋 Histórico</span>
+                <button onclick="limparHistorico()">Limpar tudo</button>
+            </div>
             <div class="history-content" id="history-panel"></div>
         </div>
     </div>
@@ -449,6 +452,8 @@
     <script src="/js/sharedFunctions/functionAddContact.js"    ></script>
     <script src="/js/sharedFunctions/functionCopyName.js"      ></script>
     <script src="/js/options-js/sem-conexao.js"                ></script>
+    <script src="/js/sharedFunctions/functionCardHistory.js"   ></script>
+    <script> renderizarHistorico() </script>
     <script> linkName('nome','nomeAg'); linkName('nome','nomeAg-radio'); </script>
     <div id="toast" class="toast"></div>
 </body>
