@@ -10,418 +10,425 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
+    <div class="layout-with-history">
+        <div class="container">
 
-        <div class="page-header">
-            <a href="/" class="btn-back">← Voltar</a>
-            <h1 class="page-title">📡 Sem Conexão</h1>
-        </div>
-
-        <!-- Coleta de Dados ------------------------------------------------------------------------------------------------------------------------------->
-        <div class="card">
-            <p class="card-title">Coleta de Dados</p>
-
-            <div class="field">
-                <label class="field-subtitle">Via de Contato</label>
-                <div class="radio-group">
-                    <label class="radio-btn"><input type="radio" name="via" value="Central"><span>Central</span></label>
-                    <label class="radio-btn"><input type="radio" name="via" value="OPA"><span>OPA! Suite</span></label>
-                </div>
+            <div class="page-header">
+                <a href="/" class="btn-back">← Voltar</a>
+                <h1 class="page-title">📡 Sem Conexão</h1>
             </div>
 
-            <hr class="sep">
+            <!-- Coleta de Dados ------------------------------------------------------------------------------------------------------------------------------->
+            <div class="card">
+                <p class="card-title">Coleta de Dados</p>
 
-            <div class="field">
-                <label>Nome do Solicitante</label>
-                <input type="text" name="nome" id="nome" placeholder="Ex: Pietro de Alexandria Picoli">
-            </div>
-
-            <div class="field">
-                <label>Contato</label>
-                <input type="text" name="contato" placeholder="Ex: (XX) XXXXX-XXXX" maxlength="15" oninput="mascaraContato(this)">
-            </div>
-        </div>
-
-        <div class="card">
-            <p class="card-title">Tipo de Conexão</p>
-            <div class="field">
-                <label class="field-subtitle">Selecione o tipo de conexão</label>
-                <div class="radio-group">
-                    <label class="radio-btn"><input type="radio" name="type" value="Fibra" onchange="toggleCards(this.value, { Fibra: 'card-fibra', Radio: 'card-radio' }); 
-                    document.getElementById('field-agendamentoSim').style.display='none'; document.getElementById('field-agendamentoSim-radio').style.display='none';"><span>Fibra</span></label>
-                    <label class="radio-btn"><input type="radio" name="type" value="Radio" onchange="toggleCards(this.value, { Fibra: 'card-fibra', Radio: 'card-radio' }); 
-                    document.getElementById('field-agendamentoSim').style.display='none'; document.getElementById('field-agendamentoSim-radio').style.display='none';"><span>Rádio</span></label>
-                </div>
-            </div>
-
-            <div class="field">
-                <button class="btn-copy" onclick="copiarColetaDados(this)">📋 Copiar Coleta</button>
-            </div>
-        </div>
-
-        <!-- Card Sem Conexão - FIBRA ------------------------------------------------------------------------------------------------------------------------------->
-
-        <div class="card" id="card-fibra" style="display:none">
-
-            <!-- Para futuras implementações!
-            <div class="field">
-                <label>ID Contrato</label>
-                <input type="text" name="id_contrato" placeholder="Ex: 123456">
-            </div>
-            -->
-
-            <div class="field">
-                <label>CAIXA</label>
-                <div class="radio-group">
-                    <label class="radio-btn"><input type="radio" name="cx" value="cxOn" onchange="toggleCards(this.value, {cxOn: 'field-cxOn', cxOff: 'field-cxOff'})"><span>ONLINE</span></label>
-                    <label class="radio-btn"><input type="radio" name="cx" value="cxOff" onchange="toggleCards(this.value, {cxOn: 'field-cxOn', cxOff: 'field-cxOff'}); document.getElementById('field-agendamentoSim').style.display='none';"><span>OFFLINE</span></label>
-                </div>
-            </div>
-
-            <div class="field" id="field-cxOff" style="display:none">
                 <div class="field">
-                    <div class="jira-header">
-                        <label>Há chamado no JIRA em aberto?</label>
-                        <a class="btn-jira-link" href="https://grupocednet.atlassian.net/servicedesk/customer/user/requests?reporter=all&statuses=open" target="_blank"><span><img src="/images/jira.png" alt="JIRA" class="jira-img"></span> Ver Chamados</a>
-                        <a class="btn-zabbix-link" href="https://zabbix.cednet.com.br/zabbix.php?action=dashboard.view&dashboardid=1" target="_blank"><span class="badge-z">Z </span> Zabbix</a>
-                    </div>
+                    <label class="field-subtitle">Via de Contato</label>
                     <div class="radio-group">
-                        <label class="radio-btn"><input type="radio" name="jira-fibra" value="jiraSim" onchange="toggleCards(this.value, {jiraSim: 'field-jiraSim-fibra', jiraNao: 'field-jiraNao-fibra'})"><span>Sim</span></label>
-                        <label class="radio-btn"><input type="radio" name="jira-fibra" value="jiraNao" onchange="toggleCards(this.value, {jiraSim: 'field-jiraSim-fibra', jiraNao: 'field-jiraNao-fibra'})"><span>Não</span></label>
+                        <label class="radio-btn"><input type="radio" name="via" value="Central"><span>Central</span></label>
+                        <label class="radio-btn"><input type="radio" name="via" value="OPA"><span>OPA! Suite</span></label>
                     </div>
+                </div>
 
-                    <div class="field" id="field-jiraSim-fibra" style="display:none">
-                        <div class="jira-info-box jira-exists">
-                            <span>✅ Chamado já existe! Cole o link abaixo.</span>
+                <hr class="sep">
+
+                <div class="field">
+                    <label>Nome do Solicitante</label>
+                    <input type="text" name="nome" id="nome" placeholder="Ex: Pietro de Alexandria Picoli">
+                </div>
+
+                <div class="field">
+                    <label>Contato</label>
+                    <input type="text" name="contato" placeholder="Ex: (XX) XXXXX-XXXX" maxlength="15" oninput="mascaraContato(this)">
+                </div>
+            </div>
+
+            <div class="card">
+                <p class="card-title">Tipo de Conexão</p>
+                <div class="field">
+                    <label class="field-subtitle">Selecione o tipo de conexão</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="type" value="Fibra" onchange="toggleCards(this.value, { Fibra: 'card-fibra', Radio: 'card-radio' }); 
+                        document.getElementById('field-agendamentoSim').style.display='none'; document.getElementById('field-agendamentoSim-radio').style.display='none';"><span>Fibra</span></label>
+                        <label class="radio-btn"><input type="radio" name="type" value="Radio" onchange="toggleCards(this.value, { Fibra: 'card-fibra', Radio: 'card-radio' }); 
+                        document.getElementById('field-agendamentoSim').style.display='none'; document.getElementById('field-agendamentoSim-radio').style.display='none';"><span>Rádio</span></label>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <button class="btn-copy" onclick="copiarColetaDados(this)">📋 Copiar Coleta</button>
+                </div>
+            </div>
+
+            <!-- Card Sem Conexão - FIBRA ------------------------------------------------------------------------------------------------------------------------------->
+
+            <div class="card" id="card-fibra" style="display:none">
+
+                <!-- Para futuras implementações!
+                <div class="field">
+                    <label>ID Contrato</label>
+                    <input type="text" name="id_contrato" placeholder="Ex: 123456">
+                </div>
+                -->
+
+                <div class="field">
+                    <label>CAIXA</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="cx" value="cxOn" onchange="toggleCards(this.value, {cxOn: 'field-cxOn', cxOff: 'field-cxOff'})"><span>ONLINE</span></label>
+                        <label class="radio-btn"><input type="radio" name="cx" value="cxOff" onchange="toggleCards(this.value, {cxOn: 'field-cxOn', cxOff: 'field-cxOff'}); document.getElementById('field-agendamentoSim').style.display='none';"><span>OFFLINE</span></label>
+                    </div>
+                </div>
+
+                <div class="field" id="field-cxOff" style="display:none">
+                    <div class="field">
+                        <div class="jira-header">
+                            <label>Há chamado no JIRA em aberto?</label>
+                            <a class="btn-jira-link" href="https://grupocednet.atlassian.net/servicedesk/customer/user/requests?reporter=all&statuses=open" target="_blank"><span><img src="/images/jira.png" alt="JIRA" class="jira-img"></span> Ver Chamados</a>
+                            <a class="btn-zabbix-link" href="https://zabbix.cednet.com.br/zabbix.php?action=dashboard.view&dashboardid=1" target="_blank"><span class="badge-z">Z </span> Zabbix</a>
                         </div>
-                        <input type="text" name="link-jira-disp-fibra" placeholder="Ex: https://grupocednet.atlassian.net/.../GC-00000">
-                        <div style="margin-top: 5px">
-                            <button class="btn-copy" onclick="copiarChamadoDisponivelFibra(this)">📋 Copiar Chamado</button>
+                        <div class="radio-group">
+                            <label class="radio-btn"><input type="radio" name="jira-fibra" value="jiraSim" onchange="toggleCards(this.value, {jiraSim: 'field-jiraSim-fibra', jiraNao: 'field-jiraNao-fibra'})"><span>Sim</span></label>
+                            <label class="radio-btn"><input type="radio" name="jira-fibra" value="jiraNao" onchange="toggleCards(this.value, {jiraSim: 'field-jiraSim-fibra', jiraNao: 'field-jiraNao-fibra'})"><span>Não</span></label>
+                        </div>
+
+                        <div class="field" id="field-jiraSim-fibra" style="display:none">
+                            <div class="jira-info-box jira-exists">
+                                <span>✅ Chamado já existe! Cole o link abaixo.</span>
+                            </div>
+                            <input type="text" name="link-jira-disp-fibra" placeholder="Ex: https://grupocednet.atlassian.net/.../GC-00000">
+                            <div style="margin-top: 5px">
+                                <button class="btn-copy" onclick="copiarChamadoDisponivelFibra(this)">📋 Copiar Chamado</button>
+                            </div>
+                        </div>
+
+                        <div class="field" id="field-jiraNao-fibra" style="display:none">
+                            <div class="jira-info-box jira-new">
+                                <span>⚠️ Nenhum chamado aberto. Crie um agora:</span>
+                                <a href="https://grupocednet.atlassian.net/servicedesk/customer/portal/3/group/35" target="_blank" class="btn-jira-open">🔗 Abrir Chamado — Fibra Óptica</a>
+                            </div>
+                            <input type="text" name="link-jira-criado-fibra" placeholder="Ex: https://grupocednet.atlassian.net/.../GC-00000">
+                            <div style="margin-top: 5px">
+                                <button class="btn-copy" onclick="copiarChamadoCriadoFibra(this)">📋 Copiar Chamado</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="field" id="field-cxOn" style="display:none">
+
+                    <div class="thermix-header">
+                        <label>Consulta </label>
+                        <a class="btn-thermix-link" href="http://191.37.38.74:30001/" target="_blank"><span class="badge-t">T</span> Thermix</a>
+                    </div>
+
+                    <hr class="sep">
+
+                    <div class="field">
+                        <label>ONU</label>
+                        <div class="radio-group">
+                            <label class="radio-btn"><input type="radio" name="onu" value="onuOn"><span>ONLINE</span></label>
+                            <label class="radio-btn"><input type="radio" name="onu" value="onuOff"><span>OFFLINE</span></label>
                         </div>
                     </div>
 
-                    <div class="field" id="field-jiraNao-fibra" style="display:none">
-                        <div class="jira-info-box jira-new">
-                            <span>⚠️ Nenhum chamado aberto. Crie um agora:</span>
-                            <a href="https://grupocednet.atlassian.net/servicedesk/customer/portal/3/group/35" target="_blank" class="btn-jira-open">🔗 Abrir Chamado — Fibra Óptica</a>
+                    <hr class="sep">
+
+                    <div class="field">
+                        <label>Router</label>
+                        <div class="radio-group">
+                            <label class="radio-btn"><input type="radio" name="router" value="routerOn"><span>ONLINE</span></label>
+                            <label class="radio-btn"><input type="radio" name="router" value="routerOff"><span>OFFLINE</span></label>
                         </div>
-                        <input type="text" name="link-jira-criado-fibra" placeholder="Ex: https://grupocednet.atlassian.net/.../GC-00000">
-                        <div style="margin-top: 5px">
-                            <button class="btn-copy" onclick="copiarChamadoCriadoFibra(this)">📋 Copiar Chamado</button>
+                    </div>
+
+                    <hr class="sep">
+
+                    <div class="field">
+                        <label>Equipamento aponta LOS?</label>
+                        <div class="radio-group">
+                            <label class="radio-btn"><input type="radio" name="los" value="losSim"><span>SIM</span></label>
+                            <label class="radio-btn"><input type="radio" name="los" value="losNao"><span>NÃO</span></label>
+                        </div>
+                    </div>
+
+                    <hr class="sep">
+
+                    <div class="field">
+                        <label>Descrição da OS</label>
+                    <textarea name="descricao" id="descricao" placeholder="Ex: 
+    Cliente informou que energia havia tido queda a 1h, mas conexão não voltou mesmo após energia voltar. 
+    Solicitado reboot e PatchCord, mas sem sucesso. 
+    Alarme DmView: ONU Loss of signal, Receive dying gasp of ONU 
+    Cliente com DGi e LOSi, possível problema na fibra."></textarea>
+                    </div>
+
+                    <hr class="sep">
+
+                    <div class="field">
+                        <label>Necessário Agendamento?</label>
+                        <div class="radio-group">
+                            <label class="radio-btn"><input type="radio" name="agendamento" value="agendamentoSim" onchange="toggleCards(this.value, { agendamentoSim: 'field-agendamentoSim', agendamentoNao: 'field-agendamentoNao' })"><span>Sim</span></label>
+                            <label class="radio-btn"><input type="radio" name="agendamento" value="agendamentoNao" onchange="toggleCards(this.value, { agendamentoSim: 'field-agendamentoSim', agendamentoNao: 'field-agendamentoNao' })"><span>Não</span></label>
+                        </div>
+                    </div>
+
+                    <div class="field" id="field-agendamentoNao" style="display:none">
+                        <div class="field" style="margin-top: 5px">
+                                <button class="btn-copy" onclick="copiarResolucaoFibra(this)">📋 Copiar Resolução</button>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="field" id="field-cxOn" style="display:none">
-
-                <div class="thermix-header">
-                    <label>Consulta </label>
-                    <a class="btn-thermix-link" href="http://191.37.38.74:30001/" target="_blank"><span class="badge-t">T</span> Thermix</a>
+            <!-- Card Agendamento - FIBRA ------------------------------------------------------------------------------------------------------------------------------->
+            <div class="card" id="field-agendamentoSim" style="display:none">
+                <div class="field">
+                    <label>Agendado por</label>
+                    <input type="text" name="nomeAg" id="nomeAg" placeholder="Ex: Pietro de Alexandria Picoli">
                 </div>
-
-                <hr class="sep">
 
                 <div class="field">
-                    <label>ONU</label>
-                    <div class="radio-group">
-                        <label class="radio-btn"><input type="radio" name="onu" value="onuOn"><span>ONLINE</span></label>
-                        <label class="radio-btn"><input type="radio" name="onu" value="onuOff"><span>OFFLINE</span></label>
+                    <label>Contato</label>
+                    <div id="lista-contatos">
+                        <div class="campo-contato">
+                            <input type="text" name="contatoAg" id="contatoAg" maxlength="15" placeholder="(XX) XXXXX-XXXX" oninput="mascaraContato(this)">
+                        </div>
                     </div>
+                    <button class="btn-copy" name="btn-addCtt" onclick="adicionarContato()">+ Adicionar contato</button>
                 </div>
-
-                <hr class="sep">
-
-                <div class="field">
-                    <label>Router</label>
-                    <div class="radio-group">
-                        <label class="radio-btn"><input type="radio" name="router" value="routerOn"><span>ONLINE</span></label>
-                        <label class="radio-btn"><input type="radio" name="router" value="routerOff"><span>OFFLINE</span></label>
-                    </div>
-                </div>
-
-                <hr class="sep">
-
-                <div class="field">
-                    <label>Equipamento aponta LOS?</label>
-                    <div class="radio-group">
-                        <label class="radio-btn"><input type="radio" name="los" value="losSim"><span>SIM</span></label>
-                        <label class="radio-btn"><input type="radio" name="los" value="losNao"><span>NÃO</span></label>
-                    </div>
-                </div>
-
-                <hr class="sep">
-
-                <div class="field">
-                    <label>Descrição da OS</label>
-                <textarea name="descricao" id="descricao" placeholder="Ex: 
-Cliente informou que energia havia tido queda a 1h, mas conexão não voltou mesmo após energia voltar. 
-Solicitado reboot e PatchCord, mas sem sucesso. 
-Alarme DmView: ONU Loss of signal, Receive dying gasp of ONU 
-Cliente com DGi e LOSi, possível problema na fibra."></textarea>
-                </div>
-
-                <hr class="sep">
-
-                <div class="field">
-                    <label>Necessário Agendamento?</label>
-                    <div class="radio-group">
-                        <label class="radio-btn"><input type="radio" name="agendamento" value="agendamentoSim" onchange="toggleCards(this.value, { agendamentoSim: 'field-agendamentoSim', agendamentoNao: 'field-agendamentoNao' })"><span>Sim</span></label>
-                        <label class="radio-btn"><input type="radio" name="agendamento" value="agendamentoNao" onchange="toggleCards(this.value, { agendamentoSim: 'field-agendamentoSim', agendamentoNao: 'field-agendamentoNao' })"><span>Não</span></label>
-                    </div>
-                </div>
-
-                <div class="field" id="field-agendamentoNao" style="display:none">
-                    <div class="field" style="margin-top: 5px">
-                            <button class="btn-copy" onclick="copiarResolucaoFibra(this)">📋 Copiar Resolução</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-
-        <!-- Card Agendamento - FIBRA ------------------------------------------------------------------------------------------------------------------------------->
-        <div class="card" id="field-agendamentoSim" style="display:none">
-            <div class="field">
-                <label>Agendado por</label>
-                <input type="text" name="nomeAg" id="nomeAg" placeholder="Ex: Pietro de Alexandria Picoli">
-            </div>
-
-            <div class="field">
-                <label>Contato</label>
-                <div id="lista-contatos">
-                    <div class="campo-contato">
-                        <input type="text" name="contatoAg" id="contatoAg" maxlength="15" placeholder="(XX) XXXXX-XXXX" oninput="mascaraContato(this)">
-                    </div>
-                </div>
-                <button class="btn-copy" name="btn-addCtt" onclick="adicionarContato()">+ Adicionar contato</button>
-            </div>
-        
-
-            <hr class="sep">
             
-            <div class="field">
-                <label class="field-subtitle">Disponibilidade</label>
-                <div class="radio-group">
-                    <label class="radio-btn"><input type="radio" name="disponibilidade-agendamento" value="manha" onchange="horarioEspecifico(this)"><span>Manhã</span></label>
-                    <label class="radio-btn"><input type="radio" name="disponibilidade-agendamento" value="tarde" onchange="horarioEspecifico(this)"><span>Tarde</span></label>
-                    <label class="radio-btn"><input type="radio" name="disponibilidade-agendamento" value="qualquerHoraio" onchange="horarioEspecifico(this)"><span>Qualquer Horário</span></label>
-                    <label class="radio-btn"><input type="radio" name="disponibilidade-agendamento" value="horario-especifico" onchange="horarioEspecifico(this)"><span>Horário Específico</span></label>
-                </div>
-            </div>
-
-            <div class="field" id="horario-especifico-agendamento" style="display:none">
-                <label class="field-subtitle">Horário Específico</label>
-                <div>
-                    <textarea name="horarioEsp" placeholder="Ex: Após às 18h - 03/07&#10;Após 16h - 04/07"></textarea>
-                </div>
-            </div>
-
-            <hr class="sep">
-
-            <div class="field">
-                <label>Login PPPoE</label>
-                <input type="text" name="loginpppoe" id="loginpppoe" placeholder="Ex: 123Pietro"> <br>
-                <label>Senha PPPoE</label>
-                <input type="text" name="senhapppoe" id="senhapppoe" placeholder="Ex: 456Pietro"> <br>
-                <label>OLT</label>
-                <input type="text" name="olt" id="olt" placeholder="Ex: IPP-OLT1-DATACOM"> <br>
-                <label>PON</label>
-                <input type="text" name="pon" id="pon" placeholder="Ex: 1/1/20"> <br>
-                <label>CAIXA</label>
-                <input type="text" name="cxDesc" id="cxDesc" placeholder="Ex: IPP_CTO_10A1"> <br>
-                <label>ONU MAC</label>
-                <input type="text" name="mac" id="mac" placeholder="Ex: ZTEGD1FA0B65"> <br>
-            </div>
-
-            <hr class="sep">
-
-            <div class="field">
-                <label>Ativar TR069?</label>
-                <div class="radio-group">
-                    <label class="radio-btn"><input type="radio" name="tr069" value="ativarTR" onchange="horarioEspecifico(this)"><span>Ativar</span></label>
-                    <label class="radio-btn"><input type="radio" name="tr069" value="TRativado" onchange="horarioEspecifico(this)"><span>Sem Necessidade</span></label>
-                </div>
-            </div>
-
-            <div class="field">
-                <button class="btn-copy" onclick="copiarAgendamentoFibra(this)">📋 Copiar Agendamento</button>
-            </div>
-        </div>
-
-        <!-- Card Sem Conexão - RÁDIO ------------------------------------------------------------------------------------------------------------------------------->
-        <div class="card" id="card-radio" style="display:none">
-
-            <div class="field">
-                <label>BASE</label>
-                <div class="radio-group">
-                    <label class="radio-btn"><input type="radio" name="base" value="baseOn" onchange="toggleCards(this.value, { baseOn: 'field-baseOn', baseOff: 'field-baseOff' })"><span>ONLINE</span></label>
-                    <label class="radio-btn"><input type="radio" name="base" value="baseOff" onchange="toggleCards(this.value, { baseOn: 'field-baseOn', baseOff: 'field-baseOff' })"><span>OFFLINE</span></label>
-                </div>
-            </div>
-
-            <div class="field" id="field-baseOff" style="display:none">
-                <div class="field">
-                    <div class="jira-header">
-                        <label>Há chamado no JIRA em aberto?</label>
-                        <a class="btn-jira-link" href="https://grupocednet.atlassian.net/servicedesk/customer/user/requests?reporter=all&statuses=open" target="_blank"><span><img src="/images/jira.png" alt="JIRA" class="jira-img"></span> Ver Chamados</a>
-                        <a class="btn-zabbix-link" href="https://zabbix.cednet.com.br/zabbix.php?action=dashboard.view&dashboardid=1" target="_blank"><span class="badge-z">Z </span> Zabbix</a>
-                    </div>
-                    <div class="radio-group">
-                        <label class="radio-btn"><input type="radio" name="jira-radio" value="jiraSim" onchange="toggleCards(this.value, {jiraSim: 'field-jiraSim-radio', jiraNao: 'field-jiraNao-radio'})"><span>Sim</span></label>
-                        <label class="radio-btn"><input type="radio" name="jira-radio" value="jiraNao" onchange="toggleCards(this.value, {jiraSim: 'field-jiraSim-radio', jiraNao: 'field-jiraNao-radio'})"><span>Não</span></label>
-                    </div>
-
-                    <div class="field" id="field-jiraSim-radio" style="display:none">
-                        <div class="jira-info-box jira-exists">
-                            <span>✅ Chamado já existe! Cole o link abaixo.</span>
-                        </div>
-                        <input type="text" name="link-jira-disp-radio" placeholder="Ex: https://grupocednet.atlassian.net/.../GC-00000">
-                        <div style="margin-top: 5px">
-                            <button class="btn-copy" onclick="copiarChamadoDisponivelRadio(this)">📋 Copiar Chamado</button>
-                        </div>
-                    </div>
-
-                    <div class="field" id="field-jiraNao-radio" style="display:none">
-                        <div class="jira-info-box jira-new">
-                            <span>⚠️ Nenhum chamado aberto. Crie um agora:</span>
-                            <a href="https://grupocednet.atlassian.net/servicedesk/customer/portal/3/group/36" target="_blank" class="btn-jira-open">🔗 Abrir Chamado — Rádio</a>
-                        </div>
-                        <input type="text" name="link-jira-criado-radio" placeholder="Ex: https://grupocednet.atlassian.net/.../GC-00000">
-                        <div style="margin-top: 5px">
-                            <button class="btn-copy" onclick="copiarChamadoCriadoRadio(this)">📋 Copiar Chamado</button>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="field" id="field-baseOn" style="display:none">
-
-                <div class="airControl-header">
-                    <label>Consulta</label>
-                    <a class="btn-airControl-link" href="https://191.37.38.146:9082/#/devices" target="_blank"><span><img src="/images/airControl.png" alt="AirControl" class="airControl-img"></span> AirControl</a>
-                    <a class="btn-grafana-link" href="https://grafana.grupocednet.com.br/" target="_blank"><img src="/images/grafanaLogo.png" alt="Grafana" class="grafana-img"> Grafana</a>
-                </div>
 
                 <hr class="sep">
-
+                
                 <div class="field">
-                    <label>RÁDIO</label>
+                    <label class="field-subtitle">Disponibilidade</label>
                     <div class="radio-group">
-                        <label class="radio-btn"><input type="radio" name="radio" value="radioOn"><span>ONLINE</span></label>
-                        <label class="radio-btn"><input type="radio" name="radio" value="radioOff"><span>OFFLINE</span></label>
+                        <label class="radio-btn"><input type="radio" name="disponibilidade-agendamento" value="manha" onchange="horarioEspecifico(this)"><span>Manhã</span></label>
+                        <label class="radio-btn"><input type="radio" name="disponibilidade-agendamento" value="tarde" onchange="horarioEspecifico(this)"><span>Tarde</span></label>
+                        <label class="radio-btn"><input type="radio" name="disponibilidade-agendamento" value="qualquerHoraio" onchange="horarioEspecifico(this)"><span>Qualquer Horário</span></label>
+                        <label class="radio-btn"><input type="radio" name="disponibilidade-agendamento" value="horario-especifico" onchange="horarioEspecifico(this)"><span>Horário Específico</span></label>
+                    </div>
+                </div>
+
+                <div class="field" id="horario-especifico-agendamento" style="display:none">
+                    <label class="field-subtitle">Horário Específico</label>
+                    <div>
+                        <textarea name="horarioEsp" placeholder="Ex: Após às 18h - 03/07&#10;Após 16h - 04/07"></textarea>
                     </div>
                 </div>
 
                 <hr class="sep">
 
                 <div class="field">
-                    <label>PPPoE</label>
-                    <div class="radio-group">
-                        <label class="radio-btn"><input type="radio" name="pppoe-radio" value="pppoeOn-radio"><span>ONLINE</span></label>
-                        <label class="radio-btn"><input type="radio" name="pppoe-radio" value="pppoeOff-radio"><span>OFFLINE</span></label>
-                    </div>
+                    <label>Login PPPoE</label>
+                    <input type="text" name="loginpppoe" id="loginpppoe" placeholder="Ex: 123Pietro"> <br>
+                    <label>Senha PPPoE</label>
+                    <input type="text" name="senhapppoe" id="senhapppoe" placeholder="Ex: 456Pietro"> <br>
+                    <label>OLT</label>
+                    <input type="text" name="olt" id="olt" placeholder="Ex: IPP-OLT1-DATACOM"> <br>
+                    <label>PON</label>
+                    <input type="text" name="pon" id="pon" placeholder="Ex: 1/1/20"> <br>
+                    <label>CAIXA</label>
+                    <input type="text" name="cxDesc" id="cxDesc" placeholder="Ex: IPP_CTO_10A1"> <br>
+                    <label>ONU MAC</label>
+                    <input type="text" name="mac" id="mac" placeholder="Ex: ZTEGD1FA0B65"> <br>
                 </div>
 
                 <hr class="sep">
 
                 <div class="field">
-                    <label>Descrição da OS</label>
-                    <textarea name="descricao-radio" id="descricao-radio" placeholder="Realizado Reboot e PatchCord na PoE.
-Realizado Reboot no rádio.
-Cliente prossegue sem conexão.
-Verificado e necessário agendamento."></textarea>
+                    <label>Ativar TR069?</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="tr069" value="ativarTR" onchange="horarioEspecifico(this)"><span>Ativar</span></label>
+                        <label class="radio-btn"><input type="radio" name="tr069" value="TRativado" onchange="horarioEspecifico(this)"><span>Sem Necessidade</span></label>
+                    </div>
                 </div>
-
-                <hr class="sep">
 
                 <div class="field">
-                    <label>Necessário Agendamento?</label>
+                    <button class="btn-copy" onclick="copiarAgendamentoFibra(this)">📋 Copiar Agendamento</button>
+                </div>
+            </div>
+
+            <!-- Card Sem Conexão - RÁDIO ------------------------------------------------------------------------------------------------------------------------------->
+            <div class="card" id="card-radio" style="display:none">
+
+                <div class="field">
+                    <label>BASE</label>
                     <div class="radio-group">
-                        <label class="radio-btn"><input type="radio" name="agendamento-radio" value="agendamentoSim_radio" onchange="toggleCards(this.value, { agendamentoSim_radio: 'field-agendamentoSim-radio', agendamentoNao_radio: 'field-agendamentoNao-radio' })"><span>Sim</span></label>
-                        <label class="radio-btn"><input type="radio" name="agendamento-radio" value="agendamentoNao_radio" onchange="toggleCards(this.value, { agendamentoSim_radio: 'field-agendamentoSim-radio', agendamentoNao_radio: 'field-agendamentoNao-radio' })"><span>Não</span></label>
+                        <label class="radio-btn"><input type="radio" name="base" value="baseOn" onchange="toggleCards(this.value, { baseOn: 'field-baseOn', baseOff: 'field-baseOff' })"><span>ONLINE</span></label>
+                        <label class="radio-btn"><input type="radio" name="base" value="baseOff" onchange="toggleCards(this.value, { baseOn: 'field-baseOn', baseOff: 'field-baseOff' })"><span>OFFLINE</span></label>
                     </div>
                 </div>
 
-                <div class="field" id="field-agendamentoNao-radio" style="display:none">
-                    <div class="field" style="margin-top: 5px">
-                        <button class="btn-copy" onclick="copiarResolucaoRadio(this)">📋 Copiar Resolução</button>
+                <div class="field" id="field-baseOff" style="display:none">
+                    <div class="field">
+                        <div class="jira-header">
+                            <label>Há chamado no JIRA em aberto?</label>
+                            <a class="btn-jira-link" href="https://grupocednet.atlassian.net/servicedesk/customer/user/requests?reporter=all&statuses=open" target="_blank"><span><img src="/images/jira.png" alt="JIRA" class="jira-img"></span> Ver Chamados</a>
+                            <a class="btn-zabbix-link" href="https://zabbix.cednet.com.br/zabbix.php?action=dashboard.view&dashboardid=1" target="_blank"><span class="badge-z">Z </span> Zabbix</a>
+                        </div>
+                        <div class="radio-group">
+                            <label class="radio-btn"><input type="radio" name="jira-radio" value="jiraSim" onchange="toggleCards(this.value, {jiraSim: 'field-jiraSim-radio', jiraNao: 'field-jiraNao-radio'})"><span>Sim</span></label>
+                            <label class="radio-btn"><input type="radio" name="jira-radio" value="jiraNao" onchange="toggleCards(this.value, {jiraSim: 'field-jiraSim-radio', jiraNao: 'field-jiraNao-radio'})"><span>Não</span></label>
+                        </div>
+
+                        <div class="field" id="field-jiraSim-radio" style="display:none">
+                            <div class="jira-info-box jira-exists">
+                                <span>✅ Chamado já existe! Cole o link abaixo.</span>
+                            </div>
+                            <input type="text" name="link-jira-disp-radio" placeholder="Ex: https://grupocednet.atlassian.net/.../GC-00000">
+                            <div style="margin-top: 5px">
+                                <button class="btn-copy" onclick="copiarChamadoDisponivelRadio(this)">📋 Copiar Chamado</button>
+                            </div>
+                        </div>
+
+                        <div class="field" id="field-jiraNao-radio" style="display:none">
+                            <div class="jira-info-box jira-new">
+                                <span>⚠️ Nenhum chamado aberto. Crie um agora:</span>
+                                <a href="https://grupocednet.atlassian.net/servicedesk/customer/portal/3/group/36" target="_blank" class="btn-jira-open">🔗 Abrir Chamado — Rádio</a>
+                            </div>
+                            <input type="text" name="link-jira-criado-radio" placeholder="Ex: https://grupocednet.atlassian.net/.../GC-00000">
+                            <div style="margin-top: 5px">
+                                <button class="btn-copy" onclick="copiarChamadoCriadoRadio(this)">📋 Copiar Chamado</button>
+                            </div>
+                        </div>
                     </div>
+                </div>
+
+                <div class="field" id="field-baseOn" style="display:none">
+
+                    <div class="airControl-header">
+                        <label>Consulta</label>
+                        <a class="btn-airControl-link" href="https://191.37.38.146:9082/#/devices" target="_blank"><span><img src="/images/airControl.png" alt="AirControl" class="airControl-img"></span> AirControl</a>
+                        <a class="btn-grafana-link" href="https://grafana.grupocednet.com.br/" target="_blank"><img src="/images/grafanaLogo.png" alt="Grafana" class="grafana-img"> Grafana</a>
+                    </div>
+
+                    <hr class="sep">
+
+                    <div class="field">
+                        <label>RÁDIO</label>
+                        <div class="radio-group">
+                            <label class="radio-btn"><input type="radio" name="radio" value="radioOn"><span>ONLINE</span></label>
+                            <label class="radio-btn"><input type="radio" name="radio" value="radioOff"><span>OFFLINE</span></label>
+                        </div>
+                    </div>
+
+                    <hr class="sep">
+
+                    <div class="field">
+                        <label>PPPoE</label>
+                        <div class="radio-group">
+                            <label class="radio-btn"><input type="radio" name="pppoe-radio" value="pppoeOn-radio"><span>ONLINE</span></label>
+                            <label class="radio-btn"><input type="radio" name="pppoe-radio" value="pppoeOff-radio"><span>OFFLINE</span></label>
+                        </div>
+                    </div>
+
+                    <hr class="sep">
+
+                    <div class="field">
+                        <label>Descrição da OS</label>
+                        <textarea name="descricao-radio" id="descricao-radio" placeholder="Realizado Reboot e PatchCord na PoE.
+    Realizado Reboot no rádio.
+    Cliente prossegue sem conexão.
+    Verificado e necessário agendamento."></textarea>
+                    </div>
+
+                    <hr class="sep">
+
+                    <div class="field">
+                        <label>Necessário Agendamento?</label>
+                        <div class="radio-group">
+                            <label class="radio-btn"><input type="radio" name="agendamento-radio" value="agendamentoSim_radio" onchange="toggleCards(this.value, { agendamentoSim_radio: 'field-agendamentoSim-radio', agendamentoNao_radio: 'field-agendamentoNao-radio' })"><span>Sim</span></label>
+                            <label class="radio-btn"><input type="radio" name="agendamento-radio" value="agendamentoNao_radio" onchange="toggleCards(this.value, { agendamentoSim_radio: 'field-agendamentoSim-radio', agendamentoNao_radio: 'field-agendamentoNao-radio' })"><span>Não</span></label>
+                        </div>
+                    </div>
+
+                    <div class="field" id="field-agendamentoNao-radio" style="display:none">
+                        <div class="field" style="margin-top: 5px">
+                            <button class="btn-copy" onclick="copiarResolucaoRadio(this)">📋 Copiar Resolução</button>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
 
-        </div>
-
-        <div class="card" id="field-agendamentoSim-radio" style="display:none">
-            <div class="field">
-                <label>Agendado por</label>
-                <input type="text" name="nomeAg-radio" id="nomeAg-radio" placeholder="Ex: Pietro de Alexandria Picoli">
-            </div>
-
-            <div class="field">
-                <label>Contato</label>
-                <div id="lista-contatos-radio">
-                    <div class="campo-contato-radio">
-                        <input type="text" name="contatoAg-radio" id="contatoAg-radio" maxlength="15" placeholder="(XX) XXXXX-XXXX" oninput="mascaraContato(this)">
-                    </div>
+            <div class="card" id="field-agendamentoSim-radio" style="display:none">
+                <div class="field">
+                    <label>Agendado por</label>
+                    <input type="text" name="nomeAg-radio" id="nomeAg-radio" placeholder="Ex: Pietro de Alexandria Picoli">
                 </div>
-                <button class="btn-copy" name="btn-addCtt" onclick="adicionarContatoRadio()">+ Adicionar contato</button>
-            </div>
-        
-            <hr class="sep">
+
+                <div class="field">
+                    <label>Contato</label>
+                    <div id="lista-contatos-radio">
+                        <div class="campo-contato-radio">
+                            <input type="text" name="contatoAg-radio" id="contatoAg-radio" maxlength="15" placeholder="(XX) XXXXX-XXXX" oninput="mascaraContato(this)">
+                        </div>
+                    </div>
+                    <button class="btn-copy" name="btn-addCtt" onclick="adicionarContatoRadio()">+ Adicionar contato</button>
+                </div>
             
-            <div class="field">
-                <label class="field-subtitle">Disponibilidade</label>
-                <div class="radio-group">
-                    <label class="radio-btn"><input type="radio" name="disponibilidade-agendamento-radio" value="manha" onchange="horarioEspecifico(this)"><span>Manhã</span></label>
-                    <label class="radio-btn"><input type="radio" name="disponibilidade-agendamento-radio" value="tarde" onchange="horarioEspecifico(this)"><span>Tarde</span></label>
-                    <label class="radio-btn"><input type="radio" name="disponibilidade-agendamento-radio" value="qualquerHoraio" onchange="horarioEspecifico(this)"><span>Qualquer Horário</span></label>
-                    <label class="radio-btn"><input type="radio" name="disponibilidade-agendamento-radio" value="horario-especifico" onchange="horarioEspecifico(this)"><span>Horário Específico</span></label>
+                <hr class="sep">
+                
+                <div class="field">
+                    <label class="field-subtitle">Disponibilidade</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="disponibilidade-agendamento-radio" value="manha" onchange="horarioEspecifico(this)"><span>Manhã</span></label>
+                        <label class="radio-btn"><input type="radio" name="disponibilidade-agendamento-radio" value="tarde" onchange="horarioEspecifico(this)"><span>Tarde</span></label>
+                        <label class="radio-btn"><input type="radio" name="disponibilidade-agendamento-radio" value="qualquerHoraio" onchange="horarioEspecifico(this)"><span>Qualquer Horário</span></label>
+                        <label class="radio-btn"><input type="radio" name="disponibilidade-agendamento-radio" value="horario-especifico" onchange="horarioEspecifico(this)"><span>Horário Específico</span></label>
+                    </div>
+                </div>
+
+                <div class="field" id="horario-especifico-agendamento-radio" style="display:none">
+                    <label class="field-subtitle">Horário Específico</label>
+                    <div>
+                        <textarea name="horarioEsp-Radio" placeholder="Ex: Após às 18h - 03/07&#10;Após 16h - 04/07"></textarea>
+                    </div>
+                </div>
+
+                <hr class="sep">
+
+                <div class="field">
+                    <label>Login PPPoE</label>
+                    <input type="text" name="loginpppoe-radio" id="loginpppoe-radio" placeholder="Ex: 123Pietro"> <br>
+                    <label>Senha PPPoE</label>
+                    <input type="text" name="senhapppoe-radio" id="senhapppoe-radio" placeholder="Ex: 456Pietro"> <br>
+                    <label>IP Rádio</label>
+                    <input type="text" name="ipRadio" id="ipRadio" placeholder="Ex: 10.0.0.1"> <br>
+                    <label>IP Base</label>
+                    <input type="text" name="ipBase" id="ipBase" placeholder="Ex: 10.0.0.2"> <br>
+                    <label>Encrypt BASE</label>
+                    <input type="text" name="encryptBase" id="encryptBase" placeholder="Ex: a1b2c3d4e5f6"> <br>
+                    <label>Link da Localização</label>
+                    <input type="text" name="loc" id="loc" placeholder="Ex: https://maps.app.goo.gl/4FTkMUAyrg9Y28Mu7"> <br>
+                </div>
+
+                <hr class="sep">
+
+                <div class="field">
+                    <label>Ativar TR069?</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="tr069-radio" value="ativarTR-radio" onchange="horarioEspecifico(this)"><span>Ativar</span></label>
+                        <label class="radio-btn"><input type="radio" name="tr069-radio" value="TRativado-radio" onchange="horarioEspecifico(this)"><span>Sem Necessidade</span></label>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <button class="btn-copy" onclick="copiarAgendamentoRadio(this)">📋 Copiar Agendamento</button>
                 </div>
             </div>
 
-            <div class="field" id="horario-especifico-agendamento-radio" style="display:none">
-                <label class="field-subtitle">Horário Específico</label>
-                <div>
-                    <textarea name="horarioEsp-Radio" placeholder="Ex: Após às 18h - 03/07&#10;Após 16h - 04/07"></textarea>
-                </div>
-            </div>
-
-            <hr class="sep">
-
-            <div class="field">
-                <label>Login PPPoE</label>
-                <input type="text" name="loginpppoe-radio" id="loginpppoe-radio" placeholder="Ex: 123Pietro"> <br>
-                <label>Senha PPPoE</label>
-                <input type="text" name="senhapppoe-radio" id="senhapppoe-radio" placeholder="Ex: 456Pietro"> <br>
-                <label>IP Rádio</label>
-                <input type="text" name="ipRadio" id="ipRadio" placeholder="Ex: 10.0.0.1"> <br>
-                <label>IP Base</label>
-                <input type="text" name="ipBase" id="ipBase" placeholder="Ex: 10.0.0.2"> <br>
-                <label>Encrypt BASE</label>
-                <input type="text" name="encryptBase" id="encryptBase" placeholder="Ex: a1b2c3d4e5f6"> <br>
-                <label>Link da Localização</label>
-                <input type="text" name="loc" id="loc" placeholder="Ex: https://maps.app.goo.gl/4FTkMUAyrg9Y28Mu7"> <br>
-            </div>
-
-            <hr class="sep">
-
-            <div class="field">
-                <label>Ativar TR069?</label>
-                <div class="radio-group">
-                    <label class="radio-btn"><input type="radio" name="tr069-radio" value="ativarTR-radio" onchange="horarioEspecifico(this)"><span>Ativar</span></label>
-                    <label class="radio-btn"><input type="radio" name="tr069-radio" value="TRativado-radio" onchange="horarioEspecifico(this)"><span>Sem Necessidade</span></label>
-                </div>
-            </div>
-
-            <div class="field">
-                <button class="btn-copy" onclick="copiarAgendamentoRadio(this)">📋 Copiar Agendamento</button>
+            <!-- Watermark ------------------------------------------------------------------------------------------------------------------------------->
+            <div class="card">
+                    <div class="watermark">Desenvolvido por Pietro de Alexandria Picoli — <a href="https://github.com/PietroAlexandria" target="_blank">GitHub</a></div>
             </div>
         </div>
 
-        <!-- Watermark ------------------------------------------------------------------------------------------------------------------------------->
-        <div class="card">
-                <div class="watermark">Desenvolvido por Pietro de Alexandria Picoli — <a href="https://github.com/PietroAlexandria" target="_blank">GitHub</a></div>
+        <div class="history-container">
+            <div class="history-header">Histórico</div>
+            <div class="history-content" id="history-panel"></div>
         </div>
     </div>
     
