@@ -14,7 +14,7 @@ Nome: ${nome}
 Contato: ${contato}
 Motivo: Mudança de Endereço - ${area}`;
 
-    try { salvarHistorico(texto); } catch(e) {}
+    try { salvarHistorico(texto, 'Coleta - Mudança de Endereço'); } catch(e) {}
     navigator.clipboard.writeText(texto)
     .then(() => feedbackBtn(botao, '📋 Copiar Coleta'))
     .catch(() => mostrarAlerta('Erro ao copiar!'));
@@ -105,7 +105,7 @@ ${uf} ${cidade} ${cep} ${bairro} - ${logradouro}, ${number}
 Login PPPoE: ${loginPPPOE} 
 Senha PPPoE: ${senhaPPPOE}`;
 
-    try { salvarHistorico(texto); } catch(e) {}
+    try { salvarHistorico(texto, 'Mudança de Endereço'); } catch(e) {}
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar Formulário'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));

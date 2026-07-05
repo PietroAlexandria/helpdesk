@@ -15,8 +15,9 @@ Contato: ${contato}
 Motivo: Sem Conexão - ${type}`;
 
     navigator.clipboard.writeText(texto)
-    .then(() => feedbackBtn(botao, '📋 Copiar Coleta'))
-    .catch(() => mostrarAlerta('Erro ao copiar!'));
+        .then(() => feedbackBtn(botao, '📋 Copiar Coleta'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+    try { salvarHistorico(texto, 'Coleta - Sem Conexão'); } catch(e) {}
 }
 
 // AGENDAMENTO FIBRA
@@ -113,7 +114,7 @@ ${tr069} `;
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar Agendamento'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
-    salvarHistorico(texto);
+    try { salvarHistorico(texto, 'Agendamento Fibra - Sem Conexão'); } catch(e) {}
 }
 
 function copiarResolucaoFibra(botao) {
@@ -154,7 +155,7 @@ Problema Solucionado!`;
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar Agendamento'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
-    salvarHistorico(texto);
+    try { salvarHistorico(texto, 'Resolução Fibra - Sem Conexão'); } catch(e) {}
 }
 
 // AGENDAMENTO RÁDIO
@@ -237,7 +238,7 @@ ${tr069_Radio}`;
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar Agendamento'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
-    salvarHistorico(texto);
+    try { salvarHistorico(texto, 'Agendamento Rádio - Sem Conexão'); } catch(e) {}
 }
 
 function copiarResolucaoRadio(botao) {
@@ -268,7 +269,7 @@ Problema Solucionado!`;
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar Agendamento'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
-    salvarHistorico(texto);
+    try { salvarHistorico(texto, 'Resolução Rádio - Sem Conexão'); } catch(e) {}
 }
 
 // FIBRA --------------------------------------------------------------------------------------------------------------------------------
@@ -285,7 +286,7 @@ ${linkChamadoDispFibra}`;
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar Chamado'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
-    salvarHistorico(texto);
+    try { salvarHistorico(texto, 'Chamado Disponível Fibra'); } catch(e) {}
 }
 
 function copiarChamadoCriadoFibra(botao) {
@@ -301,7 +302,7 @@ ${linkChamadoCriadoFibra}`;
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar Chamado'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
-    salvarHistorico(texto);
+    try { salvarHistorico(texto, 'Chamado Criado Fibra'); } catch(e) {}
 }
 
 // RÁDIO --------------------------------------------------------------------------------------------------------------------------------
@@ -318,7 +319,7 @@ ${linkChamadoDispRadio}`;
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar Chamado'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
-    salvarHistorico(texto);
+    try { salvarHistorico(texto, 'Chamado Disponível Rádio'); } catch(e) {}
 }
 
 function copiarChamadoCriadoRadio(botao) {
@@ -334,7 +335,7 @@ ${linkChamadoCriadoRadio}`;
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar Chamado'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
-    salvarHistorico(texto); // Salva o texto no histórico
+    try { salvarHistorico(texto, 'Chamado Criado Rádio'); } catch(e) {}
 }
 
 function limparColeta() {

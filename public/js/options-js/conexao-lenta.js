@@ -22,7 +22,7 @@ Motivo: ${reincidencia}`;
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar Coleta'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
-    try { salvarHistorico(texto); } catch(e) {}
+    try { salvarHistorico(texto, 'Coleta - Conexão Lenta'); } catch(e) {}
 }
 
 // AGENDAMENTO FIBRA
@@ -99,7 +99,7 @@ ${tr069}`;
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar Agendamento'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
-    try { salvarHistorico(texto); } catch(e) {}
+    try { salvarHistorico(texto, 'Agendamento Fibra - Conexão Lenta'); } catch(e) {}
 }
 
 function copiarResolucaoFibra(botao) {
@@ -120,7 +120,7 @@ Problema Solucionado!`;
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar Agendamento'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
-    salvarHistorico(texto);
+    try { salvarHistorico(texto, 'Agendamento Rádio - Conexão Lenta'); } catch(e) {}
 }
 
 // AGENDAMENTO RÁDIO
@@ -188,7 +188,7 @@ ${tr069_Radio}`;
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar Agendamento'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
-    try { salvarHistorico(texto); } catch(e) {}
+    try { salvarHistorico(texto, 'Resolução Fibra - Conexão Lenta'); } catch(e) {}
 }
 
 function copiarResolucaoRadio(botao) {
@@ -208,7 +208,7 @@ Problema Solucionado!`;
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar Agendamento'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
-    try { salvarHistorico(texto); } catch(e) {}
+    try { salvarHistorico(texto, 'Resolução Rádio - Conexão Lenta'); } catch(e) {}
 }
 
 function limparColeta() {

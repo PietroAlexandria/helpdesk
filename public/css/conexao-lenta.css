@@ -622,13 +622,42 @@ body {
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 8px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.history-card-title {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.history-title {
+    font-size: 0.72rem;
+    font-weight: 700;
+    color: #c8d8f0;
 }
 
 .history-time {
     font-size: 0.7rem;
     color: #3d6b99;
     font-weight: 500;
+}
+
+.history-card-actions {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+}
+
+.history-arrow {
+    font-size: 0.65rem;
+    color: #4a9eff;
+    transition: transform 0.2s;
+}
+
+.history-body {
+    margin-top: 8px;
 }
 
 .history-remove {
