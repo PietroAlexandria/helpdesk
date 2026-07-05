@@ -337,6 +337,33 @@ ${linkChamadoCriadoRadio}`;
     salvarHistorico(texto); // Salva o texto no histórico
 }
 
+function limparColeta() {
+    document.querySelectorAll('input[name="via"], input[name="type"]').forEach(el => el.checked = false);
+    document.querySelector('input[name="nome"]').value = '';
+    document.querySelector('input[name="contato"]').value = '';
+    ['card-fibra', 'card-radio'].forEach(id => document.getElementById(id).style.display = 'none');
+}
+
+function limparAgendamentoFibra() {
+    document.querySelector('input[name="nomeAg"]').value = '';
+    document.querySelectorAll('#lista-contatos input').forEach(el => el.value = '');
+    document.querySelectorAll('#lista-contatos .btn-remove').forEach(el => el.closest('.campo-contato').remove());
+    document.querySelectorAll('input[name="disponibilidade-agendamento"], input[name="tr069"]').forEach(el => el.checked = false);
+    document.getElementById('horario-especifico-agendamento').style.display = 'none';
+    document.querySelector('textarea[name="horarioEsp"]').value = '';
+    ['loginpppoe','senhapppoe','olt','pon','cxDesc','mac'].forEach(id => document.getElementById(id).value = '');
+}
+
+function limparAgendamentoRadio() {
+    document.querySelector('input[name="nomeAg-radio"]').value = '';
+    document.querySelectorAll('#lista-contatos-radio input').forEach(el => el.value = '');
+    document.querySelectorAll('#lista-contatos-radio .btn-remove').forEach(el => el.closest('.campo-contato-radio').remove());
+    document.querySelectorAll('input[name="disponibilidade-agendamento-radio"], input[name="tr069-radio"]').forEach(el => el.checked = false);
+    document.getElementById('horario-especifico-agendamento-radio').style.display = 'none';
+    document.querySelector('textarea[name="horarioEsp-Radio"]').value = '';
+    ['loginpppoe-radio','senhapppoe-radio','ipRadio','ipBase','encryptBase','loc'].forEach(id => document.getElementById(id).value = '');
+}
+
 function feedbackBtn(botao, textoOriginal) {
     mostrarAlerta('Copiado com sucesso!', 'sucesso');
     botao.textContent = '✅ Copiado!';

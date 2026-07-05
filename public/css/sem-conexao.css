@@ -261,6 +261,39 @@ body {
     color: #ffffff;
 }
 
+.btn-group {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-group .btn-copy {
+    flex: 1;
+}
+
+.btn-clear {
+    padding: 11px 16px;
+    background: #fff0f0;
+    color: #dc2626;
+    border: 1.5px solid #fbb;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.btn-clear:hover {
+    background: #dc2626;
+    border-color: #dc2626;
+    color: #fff;
+}
+
+.btn-clear:active {
+    transform: scale(0.98);
+}
+
 .sep {
     border: none;
     border-top: 1px solid #e8edf5;
@@ -804,3 +837,25 @@ body {
     margin: 0;
     word-break: break-word;
 }
+
+.history-copy {
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border: 1px solid #2a2a3a;
+    border-radius: 5px;
+    color: #4a9eff;
+    font-size: 0.65rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.history-copy:hover {
+    background: rgba(74,158,255,0.15);
+    border-color: #4a9eff;
+}
+
