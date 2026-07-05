@@ -1,6 +1,6 @@
 function salvarHistorico(texto) {
     const historico = JSON.parse(localStorage.getItem('historico') || '[]');
-    const nome = document.getElementById('nome').value.trim() || 'Cliente';
+    const nome = (document.getElementById('nome') || document.querySelector('input[name="nome"]'))?.value.trim() || 'Cliente';
     historico.push({
         id: Date.now(),
         hora: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
@@ -32,7 +32,7 @@ function renderizarHistorico() {
         return;
     }
 
-    painel.innerHTML = historico.slice().reverse().map(item => `
+    painel.innerHTML = historico.map(item => `
         <div class="history-card">
             <div class="history-card-header">
                 <span class="history-time">🕐 ${item.hora} - ${item.nome}</span>

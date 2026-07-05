@@ -217,6 +217,15 @@ body {
     margin: 16px 0;
 }
 
+.btn-group {
+    display: flex;
+    gap: 8px;
+}
+
+.btn-group .btn-copy {
+    flex: 1;
+}
+
 .btn-copy {
     width: 100%;
     padding: 11px 16px;
@@ -355,4 +364,178 @@ body {
     background: #f0fff4;
     color: #1a7a3c;
     border: 1.5px solid #a3e6b8;
+}
+
+/* ── Painel fixo ── */
+.history-container {
+    position: fixed;
+    top: 50%;
+    right: 20px;
+    transform: translateY(-50%);
+    width: 300px;
+    max-height: 75vh;
+    display: flex;
+    flex-direction: column;
+    background: #0f1117;
+    border: 1px solid #1e2a3a;
+    border-radius: 16px;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 0 1px rgba(255,255,255,0.04);
+    overflow: hidden;
+    z-index: 999;
+    font-family: 'Inter', sans-serif;
+}
+
+.history-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 16px;
+    background: #0f1117;
+    border-bottom: 1px solid #1e2a3a;
+    flex-shrink: 0;
+}
+
+.history-header span {
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    color: #4a9eff;
+}
+
+.history-header button {
+    font-size: 0.68rem;
+    font-weight: 600;
+    color: #ff5f5f;
+    background: rgba(255,95,95,0.08);
+    border: 1px solid rgba(255,95,95,0.2);
+    border-radius: 6px;
+    padding: 3px 8px;
+    cursor: pointer;
+    font-family: 'Inter', sans-serif;
+    transition: all 0.2s;
+}
+
+.history-header button:hover {
+    background: rgba(255,95,95,0.2);
+}
+
+.history-content {
+    overflow-y: auto;
+    flex: 1;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    scrollbar-width: thin;
+    scrollbar-color: #1e2a3a transparent;
+}
+
+.history-empty {
+    text-align: center;
+    color: #3a4a5a;
+    font-size: 0.8rem;
+    padding: 24px 0;
+}
+
+.history-card {
+    background: #141920;
+    border: 1px solid #1e2a3a;
+    border-radius: 10px;
+    padding: 10px 12px;
+    transition: border-color 0.2s;
+}
+
+.history-card:hover {
+    border-color: #2a3f5a;
+}
+
+.history-card-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 8px;
+}
+
+.history-time {
+    font-size: 0.7rem;
+    color: #3d6b99;
+    font-weight: 500;
+}
+
+.history-remove {
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border: 1px solid #2a2a3a;
+    border-radius: 5px;
+    color: #ff5f5f;
+    font-size: 0.65rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    font-family: 'Inter', sans-serif;
+    flex-shrink: 0;
+}
+
+.history-remove:hover {
+    background: rgba(255,95,95,0.15);
+    border-color: #ff5f5f;
+}
+
+.history-text {
+    white-space: pre-wrap;
+    font-size: 0.7rem;
+    color: #7eb8f7;
+    font-family: 'Courier New', monospace;
+    line-height: 1.6;
+    margin: 0;
+    word-break: break-word;
+}
+
+.history-copy {
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border: 1px solid #2a2a3a;
+    border-radius: 5px;
+    color: #4a9eff;
+    font-size: 0.65rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.history-copy:hover {
+    background: rgba(74,158,255,0.15);
+    border-color: #4a9eff;
+}
+
+.btn-clear {
+    padding: 11px 16px;
+    background: #fff0f0;
+    color: #dc2626;
+    border: 1.5px solid #fbb;
+    border-radius: 10px;
+    font-size: 0.9rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+}
+
+.btn-clear:hover {
+    background: #dc2626;
+    border-color: #dc2626;
+    color: #fff;
+}
+
+.btn-clear:active {
+    transform: scale(0.98);
 }

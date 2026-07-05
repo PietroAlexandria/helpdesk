@@ -10,256 +10,268 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
+    <div class="layout-with-history">
+        <div class="container">
 
-        <div class="page-header">
-            <a href="/" class="btn-back">← Voltar</a>
-            <h1 class="page-title">📦 Mudança de Endereço</h1>
-        </div>
+            <div class="page-header">
+                <a href="/" class="btn-back">← Voltar</a>
+                <h1 class="page-title">📦 Mudança de Endereço</h1>
+            </div>
 
-        <!-- Coleta de Dados ------------------------------------------------------------------------------------------------------------------------------->
-        <div class="card">
-            <p class="card-title">Coleta de Dados</p>
+            <!-- Coleta de Dados ------------------------------------------------------------------------------------------------------------------------------->
+            <div class="card">
+                <p class="card-title">Coleta de Dados</p>
 
-            <div class="field">
-                <label class="field-subtitle">Via de Contato</label>
-                <div class="radio-group">
-                    <label class="radio-btn"><input type="radio" name="via" value="Central"><span>Central</span></label>
-                    <label class="radio-btn"><input type="radio" name="via" value="OPA"><span>OPA! Suite</span></label>
+                <div class="field">
+                    <label class="field-subtitle">Via de Contato</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="via" value="Central"><span>Central</span></label>
+                        <label class="radio-btn"><input type="radio" name="via" value="OPA"><span>OPA! Suite</span></label>
+                    </div>
+                </div>
+
+                <hr class="sep">
+
+                <div class="field">
+                    <label>Nome do Solicitante</label>
+                    <input type="text" name="nome" placeholder="Ex: Pietro de Alexandria Picoli">
+                </div>
+
+                <div class="field">
+                    <label>Contato</label>
+                    <input type="text" name="contato" placeholder="Ex: (XX) XXXXX-XXXX" maxlength="15" oninput="mascaraContato(this)">
                 </div>
             </div>
 
-            <hr class="sep">
+            <!-- Área ------------------------------------------------------------------------------------------------------------------------------->
+            <div class="card">
+                <p class="card-title">Área</p>
+                <div class="field">
+                    <label class="field-subtitle">Selecione a Área</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="area" value="Urbana" onchange="toggleCards(this.value, { Urbana: 'card-urbana', Rural: 'card-rural' })"><span>Urbana</span></label>
+                        <label class="radio-btn"><input type="radio" name="area" value="Rural" onchange="toggleCards(this.value, { Urbana: 'card-urbana', Rural: 'card-rural' })"><span>Rural</span></label>
+                    </div>
+                </div>
 
-            <div class="field">
-                <label>Nome do Solicitante</label>
-                <input type="text" name="nome" placeholder="Ex: Pietro de Alexandria Picoli">
-            </div>
-
-            <div class="field">
-                <label>Contato</label>
-                <input type="text" name="contato" placeholder="Ex: (XX) XXXXX-XXXX" maxlength="15" oninput="mascaraContato(this)">
-            </div>
-        </div>
-
-        <!-- Área ------------------------------------------------------------------------------------------------------------------------------->
-        <div class="card">
-            <p class="card-title">Área</p>
-            <div class="field">
-                <label class="field-subtitle">Selecione a Área</label>
-                <div class="radio-group">
-                    <label class="radio-btn"><input type="radio" name="area" value="Urbana" onchange="toggleCards(this.value, { Urbana: 'card-urbana', Rural: 'card-rural' })"><span>Urbana</span></label>
-                    <label class="radio-btn"><input type="radio" name="area" value="Rural" onchange="toggleCards(this.value, { Urbana: 'card-urbana', Rural: 'card-rural' })"><span>Rural</span></label>
+                <div class="btn-group">
+                    <button class="btn-copy" onclick="copiarColetaDados(this)">📋 Copiar Coleta</button>
+                    <button class="btn-clear" onclick="limparColeta()">🗑️ Limpar</button>
                 </div>
             </div>
 
-            <div class="field">
-                <button class="btn-copy" onclick="copiarColetaDados(this)">📋 Copiar Coleta</button>
-            </div>
-        </div>
+            <!-- Card Urbana ------------------------------------------------------------------------------------------------------------------------------->
+            <div class="card" id="card-urbana" style="display:none">
+                <p class="card-title">Mudança de Endereço - Urbana</p>
 
-        <!-- Card Urbana ------------------------------------------------------------------------------------------------------------------------------->
-        <div class="card" id="card-urbana" style="display:none">
-            <p class="card-title">Mudança de Endereço - Urbana</p>
-
-            <div class="field">
-                <label class="field-subtitle">Taxa</label>
-                <div class="radio-group">
-                    <label class="radio-btn"><input type="radio" name="taxa" id="taxa" value="isento"><span>Isento</span></label>
-                    <label class="radio-btn"><input type="radio" name="taxa" id="taxa" value="custo"><span>Não Isento</span></label>
+                <div class="field">
+                    <label class="field-subtitle">Taxa</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="taxa" id="taxa" value="isento"><span>Isento</span></label>
+                        <label class="radio-btn"><input type="radio" name="taxa" id="taxa" value="custo"><span>Não Isento</span></label>
+                    </div>
                 </div>
-            </div>
 
-            <hr class="sep">
+                <hr class="sep">
 
-            <div class="field">
-                <label class="field-subtitle">Mudança</label>
-                <div class="radio-group">
-                    <label class="radio-btn"><input type="radio" name="dataMudanca" id="dataMudanca" value="mudou" onchange="dataEspecifica(this)"><span>Cliente já se mudou</span></label>
-                    <label class="radio-btn"><input type="radio" name="dataMudanca" id="dataMudanca" value="naoMudou" onchange="dataEspecifica(this)"><span>Cliente irá se mudar</span></label>
+                <div class="field">
+                    <label class="field-subtitle">Mudança</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="dataMudanca" id="dataMudanca" value="mudou" onchange="dataEspecifica(this)"><span>Cliente já se mudou</span></label>
+                        <label class="radio-btn"><input type="radio" name="dataMudanca" id="dataMudanca" value="naoMudou" onchange="dataEspecifica(this)"><span>Cliente irá se mudar</span></label>
+                    </div>
+                    <div class="field" id="dataMudancaEsp" style="display:none">
+                        <label>Informe a data</label>
+                        <input type="date" name="data">
+                    </div>
                 </div>
-                <div class="field" id="dataMudancaEsp" style="display:none">
-                    <label>Informe a data</label>
-                    <input type="date" name="data">
+
+                <hr class="sep">
+
+                <div class="field">
+                    <label class="field-subtitle">Equipamentos</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="equipamentos" id="equipamentos" value="levar"><span>Cliente irá levar</span></label>
+                        <label class="radio-btn"><input type="radio" name="equipamentos" id="equipamentos" value="buscar"><span>Cliente não irá levar</span></label>
+                    </div>
                 </div>
-            </div>
 
-            <hr class="sep">
-
-            <div class="field">
-                <label class="field-subtitle">Equipamentos</label>
-                <div class="radio-group">
-                    <label class="radio-btn"><input type="radio" name="equipamentos" id="equipamentos" value="levar"><span>Cliente irá levar</span></label>
-                    <label class="radio-btn"><input type="radio" name="equipamentos" id="equipamentos" value="buscar"><span>Cliente não irá levar</span></label>
+                <hr class="sep">
+                
+                <div class="field">
+                    <label class="field-subtitle">Disponibilidade</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="disponibilidade-urbana" value="manha" onchange="horarioEspecifico(this)"><span>Manhã</span></label>
+                        <label class="radio-btn"><input type="radio" name="disponibilidade-urbana" value="tarde" onchange="horarioEspecifico(this)"><span>Tarde</span></label>
+                        <label class="radio-btn"><input type="radio" name="disponibilidade-urbana" value="qualquerHoraio" onchange="horarioEspecifico(this)"><span>Qualquer Horário</span></label>
+                        <label class="radio-btn"><input type="radio" name="disponibilidade-urbana" value="horario-especifico" onchange="horarioEspecifico(this)"><span>Horário Específico</span></label>
+                    </div>
+                    <div class="field" id="horario-especifico-urbana" style="display:none">
+                        <label>Informe o Horário</label>
+                        <input type="text" name="horario" placeholder="Ex: Após às 18h">
+                    </div>
                 </div>
-            </div>
 
-            <hr class="sep">
-            
-            <div class="field">
-                <label class="field-subtitle">Disponibilidade</label>
-                <div class="radio-group">
-                    <label class="radio-btn"><input type="radio" name="disponibilidade-urbana" value="manha" onchange="horarioEspecifico(this)"><span>Manhã</span></label>
-                    <label class="radio-btn"><input type="radio" name="disponibilidade-urbana" value="tarde" onchange="horarioEspecifico(this)"><span>Tarde</span></label>
-                    <label class="radio-btn"><input type="radio" name="disponibilidade-urbana" value="qualquerHoraio" onchange="horarioEspecifico(this)"><span>Qualquer Horário</span></label>
-                    <label class="radio-btn"><input type="radio" name="disponibilidade-urbana" value="horario-especifico" onchange="horarioEspecifico(this)"><span>Horário Específico</span></label>
-                </div>
-                <div class="field" id="horario-especifico-urbana" style="display:none">
-                    <label>Informe o Horário</label>
-                    <input type="text" name="horario" placeholder="Ex: Após às 18h">
-                </div>
-            </div>
-
-            <hr class="sep">
-
-            <div class="field">
-                <label class="field-subtitle">Telhado</label>
-                <div class="radio-group">
-                    <label class="radio-btn"><input type="radio" name="tipo-telhado-urbano" value="zinco" onchange="tipoDeTelhado(this)"><span>Zinco</span></label>
-                    <label class="radio-btn"><input type="radio" name="tipo-telhado-urbano" value="eternit" onchange="tipoDeTelhado(this)"><span>Eternit</span></label>
-                    <label class="radio-btn"><input type="radio" name="tipo-telhado-urbano" value="ceramica" onchange="tipoDeTelhado(this)"><span>Cerâmica</span></label>
-                    <label class="radio-btn"><input type="radio" name="tipo-telhado-urbano" value="outro-telhado" onchange="tipoDeTelhado(this)"><span>Outro</span></label>
-                </div>
-                <div class="field" id="outro-telhado-urbano" style="display:none">
-                    <label>Informe o tipo de Telhado</label>
-                    <input type="text" name="telha" placeholder="Ex: PVC">
-                </div>
-            </div>
-
-            <div class="field">
-                <label class="field-subtitle">Há mais de um poste no local?</label>
-                <div class="radio-group">
-                    <label class="radio-btn"><input type="radio" name="poste" value="sim"><span>Sim</span></label>
-                    <label class="radio-btn"><input type="radio" name="poste" value="nao"><span>Não</span></label>
-                </div>
-            </div>
-
-            <hr class="sep">
-
-            <div class="field">
-                <label>Antigo Endereço</label>
-                <input type="text" name="enderecoAntigo" placeholder="Ex: (Estado) (Cidade) (CEP) (Bairro) - (Rua, número)">
-            </div>
-
-            <hr class="sep">
-
-            <div class="field">
-                <label class="field-subtitle"><span>Novo Endereço 📍</span></label>
-            </div>
-
-            <div class="field">
-                <label>CEP</label>
-                <input type="text" name="cep" id="cep" placeholder="Ex: XXXXX-XXX" maxlength="9" oninput="mascaraCep(this)" onblur="buscarCep(this.value)">
-            </div>
-
-            <div class="field">
-                <label for="uf">Estado</label>
-                <select name="uf" id="uf">
-                    <option value="">Selecione a UF</option>
-                    <option value="sp">SP</option>
-                    <option value="pr">PR</option>
-                </select>
-            </div>
-
-            <div class="field">
-                <label for="cidade">Cidade</label>
-                <select name="cidade" id="cidade">
-                    <option value="">Selecione a cidade</option>
-                    <option value="aguasStaBarbara">Águas de Santa Bárbara </option>
-                    <option value="arandu">Arandu                          </option>
-                    <option value="bernardinoDeCampos">Bernardino de Campos</option>
-                    <option value="cambara">Cambará                        </option>
-                    <option value="carlopolis">Carlópolis                  </option>
-                    <option value="cerqueiraCesar">Cerqueira César         </option>
-                    <option value="chavantes">Chavantes                    </option>
-                    <option value="espStoTurvo">Espírito Santo do Turvo    </option>
-                    <option value="fartura">Fartura                        </option>
-                    <option value="ipaussu">Ipaussu                        </option>
-                    <option value="itai">Itaí                              </option>
-                    <option value="jacarezinho">Jacarezinho                </option>
-                    <option value="manduri">Manduri                        </option>
-                    <option value="ourinhos">Ourinhos                      </option>
-                    <option value="paranapanema">Paranapanema              </option>
-                    <option value="piraju">Piraju                          </option>
-                    <option value="ribClaro">Ribeirão Claro                </option>
-                    <option value="saltoItarare">Salto do Itararé          </option>
-                    <option value="saltoGrande">Salto Grande               </option>
-                    <option value="staCruzRioPardo">Santa Cruz do Rio Pardo</option>
-                    <option value="santanaItarare">Santana do Itararé      </option>
-                    <option value="taguai">Taguaí                          </option>
-                    <option value="taquarituba">Taquarituba                </option>
-                    <option value="tejupa">Tejupá                          </option>
-                </select>
-            </div>
-
-            <div class="field">
-                <label>Bairro</label>
-                <input type="text" name="bairro" id="bairro" placeholder="Ex: Bairro CedNet II">
-            </div>
-
-            <div class="field">
-                <label>Rua</label>
-                <input type="text" name="logradouro" id="logradouro" placeholder="Ex: Rua Santos Dumont">
-            </div>
-
-            <div class="field">
-                <label>Número da Casa/APTO</label>
-                <input type="text" name="number" id="number" placeholder="Ex: 131">
-            </div>
-
-            <div class="field">
-                <label>Login PPPoE</label>
-                <input type="text" name="loginpppoe" id="loginpppoe" placeholder="Ex: 123Pietro"> <br>
-                <label>Senha PPPoE</label>
-                <input type="text" name="senhapppoe" id="senhapppoe" placeholder="Ex: 456Pietro">
-            </div>
-
-            <div class="field">
-                <button class="btn-copy" onclick="copiarForm(this)">📋 Copiar Formulário</button>
-            </div>
-        </div>
-
-        <!-- Card Rural ------------------------------------------------------------------------------------------------------------------------------->
-        <div class="card" id="card-rural" style="display:none">
-            <p class="card-title">Mudança de Endereço - Rural</p>
-
-            <h1 class="page-rural">TRANSFIRA O ATENDIMENTO PARA SETOR COMERCIAL RURAL - VIABILIDADE</h1>
-            
-            <!--
-            <div class="field">
-                <label class="field-subtitle">Disponibilidade</label>
-                <div class="radio-group">
-                    <label class="radio-btn"><input type="radio" name="disponibilidade-rural" value="manha" onchange="horarioEspecifico(this)"><span>Manhã</span></label>
-                    <label class="radio-btn"><input type="radio" name="disponibilidade-rural" value="tarde" onchange="horarioEspecifico(this)"><span>Tarde</span></label>
-                    <label class="radio-btn"><input type="radio" name="disponibilidade-rural" value="qualquerHoraio" onchange="horarioEspecifico(this)"><span>Qualquer Horário</span></label>
-                    <label class="radio-btn"><input type="radio" name="disponibilidade-rural" value="horario-especifico" onchange="horarioEspecifico(this)"><span>Horário Específico</span></label>
-                </div>
-                <div class="field" id="horario-especifico-rural" style="display:none">
-                    <label>Informe o Horário</label>
-                    <input type="text" name="horario" placeholder="Ex: Após às 18h">
-                </div>
+                <hr class="sep">
 
                 <div class="field">
                     <label class="field-subtitle">Telhado</label>
                     <div class="radio-group">
-                        <label class="radio-btn"><input type="radio" name="tipo-telhado-rural" value="zinco" onchange="tipoDeTelhado(this)"><span>Zinco</span></label>
-                        <label class="radio-btn"><input type="radio" name="tipo-telhado-rural" value="eternit" onchange="tipoDeTelhado(this)"><span>Eternit</span></label>
-                        <label class="radio-btn"><input type="radio" name="tipo-telhado-rural" value="ceramica" onchange="tipoDeTelhado(this)"><span>Cerâmica</span></label>
-                        <label class="radio-btn"><input type="radio" name="tipo-telhado-rural" value="outro-telhado" onchange="tipoDeTelhado(this)"><span>Outro</span></label>
+                        <label class="radio-btn"><input type="radio" name="tipo-telhado-urbano" value="zinco" onchange="tipoDeTelhado(this)"><span>Zinco</span></label>
+                        <label class="radio-btn"><input type="radio" name="tipo-telhado-urbano" value="eternit" onchange="tipoDeTelhado(this)"><span>Eternit</span></label>
+                        <label class="radio-btn"><input type="radio" name="tipo-telhado-urbano" value="ceramica" onchange="tipoDeTelhado(this)"><span>Cerâmica</span></label>
+                        <label class="radio-btn"><input type="radio" name="tipo-telhado-urbano" value="outro-telhado" onchange="tipoDeTelhado(this)"><span>Outro</span></label>
                     </div>
-                    <div class="field" id="outro-telhado-rural" style="display:none">
+                    <div class="field" id="outro-telhado-urbano" style="display:none">
                         <label>Informe o tipo de Telhado</label>
                         <input type="text" name="telha" placeholder="Ex: PVC">
                     </div>
                 </div>
+
+                <div class="field">
+                    <label class="field-subtitle">Há mais de um poste no local?</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="poste" value="sim"><span>Sim</span></label>
+                        <label class="radio-btn"><input type="radio" name="poste" value="nao"><span>Não</span></label>
+                    </div>
+                </div>
+
+                <hr class="sep">
+
+                <div class="field">
+                    <label>Antigo Endereço</label>
+                    <input type="text" name="enderecoAntigo" placeholder="Ex: (Estado) (Cidade) (CEP) (Bairro) - (Rua, número)">
+                </div>
+
+                <hr class="sep">
+
+                <div class="field">
+                    <label class="field-subtitle"><span>Novo Endereço 📍</span></label>
+                </div>
+
+                <div class="field">
+                    <label>CEP</label>
+                    <input type="text" name="cep" id="cep" placeholder="Ex: XXXXX-XXX" maxlength="9" oninput="mascaraCep(this)" onblur="buscarCep(this.value)">
+                </div>
+
+                <div class="field">
+                    <label for="uf">Estado</label>
+                    <select name="uf" id="uf">
+                        <option value="">Selecione a UF</option>
+                        <option value="sp">SP</option>
+                        <option value="pr">PR</option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label for="cidade">Cidade</label>
+                    <select name="cidade" id="cidade">
+                        <option value="">Selecione a cidade</option>
+                        <option value="aguasStaBarbara">Águas de Santa Bárbara </option>
+                        <option value="arandu">Arandu                          </option>
+                        <option value="bernardinoDeCampos">Bernardino de Campos</option>
+                        <option value="cambara">Cambará                        </option>
+                        <option value="carlopolis">Carlópolis                  </option>
+                        <option value="cerqueiraCesar">Cerqueira César         </option>
+                        <option value="chavantes">Chavantes                    </option>
+                        <option value="espStoTurvo">Espírito Santo do Turvo    </option>
+                        <option value="fartura">Fartura                        </option>
+                        <option value="ipaussu">Ipaussu                        </option>
+                        <option value="itai">Itaí                              </option>
+                        <option value="jacarezinho">Jacarezinho                </option>
+                        <option value="manduri">Manduri                        </option>
+                        <option value="ourinhos">Ourinhos                      </option>
+                        <option value="paranapanema">Paranapanema              </option>
+                        <option value="piraju">Piraju                          </option>
+                        <option value="ribClaro">Ribeirão Claro                </option>
+                        <option value="saltoItarare">Salto do Itararé          </option>
+                        <option value="saltoGrande">Salto Grande               </option>
+                        <option value="staCruzRioPardo">Santa Cruz do Rio Pardo</option>
+                        <option value="santanaItarare">Santana do Itararé      </option>
+                        <option value="taguai">Taguaí                          </option>
+                        <option value="taquarituba">Taquarituba                </option>
+                        <option value="tejupa">Tejupá                          </option>
+                    </select>
+                </div>
+
+                <div class="field">
+                    <label>Bairro</label>
+                    <input type="text" name="bairro" id="bairro" placeholder="Ex: Bairro CedNet II">
+                </div>
+
+                <div class="field">
+                    <label>Rua</label>
+                    <input type="text" name="logradouro" id="logradouro" placeholder="Ex: Rua Santos Dumont">
+                </div>
+
+                <div class="field">
+                    <label>Número da Casa/APTO</label>
+                    <input type="text" name="number" id="number" placeholder="Ex: 131">
+                </div>
+
+                <div class="field">
+                    <label>Login PPPoE</label>
+                    <input type="text" name="loginpppoe" id="loginpppoe" placeholder="Ex: 123Pietro"> <br>
+                    <label>Senha PPPoE</label>
+                    <input type="text" name="senhapppoe" id="senhapppoe" placeholder="Ex: 456Pietro">
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn-copy" onclick="copiarForm(this)">📋 Copiar Formulário</button>
+                    <button class="btn-clear" onclick="limparMudancaUrbana()">🗑️ Limpar</button>
+                </div>
             </div>
-            -->
+
+            <!-- Card Rural ------------------------------------------------------------------------------------------------------------------------------->
+            <div class="card" id="card-rural" style="display:none">
+                <p class="card-title">Mudança de Endereço - Rural</p>
+
+                <h1 class="page-rural">TRANSFIRA O ATENDIMENTO PARA SETOR COMERCIAL RURAL - VIABILIDADE</h1>
+                
+                <!--
+                <div class="field">
+                    <label class="field-subtitle">Disponibilidade</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="disponibilidade-rural" value="manha" onchange="horarioEspecifico(this)"><span>Manhã</span></label>
+                        <label class="radio-btn"><input type="radio" name="disponibilidade-rural" value="tarde" onchange="horarioEspecifico(this)"><span>Tarde</span></label>
+                        <label class="radio-btn"><input type="radio" name="disponibilidade-rural" value="qualquerHoraio" onchange="horarioEspecifico(this)"><span>Qualquer Horário</span></label>
+                        <label class="radio-btn"><input type="radio" name="disponibilidade-rural" value="horario-especifico" onchange="horarioEspecifico(this)"><span>Horário Específico</span></label>
+                    </div>
+                    <div class="field" id="horario-especifico-rural" style="display:none">
+                        <label>Informe o Horário</label>
+                        <input type="text" name="horario" placeholder="Ex: Após às 18h">
+                    </div>
+
+                    <div class="field">
+                        <label class="field-subtitle">Telhado</label>
+                        <div class="radio-group">
+                            <label class="radio-btn"><input type="radio" name="tipo-telhado-rural" value="zinco" onchange="tipoDeTelhado(this)"><span>Zinco</span></label>
+                            <label class="radio-btn"><input type="radio" name="tipo-telhado-rural" value="eternit" onchange="tipoDeTelhado(this)"><span>Eternit</span></label>
+                            <label class="radio-btn"><input type="radio" name="tipo-telhado-rural" value="ceramica" onchange="tipoDeTelhado(this)"><span>Cerâmica</span></label>
+                            <label class="radio-btn"><input type="radio" name="tipo-telhado-rural" value="outro-telhado" onchange="tipoDeTelhado(this)"><span>Outro</span></label>
+                        </div>
+                        <div class="field" id="outro-telhado-rural" style="display:none">
+                            <label>Informe o tipo de Telhado</label>
+                            <input type="text" name="telha" placeholder="Ex: PVC">
+                        </div>
+                    </div>
+                </div>
+                -->
+            </div>
+
+            <div class="card">
+                    <div class="watermark">Desenvolvido por Pietro de Alexandria Picoli — <a href="https://github.com/PietroAlexandria" target="_blank">GitHub</a></div>
+            </div>
+
         </div>
 
-        <div class="card">
-                <div class="watermark">Desenvolvido por Pietro de Alexandria Picoli — <a href="https://github.com/PietroAlexandria" target="_blank">GitHub</a></div>
+        <div class="history-container">
+            <div class="history-header">
+                <span>📋 Histórico</span>
+                <button onclick="limparHistorico()">Limpar tudo</button>
+            </div>
+            <div class="history-content" id="history-panel"></div>
         </div>
-
     </div>
     <script>
         function horarioEspecifico(el) {
@@ -279,6 +291,8 @@
     <script src="/js/sharedFunctions/functionContact.js"      ></script>
     <script src="/js/sharedFunctions/functionCep.js"          ></script>
     <script src="/js/options-js/mudanca-endereco.js"          ></script>
+    <script src="/js/sharedFunctions/functionCardHistory.js"  ></script>
+    <script> renderizarHistorico() </script>
     <div id="toast" class="toast"></div>
 </body>
 </html>

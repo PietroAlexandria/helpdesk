@@ -14,6 +14,7 @@ Nome: ${nome}
 Contato: ${contato}
 Motivo: Mudança de Endereço - ${area}`;
 
+    try { salvarHistorico(texto); } catch(e) {}
     navigator.clipboard.writeText(texto)
     .then(() => feedbackBtn(botao, '📋 Copiar Coleta'))
     .catch(() => mostrarAlerta('Erro ao copiar!'));
@@ -104,9 +105,33 @@ ${uf} ${cidade} ${cep} ${bairro} - ${logradouro}, ${number}
 Login PPPoE: ${loginPPPOE} 
 Senha PPPoE: ${senhaPPPOE}`;
 
+    try { salvarHistorico(texto); } catch(e) {}
     navigator.clipboard.writeText(texto)
-    .then(() => feedbackBtn(botao, '📋 Copiar Formulário'))
-    .catch(() => mostrarAlerta('Erro ao copiar!'));
+        .then(() => feedbackBtn(botao, '📋 Copiar Formulário'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+}
+
+function limparColeta() {
+    document.querySelectorAll('input[name="via"], input[name="area"]').forEach(el => el.checked = false);
+    document.querySelector('input[name="nome"]').value = '';
+    document.querySelector('input[name="contato"]').value = '';
+    ['card-urbana', 'card-rural'].forEach(id => document.getElementById(id).style.display = 'none');
+}
+
+function limparMudancaUrbana() {
+    document.querySelectorAll('input[name="taxa"], input[name="dataMudanca"], input[name="equipamentos"], input[name="disponibilidade-urbana"], input[name="tipo-telhado-urbano"], input[name="poste"]').forEach(el => el.checked = false);
+    document.getElementById('dataMudancaEsp').style.display = 'none';
+    document.getElementById('horario-especifico-urbana').style.display = 'none';
+    document.getElementById('outro-telhado-urbano').style.display = 'none';
+    document.querySelector('input[name="horario"]').value = '';
+    document.querySelector('input[name="telha"]').value = '';
+    document.querySelector('input[name="enderecoAntigo"]').value = '';
+    ['cep','uf','bairro','logradouro','number','loginpppoe','senhapppoe'].forEach(id => {
+        const el = document.getElementById(id);
+        if (el.tagName === 'SELECT') el.selectedIndex = 0;
+        else el.value = '';
+    });
+    document.getElementById('cidade').selectedIndex = 0;
 }
 
 function feedbackBtn(botao, textoOriginal) {
