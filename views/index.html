@@ -10,22 +10,34 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="container">
-        <div class="menu-card">
-            <div class="header">
-                <img src="/images/LogoCedNet.ico" alt="CedNet Logo" class="logo">
-                <h1>Helpdesk <span class="globe">🌐</span></h1>
+    <div class="layout-with-history">
+        <div class="container">
+            <div class="menu-card">
+                <div class="header">
+                    <img src="/images/LogoCedNet.ico" alt="CedNet Logo" class="logo">
+                    <h1>Helpdesk <span class="globe">🌐</span></h1>
+                </div>
+                <p class="menu-subtitle">Selecione o tipo de atendimento</p>
+                <div class="menu-buttons">
+                    <a href="https://portal-svas.grupocednet.com.br/" target="_blank" class="btn-menu"><span class="btn-icon">🔗</span><span class="btn-text">Guia de Ativações</span></a>
+                    <a href="/sem-conexao" class="btn-menu"><span class="btn-icon">📡</span><span class="btn-text">Sem Conexão</span></a>
+                    <a href="/conexao-lenta" class="btn-menu"><span class="btn-icon">🐢</span><span class="btn-text">Conexão Lenta</span></a>
+                    <a href="/mudanca-endereco" class="btn-menu"><span class="btn-icon">📦</span><span class="btn-text">Mudança de Endereço</span></a>
+                    <a href="/sva" class="btn-menu"><span class="btn-icon">🛠️</span><span class="btn-text">Suporte de SVA's</span></a>
+                </div>
+                <div class="watermark">Desenvolvido por Pietro de Alexandria Picoli — <a href="https://github.com/PietroAlexandria" target="_blank">GitHub</a></div>
             </div>
-            <p class="menu-subtitle">Selecione o tipo de atendimento</p>
-            <div class="menu-buttons">
-                <a href="https://portal-svas.grupocednet.com.br/" target="_blank" class="btn-menu"><span class="btn-icon">🔗</span><span class="btn-text">Guia de Ativações</span></a>
-                <a href="/sem-conexao" class="btn-menu"><span class="btn-icon">📡</span><span class="btn-text">Sem Conexão</span></a>
-                <a href="/conexao-lenta" class="btn-menu"><span class="btn-icon">🐢</span><span class="btn-text">Conexão Lenta</span></a>
-                <a href="/mudanca-endereco" class="btn-menu"><span class="btn-icon">📦</span><span class="btn-text">Mudança de Endereço</span></a>
-                <a href="/sva" class="btn-menu"><span class="btn-icon">🛠️</span><span class="btn-text">Suporte de SVA's</span></a>
+        </div>
+
+        <div class="history-container">
+            <div class="history-header">
+                <span>📋 Histórico</span>
+                <button onclick="limparHistorico()">Limpar tudo</button>
             </div>
-            <div class="watermark">Desenvolvido por Pietro de Alexandria Picoli — <a href="https://github.com/PietroAlexandria" target="_blank">GitHub</a></div>
+            <div class="history-content" id="history-panel"></div>
         </div>
     </div>
+
+    <script src="/js/sharedFunctions/functionCardHistory.js"></script>
 </body>
 </html>

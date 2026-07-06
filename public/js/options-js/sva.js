@@ -6,6 +6,7 @@ function copiarAcesso(tipo, botao) {
     navigator.clipboard.writeText(textos[tipo])
         .then(() => feedbackBtn(botao, '📋 Copiar'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
+    try { salvarHistorico(texto, 'Tutorial Acessos - SVA'); } catch(e) {}
 }
 
 function copiarColetaDados(botao) {
@@ -29,8 +30,9 @@ function copiarColetaDados(botao) {
     const texto = `Cliente entrou em contato via ${via}\nNome: ${nome}\nContato: ${contato}\nMotivo: Suporte de SVA — ${nomeSva}`;
 
     navigator.clipboard.writeText(texto)
-    .then(() => feedbackBtn(botao, '📋 Copiar Coleta'))
-    .catch(() => mostrarAlerta('Erro ao copiar!'));
+        .then(() => feedbackBtn(botao, '📋 Copiar Coleta'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+    try { salvarHistorico(texto, 'Coleta - SVA'); } catch(e) {}
 }
 
 function copiarSva(botao) {
@@ -67,8 +69,9 @@ Nome: ${nome}
 Contato: ${contato}`;
 
     navigator.clipboard.writeText(texto)
-    .then(() => feedbackBtn(botao, '📋 Copiar Atendimento'))
-    .catch(() => mostrarAlerta('Erro ao copiar!'));
+        .then(() => feedbackBtn(botao, '📋 Copiar Atendimento'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+    try { salvarHistorico(texto, 'Resolução - SVA'); } catch(e) {}
 }
 
 function limparColeta() {
