@@ -27,6 +27,9 @@ app.get('/mudanca-endereco', (_, res) => res.sendFile(path.join(__dirname, 'view
 // Rota - Suporte de SVA's
 app.get('/sva', (_, res) => res.sendFile(path.join(__dirname, 'views', 'options-html', 'sva.html')));
 
+// Rota - Mudança de Cômodo / Passagem de Cabo
+app.get('/servicos', (_, res) => res.sendFile(path.join(__dirname, 'views', 'options-html', 'servicos.html')));
+
 // Rota temporária de teste IXC
 app.get('/teste-ixc', (_, res) => res.sendFile(path.join(__dirname, 'views', 'teste-ixc.html')));
 
