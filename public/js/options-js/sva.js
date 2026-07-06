@@ -71,6 +71,14 @@ Contato: ${contato}`;
     .catch(() => mostrarAlerta('Erro ao copiar!'));
 }
 
+function limparColeta() {
+    document.querySelectorAll('input[name="via"], input[name="type"]').forEach(el => el.checked = false);
+    document.querySelector('input[name="nome"]').value = '';
+    document.querySelector('input[name="contato"]').value = '';
+    ['card-acessos', 'card-globoPlay', 'card-setupBox', 'card-cednetPlay', 'card-premiere', 'card-outroSva'].forEach(id => document.getElementById(id).style.display = 'none');
+    document.querySelectorAll('input[name="sva"], input[name="radio"]').forEach(el => el.checked = false);
+}
+
 function feedbackBtn(botao, textoOriginal) {
     mostrarAlerta('Copiado com sucesso!', 'sucesso');
     botao.textContent = '✅ Copiado!';
