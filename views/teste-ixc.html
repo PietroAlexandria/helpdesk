@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <title>Teste IXC</title>
+    <style>
+        body { font-family: monospace; background: #0f1117; color: #d4d4d4; padding: 40px; }
+        input { padding: 8px 12px; border-radius: 6px; border: 1px solid #333; background: #1a1a2e; color: #fff; font-family: monospace; font-size: 14px; }
+        button { padding: 8px 16px; background: #1565c0; color: #fff; border: none; border-radius: 6px; cursor: pointer; font-family: monospace; font-size: 14px; margin-left: 8px; }
+        button:hover { background: #1e88e5; }
+        pre { margin-top: 24px; background: #141920; border: 1px solid #1e2a3a; border-radius: 10px; padding: 16px; color: #7eb8f7; font-size: 13px; white-space: pre-wrap; word-break: break-word; }
+        .erro { color: #ff5f5f; }
+    </style>
+</head>
+<body>
+    <h3 style="color:#4a9eff; margin-bottom: 20px;">🔌 Teste IXC — buscar contrato</h3>
+
+    <input type="text" id="idContrato" placeholder="ID do contrato (ex: 2806)">
+    <button onclick="buscar()">Buscar</button>
+
+    <pre id="resultado">Aguardando busca...</pre>
+
+    <script>
+        async function buscar() {
+            const id = document.getElementById('idContrato').value.trim();
+            const resultado = document.getElementById('resultado');
+
+            if (!id) { resultado.textContent = 'Digite um ID.'; return; }
+
+            resultado.textContent = 'Buscando...';
+
+            try {
+                const res = await fetch(`/api/contrato/${id}`);
+                const json = await res.json();
+                resultado.className = '';
+                resultado.textContent = JSON.stringify(json, null, 2);
+            } catch (err) {
+                resultado.className = 'erro';
+                resultado.textContent = 'Erro: ' + err.message;
+            }
+        }
+
+        document.getElementById('idContrato').addEventListener('keydown', e => {
+            if (e.key === 'Enter') buscar();
+        });
+    </script>
+</body>
+</html>
