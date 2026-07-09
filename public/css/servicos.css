@@ -210,6 +210,10 @@ body {
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 
+.textarea-horario {
+    min-height: 72px !important;
+}
+
 .field textarea:focus {
     border-color: #1565c0;
     box-shadow: 0 0 0 3px rgba(21, 101, 192, 0.15);

@@ -73,6 +73,22 @@
                 </div> <br>
 
                 <div class="field">
+                    <label class="field-subtitle">Disponibilidade</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="disponibilidade-mudanca" value="manha" onchange="horarioEspecifico(this)"><span>Manhã</span></label>
+                        <label class="radio-btn"><input type="radio" name="disponibilidade-mudanca" value="tarde" onchange="horarioEspecifico(this)"><span>Tarde</span></label>
+                        <label class="radio-btn"><input type="radio" name="disponibilidade-mudanca" value="qualquerHoraio" onchange="horarioEspecifico(this)"><span>Qualquer Horário</span></label>
+                        <label class="radio-btn"><input type="radio" name="disponibilidade-mudanca" value="horario-especifico" onchange="horarioEspecifico(this)"><span>Horário Específico</span></label>
+                    </div>
+                </div>
+                <div class="field" id="horario-especifico-mudanca" style="display:none">
+                    <label class="field-subtitle">Horário Específico</label>
+                    <div>
+                        <textarea class="textarea-horario" name="horarioEsp-mudanca" placeholder="Ex: Após às 18h - 03/07&#10;Após 16h - 04/07"></textarea>
+                    </div>
+                </div>
+
+                <div class="field">
                     <label>Observações (Opcional)</label>
                     <textarea name="descricao" rows="4" placeholder="Digite aqui suas observações..."></textarea>
                 </div>
@@ -82,6 +98,10 @@
                     <input type="text" name="loginpppoe-comodo" id="loginpppoe-comodo" placeholder="Ex: 123Pietro"> <br>
                     <label>Senha PPPoE</label>
                     <input type="text" name="senhapppoe-comodo" id="senhapppoe-comodo" placeholder="Ex: 456Pietro"> <br>
+                </div>
+
+                <div class="field">
+                    <button class="btn-copy" onclick="copiarMudancaComodo(this)">📋 Copiar Atendimento</button>
                 </div>
             </div>
 
@@ -103,6 +123,22 @@
                 </div> <br>
 
                 <div class="field">
+                    <label class="field-subtitle">Disponibilidade</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="disponibilidade-passagem" value="manha" onchange="horarioEspecifico(this)"><span>Manhã</span></label>
+                        <label class="radio-btn"><input type="radio" name="disponibilidade-passagem" value="tarde" onchange="horarioEspecifico(this)"><span>Tarde</span></label>
+                        <label class="radio-btn"><input type="radio" name="disponibilidade-passagem" value="qualquerHoraio" onchange="horarioEspecifico(this)"><span>Qualquer Horário</span></label>
+                        <label class="radio-btn"><input type="radio" name="disponibilidade-passagem" value="horario-especifico" onchange="horarioEspecifico(this)"><span>Horário Específico</span></label>
+                    </div>
+                </div>
+                <div class="field" id="horario-especifico-passagem" style="display:none">
+                    <label class="field-subtitle">Horário Específico</label>
+                    <div>
+                        <textarea class="textarea-horario" name="horarioEsp-passagem" placeholder="Ex: Após às 18h - 03/07&#10;Após 16h - 04/07"></textarea>
+                    </div>
+                </div>
+
+                <div class="field">
                     <label>Observações (Opcional)</label>
                     <textarea name="descricao" rows="4" placeholder="Digite aqui suas observações..."></textarea>
                 </div>
@@ -112,6 +148,10 @@
                     <input type="text" name="loginpppoe-passagem" id="loginpppoe-passagem" placeholder="Ex: 123Pietro"> <br>
                     <label>Senha PPPoE</label>
                     <input type="text" name="senhapppoe-passagem" id="senhapppoe-passagem" placeholder="Ex: 456Pietro"> <br>
+                </div>
+
+                <div class="field">
+                    <button class="btn-copy" onclick="copiarPassagem(this)">📋 Copiar Atendimento</button>
                 </div>
             </div>
 
@@ -130,6 +170,17 @@
         </div>
     </div>
     
+    <script>
+        function horarioEspecifico(el) {
+            const idMap = {
+                'disponibilidade-mudanca': 'horario-especifico-mudanca',
+                'disponibilidade-passagem': 'horario-especifico-passagem'
+            };
+            const targetId = idMap[el.name];
+            if (!targetId) return;
+            document.getElementById(targetId).style.display = el.value === 'horario-especifico' ? 'block' : 'none';
+        }
+    </script>
     <script src="/js/sharedFunctions/functionMostrarAlerta.js" ></script>
     <script src="/js/sharedFunctions/functionToggleCards.js"   ></script>
     <script src="/js/sharedFunctions/functionContact.js"       ></script>
