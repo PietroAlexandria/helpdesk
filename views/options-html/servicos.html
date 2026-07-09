@@ -44,8 +44,8 @@
                 <div class="field">
                     <label class="field-subtitle">Tipo de Serviço</label>
                     <div class="radio-group">
-                        <label class="radio-btn"><input type="radio" name="tipoServico" value="comodo" onchange="tipoDeServico(this)"><span>Mudança de Cômodo</span></label>
-                        <label class="radio-btn"><input type="radio" name="tipoServico" value="passagem" onchange="tipoDeServico(this)"><span>Passagem de Cabo</span></label>
+                        <label class="radio-btn"><input type="radio" name="tipoServico" value="comodo"   onchange="toggleCards(this.value, { comodo: 'card-mudanca-comodo', passagem: 'card-passagem-cabo' })"><span>Mudança de Cômodo</span></label>
+                        <label class="radio-btn"><input type="radio" name="tipoServico" value="passagem" onchange="toggleCards(this.value, { comodo: 'card-mudanca-comodo', passagem: 'card-passagem-cabo' })"><span>Passagem de Cabo</span></label>
                     </div>
                 </div>
 
@@ -55,8 +55,22 @@
                 </div>
             </div>
 
-            <div class="card" id="card-mudanca-comodo">
+            <div class="card" id="card-mudanca-comodo" style="display:none">
                 <p class="card-title">Mudança de Cômodo</p>
+
+                <div class="info-box">
+                    <div class="info-box-header">
+                        <p class="info-box-title">Template + Valores</p>
+                        <button class="btn-copy-sm" onclick="copiarMudancaComodo('mudanca', this)">📋 Copiar</button>
+                    </div>
+                    <p><span class="info-label">Prazo:</span> A mudança de cômodo terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto.</p>
+                    <p><span class="info-label">Valores:</span> Mão de obra: R$ 100,00 </p>
+                    <p><span class="info-label">Metragem de cabo de rede (caso necessário):</span> R$ 3,75 </p>
+                    <p><span class="info-label">Conector RJ45 (cada):</span> R$ 2,50 </p>
+                    <p><span class="info-label">Cômodo adicional:</span> R$ 50,00 </p>
+                    <p><span class="info-label">Taxa:</span> A taxa de R$ 100,00 deverá ser paga antecipadamente </p>
+                    <p><span class="info-label">Prazo pagamento da metragem:</span> Metragem de cabo utilizado será cobrado na próxima mensalidade </p>
+                </div> <br>
 
                 <div class="field">
                     <label>Observações (Opcional)</label>
@@ -71,8 +85,22 @@
                 </div>
             </div>
 
-            <div class="card" id="card-passagem-cabo">
+            <div class="card" id="card-passagem-cabo" style="display:none">
                 <p class="card-title">Passagem de Cabo</p>
+
+                <div class="info-box">
+                    <div class="info-box-header">
+                        <p class="info-box-title">Template + Valores</p>
+                        <button class="btn-copy-sm" onclick="copiarPassagem('passagem', this)">📋 Copiar</button>
+                    </div>
+                    <p><span class="info-label">Prazo:</span> A passagem de cabo terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto.</p>
+                    <p><span class="info-label">Valores:</span> Mão de obra: R$ 100,00 </p>
+                    <p><span class="info-label">Metragem de cabo de rede:</span> R$ 3,75 </p>
+                    <p><span class="info-label">Conector RJ45 (cada):</span> R$ 2,50 </p>
+                    <p><span class="info-label">Cômodo adicional:</span> R$ 50,00 </p>
+                    <p><span class="info-label">Taxa:</span> A taxa de R$ 100,00 deverá ser paga antecipadamente </p>
+                    <p><span class="info-label">Prazo pagamento da metragem:</span> Metragem de cabo utilizado será cobrado na próxima mensalidade </p>
+                </div> <br>
 
                 <div class="field">
                     <label>Observações (Opcional)</label>
