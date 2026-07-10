@@ -128,8 +128,7 @@ function finalizarEdicaoHistorico(id, texto) {
 
 document.getElementById('history-panel').addEventListener('input', (e) => {
     if (e.target.classList.contains('history-text')) {
-        e.target.style.height = 'auto';
-        e.target.style.height = e.target.scrollHeight + 'px';
+        redimensionarTextarea(e.target);
     }
 });
 
