@@ -98,24 +98,34 @@ helpdesk/
 
 **Pré-requisitos:** Node.js 18+
 
+## Instalação
+
+1. Clone o repositório
 ```bash
-# 1. Clone o repositório
 git clone https://github.com/PietroAlexandria/ai-on.git
 cd ai-on
+```
 
-# 2. Instale as dependências
+2. Instale as dependências
+```bash
 npm install
+```
 
-# 3. Configure as variáveis de ambiente
+3. Configure as variáveis de ambiente
+```bash
 cp .env.example .env
-# edite o .env com os valores corretos
+```
+edite o .env com os valores corretos
 
-# 4. Inicie em modo desenvolvimento (com hot-reload)
+4. Inicie em modo desenvolvimento (com hot-reload)
+```bash
 npm run dev
-
-# ou em modo produção
+```
+ou em modo produção
+```bash
 npm start
 ```
+
 
 A aplicação sobe em [http://localhost:3000](http://localhost:3000).
 
@@ -148,7 +158,6 @@ Acesse [http://localhost:3000/teste-ixc](http://localhost:3000/teste-ixc) para t
 | `GET` | `/servicos` | Módulo serviços |
 | `GET` | `/sva` | Módulo suporte de SVA's |
 | `GET` | `/teste-ixc` | Página de teste da integração IXC |
-| `GET` | `/api/contrato/:id` | Consulta contrato no IXC por ID |
 
 ---
 
