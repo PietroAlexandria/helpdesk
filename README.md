@@ -26,6 +26,7 @@ O **CedNet Helpdesk** é um web service interno desenvolvido para operadores de 
 | 🐢 **Conexão Lenta** | Fluxo de atendimento para instabilidade e lentidão, com suporte a Fibra e Rádio |
 | 📦 **Mudança de Endereço** | Coleta completa (endereço, CEP auto-fill, telhado, disponibilidade, equipamentos) |
 | 🛠️ **Suporte de SVA's** | Acessos (CedNet Play, CedNet Plus), GloboPlay, Setup BOX, CedNet Play, Premiere e Outro SVA |
+| 🧰 **Serviços** | Mudança de Cômodo e Passagem de Cabo com coleta de dados e agendamento |
 
 ---
 
@@ -36,6 +37,7 @@ backend      Node.js + Express 5
 frontend     HTML5 + CSS3 + JavaScript Vanilla
 fonte        Inter (Google Fonts)
 api externa  ViaCEP (autocomplete de endereço)
+api interna  IXC Provedor (consulta de contratos via Webservice)
 deploy       Render (porta dinâmica via process.env.PORT)
 dev tool     Nodemon (hot-reload)
 ```
@@ -47,14 +49,20 @@ dev tool     Nodemon (hot-reload)
 ```
 helpdesk/
 ├── server.js                          # Entrada principal — configura Express e rotas
+├── mock-ixc-server.js                 # Servidor mock do IXC para testes locais
 ├── package.json
+│
+├── ixcModules/
+│   └── ixcClient.js                   # Cliente HTTP para a API do IXC Provedor
 │
 ├── views/
 │   ├── index.html                     # Menu principal
+│   ├── teste-ixc.html                 # Página de teste da integração IXC
 │   └── options-html/
 │       ├── sem-conexao.html           # Módulo sem conexão
 │       ├── conexao-lenta.html         # Módulo conexão lenta
 │       ├── mudanca-endereco.html      # Módulo mudança de endereço
+│       ├── servicos.html              # Módulo serviços (cômodo/cabo)
 │       └── sva.html                   # Módulo SVA
 │
 └── public/
@@ -63,6 +71,7 @@ helpdesk/
     │   ├── sem-conexao.css            # Estilos do módulo sem conexão
     │   ├── conexao-lenta.css          # Estilos do módulo conexão lenta
     │   ├── mudanca-endereco.css       # Estilos do módulo mudança de endereço
+    │   ├── servicos.css               # Estilos do módulo serviços
     │   └── sva.css                    # Estilos do módulo SVA
     ├── images/
     │   └── LogoCedNet.ico
@@ -73,11 +82,13 @@ helpdesk/
         │   ├── functionToggleCards.js # Exibição/ocultação de cards por mapa de valores
         │   ├── functionMostrarAlerta.js # Toast notifications (erro e sucesso)
         │   ├── functionAddContact.js  # Adição dinâmica de múltiplos contatos
-        │   └── functionCopyName.js    # Sincronização de nome entre campos (linkName)
+        │   ├── functionCopyName.js    # Sincronização de nome entre campos (linkName)
+        │   └── functionCardHistory.js # Histórico persistido via localStorage
         └── options-js/                # Lógica específica de cada módulo
             ├── sem-conexao.js
             ├── conexao-lenta.js
             ├── mudanca-endereco.js
+            ├── servicos.js
             └── sva.js
 ```
 
@@ -95,7 +106,11 @@ cd ai-on
 # 2. Instale as dependências
 npm install
 
-# 3. Inicie em modo desenvolvimento (com hot-reload)
+# 3. Configure as variáveis de ambiente
+cp .env.example .env
+# edite o .env com os valores corretos
+
+# 4. Inicie em modo desenvolvimento (com hot-reload)
 npm run dev
 
 # ou em modo produção
@@ -103,6 +118,22 @@ npm start
 ```
 
 A aplicação sobe em [http://localhost:3000](http://localhost:3000).
+
+### Testando a integração IXC localmente
+
+Sem o token real, use o servidor mock em um segundo terminal:
+
+```bash
+node mock-ixc-server.js
+```
+
+Certifique-se que o `.env` aponta para o mock:
+
+```env
+IXC_HOST=http://localhost:4000
+```
+
+Acesse [http://localhost:3000/teste-ixc](http://localhost:3000/teste-ixc) para testar a busca de contratos.
 
 ---
 
@@ -114,7 +145,10 @@ A aplicação sobe em [http://localhost:3000](http://localhost:3000).
 | `GET` | `/sem-conexao` | Módulo sem conexão |
 | `GET` | `/conexao-lenta` | Módulo conexão lenta |
 | `GET` | `/mudanca-endereco` | Módulo mudança de endereço |
+| `GET` | `/servicos` | Módulo serviços |
 | `GET` | `/sva` | Módulo suporte de SVA's |
+| `GET` | `/teste-ixc` | Página de teste da integração IXC |
+| `GET` | `/api/contrato/:id` | Consulta contrato no IXC por ID |
 
 ---
 
@@ -123,6 +157,9 @@ A aplicação sobe em [http://localhost:3000](http://localhost:3000).
 | Variável | Padrão | Descrição |
 |---|---|---|
 | `PORT` | `3000` | Porta do servidor (configurada automaticamente no Render) |
+| `IXC_HOST` | — | URL base do servidor IXC (ex: `https://ixc.suaempresa.com.br`) |
+| `IXC_USER_ID` | — | ID do usuário para autenticação na API do IXC |
+| `IXC_TOKEN` | — | Token de acesso à API do IXC |
 
 ---
 
@@ -134,6 +171,8 @@ A aplicação sobe em [http://localhost:3000](http://localhost:3000).
 - **Toast notifications** — `mostrarAlerta(mensagem, tipo)` substitui `alert()` com notificações visuais não-bloqueantes de erro e sucesso.
 - **Múltiplos contatos dinâmicos** — `adicionarContato()` permite incluir e remover contatos em tempo real nos formulários de agendamento.
 - **Sincronização de nome** — `linkName(origem, destino)` espelha o nome da coleta de dados automaticamente nos cards de agendamento.
+- **Histórico persistido** — `functionCardHistory.js` salva todos os registros copiados no `localStorage`, com painel lateral fixo, recolhimento por card e botões de copiar/excluir.
+- **Integração IXC** — cliente HTTP (`ixcClient.js`) consulta contratos via Webservice do IXC Provedor com autenticação Basic Auth.
 - **Deploy com porta dinâmica** — usa `process.env.PORT || 3000`, compatível com Render e qualquer PaaS.
 
 ---
