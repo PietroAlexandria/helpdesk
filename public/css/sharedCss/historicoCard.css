@@ -164,18 +164,19 @@
 }
 
 .history-text.editing {
-    border: 1px solid #d0d0d0;
-    background: #fff;
+    border: 1px solid #2a3f5a;
+    background: #0d1520;
+    color: #c8d8f0;
     padding: 8px;
     border-radius: 6px;
     cursor: text;
+    resize: vertical;
+    overflow: auto;
+    min-height: 60px;
+    max-height: calc(75vh - 120px);
 }
 
-.history-edit-actions {
-    display: none;
-    gap: 8px;
-    margin-top: 8px;
-}
+
 
 .history-copy {
     width: 20px;

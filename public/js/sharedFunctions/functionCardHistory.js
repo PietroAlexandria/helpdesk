@@ -60,17 +60,19 @@ function renderizarHistorico() {
                 </div>
                 <div class="history-card-actions">
                     <span class="history-arrow">▼</span>
-                    <button class="history-copy" onclick="event.stopPropagation(); copiarDoHistorico(${item.id})">📋</button>
-                    <button class="history-copy" id="history-edit-btn-${item.id}" onclick="event.stopPropagation(); editarHistorico(${item.id})">✏️</button>
-                    <button class="history-remove" onclick="event.stopPropagation(); removerHistorico(${item.id})">✕</button>
+                    <div id="history-view-actions-${item.id}" style="display:flex;align-items:center;gap:6px">
+                        <button class="history-copy" onclick="event.stopPropagation(); copiarDoHistorico(${item.id})">📋</button>
+                        <button class="history-copy" onclick="event.stopPropagation(); editarHistorico(${item.id})">✏️</button>
+                        <button class="history-remove" onclick="event.stopPropagation(); removerHistorico(${item.id})">✕</button>
+                    </div>
+                    <div id="history-edit-actions-${item.id}" style="display:none;align-items:center;gap:6px">
+                        <button class="history-copy" onclick="event.stopPropagation(); salvarEdicaoHistorico(${item.id})">💾</button>
+                        <button class="history-remove" onclick="event.stopPropagation(); cancelarEdicaoHistorico(${item.id})">✕</button>
+                    </div>
                 </div>
             </div>
             <div class="history-body" style="display:none">
                 <textarea class="history-text" id="history-text-${item.id}" readonly>${escapeHtml(item.texto)}</textarea>
-                <div class="history-edit-actions" id="history-edit-actions-${item.id}">
-                    <button class="history-copy" onclick="event.stopPropagation(); salvarEdicaoHistorico(${item.id})">💾</button>
-                    <button class="history-remove" onclick="event.stopPropagation(); cancelarEdicaoHistorico(${item.id})">✕</button>
-                </div>
             </div>
         </div>
     `).join('');
@@ -93,14 +95,15 @@ function escapeHtml(texto) {
 
 function editarHistorico(id) {
     const textarea = document.getElementById(`history-text-${id}`);
-    const actions = document.getElementById(`history-edit-actions-${id}`);
-    const editBtn = document.getElementById(`history-edit-btn-${id}`);
+    const viewActions = document.getElementById(`history-view-actions-${id}`);
+    const editActions = document.getElementById(`history-edit-actions-${id}`);
 
     textarea.readOnly = false;
     textarea.classList.add('editing');
+    redimensionarTextarea(textarea);
     textarea.focus();
-    actions.style.display = 'flex';
-    editBtn.style.display = 'none';
+    viewActions.style.display = 'none';
+    editActions.style.display = 'flex';
 }
 
 function salvarEdicaoHistorico(id) {
@@ -125,14 +128,16 @@ function cancelarEdicaoHistorico(id) {
 
 function finalizarEdicaoHistorico(id, texto) {
     const textarea = document.getElementById(`history-text-${id}`);
-    const actions = document.getElementById(`history-edit-actions-${id}`);
-    const editBtn = document.getElementById(`history-edit-btn-${id}`);
+    const viewActions = document.getElementById(`history-view-actions-${id}`);
+    const editActions = document.getElementById(`history-edit-actions-${id}`);
 
     textarea.value = texto;
     textarea.readOnly = true;
     textarea.classList.remove('editing');
-    actions.style.display = 'none';
-    editBtn.style.display = 'inline-block';
+    textarea.style.height = 'auto';
+    redimensionarTextarea(textarea);
+    editActions.style.display = 'none';
+    viewActions.style.display = 'flex';
 }
 
 document.getElementById('history-panel').addEventListener('input', (e) => {
