@@ -55,12 +55,12 @@ function renderizarHistorico() {
         <div class="history-card">
             <div class="history-card-header" onclick="toggleHistoricoCard(this)">
                 <div class="history-card-title">
-                    <span class="history-title">${item.titulo}</span>
-                    <span class="history-time">🕐 ${item.hora} - ${item.nome}</span>
+                    <span class="history-title">${escapeHtml(item.titulo)}</span>
+                    <span class="history-time">🕐 ${escapeHtml(item.hora)} - ${escapeHtml(item.nome)}</span>
                 </div>
                 <div class="history-card-actions">
                     <span class="history-arrow">▼</span>
-                    <button class="history-copy" onclick="event.stopPropagation(); navigator.clipboard.writeText(\`${item.texto}\`).then(() => mostrarAlerta('Copiado!','sucesso')).catch(() => mostrarAlerta('Erro ao copiar!'))">📋</button>
+                    <button class="history-copy" onclick="event.stopPropagation(); copiarDoHistorico(${item.id})">📋</button>
                     <button class="history-copy" id="history-edit-btn-${item.id}" onclick="event.stopPropagation(); editarHistorico(${item.id})">✏️</button>
                     <button class="history-remove" onclick="event.stopPropagation(); removerHistorico(${item.id})">✕</button>
                 </div>
@@ -74,6 +74,15 @@ function renderizarHistorico() {
             </div>
         </div>
     `).join('');
+}
+
+function copiarDoHistorico(id) {
+    const historico = JSON.parse(localStorage.getItem('historico') || '[]');
+    const item = historico.find(h => h.id === id);
+    if (!item) return;
+    navigator.clipboard.writeText(item.texto)
+        .then(() => mostrarAlerta('Copiado!', 'sucesso'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
 }
 
 function escapeHtml(texto) {

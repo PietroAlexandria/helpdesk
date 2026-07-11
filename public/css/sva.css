@@ -11,6 +11,10 @@ body {
     padding: 32px 20px;
 }
 
+.layout-with-history {
+    display: block;
+}
+
 .container {
     max-width: 480px;
     margin: 0 auto;

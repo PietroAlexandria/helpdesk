@@ -120,7 +120,7 @@ Problema Solucionado!`;
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar Agendamento'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
-    try { salvarHistorico(texto, 'Agendamento Rádio - Conexão Lenta'); } catch(e) {}
+    try { salvarHistorico(texto, 'Resolução Fibra - Conexão Lenta'); } catch(e) {}
 }
 
 // AGENDAMENTO RÁDIO
@@ -188,7 +188,7 @@ ${tr069_Radio}`;
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar Agendamento'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
-    try { salvarHistorico(texto, 'Resolução Fibra - Conexão Lenta'); } catch(e) {}
+    try { salvarHistorico(texto, 'Agendamento Rádio - Conexão Lenta'); } catch(e) {}
 }
 
 function copiarResolucaoRadio(botao) {

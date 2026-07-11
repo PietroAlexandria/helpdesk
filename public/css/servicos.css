@@ -11,6 +11,10 @@ body {
     padding: 32px 20px;
 }
 
+.layout-with-history {
+    display: block;
+}
+
 .container {
     max-width: 480px;
     margin: 0 auto;
@@ -216,7 +220,7 @@ body {
 }
 
 .field textarea::placeholder {
-    color: #1565c0;
+    color: #5b7491;
 }
 
 .sep {

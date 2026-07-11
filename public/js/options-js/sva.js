@@ -3,10 +3,11 @@ function copiarAcesso(tipo, botao) {
         cednetPlay: `*Acesso ao CedNet Play:*\nLogin: E-mail cadastral\nSenha: CPF do/a titular (Sem os pontos e traços, apenas números)`,
         cednetPlus: `*Acesso ao CedNet Plus:*\nLogin: CPF do/a titular (Sem os pontos e traços, apenas números)\nSenha: CPF do/a titular (Sem os pontos e traços)`
     };
-    navigator.clipboard.writeText(textos[tipo])
+    const conteudo = textos[tipo];
+    navigator.clipboard.writeText(conteudo)
         .then(() => feedbackBtn(botao, '📋 Copiar'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
-    try { salvarHistorico(texto, 'Tutorial Acessos - SVA'); } catch(e) {}
+    try { salvarHistorico(conteudo, 'Tutorial Acessos - SVA'); } catch(e) {}
 }
 
 function copiarColetaDados(botao) {
