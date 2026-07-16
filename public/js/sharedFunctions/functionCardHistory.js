@@ -2,7 +2,7 @@ function togglePainelHistorico() {
     const container = document.querySelector('.history-container');
     const btn = document.getElementById('history-minimize-btn');
     const minimizado = container.classList.toggle('minimized');
-    btn.textContent = minimizado ? '▲' : '▼';
+    if (btn) btn.textContent = minimizado ? '▼' : '▼';
     localStorage.setItem('historico-minimizado', minimizado ? '1' : '0');
 }
 

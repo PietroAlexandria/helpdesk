@@ -14,16 +14,39 @@
     overflow: hidden;
     z-index: 999;
     font-family: 'Inter', sans-serif;
-    transition: max-height 0.3s ease, border-radius 0.3s ease;
+    transition: width 0.3s ease, right 0.3s ease, border-radius 0.3s ease;
 }
 
 .history-container.minimized {
-    max-height: 47px;
-    border-radius: 12px;
+    width: 28px;
+    right: 0;
+    border-radius: 12px 0 0 12px;
 }
 
+.history-container.minimized .history-header,
 .history-container.minimized .history-content {
     display: none;
+}
+
+.history-tab {
+    display: none;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    flex: 1;
+    cursor: pointer;
+    color: #4a9eff;
+    font-size: 0.75rem;
+    user-select: none;
+    transition: background 0.2s;
+}
+
+.history-tab:hover {
+    background: rgba(74,158,255,0.08);
+}
+
+.history-container.minimized .history-tab {
+    display: flex;
 }
 
 .history-header {
