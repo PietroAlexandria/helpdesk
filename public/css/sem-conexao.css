@@ -165,7 +165,7 @@ body {
     outline: none;
     resize: vertical;
     width: 100%;
-    min-height: 72px;
+    min-height: 150px;
     transition: border-color 0.2s, box-shadow 0.2s;
 }
 

@@ -20,6 +20,30 @@ Motivo: Sem Conexão - ${type}`;
     try { salvarHistorico(texto, 'Coleta - Sem Conexão'); } catch(e) {}
 }
 
+function copiarDescFibra(botao) {
+    const descricao = document.querySelector('textarea[name="descricao"]')?.value || '';
+    if (!descricao) { mostrarAlerta('Preencha o campo DESCRIÇÃO!'); return; }
+
+    const texto = `${descricao}`;
+
+    navigator.clipboard.writeText(texto)
+        .then(() => feedbackBtn(botao, '📋 Copiar Descrição'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+    try { salvarHistorico(texto, 'Descrição Fibra - Sem Conexão'); } catch(e) {}
+}
+
+function copiarDescRadio(botao) {
+    const descricaoRadio = document.querySelector('textarea[name="descricao-radio"]')?.value || '';
+    if (!descricaoRadio) { mostrarAlerta('Preencha o campo DESCRIÇÃO!'); return; }
+
+    const texto = `${descricaoRadio}`;
+
+    navigator.clipboard.writeText(texto)
+        .then(() => feedbackBtn(botao, '📋 Copiar Descrição'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+    try { salvarHistorico(texto, 'Descrição Rádio - Sem Conexão'); } catch(e) {}
+}
+
 // AGENDAMENTO FIBRA
 function copiarAgendamentoFibra(botao) {
     const nomeAg = document.querySelector('input[name="nomeAg"]')?.value || '';

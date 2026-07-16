@@ -158,10 +158,12 @@
                     <div class="field">
                         <label>Descrição da OS</label>
                     <textarea name="descricao" id="descricao" placeholder="Ex: 
-    Cliente informou que energia havia tido queda a 1h, mas conexão não voltou mesmo após energia voltar. 
+    Cliente informou que energia havia tido queda a 1h. 
+    Conexão não voltou mesmo após energia voltar. 
     Solicitado reboot e PatchCord, mas sem sucesso. 
     Alarme DmView: ONU Loss of signal, Receive dying gasp of ONU 
     Cliente com DGi e LOSi, possível problema na fibra."></textarea>
+                        <button class="btn-copy" onclick="copiarDescFibra(this)">📋 Copiar Descrição</button>
                     </div>
 
                     <hr class="sep">
@@ -330,10 +332,13 @@
 
                     <div class="field">
                         <label>Descrição da OS</label>
-                        <textarea name="descricao-radio" id="descricao-radio" placeholder="Realizado Reboot e PatchCord na PoE.
+                        <textarea name="descricao-radio" id="descricao-radio" placeholder="Ex:
+    Solicitado foto dos equipamentos do cliente. 
+    Realizado Reboot e PatchCord na PoE.
     Realizado Reboot no rádio.
     Cliente prossegue sem conexão.
     Verificado e necessário agendamento."></textarea>
+                        <button class="btn-copy" onclick="copiarDescRadio(this)">📋 Copiar Descrição</button>
                     </div>
 
                     <hr class="sep">

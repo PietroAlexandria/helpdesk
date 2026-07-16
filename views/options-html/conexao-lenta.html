@@ -89,9 +89,10 @@
                         <label>Descrição da OS</label>
                     <textarea name="descricao" id="descricao" placeholder="Ex: 
     Cliente informou que conexão estava muito lenta. 
-    Realizado alteração de canal e largura de banda. 
+    Mantido padrão automático de canal e largura de banda.  
     Adicionado DNS da CedNet e da Clouflare. 
     Realizado reboot remotamente. "></textarea>
+                        <button class="btn-copy" onclick="copiarDescFibra(this)">📋 Copiar Descrição</button>
                     </div>
 
                     <hr class="sep">
@@ -196,10 +197,13 @@
 
                     <div class="field">
                         <label>Descrição da OS</label>
-                        <textarea name="descricao-radio" id="descricao-radio" placeholder="Realizado Reboot e PatchCord na PoE.
+                        <textarea name="descricao-radio" id="descricao-radio" placeholder="Ex: 
+    Realizado Reboot e PatchCord na PoE.
     Realizado Reboot no rádio.
-    Cliente prossegue sem conexão.
+    Delta OK. 
+    Cliente prossegue com conexão lenta.
     Verificado e necessário agendamento."></textarea>
+                        <button class="btn-copy" onclick="copiarDescRadio(this)">📋 Copiar Descrição</button>
                     </div>
 
                     <hr class="sep">

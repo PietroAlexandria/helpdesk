@@ -25,6 +25,30 @@ Motivo: ${reincidencia}`;
     try { salvarHistorico(texto, 'Coleta - Conexão Lenta'); } catch(e) {}
 }
 
+function copiarDescFibra(botao) {
+    const descricao = document.querySelector('textarea[name="descricao"]')?.value || '';
+    if (!descricao) { mostrarAlerta('Preencha o campo DESCRIÇÃO!'); return; }
+
+    const texto = `${descricao}`;
+
+    navigator.clipboard.writeText(texto)
+        .then(() => feedbackBtn(botao, '📋 Copiar Descrição'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+    try { salvarHistorico(texto, 'Conexão Lenta - Descrição - FIBRA'); } catch(e) {}
+}
+
+function copiarDescRadio(botao) {
+    const descricaoRadio = document.querySelector('textarea[name="descricao-radio"]')?.value || '';
+    if (!descricaoRadio) { mostrarAlerta('Preencha o campo DESCRIÇÃO!'); return; }
+
+    const texto = `${descricaoRadio}`;
+
+    navigator.clipboard.writeText(texto)
+        .then(() => feedbackBtn(botao, '📋 Copiar Descrição'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+    try { salvarHistorico(texto, 'Conexão Lenta - Descrição - RÁDIO'); } catch(e) {}
+}
+
 // AGENDAMENTO FIBRA
 function copiarAgendamentoFibra(botao) {
     const nomeAg = document.querySelector('input[name="nomeAg"]')?.value || '';
