@@ -1,8 +1,6 @@
 function togglePainelHistorico() {
     const container = document.querySelector('.history-container');
-    const btn = document.getElementById('history-minimize-btn');
     const minimizado = container.classList.toggle('minimized');
-    if (btn) btn.textContent = minimizado ? '▼' : '▼';
     localStorage.setItem('historico-minimizado', minimizado ? '1' : '0');
 }
 
@@ -157,8 +155,6 @@ document.getElementById('history-panel').addEventListener('input', (e) => {
 (function () {
     if (localStorage.getItem('historico-minimizado') === '1') {
         document.querySelector('.history-container').classList.add('minimized');
-        const btn = document.getElementById('history-minimize-btn');
-        if (btn) btn.textContent = '▲';
     }
 })();
 
