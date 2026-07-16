@@ -14,6 +14,16 @@
     overflow: hidden;
     z-index: 999;
     font-family: 'Inter', sans-serif;
+    transition: max-height 0.3s ease, border-radius 0.3s ease;
+}
+
+.history-container.minimized {
+    max-height: 47px;
+    border-radius: 12px;
+}
+
+.history-container.minimized .history-content {
+    display: none;
 }
 
 .history-header {
@@ -49,6 +59,28 @@
 
 .history-header button:hover {
     background: rgba(255,95,95,0.2);
+}
+
+.history-minimize-btn {
+    width: 20px;
+    height: 20px;
+    background: transparent;
+    border: 1px solid #1e2a3a !important;
+    border-radius: 5px;
+    color: #4a9eff !important;
+    font-size: 0.7rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    transition: all 0.2s;
+    padding: 0 !important;
+}
+
+.history-minimize-btn:hover {
+    background: rgba(74,158,255,0.15) !important;
+    border-color: #4a9eff !important;
 }
 
 .history-content {

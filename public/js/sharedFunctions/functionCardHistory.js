@@ -1,3 +1,11 @@
+function togglePainelHistorico() {
+    const container = document.querySelector('.history-container');
+    const btn = document.getElementById('history-minimize-btn');
+    const minimizado = container.classList.toggle('minimized');
+    btn.textContent = minimizado ? '▲' : '▼';
+    localStorage.setItem('historico-minimizado', minimizado ? '1' : '0');
+}
+
 function salvarHistorico(texto, titulo = 'Registro') {
     const historico = JSON.parse(localStorage.getItem('historico') || '[]');
     const nome = (document.getElementById('nome') || document.querySelector('input[name="nome"]'))?.value.trim() || 'Cliente';
@@ -145,5 +153,13 @@ document.getElementById('history-panel').addEventListener('input', (e) => {
         redimensionarTextarea(e.target);
     }
 });
+
+(function () {
+    if (localStorage.getItem('historico-minimizado') === '1') {
+        document.querySelector('.history-container').classList.add('minimized');
+        const btn = document.getElementById('history-minimize-btn');
+        if (btn) btn.textContent = '▲';
+    }
+})();
 
 renderizarHistorico();
