@@ -10,6 +10,7 @@ function salvarHistorico(texto, titulo = 'Registro') {
     historico.push({
         id: Date.now(),
         hora: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+        date: new Date().toLocaleDateString('pt-BR'),
         nome,
         titulo,
         texto
@@ -62,7 +63,7 @@ function renderizarHistorico() {
             <div class="history-card-header" onclick="toggleHistoricoCard(this)">
                 <div class="history-card-title">
                     <span class="history-title">${escapeHtml(item.titulo)}</span>
-                    <span class="history-time">🕐 ${escapeHtml(item.hora)} - ${escapeHtml(item.nome)}</span>
+                    <span class="history-time">📅 ${escapeHtml(item.date)} | 🕐 ${escapeHtml(item.hora)} - ${escapeHtml(item.nome)}</span>
                 </div>
                 <div class="history-card-actions">
                     <span class="history-arrow">▼</span>
