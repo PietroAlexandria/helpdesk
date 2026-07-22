@@ -131,9 +131,9 @@ ${los}
 Favor verificar os equipamentos e cabeamento. 
   
 Login PPPoE: ${loginPPPOE}  
-Senha PPPoE: ${senhaPPPOE}
-
-${tr069} `;
+Senha PPPoE: ${senhaPPPOE} ${tr069 ? `
+    
+${tr069}` : ''}`;
 
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar Agendamento'))
@@ -255,9 +255,9 @@ Encrypt BASE: ${encryptBase}
 Login PPPoE: ${loginPPPOE_Radio} 
 Senha PPPoE: ${senhaPPPOE_Radio} 
 
-Localização: ${loc} 
+Localização: ${loc} ${tr069_Radio ? `
 
-${tr069_Radio}`;
+${tr069_Radio}` : ''}`;
 
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar Agendamento'))

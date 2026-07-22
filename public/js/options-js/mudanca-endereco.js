@@ -73,6 +73,7 @@ function copiarForm(botao) {
     const number         = document.getElementById('number')?.value || '';
     const loginPPPOE     = document.getElementById('loginpppoe')?.value || '';
     const senhaPPPOE     = document.getElementById('senhapppoe')?.value || '';
+    const obs            = document.querySelector('textarea[name="observacoes"]')?.value || '';
 
     const taxa         = taxaVal === 'isento' ? 'Isento' : 'Não Isento';
     const equipamentos = equipamentosVal === 'levar' ? 'irá levar' : 'não irá levar';
@@ -103,7 +104,9 @@ Novo endereço:
 ${uf} ${cidade} ${cep} ${bairro} - ${logradouro}, ${number} 
 
 Login PPPoE: ${loginPPPOE} 
-Senha PPPoE: ${senhaPPPOE}`;
+Senha PPPoE: ${senhaPPPOE} ${obs ? `
+    
+Observações: ${obs}` : ''}`;
 
     try { salvarHistorico(texto, 'Mudança de Endereço'); } catch(e) {}
     navigator.clipboard.writeText(texto)
