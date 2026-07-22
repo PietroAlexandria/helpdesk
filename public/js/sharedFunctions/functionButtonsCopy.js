@@ -47,3 +47,19 @@ function copyNomeTelefone(botao) {
         .then(() => feedbackBtn(botao, '📋'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
 }
+
+function copyColetaCompleta(botao) {
+    const texto = `O senhor/a poderia me informar estes dados para eu abrir a ordem de serviço: \nNome: \nTelefone:  
+Disponibilidade de horário para atender os técnicos *(período da manhã, período da tarde ou qualquer horário)*?:`
+    navigator.clipboard.writeText(texto)
+        .then(() => feedbackBtn(botao, '📋'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+}
+
+function copyColetaRuralCompleta(botao) {
+    const texto = `O senhor/a poderia me informar estes dados para eu abrir a ordem de serviço: \nNome: \nTelefone: \nLocalização:   
+Disponibilidade de horário para atender os técnicos *(período da manhã, período da tarde ou qualquer horário)*?:`
+    navigator.clipboard.writeText(texto)
+        .then(() => feedbackBtn(botao, '📋'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+}
