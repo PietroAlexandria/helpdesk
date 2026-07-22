@@ -63,7 +63,9 @@ function renderizarHistorico() {
             <div class="history-card-header" onclick="toggleHistoricoCard(this)">
                 <div class="history-card-title">
                     <span class="history-title">${escapeHtml(item.titulo)}</span>
-                    <span class="history-time">📅 ${escapeHtml(item.date)} | 🕐 ${escapeHtml(item.hora)} - ${escapeHtml(item.nome)}</span>
+                    <span class="history-time">📅 ${escapeHtml(item.date)} | 🕐 ${escapeHtml(item.hora)}</span>
+                    <hr class="history-sep">
+                    <span class="history-time">${escapeHtml(item.nome)}</span>
                 </div>
                 <div class="history-card-actions">
                     <span class="history-arrow">▼</span>
