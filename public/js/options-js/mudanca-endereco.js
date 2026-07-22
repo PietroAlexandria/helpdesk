@@ -31,6 +31,13 @@ function copiarForm(botao) {
     if (!contato || contato.length < 10) { mostrarAlerta('Preencha o campo CONTATO!'); return; }
     if (!area)    { mostrarAlerta('Selecione uma área (Rural ou Urbana)!'); return; }
 
+    const contatosAg = [...document.querySelectorAll('#lista-contatos input[name="contatoAg"]')]
+        .map(el => el.value.trim())
+        .filter(v => v);
+    const contatosAgInvalido = contatosAg.some(c => c.replace(/\D/g, '').length < 10);
+    if (contatosAgInvalido) { mostrarAlerta('Preencha o campo CONTATO com pelo menos 10 dígitos!'); return; }
+    const contatoAgStr = contatosAg.length > 0 ? contatosAg.join(' / ') : '';
+
     const taxaVal = document.querySelector('input[name="taxa"]:checked')?.value || '';
     if (area === 'Urbana' && !taxaVal) { mostrarAlerta('Selecione a TAXA!'); return; }
 
@@ -83,7 +90,7 @@ function copiarForm(botao) {
     const dataFormatada = data ? data.split('-').reverse().join('/') : null;
 
     const texto = `Agendado por ${nome} 
-Contato: ${contato} 
+Contato: ${contato}${contatoAgStr ? ` / ${contatoAgStr}` : ''}
 Disponibilidade: ${disponibilidade} 
 
 Cliente entrou em contato solicitando mudança de endereço. 
@@ -122,6 +129,9 @@ function limparColeta() {
 }
 
 function limparMudancaUrbana() {
+    document.querySelector('input[name="contatoAg"]').value = '';
+    document.querySelectorAll('#lista-contatos input').forEach(el => el.value = '');
+    document.querySelectorAll('#lista-contatos .btn-remove').forEach(el => el.closest('.campo-contato').remove());
     document.querySelectorAll('input[name="taxa"], input[name="dataMudanca"], input[name="equipamentos"], input[name="disponibilidade-urbana"], input[name="tipo-telhado-urbano"], input[name="poste"]').forEach(el => el.checked = false);
     document.getElementById('dataMudancaEsp').style.display = 'none';
     document.getElementById('horario-especifico-urbana').style.display = 'none';
