@@ -49,7 +49,7 @@ function copyNomeTelefone(botao) {
 }
 
 function copyColetaCompleta(botao) {
-    const texto = `O senhor/a poderia me informar estes dados para eu abrir a ordem de serviço: \nNome: \nTelefone:  
+    const texto = `O/A senhor/a poderia me informar estes dados para eu abrir a ordem de serviço: \nNome: \nTelefone:  
 Disponibilidade de horário para atender os técnicos *(período da manhã, período da tarde ou qualquer horário)*?:`
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋'))
@@ -57,7 +57,7 @@ Disponibilidade de horário para atender os técnicos *(período da manhã, per�
 }
 
 function copyColetaRuralCompleta(botao) {
-    const texto = `O senhor/a poderia me informar estes dados para eu abrir a ordem de serviço: \nNome: \nTelefone: \nLocalização:   
+    const texto = `O/A senhor/a poderia me informar estes dados para eu abrir a ordem de serviço: \nNome: \nTelefone: \nLocalização:   
 Disponibilidade de horário para atender os técnicos *(período da manhã, período da tarde ou qualquer horário)*?:`
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋'))
