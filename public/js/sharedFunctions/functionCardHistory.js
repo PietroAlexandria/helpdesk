@@ -1,5 +1,44 @@
+let painelAtivo = null;
+
+function openPanel(modulo) {
+    const container = document.getElementById('sidebar-panel');
+    if (!container) return;
+
+    if (painelAtivo === modulo && !container.classList.contains('minimized')) {
+        closePanel();
+        return;
+    }
+
+    painelAtivo = modulo;
+    container.classList.remove('minimized');
+    localStorage.setItem('painel-ativo', modulo);
+
+    const historyModule = document.getElementById('history-module');
+    const notepadModule = document.getElementById('notepad-module');
+    if (historyModule) historyModule.style.display = modulo === 'historico' ? 'block' : 'none';
+    if (notepadModule) notepadModule.style.display  = modulo === 'notepad'   ? 'block' : 'none';
+
+    const titulos = { historico: '📋 Histórico', notepad: '📝 Notepad' };
+    const panelTitle = document.getElementById('panel-title');
+    if (panelTitle) panelTitle.textContent = titulos[modulo] || modulo;
+
+    const btnLimpar = document.getElementById('btn-limpar-historico');
+    if (btnLimpar) btnLimpar.style.display = modulo === 'historico' ? 'inline-block' : 'none';
+
+    if (modulo === 'historico') renderizarHistorico();
+}
+
+function closePanel() {
+    const container = document.getElementById('sidebar-panel') || document.querySelector('.history-container');
+    if (!container) return;
+    container.classList.add('minimized');
+    localStorage.setItem('painel-ativo', '0');
+    painelAtivo = null;
+}
+
 function togglePainelHistorico() {
     const container = document.querySelector('.history-container');
+    if (!container) return;
     const minimizado = container.classList.toggle('minimized');
     localStorage.setItem('historico-minimizado', minimizado ? '1' : '0');
 }
@@ -38,7 +77,7 @@ function toggleHistoricoCard(header) {
     body.style.display = aberto ? 'none' : 'block';
     arrow.style.transform = aberto ? '' : 'rotate(180deg)';
 
-    if (!aberto) { 
+    if (!aberto) {
         redimensionarTextarea(body.querySelector('.history-text'));
     }
 }
@@ -51,6 +90,7 @@ function redimensionarTextarea(textarea) {
 
 function renderizarHistorico() {
     const painel = document.getElementById('history-panel');
+    if (!painel) return;
     const historico = JSON.parse(localStorage.getItem('historico') || '[]');
 
     if (historico.length === 0) {
@@ -63,7 +103,7 @@ function renderizarHistorico() {
             <div class="history-card-header" onclick="toggleHistoricoCard(this)">
                 <div class="history-card-title">
                     <span class="history-title">${escapeHtml(item.titulo)}</span>
-                    <span class="history-time">📅 ${escapeHtml(item.date)} | 🕐 ${escapeHtml(item.hora)}</span>
+                    <span class="history-time">📅 ${escapeHtml(item.date || '')} | 🕐 ${escapeHtml(item.hora)}</span>
                     <hr class="history-sep">
                     <span class="history-time">${escapeHtml(item.nome)}</span>
                 </div>
@@ -149,16 +189,40 @@ function finalizarEdicaoHistorico(id, texto) {
     viewActions.style.display = 'flex';
 }
 
-document.getElementById('history-panel').addEventListener('input', (e) => {
-    if (e.target.classList.contains('history-text')) {
-        redimensionarTextarea(e.target);
-    }
-});
+const historyPanel = document.getElementById('history-panel');
+if (historyPanel) {
+    historyPanel.addEventListener('input', (e) => {
+        if (e.target.classList.contains('history-text')) {
+            redimensionarTextarea(e.target);
+        }
+    });
+}
 
 (function () {
-    if (localStorage.getItem('historico-minimizado') === '1') {
-        document.querySelector('.history-container').classList.add('minimized');
+    // Notepad: restaura conteúdo salvo
+    const notepadEl = document.getElementById('notepad-textarea');
+    if (notepadEl) {
+        notepadEl.value = localStorage.getItem('notepad-conteudo') || '';
+        notepadEl.addEventListener('input', (e) => {
+            localStorage.setItem('notepad-conteudo', e.target.value);
+        });
     }
-})();
 
-renderizarHistorico();
+    // Painel com abas (index)
+    const sidebarPanel = document.getElementById('sidebar-panel');
+    if (sidebarPanel) {
+        const ativo = localStorage.getItem('painel-ativo');
+        if (ativo && ativo !== '0') {
+            openPanel(ativo);
+        }
+        return;
+    }
+
+    // Painel simples (outros módulos)
+    if (localStorage.getItem('historico-minimizado') === '1') {
+        const container = document.querySelector('.history-container');
+        if (container) container.classList.add('minimized');
+    }
+
+    renderizarHistorico();
+})();

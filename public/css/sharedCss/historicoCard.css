@@ -28,25 +28,57 @@
     display: none;
 }
 
-.history-tab {
+.panel-tabs {
     display: none;
+    flex-direction: column;
+    width: 100%;
+    flex: 1;
+}
+
+.history-container.minimized .panel-tabs {
+    display: flex;
+}
+
+.panel-tab-btn {
+    display: flex;
     align-items: center;
     justify-content: center;
     width: 100%;
     flex: 1;
     cursor: pointer;
+    background: transparent;
+    border: none;
+    border-bottom: 1px solid #1e2a3a;
     color: #4a9eff;
-    font-size: 0.75rem;
-    user-select: none;
+    font-size: 1.1rem;
     transition: background 0.2s;
 }
 
-.history-tab:hover {
+.panel-tab-btn:last-child {
+    border-bottom: none;
+}
+
+.panel-tab-btn:hover {
     background: rgba(74,158,255,0.08);
 }
 
-.history-container.minimized .history-tab {
-    display: flex;
+.notepad-textarea {
+    width: 100%;
+    min-height: 200px;
+    background: #0d1520;
+    border: 1px solid #1e2a3a;
+    border-radius: 6px;
+    color: #c8d8f0;
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    padding: 10px;
+    box-sizing: border-box;
+    resize: vertical;
+    outline: none;
+}
+
+.notepad-textarea:focus {
+    border-color: #4a9eff;
 }
 
 .history-header {
