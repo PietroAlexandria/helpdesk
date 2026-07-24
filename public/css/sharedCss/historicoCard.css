@@ -18,9 +18,10 @@
 }
 
 .history-container.minimized {
-    width: 28px;
+    width: 44px;
     right: 0;
     border-radius: 12px 0 0 12px;
+    box-shadow: -4px 0 24px rgba(0,0,0,0.4);
 }
 
 .history-container.minimized .history-header,
@@ -33,6 +34,8 @@
     flex-direction: column;
     width: 100%;
     flex: 1;
+    padding: 8px 0;
+    gap: 4px;
 }
 
 .history-container.minimized .panel-tabs {
@@ -43,23 +46,23 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 100%;
-    flex: 1;
+    width: 32px;
+    height: 32px;
+    margin: 0 auto;
     cursor: pointer;
     background: transparent;
-    border: none;
-    border-bottom: 1px solid #1e2a3a;
+    border: 1px solid #1e2a3a;
+    border-radius: 8px;
     color: #4a9eff;
-    font-size: 1.1rem;
-    transition: background 0.2s;
-}
-
-.panel-tab-btn:last-child {
-    border-bottom: none;
+    font-size: 1rem;
+    transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    flex-shrink: 0;
 }
 
 .panel-tab-btn:hover {
-    background: rgba(74,158,255,0.08);
+    background: rgba(74,158,255,0.12);
+    border-color: #4a9eff;
+    transform: scale(1.1);
 }
 
 .notepad-textarea {
