@@ -311,16 +311,28 @@
             </div>
         </div>
 
-        <div class="history-container">
-            <div class="history-tab" onclick="togglePainelHistorico()">◀</div>
+        <div class="history-container" id="sidebar-panel">
+            <div class="panel-tabs">
+                <button class="panel-tab-btn" onclick="openPanel('historico')" title="Histórico">📋</button>
+                <button class="panel-tab-btn" onclick="openPanel('notepad')" title="Bloco de Notas">📝</button>
+            </div>
             <div class="history-header">
-                <span>📋 Histórico</span>
+                <span id="panel-title">📋 Histórico</span>
                 <div style="display:flex;align-items:center;gap:6px">
-                    <button id="history-minimize-btn" class="history-minimize-btn" onclick="togglePainelHistorico()" title="Minimizar">▶</button>
-                    <button onclick="limparHistorico()">Limpar tudo</button>
+                    <button id="history-minimize-btn" class="history-minimize-btn" onclick="closePanel()" title="Fechar painel">▶</button>
+                    <button id="btn-limpar-historico" onclick="limparHistorico()">Limpar tudo</button>
+                    <button id="btn-copiar-notepad" onclick="copiarNotepad()" style="display:none">📋 Copiar</button>
+                    <button id="btn-limpar-notepad" onclick="limparNotepad()" style="display:none">Limpar</button>
                 </div>
             </div>
-            <div class="history-content" id="history-panel"></div>
+            <div class="history-content">
+                <div id="history-module" style="display:none">
+                    <div id="history-panel"></div>
+                </div>
+                <div id="notepad-module" style="display:none">
+                    <textarea id="notepad-textarea" class="notepad-textarea" placeholder="Anotações rápidas..."></textarea>
+                </div>
+            </div>
         </div>
     </div>
     

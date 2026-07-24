@@ -229,21 +229,14 @@ if (historyPanel) {
         });
     }
 
-    // Painel com abas (index)
+    // Painel com abas (todas as telas)
     const sidebarPanel = document.getElementById('sidebar-panel');
     if (sidebarPanel) {
         const ativo = localStorage.getItem('painel-ativo');
         if (ativo && ativo !== '0') {
             openPanel(ativo);
+        } else {
+            sidebarPanel.classList.add('minimized');
         }
-        return;
     }
-
-    // Painel simples (outros módulos)
-    if (localStorage.getItem('historico-minimizado') === '1') {
-        const container = document.querySelector('.history-container');
-        if (container) container.classList.add('minimized');
-    }
-
-    renderizarHistorico();
 })();
