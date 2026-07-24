@@ -24,6 +24,11 @@ function openPanel(modulo) {
 
     const btnLimpar = document.getElementById('btn-limpar-historico');
     if (btnLimpar) btnLimpar.style.display = modulo === 'historico' ? 'inline-block' : 'none';
+    const btnCopiarNotepad = document.getElementById('btn-copiar-notepad');
+    const btnLimparNotepad = document.getElementById('btn-limpar-notepad');
+    const isNotepad = modulo === 'notepad';
+    if (btnCopiarNotepad) btnCopiarNotepad.style.display = isNotepad ? 'inline-block' : 'none';
+    if (btnLimparNotepad) btnLimparNotepad.style.display = isNotepad ? 'inline-block' : 'none';
 
     if (modulo === 'historico') renderizarHistorico();
 }
@@ -68,6 +73,22 @@ function limparHistorico() {
     if (!confirm('Limpar todo o histórico?')) return;
     localStorage.removeItem('historico');
     renderizarHistorico();
+}
+
+function copiarNotepad() {
+    const texto = document.getElementById('notepad-textarea')?.value || '';
+    if (!texto.trim()) { mostrarAlerta('Bloco de notas está vazio!'); return; }
+    navigator.clipboard.writeText(texto)
+        .then(() => mostrarAlerta('Anotações copiadas!', 'sucesso'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+}
+
+function limparNotepad() {
+    if (!confirm('Limpar as anotações?')) return;
+    const el = document.getElementById('notepad-textarea');
+    if (el) el.value = '';
+    localStorage.removeItem('notepad-conteudo');
+    mostrarAlerta('Anotações limpas!', 'sucesso');
 }
 
 function toggleHistoricoCard(header) {
