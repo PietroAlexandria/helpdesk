@@ -1,3 +1,13 @@
+function feedbackBtn(botao, textoOriginal) {
+    mostrarAlerta('Copiado com sucesso!', 'sucesso');
+    botao.textContent = '✅ Copiado!';
+    botao.disabled = true;
+    setTimeout(() => {
+        botao.textContent = textoOriginal;
+        botao.disabled = false;
+    }, 1000);
+}
+
 function copyDisponibilidade(botao) {
     const texto = `O/A senhor/a poderia me informar uma disponibilidade de horário para atender os técnicos *(período da manhã, período da tarde ou qualquer horário)*?:`
     navigator.clipboard.writeText(texto)
@@ -78,6 +88,6 @@ Poderia me passar algumas informações?
 \n(Estado) (Cidade) (CEP) (Bairro) - (Rua, número)
 \n6. Poderia me passar uma disponibilidade de horário para atender os técnicos (Período da *MANhÃ*, *TARDE* ou *QUALQUER HORÁRIO*)? \nR:`
     navigator.clipboard.writeText(texto)
-        .then(() => feedbackBtn(botao, '📦'))
+        .then(() => feedbackBtn(botao))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
 }
