@@ -1,0 +1,84 @@
+.panel-tabs {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 4px;
+    padding: 8px 12px;
+    background: #0a0e14;
+    border-bottom: 1px solid #1e2a3a;
+    flex-shrink: 0;
+}
+
+.history-container.minimized .panel-tabs {
+    display: none;
+}
+
+.panel-tab-btn {
+    width: 28px;
+    height: 28px;
+    background: transparent;
+    border: 1px solid #1e2a3a;
+    border-radius: 7px;
+    color: #4a9eff;
+    font-size: 0.85rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: all 0.2s;
+    flex-shrink: 0;
+}
+
+.panel-tab-btn:hover {
+    background: rgba(74,158,255,0.12);
+    border-color: #4a9eff;
+}
+
+.panel-tab-btn.active {
+    background: rgba(74,158,255,0.2);
+    border-color: #4a9eff;
+}
+
+.notepad-textarea {
+    width: 100%;
+    min-height: 200px;
+    background: #0d1520;
+    border: 1px solid #1e2a3a;
+    border-radius: 6px;
+    color: #c8d8f0;
+    font-family: 'Courier New', monospace;
+    font-size: 0.75rem;
+    padding: 10px;
+    box-sizing: border-box;
+    resize: vertical;
+    outline: none;
+}
+
+.notepad-textarea:focus {
+    border-color: #4a9eff;
+}
+
+.notepad-textarea::placeholder {
+    color: #3a4a5a;
+}
+
+.template-btn {
+    width: 100%;
+    padding: 10px 12px;
+    background: #141920;
+    color: #c8d8f0;
+    border: 1px solid #1e2a3a;
+    border-radius: 8px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    text-align: left;
+    transition: all 0.2s;
+}
+
+.template-btn:hover {
+    background: rgba(74,158,255,0.1);
+    border-color: #4a9eff;
+    color: #4a9eff;
+}

@@ -31,17 +31,18 @@
             </div>
         </div>
 
-        <div class="history-container" id="sidebar-panel">
+        <div class="history-container minimized" id="sidebar-panel">
             <div class="panel-tabs">
                 <button class="panel-tab-btn" onclick="openPanel('historico')" title="Histórico">📋</button>
                 <button class="panel-tab-btn" onclick="openPanel('notepad')" title="Bloco de Notas">📝</button>
+                <button class="panel-tab-btn" onclick="openPanel('templates')" title="Templates">💬</button>
             </div>
             <div class="history-header">
                 <span id="panel-title">📋 Histórico</span>
                 <div style="display:flex;align-items:center;gap:6px">
                     <button id="history-minimize-btn" class="history-minimize-btn" onclick="closePanel()" title="Fechar painel">▶</button>
                     <button id="btn-limpar-historico" onclick="limparHistorico()">Limpar tudo</button>
-                    <button id="btn-copiar-notepad" onclick="copiarNotepad()" style="display:none">📋 Copiar</button>
+                    <button id="btn-copiar-notepad" onclick="copiarNotepad()" style="display:none">Copiar</button>
                     <button id="btn-limpar-notepad" onclick="limparNotepad()" style="display:none">Limpar</button>
                 </div>
             </div>
@@ -52,13 +53,17 @@
                 <div id="notepad-module" style="display:none">
                     <textarea id="notepad-textarea" class="notepad-textarea" placeholder="Anotações rápidas..."></textarea>
                 </div>
+                <div id="templates-module" style="display:none">
+                    <button class="template-btn" onclick="copyMudancaEnderecoCompleta(this)">📦 MUDANÇA DE ENDEREÇO</button>
+                </div>
             </div>
         </div>
 
     </div>
 
+    <script src="/js/sharedFunctions/functionButtonsCopy.js"  ></script>
     <script src="/js/sharedFunctions/functionMostrarAlerta.js"></script>
-    <script src="/js/sharedFunctions/functionCardHistory.js"></script>
+    <script src="/js/sharedFunctions/functionCardHistory.js"  ></script>
     <div id="toast" class="toast"></div>
 </body>
 </html>
