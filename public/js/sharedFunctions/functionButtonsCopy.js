@@ -87,6 +87,7 @@ Poderia me passar algumas informações?
 \n*5. Poderia me mandar as informações do novo endereço? (Se não souber algum, não tem problema)* 
 \n(Estado) (Cidade) (CEP) (Bairro) - (Rua, número)
 \n6. Poderia me passar uma disponibilidade de horário para atender os técnicos (Período da *MANhÃ*, *TARDE* ou *QUALQUER HORÁRIO*)? \nR:`
+
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
