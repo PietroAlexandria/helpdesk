@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pagamentos - CedNet Helpdesk</title>
+    <link rel="icon" href="/images/LogoCedNet.ico">
+    <link rel="stylesheet" href="/css/pagamento.css">
+    <link rel="stylesheet" href="/css/sharedCss/historicoCard.css">
+    <link rel="stylesheet" href="/css/sharedCss/btnCopyAx.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="layout-with-history">
+        <div class="container">
+
+            <div class="page-header">
+                <a href="/" class="btn-back">← Voltar</a>
+                <h1 class="page-title">💲 Pagamentos</h1>
+            </div>
+
+            <!-- Coleta de Dados ------------------------------------------------------------------------------------------------------------------------------->
+            <div class="card">
+                <p class="card-title">Coleta de Dados</p>
+
+                <div class="field">
+                    <label class="field-subtitle">Via de Contato</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="via" value="Central"><span>Central</span></label>
+                        <label class="radio-btn"><input type="radio" name="via" value="OPA"><span>OPA! Suite</span></label>
+                    </div>
+                </div>
+
+                <hr class="sep">
+
+                <div class="field">
+                    <label>Nome</label>
+                    <input type="text" name="nome" id="nome" placeholder="Ex: Pietro de Alexandria Picoli">
+                </div>
+
+                <div class="field">
+                    <label>Contato</label>
+                    <input type="text" name="contato" placeholder="Ex: (XX) XXXXX-XXXX" maxlength="15" oninput="mascaraContato(this)">
+                </div>
+            </div>
+
+            <div class="card">
+                <p class="card-title">Tipo de Conexão</p>
+                <div class="field">
+                    <label class="field-subtitle">Selecione o tipo de atendimento</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="type" value="Fibra" onchange="toggleCards(this.value, { Fibra: 'card-fibra', Radio: 'card-radio' }); 
+                        document.getElementById('field-agendamentoSim').style.display='none'; document.getElementById('field-agendamentoSim-radio').style.display='none';"><span>Fibra</span></label>
+                        <label class="radio-btn"><input type="radio" name="type" value="Radio" onchange="toggleCards(this.value, { Fibra: 'card-fibra', Radio: 'card-radio' }); 
+                        document.getElementById('field-agendamentoSim').style.display='none'; document.getElementById('field-agendamentoSim-radio').style.display='none';"><span>Rádio</span></label>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn-copy" onclick="copiarColetaDados(this)">📋 Copiar Coleta</button>
+                    <button class="btn-clear" onclick="limparColeta()">🗑️ Limpar</button>
+                </div>
+            </div>
+
+            <!-- Watermark ------------------------------------------------------------------------------------------------------------------------------->
+            <div class="card">
+                    <div class="watermark">Desenvolvido por Pietro de Alexandria Picoli — <a href="https://github.com/PietroAlexandria" target="_blank">GitHub</a></div>
+            </div>
+        </div>
+
+        <div class="history-container minimized" id="sidebar-panel">
+            <div class="panel-tabs">
+                <button class="panel-tab-btn" onclick="openPanel('historico')" title="Histórico">📋</button>
+                <button class="panel-tab-btn" onclick="openPanel('notepad')" title="Bloco de Notas">📝</button>
+            </div>
+            <div class="history-header">
+                <span id="panel-title">📋 Histórico</span>
+                <div style="display:flex;align-items:center;gap:6px">
+                    <button id="history-minimize-btn" class="history-minimize-btn" onclick="closePanel()" title="Fechar painel">▶</button>
+                    <button id="btn-limpar-historico" onclick="limparHistorico()">Limpar tudo</button>
+                    <button id="btn-copiar-notepad" onclick="copiarNotepad()" style="display:none">📋 Copiar</button>
+                    <button id="btn-limpar-notepad" onclick="limparNotepad()" style="display:none">Limpar</button>
+                </div>
+            </div>
+            <div class="history-content">
+                <div id="history-module" style="display:none">
+                    <div id="history-panel"></div>
+                </div>
+                <div id="notepad-module" style="display:none">
+                    <textarea id="notepad-textarea" class="notepad-textarea" placeholder="Anotações rápidas..."></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+</body>
+</html>
