@@ -35,7 +35,9 @@ body {
     white-space: nowrap;
 }
 
-.btn-back:hover { color: #ffffff; }
+.btn-back:hover { 
+    color: #ffffff; 
+}
 
 .page-title {
     font-size: 1.5rem;
@@ -277,5 +279,10 @@ body {
 }
 
 .layout-with-history {
-    display: flex;
+    display: block;
+}
+
+.container {
+    max-width: 480px;
+    margin: 0 auto;
 }

@@ -103,24 +103,13 @@
             <div class="card" id="card-2via" style="display:none">
                 <p class="card-title">2ª Via de Boleto</p>
 
-                <div class="field">
-                    <label>Mês de Referência</label>
-                    <input type="text" name="mes-ref-2via" placeholder="Ex: Junho/2025">
-                </div>
 
                 <div class="field">
-                    <label>Valor</label>
-                    <input type="text" name="valor-2via" placeholder="Ex: R$ 89,90" oninput="mascaraValor(this)">
-                </div>
-
-                <div class="field">
-                    <label>Vencimento</label>
-                    <input type="text" name="vencimento" placeholder="Ex: 10/07/2025" oninput="mascaraData(this)">
-                </div>
-
-                <div class="field">
-                    <label>Código de Barras / PIX</label>
-                    <textarea name="codigo-barras" placeholder="Ex: 00190.00009 01234.560007 23456.780096 1 00000000089900"></textarea>
+                    <label>Forma de Pagamento</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="formaPag-2via" id="formaPag-2via" value="viaPix"><span>PIX</span></label>
+                        <label class="radio-btn"><input type="radio" name="formaPag-2via" id="formaPag-2via" value="viaBoleto"><span>BOLETO</span></label>
+                    </div>
                 </div>
 
                 <div class="field">

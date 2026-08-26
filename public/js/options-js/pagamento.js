@@ -44,7 +44,7 @@ function copiarComprovante(botao) {
     const texto = `Cliente solicitou 2ª Via ${formaPg}
 Enviado 2ª Via ${formaPg}
 Pagamento ${constaPagamento} no sistema
-${anexo} na O.S.${obs ? `\nObservação: ${obs}` : ''}`;
+${anexo} na O.S.${obs ? `\n\nObservação: ${obs}` : ''}`;
 
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar Comprovante'))
@@ -53,6 +53,16 @@ ${anexo} na O.S.${obs ? `\nObservação: ${obs}` : ''}`;
 }
 
 function copiar2Via(botao) {
+
+    const formaPagamento = document.querySelector('input[name="formaPag-2via"]:checked')?.value || '';
+    let formaPg = '';
+    if (formaPagamento === 'boleto') { formaPg = 'BOLETO'; } else if (formaPagamento === 'pix') { formaPg = 'PIX'; }
+    if (!formaPagamento)     { mostrarAlerta('Selecione uma FORMA DE PAGAMENTO!'); return; }
+
+    const obs = document.querySelector('textarea[name="obs-2via"]')?.value || '';
+
+    const texto = `Cliente solicitou 2ª Via ${formaPg}
+Enviado 2ª Via ${formaPg}${obs ? `\n\nObservação: ${obs}` : ''}`;
 
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar 2ª Via'))
