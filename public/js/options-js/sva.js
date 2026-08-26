@@ -63,11 +63,10 @@ function copiarSva(botao) {
     const nome    = document.querySelector('input[name="nome"]')?.value || '';
     const contato = document.querySelector('input[name="contato"]')?.value || '';
 
-    const texto = `SVA: ${nomeSva}
-Problema: ${problema}${obs ? `\nObservação: ${obs}` : ''}
-
-Nome: ${nome}
-Contato: ${contato}`;
+    const texto = `Nome: ${nome}
+Contato: ${contato}
+SVA: ${nomeSva}
+\nProblema: ${problema}${obs ? `\n\nObservação: ${obs}` : ''}`;
 
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar Atendimento'))
