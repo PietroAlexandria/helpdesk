@@ -24,7 +24,24 @@ function copiarDescFibra(botao) {
     const descricao = document.querySelector('textarea[name="descricao"]')?.value || '';
     if (!descricao) { mostrarAlerta('Preencha o campo DESCRIÇÃO!'); return; }
 
-    const texto = `${descricao}`;
+    const caixaSelec = document.querySelector('input[name="cx"]:checked')?.value || '';
+    let caixa = '';
+    if (caixaSelec === 'cxOn') { caixa = 'ON'; } else if (caixaSelec === 'cxOff') { caixa = 'OFF'; }
+
+    const onuSelec = document.querySelector('input[name="onu"]:checked')?.value || '';
+    let onu = '';
+    if (onuSelec === 'onuOn') { onu = 'ON'; } else if (onuSelec === 'onuOff') { onu = 'OFF'; }
+
+    const routerSelec = document.querySelector('input[name="router"]:checked')?.value || '';
+    let router = '';
+    if (routerSelec === 'routerOn') { router = 'ON'; } else if (routerSelec === 'routerOff') { router = 'OFF'; }
+
+    const losSelecionada = document.querySelector('input[name="los"]:checked')?.value || '';
+    let los = '';
+    if (losSelecionada === 'losSim')    { los = 'ONU alarma LOS'; }
+    else if (losSelecionada === 'losNao')   { los = 'ONU NÃO alarma LOS'; }
+
+    const texto = `Caixa: ${caixa} \nONU: ${onu} \nRouter: ${router} \n\n${descricao}`;
 
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar Descrição'))
@@ -36,7 +53,19 @@ function copiarDescRadio(botao) {
     const descricaoRadio = document.querySelector('textarea[name="descricao-radio"]')?.value || '';
     if (!descricaoRadio) { mostrarAlerta('Preencha o campo DESCRIÇÃO!'); return; }
 
-    const texto = `${descricaoRadio}`;
+    const baseSelec = document.querySelector('input[name="base"]:checked')?.value || '';
+    let base = '';
+    if (baseSelec === 'baseOn') { base = 'ON'; } else if (baseSelec === 'baseOff') { base = 'OFF'; }
+
+    const radioSelec = document.querySelector('input[name="radio"]:checked')?.value || '';
+    let radio = '';
+    if (radioSelec === 'radioOn') { radio = 'ON'; } else if (radioSelec === 'radioOff') { radio = 'OFF'; }
+
+    const pppoeSelec_Radio = document.querySelector('input[name="pppoe-radio"]:checked')?.value || '';
+    let pppoe_Radio = '';
+    if (pppoeSelec_Radio === 'pppoeOn-radio') { pppoe_Radio = 'ON'; } else if (pppoeSelec_Radio === 'pppoeOff-radio') { pppoe_Radio = 'OFF'; }
+
+    const texto = `BASE: ${base} \nRádio: ${radio} \nPPPoE: ${pppoe_Radio} \n\n${descricaoRadio}`;
 
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar Descrição'))
