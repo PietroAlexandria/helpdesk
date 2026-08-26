@@ -30,6 +30,9 @@ app.get('/sva', (_, res) => res.sendFile(path.join(__dirname, 'views', 'options-
 // Rota - Mudança de Cômodo / Passagem de Cabo
 app.get('/servicos', (_, res) => res.sendFile(path.join(__dirname, 'views', 'options-html', 'servicos.html')));
 
+// Rota - Pagamento
+app.get('/pagamento', (_, res) => res.sendFile(path.join(__dirname, 'views', 'options-html', 'pagamento.html')));
+
 // Rota temporária de teste IXC
 app.get('/teste-ixc', (_, res) => res.sendFile(path.join(__dirname, 'views', 'teste-ixc.html')));
 

@@ -7,7 +7,6 @@
     <link rel="icon" href="/images/LogoCedNet.ico">
     <link rel="stylesheet" href="/css/pagamento.css">
     <link rel="stylesheet" href="/css/sharedCss/historicoCard.css">
-    <link rel="stylesheet" href="/css/sharedCss/btnCopyAx.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -20,7 +19,7 @@
                 <h1 class="page-title">💲 Pagamentos</h1>
             </div>
 
-            <!-- Coleta de Dados ------------------------------------------------------------------------------------------------------------------------------->
+            <!-- Coleta de Dados -->
             <div class="card">
                 <p class="card-title">Coleta de Dados</p>
 
@@ -45,15 +44,13 @@
                 </div>
             </div>
 
+            <!-- Tipo de Atendimento -->
             <div class="card">
-                <p class="card-title">Tipo de Conexão</p>
+                <p class="card-title">Selecione o TIPO de atendimento</p>
                 <div class="field">
-                    <label class="field-subtitle">Selecione o tipo de atendimento</label>
                     <div class="radio-group">
-                        <label class="radio-btn"><input type="radio" name="type" value="Fibra" onchange="toggleCards(this.value, { Fibra: 'card-fibra', Radio: 'card-radio' }); 
-                        document.getElementById('field-agendamentoSim').style.display='none'; document.getElementById('field-agendamentoSim-radio').style.display='none';"><span>Fibra</span></label>
-                        <label class="radio-btn"><input type="radio" name="type" value="Radio" onchange="toggleCards(this.value, { Fibra: 'card-fibra', Radio: 'card-radio' }); 
-                        document.getElementById('field-agendamentoSim').style.display='none'; document.getElementById('field-agendamentoSim-radio').style.display='none';"><span>Rádio</span></label>
+                        <label class="radio-btn"><input type="radio" name="type" value="Comprovante" onchange="toggleCards(this.value, { Comprovante: 'card-comprovante', SegundaVia: 'card-2via' })"><span>Comprovante</span></label>
+                        <label class="radio-btn"><input type="radio" name="type" value="SegundaVia"  onchange="toggleCards(this.value, { Comprovante: 'card-comprovante', SegundaVia: 'card-2via' })"><span>2ª Via</span></label>
                     </div>
                 </div>
 
@@ -63,9 +60,83 @@
                 </div>
             </div>
 
-            <!-- Watermark ------------------------------------------------------------------------------------------------------------------------------->
+            <!-- Card Comprovante -->
+            <div class="card" id="card-comprovante" style="display:none">
+                <p class="card-title">Comprovante de Pagamento</p>
+
+                <div class="field">
+                    <label>Forma de pagamento</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="formaPag" id="formaPag" value="pix"><span>PIX</span></label>
+                        <label class="radio-btn"><input type="radio" name="formaPag" id="formaPag" value="boleto"><span>BOLETO</span></label>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Pagamento consta no sistema?</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="constar" id="constar" value="consta"><span>Consta</span></label>
+                        <label class="radio-btn"><input type="radio" name="constar" id="constar" value="constaNao"><span>Não Consta</span></label>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Comprovante anexado?</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="anexar" id="anexado" value="anexadoSim"><span>Anexado</span></label>
+                        <label class="radio-btn"><input type="radio" name="anexar" id="anexadoNao" value="anexadoNao"><span>Não Anexado</span></label>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label>Observação</label>
+                    <textarea name="obs-comp" placeholder="Ex: Cliente solicitou comprovante do pagamento de Junho/2025."></textarea>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn-copy" onclick="copiarComprovante(this)">📋 Copiar Comprovante</button>
+                    <button class="btn-clear" onclick="limparComprovante()">🗑️ Limpar</button>
+                </div>
+            </div>
+
+            <!-- Card 2ª Via -->
+            <div class="card" id="card-2via" style="display:none">
+                <p class="card-title">2ª Via de Boleto</p>
+
+                <div class="field">
+                    <label>Mês de Referência</label>
+                    <input type="text" name="mes-ref-2via" placeholder="Ex: Junho/2025">
+                </div>
+
+                <div class="field">
+                    <label>Valor</label>
+                    <input type="text" name="valor-2via" placeholder="Ex: R$ 89,90" oninput="mascaraValor(this)">
+                </div>
+
+                <div class="field">
+                    <label>Vencimento</label>
+                    <input type="text" name="vencimento" placeholder="Ex: 10/07/2025" oninput="mascaraData(this)">
+                </div>
+
+                <div class="field">
+                    <label>Código de Barras / PIX</label>
+                    <textarea name="codigo-barras" placeholder="Ex: 00190.00009 01234.560007 23456.780096 1 00000000089900"></textarea>
+                </div>
+
+                <div class="field">
+                    <label>Observação</label>
+                    <textarea name="obs-2via" placeholder="Ex: Cliente solicitou 2ª via do boleto de Junho/2025."></textarea>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn-copy" onclick="copiar2Via(this)">📋 Copiar 2ª Via</button>
+                    <button class="btn-clear" onclick="limpar2Via()">🗑️ Limpar</button>
+                </div>
+            </div>
+
+            <!-- Watermark -->
             <div class="card">
-                    <div class="watermark">Desenvolvido por Pietro de Alexandria Picoli — <a href="https://github.com/PietroAlexandria" target="_blank">GitHub</a></div>
+                <div class="watermark">Desenvolvido por Pietro de Alexandria Picoli — <a href="https://github.com/PietroAlexandria" target="_blank">GitHub</a></div>
             </div>
         </div>
 
@@ -93,6 +164,14 @@
             </div>
         </div>
     </div>
-    
+
+    <div id="toast" class="toast"></div>
+
+    <div id="toast" class="toast"></div>
+    <script src="/js/sharedFunctions/functionMostrarAlerta.js" ></script>
+    <script src="/js/sharedFunctions/functionToggleCards.js"   ></script>
+    <script src="/js/sharedFunctions/functionContact.js"       ></script>
+    <script src="/js/options-js/pagamento.js"                  ></script>
+    <script src="/js/sharedFunctions/functionCardHistory.js"   ></script>
 </body>
 </html>
