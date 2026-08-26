@@ -92,3 +92,35 @@ Poderia me passar algumas informações?
         .then(() => feedbackBtn(botao))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
 }
+
+function copyReboot(botao) {
+    const texto = `Preciso que retire o roteador da tomada, atrás do roteador vai ter alguns cabos conectados, não precisa tirar esses cabos do lugar, mas dá uma forçadinha neles pra dar uma encaixada melhor, depois pode voltar o roteador na tomada por gentileza?`
+    
+    navigator.clipboard.writeText(texto)
+        .then(() => feedbackBtn(botao, '📋'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+}
+
+function copyPatchCordService(botao) {
+    const texto = `Preciso que retire o roteador da tomada. Em seguida, em baixo do roteador há um cabo verde conectado, por gentileza retire esse cabo e conecte-o novamente, garantindo que estejam bem encaixados. Depois, pode ligar o roteador novamente na tomada.`
+    
+    navigator.clipboard.writeText(texto)
+        .then(() => feedbackBtn(botao, '📋'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+}
+
+function copyPatchCordBridge(botao) {
+    const texto = `Preciso que retire o roteador da tomada. Em seguida, atrás do roteador há alguns cabos conectados por gentileza, retire esses cabos e conecte-os novamente, garantindo que estejam bem encaixados. Depois, pode ligar o roteador novamente na tomada.`
+
+    navigator.clipboard.writeText(texto)
+        .then(() => feedbackBtn(botao, '📋'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+}
+
+function copyPatchCordRadio(botao) {
+    const texto = ``
+
+    navigator.clipboard.writeText(texto)
+        .then(() => feedbackBtn(botao, '📋'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+}
