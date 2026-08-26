@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pagamentos - CedNet Helpdesk</title>
+    <title>Dúvidas - CedNet Helpdesk</title>
     <link rel="icon" href="/images/LogoCedNet.ico">
-    <link rel="stylesheet" href="/css/pagamento.css">
+    <link rel="stylesheet" href="/css/duvidas.css">
     <link rel="stylesheet" href="/css/sharedCss/historicoCard.css">
     <link rel="stylesheet" href="/css/sharedCss/btnCopyAx.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +17,7 @@
 
             <div class="page-header">
                 <a href="/" class="btn-back">← Voltar</a>
-                <h1 class="page-title">💲 Pagamentos</h1>
+                <h1 class="page-title">❓ Dúvidas</h1>
             </div>
 
             <!-- Coleta de Dados -->
@@ -45,13 +45,14 @@
                 </div>
             </div>
 
-            <!-- Tipo de Atendimento -->
+            <!-- Tipo de Dúvida -->
             <div class="card">
-                <p class="card-title">Selecione o TIPO de atendimento</p>
+                <p class="card-title">Selecione o TIPO de dúvida</p>
                 <div class="field">
                     <div class="radio-group">
-                        <label class="radio-btn"><input type="radio" name="type" value="Comprovante" onchange="toggleCards(this.value, { Comprovante: 'card-comprovante', SegundaVia: 'card-2via' })"><span>Comprovante</span></label>
-                        <label class="radio-btn"><input type="radio" name="type" value="SegundaVia"  onchange="toggleCards(this.value, { Comprovante: 'card-comprovante', SegundaVia: 'card-2via' })"><span>2ª Via</span></label>
+                        <label class="radio-btn"><input type="radio" name="type" value="Suporte"    onchange="toggleCards(this.value, { Suporte: 'card-suporte', Financeiro: 'card-financeiro', Comercial: 'card-comercial' })"><span>Dúvidas - Suporte</span></label>
+                        <label class="radio-btn"><input type="radio" name="type" value="Financeiro" onchange="toggleCards(this.value, { Suporte: 'card-suporte', Financeiro: 'card-financeiro', Comercial: 'card-comercial' })"><span>Dúvidas Financeiras</span></label>
+                        <label class="radio-btn"><input type="radio" name="type" value="Comercial"  onchange="toggleCards(this.value, { Suporte: 'card-suporte', Financeiro: 'card-financeiro', Comercial: 'card-comercial' })"><span>Dúvidas Comercial</span></label>
                     </div>
                 </div>
 
@@ -61,66 +62,48 @@
                 </div>
             </div>
 
-            <!-- Card Comprovante -->
-            <div class="card" id="card-comprovante" style="display:none">
-                <p class="card-title">Comprovante de Pagamento</p>
+            <!-- Card Suporte -->
+            <div class="card" id="card-suporte" style="display:none">
+                <p class="card-title">Dúvidas - Suporte</p>
 
                 <div class="field">
-                    <label>Forma de pagamento</label>
-                    <div class="radio-group">
-                        <label class="radio-btn"><input type="radio" name="formaPag" id="formaPag" value="pix"><span>PIX</span></label>
-                        <label class="radio-btn"><input type="radio" name="formaPag" id="formaPag" value="boleto"><span>BOLETO</span></label>
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label>Pagamento consta no sistema?</label>
-                    <div class="radio-group">
-                        <label class="radio-btn"><input type="radio" name="constar" id="constar" value="consta"><span>Consta</span></label>
-                        <label class="radio-btn"><input type="radio" name="constar" id="constar" value="constaNao"><span>Não Consta</span></label>
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label>Comprovante anexado?</label>
-                    <div class="radio-group">
-                        <label class="radio-btn"><input type="radio" name="anexar" id="anexado" value="anexadoSim"><span>Anexado</span></label>
-                        <label class="radio-btn"><input type="radio" name="anexar" id="anexadoNao" value="anexadoNao"><span>Não Anexado</span></label>
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label>Observação</label>
-                    <textarea name="obs-comp" placeholder="Ex: Cliente solicitou comprovante do pagamento de Junho/2025."></textarea>
+                    <label>Descrição do Ocorrido</label>
+                    <textarea name="desc-suporte" placeholder="Ex: Cliente com dúvida sobre acesso via IP"></textarea>
                 </div>
 
                 <div class="btn-group">
-                    <button class="btn-copy" onclick="copiarComprovante(this)">📋 Copiar Comprovante</button>
-                    <button class="btn-clear" onclick="limparComprovante()">🗑️ Limpar</button>
+                    <button class="btn-copy" onclick="copiarDuvida('suporte', this)">📋 Copiar</button>
+                    <button class="btn-clear" onclick="limparCard('suporte')">🗑️ Limpar</button>
                 </div>
             </div>
 
-            <!-- Card 2ª Via -->
-            <div class="card" id="card-2via" style="display:none">
-                <p class="card-title">2ª Via de Boleto</p>
-
-
-                <div class="field">
-                    <label>Forma de Pagamento</label>
-                    <div class="radio-group">
-                        <label class="radio-btn"><input type="radio" name="formaPag-2via" id="formaPag-2via" value="viaPix"><span>PIX</span></label>
-                        <label class="radio-btn"><input type="radio" name="formaPag-2via" id="formaPag-2via" value="viaBoleto"><span>BOLETO</span></label>
-                    </div>
-                </div>
+            <!-- Card Financeiro -->
+            <div class="card" id="card-financeiro" style="display:none">
+                <p class="card-title">Dúvidas Financeiras</p>
 
                 <div class="field">
-                    <label>Observação</label>
-                    <textarea name="obs-2via" placeholder="Ex: Cliente solicitou 2ª via do boleto de Junho/2025."></textarea>
+                    <label>Descrição do Ocorrido</label>
+                    <textarea name="desc-financeiro" placeholder="Ex: Cliente com dúvidas sobre o valor da fatura"></textarea>
                 </div>
 
                 <div class="btn-group">
-                    <button class="btn-copy" onclick="copiar2Via(this)">📋 Copiar 2ª Via</button>
-                    <button class="btn-clear" onclick="limpar2Via()">🗑️ Limpar</button>
+                    <button class="btn-copy" onclick="copiarDuvida('financeiro', this)">📋 Copiar</button>
+                    <button class="btn-clear" onclick="limparCard('financeiro')">🗑️ Limpar</button>
+                </div>
+            </div>
+
+            <!-- Card Comercial -->
+            <div class="card" id="card-comercial" style="display:none">
+                <p class="card-title">Dúvidas Comercial</p>
+
+                <div class="field">
+                    <label>Descrição do Ocorrido</label>
+                    <textarea name="desc-comercial" placeholder="Ex: Cliente com dúvidas sobre planos disponíveis na região"></textarea>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn-copy" onclick="copiarDuvida('comercial', this)">📋 Copiar</button>
+                    <button class="btn-clear" onclick="limparCard('comercial')">🗑️ Limpar</button>
                 </div>
             </div>
 
@@ -162,7 +145,7 @@
     <script src="/js/sharedFunctions/functionContact.js"       ></script>
     <script src="/js/sharedFunctions/functionCopyName.js"      ></script>
     <script src="/js/sharedFunctions/functionButtonsCopy.js"   ></script>
-    <script src="/js/options-js/pagamento.js"                  ></script>
+    <script src="/js/options-js/duvidas.js"                    ></script>
     <script src="/js/sharedFunctions/functionCardHistory.js"   ></script>
 </body>
 </html>

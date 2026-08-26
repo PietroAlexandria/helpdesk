@@ -33,6 +33,9 @@ app.get('/servicos', (_, res) => res.sendFile(path.join(__dirname, 'views', 'opt
 // Rota - Pagamento
 app.get('/pagamento', (_, res) => res.sendFile(path.join(__dirname, 'views', 'options-html', 'pagamento.html')));
 
+// Rota - Dúvidas
+app.get('/duvidas', (_, res) => res.sendFile(path.join(__dirname, 'views', 'options-html', 'duvidas.html')));
+
 // Rota temporária de teste IXC
 app.get('/teste-ixc', (_, res) => res.sendFile(path.join(__dirname, 'views', 'teste-ixc.html')));
 
