@@ -1,3 +1,27 @@
+:root {
+    --bg-gradient: linear-gradient(135deg, #0a2a5e 0%, #1565c0 50%, #1e88e5 100%);
+    --card-bg: #ffffff;
+    --card-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    --title-color: #0a2a5e;
+    --subtitle-color: #6b7a99;
+    --watermark-color: #a0aec0;
+    --watermark-border: #e8edf5;
+    --watermark-link: #1565c0;
+}
+
+:root.dark {
+    --bg-gradient: linear-gradient(135deg, #0a0f1a 0%, #0d1b2e 50%, #0f2040 100%);
+    --card-bg: #111827;
+    --card-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
+    --title-color: #93c5fd;
+    --subtitle-color: #6b7a99;
+    --watermark-color: #4b5563;
+    --watermark-border: #1e2a3a;
+    --watermark-link: #4a9eff;
+    --btn-menu-bg: linear-gradient(135deg, #0d1f3c, #0f2d5a);
+    --btn-menu-color: #93c5fd;
+}
+
 * {
     margin: 0;
     padding: 0;
@@ -7,7 +31,7 @@
 body {
     font-family: 'Inter', sans-serif;
     min-height: 100vh;
-    background: linear-gradient(135deg, #0a2a5e 0%, #1565c0 50%, #1e88e5 100%);
+    background: var(--bg-gradient);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -25,12 +49,12 @@ body {
 }
 
 .menu-card {
-    background: #ffffff;
+    background: var(--card-bg);
     border-radius: 20px;
     padding: 40px 36px;
     width: 100%;
     max-width: 480px;
-    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+    box-shadow: var(--card-shadow);
     text-align: center;
 }
 
@@ -51,12 +75,12 @@ body {
 .header h1 {
     font-size: 1.8rem;
     font-weight: 700;
-    color: #0a2a5e;
+    color: var(--title-color);
     letter-spacing: -0.5px;
 }
 
 .menu-subtitle {
-    color: #6b7a99;
+    color: var(--subtitle-color);
     font-size: 0.95rem;
     margin-bottom: 28px;
     font-weight: 400;
@@ -76,8 +100,8 @@ body {
 .btn-menu {
     width: 100%;
     padding: 14px 20px;
-    background: linear-gradient(135deg, #1565c0, #1e88e5);
-    color: #ffffff;
+    background: var(--btn-menu-bg, linear-gradient(135deg, #1565c0, #1e88e5));
+    color: var(--btn-menu-color, #ffffff);
     border: none;
     border-radius: 12px;
     font-size: 0.95rem;
@@ -124,19 +148,42 @@ body {
 
 .watermark {
     font-size: 0.75rem;
-    color: #a0aec0;
-    border-top: 1px solid #e8edf5;
+    color: var(--watermark-color);
+    border-top: 1px solid var(--watermark-border);
     padding-top: 16px;
 }
 
 .watermark a {
-    color: #1565c0;
+    color: var(--watermark-link);
     text-decoration: none;
     font-weight: 500;
 }
 
 .watermark a:hover {
     text-decoration: underline;
+}
+
+.btn-dark-mode {
+    position: fixed;
+    top: 16px;
+    right: 60px;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    border: 1px solid rgba(255,255,255,0.3);
+    background: rgba(255,255,255,0.15);
+    backdrop-filter: blur(6px);
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: background 0.2s, border-color 0.2s;
+    z-index: 1000;
+}
+
+.btn-dark-mode:hover {
+    background: rgba(255,255,255,0.25);
 }
 
 .btn-clear {

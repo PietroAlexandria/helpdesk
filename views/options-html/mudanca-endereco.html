@@ -6,18 +6,14 @@
     <title>Mudança de Endereço - CedNet Helpdesk</title>
     <link rel="icon" href="/images/LogoCedNet.ico">
     <link rel="stylesheet" href="/css/mudanca-endereco.css">
+    <link rel="stylesheet" href="/css/sharedCss/darkMode.css">
     <link rel="stylesheet" href="/css/sharedCss/historicoCard.css">
     <link rel="stylesheet" href="/css/sharedCss/btnCopyAx.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <div class="layout-with-history">
-        <div class="container">
-
-            <div class="page-header">
-                <a href="/" class="btn-back">← Voltar</a>
-                <h1 class="page-title">📦 Mudança de Endereço</h1>
+    <button id="btn-dark-mode" class="btn-dark-mode" onclick="toggleDarkMode()" title="Alternar tema">🌙</button>
             </div>
 
             <!-- Coleta de Dados ------------------------------------------------------------------------------------------------------------------------------->
@@ -303,6 +299,7 @@
             document.getElementById('dataMudancaEsp').style.display = el.value === 'naoMudou' ? 'block' : 'none'
         }
     </script>
+    <script src="/js/sharedFunctions/functionDarkMode.js"      ></script>
     <script src="/js/sharedFunctions/functionMostrarAlerta.js"></script>
     <script src="/js/sharedFunctions/functionToggleCards.js"  ></script>
     <script src="/js/sharedFunctions/functionContact.js"      ></script>

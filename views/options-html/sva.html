@@ -6,11 +6,13 @@
     <title>SVA's - CedNet Helpdesk</title>
     <link rel="icon" href="/images/LogoCedNet.ico">
     <link rel="stylesheet" href="/css/sva.css">
+    <link rel="stylesheet" href="/css/sharedCss/darkMode.css">
     <link rel="stylesheet" href="/css/sharedCss/historicoCard.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
+    <button id="btn-dark-mode" class="btn-dark-mode" onclick="toggleDarkMode()" title="Alternar tema">🌙</button>
     <div class="layout-with-history">
         <div class="container">
             <div class="page-header">
@@ -216,6 +218,7 @@
         </div>
     </div>
     
+    <script src="/js/sharedFunctions/functionDarkMode.js"      ></script>
     <script src="/js/sharedFunctions/functionMostrarAlerta.js" ></script>
     <script src="/js/sharedFunctions/functionToggleCards.js"   ></script>
     <script src="/js/sharedFunctions/functionContact.js"       ></script>
