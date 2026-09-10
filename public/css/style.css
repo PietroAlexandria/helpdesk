@@ -146,6 +146,24 @@ body {
     box-shadow: none;
 }
 
+.btn-menu-destaque {
+    background: linear-gradient(135deg, #0d6e3f, #16a34a) !important;
+    box-shadow: 0 4px 14px rgba(22, 163, 74, 0.35);
+}
+
+.btn-menu-destaque:hover {
+    background: linear-gradient(135deg, #065f35, #15803d) !important;
+    box-shadow: 0 6px 20px rgba(22, 163, 74, 0.5) !important;
+}
+
+:root.dark .btn-menu-destaque {
+    background: linear-gradient(135deg, #064e29, #15803d) !important;
+}
+
+:root.dark .btn-menu-destaque:hover {
+    background: linear-gradient(135deg, #065f35, #16a34a) !important;
+}
+
 .watermark {
     font-size: 0.75rem;
     color: var(--watermark-color);

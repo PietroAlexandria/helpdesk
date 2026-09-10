@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Novo Atendimento - CedNet Helpdesk</title>
+    <link rel="icon" href="/images/LogoCedNet.ico">
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/atendimento.css">
+    <link rel="stylesheet" href="/css/sharedCss/darkMode.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <button id="btn-dark-mode" class="btn-dark-mode" onclick="toggleDarkMode()" title="Alternar tema">🌙</button>
+
+    <div class="container">
+        <div class="atendimento-card">
+            <a href="/" class="btn-back-home">← Voltar ao menu</a>
+
+            <div class="atendimento-header">
+                <span style="font-size:1.6rem">🎧</span>
+                <h1>Novo Atendimento</h1>
+            </div>
+
+            <div class="field">
+                <label>Via de Contato</label>
+                <div class="radio-group">
+                    <label class="radio-btn"><input type="radio" name="via" value="Central"><span>Central</span></label>
+                    <label class="radio-btn"><input type="radio" name="via" value="OPA"><span>OPA! Suite</span></label>
+                </div>
+            </div>
+
+            <div class="field">
+                <label>Nome do Solicitante</label>
+                <input type="text" id="nome" placeholder="Ex: Pietro de Alexandria Picoli">
+            </div>
+
+            <div class="field">
+                <label>Contato</label>
+                <input type="text" id="telefone" placeholder="Ex: (XX) XXXXX-XXXX" maxlength="15" oninput="mascaraContato(this)">
+            </div>
+
+            <hr class="sep">
+
+            <p class="section-label">Selecione o módulo de atendimento</p>
+            <div class="modulos-grid">
+                <button class="btn-modulo" onclick="irPara('/sem-conexao')">
+                    <span class="icon">📡</span> Sem Conexão
+                </button>
+                <button class="btn-modulo" onclick="irPara('/conexao-lenta')">
+                    <span class="icon">🐢</span> Conexão Lenta
+                </button>
+                <button class="btn-modulo" onclick="irPara('/mudanca-endereco')">
+                    <span class="icon">📦</span> Mudança de Endereço
+                </button>
+                <button class="btn-modulo" onclick="irPara('/servicos')">
+                    <span class="icon">🧰</span> Serviços
+                </button>
+                <button class="btn-modulo" onclick="irPara('/sva')">
+                    <span class="icon">🛠️</span> Suporte SVA
+                </button>
+                <button class="btn-modulo" onclick="irPara('/duvidas')">
+                    <span class="icon">❓</span> Dúvidas
+                </button>
+                <button class="btn-modulo" onclick="irPara('/pagamento')">
+                    <span class="icon">💲</span> Pagamento
+                </button>
+            </div>
+
+            <div class="watermark">
+                Desenvolvido por Pietro de Alexandria Picoli — <a href="https://github.com/PietroAlexandria" target="_blank">GitHub</a>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+
+    <script src="/js/sharedFunctions/functionDarkMode.js"></script>
+    <script src="/js/sharedFunctions/functionMostrarAlerta.js"></script>
+    <script src="/js/sharedFunctions/functionContact.js"></script>
+    <script src="/js/options-js/atendimento.js"></script>
+</body>
+</html>

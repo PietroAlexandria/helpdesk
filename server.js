@@ -15,6 +15,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 // Rota inicial
 app.get('/', (_, res) => res.sendFile(path.join(__dirname, 'views', 'index.html')));
 
+// Rota - Novo Atendimento
+app.get('/atendimento', (_, res) => res.sendFile(path.join(__dirname, 'views', 'atendimento.html')));
+
 // Rota - Sem Conexão
 app.get('/sem-conexao', (_, res) => res.sendFile(path.join(__dirname, 'views', 'options-html', 'sem-conexao.html')));
 
