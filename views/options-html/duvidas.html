@@ -52,15 +52,11 @@
                 <p class="card-title">Selecione o TIPO de dúvida</p>
                 <div class="field">
                     <div class="radio-group">
-                        <label class="radio-btn"><input type="radio" name="type" value="Suporte"    onchange="toggleCards(this.value, { Suporte: 'card-suporte', Financeiro: 'card-financeiro', Comercial: 'card-comercial' })"><span>Dúvidas - Suporte</span></label>
-                        <label class="radio-btn"><input type="radio" name="type" value="Financeiro" onchange="toggleCards(this.value, { Suporte: 'card-suporte', Financeiro: 'card-financeiro', Comercial: 'card-comercial' })"><span>Dúvidas Financeiras</span></label>
-                        <label class="radio-btn"><input type="radio" name="type" value="Comercial"  onchange="toggleCards(this.value, { Suporte: 'card-suporte', Financeiro: 'card-financeiro', Comercial: 'card-comercial' })"><span>Dúvidas Comercial</span></label>
+                        <label class="radio-btn"><input type="radio" name="type" value="Suporte"    onchange="toggleCards(this.value, { Suporte: 'card-suporte', Financeiro: 'card-financeiro', Comercial: 'card-comercial', Previsao: 'card-previsao' })"><span>Dúvidas - Suporte</span></label>
+                        <label class="radio-btn"><input type="radio" name="type" value="Financeiro" onchange="toggleCards(this.value, { Suporte: 'card-suporte', Financeiro: 'card-financeiro', Comercial: 'card-comercial', Previsao: 'card-previsao' })"><span>Dúvidas Financeiras</span></label>
+                        <label class="radio-btn"><input type="radio" name="type" value="Comercial"  onchange="toggleCards(this.value, { Suporte: 'card-suporte', Financeiro: 'card-financeiro', Comercial: 'card-comercial', Previsao: 'card-previsao' })"><span>Dúvidas Comercial</span></label>
+                        <label class="radio-btn"><input type="radio" name="type" value="Previsao"   onchange="toggleCards(this.value, { Suporte: 'card-suporte', Financeiro: 'card-financeiro', Comercial: 'card-comercial', Previsao: 'card-previsao' })"><span>Previsão</span></label>
                     </div>
-                </div>
-
-                <div class="btn-group">
-                    <button class="btn-copy" onclick="copiarColetaDados(this)">📋 Copiar Coleta</button>
-                    <button class="btn-clear" onclick="limparColeta()">🗑️ Limpar</button>
                 </div>
             </div>
 
@@ -76,6 +72,14 @@
                 <div class="btn-group">
                     <button class="btn-copy" onclick="copiarDuvida('suporte', this)">📋 Copiar</button>
                     <button class="btn-clear" onclick="limparCard('suporte')">🗑️ Limpar</button>
+                </div> <br>
+
+                <div class="field">
+                    <label>Deseja retornar contato?</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="retornar" value="retornarSim" onchange="toggleCards(this.value, { retornarSim: 'card-contato', retornarNao: '' })"><span>Sim</span></label>
+                        <label class="radio-btn"><input type="radio" name="retornar" value="retornarNao" onchange="toggleCards(this.value, { retornarSim: 'card-contato', retornarNao: '' })"><span>Sem necessidade</span></label>
+                    </div>
                 </div>
             </div>
 
@@ -91,6 +95,14 @@
                 <div class="btn-group">
                     <button class="btn-copy" onclick="copiarDuvida('financeiro', this)">📋 Copiar</button>
                     <button class="btn-clear" onclick="limparCard('financeiro')">🗑️ Limpar</button>
+                </div> <br>
+
+                <div class="field">
+                    <label>Deseja retornar contato?</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="retornar" value="retornarSim" onchange="toggleCards(this.value, { retornarSim: 'card-contato', retornarNao: '' })"><span>Sim</span></label>
+                        <label class="radio-btn"><input type="radio" name="retornar" value="retornarNao" onchange="toggleCards(this.value, { retornarSim: 'card-contato', retornarNao: '' })"><span>Sem necessidade</span></label>
+                    </div>
                 </div>
             </div>
 
@@ -106,6 +118,67 @@
                 <div class="btn-group">
                     <button class="btn-copy" onclick="copiarDuvida('comercial', this)">📋 Copiar</button>
                     <button class="btn-clear" onclick="limparCard('comercial')">🗑️ Limpar</button>
+                </div> <br>
+
+                <div class="field">
+                    <label>Deseja retornar contato?</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="retornar" value="retornarSim" onchange="toggleCards(this.value, { retornarSim: 'card-contato', retornarNao: '' })"><span>Sim</span></label>
+                        <label class="radio-btn"><input type="radio" name="retornar" value="retornarNao" onchange="toggleCards(this.value, { retornarSim: 'card-contato', retornarNao: '' })"><span>Sem necessidade</span></label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Previsao -->
+            <div class="card" id="card-previsao" style="display:none">
+                <p class="card-title">Previsão</p>
+
+                <div class="field">
+                    <label>Descrição do Ocorrido</label>
+                    <textarea name="desc-previsao" placeholder="Ex: Verificado com setor de Agendamento e realizarão hoje ao decorrer da tarde"></textarea>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn-copy" onclick="copiarDuvida('previsao', this)">📋 Copiar</button>
+                    <button class="btn-clear" onclick="limparCard('previsao')">🗑️ Limpar</button>
+                </div> <br>
+
+                <div class="field">
+                    <label>Deseja retornar contato?</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="retornar" value="retornarSim" onchange="toggleCards(this.value, { retornarSim: 'card-contato', retornarNao: '' })"><span>Sim</span></label>
+                        <label class="radio-btn"><input type="radio" name="retornar" value="retornarNao" onchange="toggleCards(this.value, { retornarSim: 'card-contato', retornarNao: '' })"><span>Sem necessidade</span></label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Retornar Ctt -->
+            <div class="card" id="card-contato" style="display:none">
+                <div class="field">
+                    <label>Protocolo</label>
+                    <input type="text" name="protocolo" id="protocolo" placeholder="Ex: 202608178180">
+                </div>
+
+                <div class="field">
+                    <label class="field-subtitle">Disponibilidade</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="disponibilidade-agendamento" value="manha" onchange="horarioEspecifico(this)"><span>Manhã</span></label>
+                        <label class="radio-btn"><input type="radio" name="disponibilidade-agendamento" value="tarde" onchange="horarioEspecifico(this)"><span>Tarde</span></label>
+                        <label class="radio-btn"><input type="radio" name="disponibilidade-agendamento" value="qualquerHoraio" onchange="horarioEspecifico(this)"><span>Qualquer Horário</span></label>
+                        <label class="radio-btn"><input type="radio" name="disponibilidade-agendamento" value="horario-especifico" onchange="horarioEspecifico(this)"><span>Horário Específico</span></label>
+                    </div>
+                </div>
+
+                <div class="field" id="horario-especifico-agendamento" style="display:none">
+                    <label class="field-subtitle">Horário Específico</label>
+                    <div>
+                        <textarea name="horarioEsp" placeholder="Ex: 10h às 12h"></textarea>
+                    </div>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn-copy" onclick="copiarRetornoContato(this)">📋 Copiar</button>
+                    <button class="btn-clear" onclick="limparCard(this)">🗑️ Limpar</button>
                 </div>
             </div>
 
@@ -142,6 +215,17 @@
 
     <div id="toast" class="toast"></div>
 
+    <script>
+        function horarioEspecifico(el) {
+            const idMap = {
+                'disponibilidade-agendamento': 'horario-especifico-agendamento',
+                'disponibilidade-agendamento-radio': 'horario-especifico-agendamento-radio'
+            };
+            const targetId = idMap[el.name];
+            if (!targetId) return;
+            document.getElementById(targetId).style.display = el.value === 'horario-especifico' ? 'block' : 'none';
+        }
+    </script>
     <script src="/js/sharedFunctions/functionDarkMode.js"      ></script>
     <script src="/js/sharedFunctions/functionMostrarAlerta.js" ></script>
     <script src="/js/sharedFunctions/functionToggleCards.js"   ></script>
@@ -149,6 +233,7 @@
     <script src="/js/sharedFunctions/functionCopyName.js"      ></script>
     <script src="/js/sharedFunctions/functionButtonsCopy.js"   ></script>
     <script src="/js/options-js/duvidas.js"                    ></script>
+    <script src="/js/sharedFunctions/functionPreencherColeta.js"></script>
     <script src="/js/sharedFunctions/functionCardHistory.js"   ></script>
 </body>
 </html>
