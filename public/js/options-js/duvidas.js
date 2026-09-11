@@ -58,10 +58,15 @@ function limparCard(tipo) {
     document.querySelectorAll('input[name="via"], input[name="type"]').forEach(el => el.checked = false);
     document.querySelector('input[name="nome"]').value = '';
     document.querySelector('input[name="contato"]').value = '';
-    ['card-suporte', 'card-financeiro', 'card-comercial', 'card-previsao'].forEach(id => document.getElementById(id).style.display = 'none');
+    ['card-suporte', 'card-financeiro', 'card-comercial', 'card-previsao', 'card-contato'].forEach(id => document.getElementById(id).style.display = 'none');
     document.querySelector(`textarea[name="desc-${tipo}"]`).value = '';
     document.querySelectorAll(`input[name="soluc-${tipo}"]`).forEach(el => el.checked = false);
-    document.querySelector('input[name="retornar"]').value = '';
+    document.querySelectorAll('input[name="retornar"], input[name="type"]').forEach(el => el.checked = false);
+    document.querySelector('input[name="protocolo"]').value = '';
+    document.querySelectorAll('input[name="disponibilidade-agendamento"]').forEach(el => el.checked = false);
+    document.getElementById('horario-especifico-agendamento').style.display = 'none';
+    const horarioEsp = document.querySelector('textarea[name="horarioEsp"]');
+    if (horarioEsp) horarioEsp.value = '';
 }
 
 function feedbackBtn(botao, textoOriginal) {
