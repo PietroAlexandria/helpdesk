@@ -56,7 +56,7 @@ function copiar2Via(botao) {
 
     const formaPagamento = document.querySelector('input[name="formaPag-2via"]:checked')?.value || '';
     let formaPg = '';
-    if (formaPagamento === 'boleto') { formaPg = 'BOLETO'; } else if (formaPagamento === 'pix') { formaPg = 'PIX'; }
+    if (formaPagamento === 'viaBoleto') { formaPg = 'BOLETO'; } else if (formaPagamento === 'viaPix') { formaPg = 'PIX'; } else if (formaPagamento === 'viaBoletoPix') { formaPg = 'BOLETO e PIX'; }
     if (!formaPagamento)     { mostrarAlerta('Selecione uma FORMA DE PAGAMENTO!'); return; }
 
     const obs = document.querySelector('textarea[name="obs-2via"]')?.value || '';
