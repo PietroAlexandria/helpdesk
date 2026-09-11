@@ -1,0 +1,460 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tutorial - CedNet Helpdesk</title>
+    <link rel="icon" href="/images/LogoCedNet.ico">
+    <link rel="stylesheet" href="/css/tutorial.css">
+    <link rel="stylesheet" href="/css/sharedCss/darkMode.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <button id="btn-dark-mode" class="btn-dark-mode" onclick="toggleDarkMode()" title="Alternar tema">🌙</button>
+
+    <div class="container">
+
+        <div class="page-header">
+            <a href="/" class="btn-back">← Voltar</a>
+            <h1 class="page-title">📖 Tutorial do Helpdesk</h1>
+        </div>
+
+        <!-- Índice rápido -->
+        <nav class="toc">
+            <p class="toc-title">Ir para a seção</p>
+            <div class="toc-links">
+                <a href="#menu" class="toc-link">🏠 Menu Principal</a>
+                <a href="#sidebar" class="toc-link">📋 Painel Lateral</a>
+                <a href="#coleta" class="toc-link">🎧 Coleta de Dados</a>
+                <a href="#sem-conexao" class="toc-link">📡 Sem Conexão</a>
+                <a href="#conexao-lenta" class="toc-link">🐢 Conexão Lenta</a>
+                <a href="#mudanca" class="toc-link">📦 Mudança de Endereço</a>
+                <a href="#servicos" class="toc-link">🧰 Serviços</a>
+                <a href="#sva" class="toc-link">🛠️ SVA's</a>
+                <a href="#pagamento" class="toc-link">💲 Financeiro</a>
+                <a href="#duvidas" class="toc-link">❓ Dúvidas</a>
+            </div>
+        </nav>
+
+        <!-- MENU PRINCIPAL -->
+        <div class="section-card" id="menu">
+            <div class="section-header">
+                <div class="section-icon">🏠</div>
+                <div>
+                    <div class="section-title">Menu Principal</div>
+                    <div class="section-subtitle">A tela inicial do Helpdesk — por onde tudo começa</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">🎧</div>
+                <div class="item-body">
+                    <div class="item-label">Coleta de Dados <span class="tag">Verde</span></div>
+                    <div class="item-desc">Ponto de entrada recomendado para todo atendimento. Aqui você preenche o nome e contato do cliente antes de escolher o módulo. Os dados preenchidos são carregados automaticamente no módulo que você abrir.</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">🔗</div>
+                <div class="item-body">
+                    <div class="item-label">Guia de Ativações</div>
+                    <div class="item-desc">Abre o portal de SVAs do Grupo CedNet em uma nova aba. Use quando o cliente ligar para ativar algum serviço adicional (CedNet Play, CedNet Plus, etc.).</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">🌙</div>
+                <div class="item-body">
+                    <div class="item-label">Botão de Tema (canto superior direito)</div>
+                    <div class="item-desc">Alterna entre o modo claro e o modo escuro. A preferência é salva automaticamente — na próxima vez que abrir o sistema, ele vai lembrar qual tema você usou.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAINEL LATERAL (SIDEBAR) -->
+        <div class="section-card" id="sidebar">
+            <div class="section-header">
+                <div class="section-icon">📋</div>
+                <div>
+                    <div class="section-title">Painel Lateral (Sidebar)</div>
+                    <div class="section-subtitle">Fica do lado direito da tela em todos os módulos</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">▶</div>
+                <div class="item-body">
+                    <div class="item-label">Como abrir e fechar</div>
+                    <div class="item-desc">O painel começa fechado. Para abrir, clique em um dos ícones de aba no lado direito da tela. Para fechar, clique no botão <span class="tag">▶</span> dentro do painel.</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">📋</div>
+                <div class="item-body">
+                    <div class="item-label">Aba Histórico</div>
+                    <div class="item-desc">Guarda automaticamente tudo que você copiou durante o atendimento (coletas, agendamentos, descrições). Cada registro aparece como um card com o nome do módulo e um botão para copiar novamente ou excluir. O histórico é salvo no navegador — não some se você trocar de aba.</div>
+                    <div class="tip">💡 O botão <strong>Limpar tudo</strong> apaga todos os registros do histórico de uma vez. Use com cuidado.</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">📝</div>
+                <div class="item-body">
+                    <div class="item-label">Aba Bloco de Notas</div>
+                    <div class="item-desc">Um campo de texto livre para anotações rápidas durante o atendimento. Use para guardar informações temporárias que não precisam ir para o histórico. O botão <span class="tag">Copiar</span> copia tudo que está escrito. O botão <span class="tag">Limpar</span> apaga o conteúdo.</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">💬</div>
+                <div class="item-body">
+                    <div class="item-label">Aba Templates <span class="tag">Só no Menu</span></div>
+                    <div class="item-desc">Disponível apenas na tela inicial. Contém textos prontos para situações comuns: Mudança de Endereço Completa, Reboot, Patch Cord Service, Patch Cord Bridge e Patch Cord Rádio. Clique no botão do template para copiar o texto direto para a área de transferência.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- COLETA DE DADOS -->
+        <div class="section-card" id="coleta">
+            <div class="section-header">
+                <div class="section-icon">🎧</div>
+                <div>
+                    <div class="section-title">Coleta de Dados</div>
+                    <div class="section-subtitle">Tela de entrada recomendada para todo atendimento</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">📌</div>
+                <div class="item-body">
+                    <div class="item-label">Para que serve?</div>
+                    <div class="item-desc">Permite preencher o nome e contato do cliente uma única vez. Ao clicar em um módulo (Sem Conexão, Conexão Lenta, etc.), esses dados são carregados automaticamente nos campos do módulo escolhido — sem precisar digitar de novo.</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">📡</div>
+                <div class="item-body">
+                    <div class="item-label">Via de Contato</div>
+                    <div class="item-desc">Selecione <span class="tag">Central</span> se o cliente ligou pela central telefônica, ou <span class="tag">OPA! Suite</span> se o contato veio pelo chat/sistema OPA.</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">📞</div>
+                <div class="item-body">
+                    <div class="item-label">Campo Contato</div>
+                    <div class="item-desc">O campo aplica máscara automática de telefone. Funciona tanto para celular (11 dígitos) quanto para fixo (10 dígitos). Se colar um número com DDI +55, ele remove automaticamente.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SEM CONEXÃO -->
+        <div class="section-card" id="sem-conexao">
+            <div class="section-header">
+                <div class="section-icon">📡</div>
+                <div>
+                    <div class="section-title">Sem Conexão</div>
+                    <div class="section-subtitle">Para clientes sem internet — Fibra ou Rádio</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">1️⃣</div>
+                <div class="item-body">
+                    <div class="item-label">Fluxo geral</div>
+                    <div class="steps">
+                        <div class="step"><div class="step-num">1</div><div class="step-text">Preencha a Coleta de Dados (via, nome, contato) e clique em <span class="tag">📋 Copiar Coleta</span>.</div></div>
+                        <div class="step"><div class="step-num">2</div><div class="step-text">Selecione o tipo de conexão: <span class="tag">Fibra</span> ou <span class="tag">Rádio</span>. O card correspondente aparece automaticamente.</div></div>
+                        <div class="step"><div class="step-num">3</div><div class="step-text">Preencha os campos do diagnóstico conforme o que você verificar no sistema.</div></div>
+                        <div class="step"><div class="step-num">4</div><div class="step-text">Se precisar agendar visita técnica, selecione <span class="tag">Sim</span> em "Necessário Agendamento?" e preencha o card de agendamento.</div></div>
+                        <div class="step"><div class="step-num">5</div><div class="step-text">Copie cada bloco com o botão <span class="tag">📋 Copiar</span> correspondente.</div></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">📦</div>
+                <div class="item-body">
+                    <div class="item-label">CAIXA (Fibra)</div>
+                    <div class="item-desc">Refere-se à CTO (Caixa de Terminação Óptica) — o equipamento externo na rua que distribui o sinal de fibra para os clientes. <span class="tag">ONLINE</span> = caixa funcionando. <span class="tag">OFFLINE</span> = caixa sem sinal, pode ser problema coletivo.</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">🔴</div>
+                <div class="item-body">
+                    <div class="item-label">LOS (Fibra)</div>
+                    <div class="item-desc"><strong>Loss of Signal</strong> — indica que o equipamento do cliente (ONU) perdeu o sinal óptico. Geralmente causado por fibra dobrada, suja ou rompida. Se o cliente responder que há uma luz vermelha piscando no equipamento, é LOS.</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">🔗</div>
+                <div class="item-body">
+                    <div class="item-label">Botões JIRA e Zabbix (Fibra — CAIXA OFFLINE)</div>
+                    <div class="item-desc"><span class="tag">Ver Chamados</span> abre o JIRA para verificar se já existe um chamado aberto para aquela região. <span class="tag">Zabbix</span> abre o painel de monitoramento de rede. Se já houver chamado, cole o link e copie. Se não houver, clique em "Abrir Chamado" para criar um novo.</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">🔍</div>
+                <div class="item-body">
+                    <div class="item-label">Botão Thermix (Fibra — CAIXA ONLINE)</div>
+                    <div class="item-desc">Abre o sistema Thermix, onde você consulta o status da ONU do cliente (sinal óptico, status PPPoE, etc.) para preencher os campos de diagnóstico.</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">📡</div>
+                <div class="item-body">
+                    <div class="item-label">BASE (Rádio)</div>
+                    <div class="item-desc">A estação base é a antena da CedNet que transmite o sinal para o rádio do cliente. Se a BASE estiver OFFLINE, o problema é coletivo — verifique o JIRA. Se estiver ONLINE, o problema pode ser no rádio do cliente.</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">🔍</div>
+                <div class="item-body">
+                    <div class="item-label">Botões AirControl e Grafana (Rádio)</div>
+                    <div class="item-desc"><span class="tag">AirControl</span> é o sistema de gerenciamento dos rádios — consulte o status do equipamento do cliente. <span class="tag">Grafana</span> exibe gráficos de tráfego e qualidade de sinal da rede.</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">📋</div>
+                <div class="item-body">
+                    <div class="item-label">Botão 📋 pequeno (Coleta de Informações)</div>
+                    <div class="item-desc">Aparece no card de agendamento ao lado do título "Coleta de Informações". Copia de uma vez só todos os dados técnicos preenchidos (PPPoE, OLT, PON, CAIXA, MAC, etc.) em formato de texto pronto para colar na OS.</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">➕</div>
+                <div class="item-body">
+                    <div class="item-label">Botão + Adicionar Contato</div>
+                    <div class="item-desc">Permite incluir mais de um número de contato no agendamento. Cada contato adicionado ganha um botão <span class="tag">✕</span> para remover se necessário.</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">📶</div>
+                <div class="item-body">
+                    <div class="item-label">TR069</div>
+                    <div class="item-desc">Protocolo de gerenciamento remoto do roteador do cliente. Selecione <span class="tag">Ativar</span> se o técnico precisará ativar o TR069 durante a visita. Selecione <span class="tag">Sem Necessidade</span> se já estiver ativo ou não for aplicável.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONEXÃO LENTA -->
+        <div class="section-card" id="conexao-lenta">
+            <div class="section-header">
+                <div class="section-icon">🐢</div>
+                <div>
+                    <div class="section-title">Conexão Lenta</div>
+                    <div class="section-subtitle">Para clientes com instabilidade ou lentidão</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">🔁</div>
+                <div class="item-body">
+                    <div class="item-label">Reincidência</div>
+                    <div class="item-desc">Indica se o cliente já entrou em contato antes com o mesmo problema. Selecione <span class="tag">Sim</span> se for um problema que já ocorreu anteriormente. Essa informação vai para o texto copiado da coleta.</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">✅</div>
+                <div class="item-body">
+                    <div class="item-label">Conexão Normalizou?</div>
+                    <div class="item-desc">Após o diagnóstico e as tentativas de resolução remota, selecione <span class="tag">Sim</span> se o problema foi resolvido (aparece o botão "Copiar Resolução") ou <span class="tag">Não</span> se precisar agendar visita técnica (aparece o card de agendamento).</div>
+                    <div class="tip">⚠️ Atenção: neste módulo a lógica é invertida — "Não" abre o agendamento e "Sim" abre a resolução.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- MUDANÇA DE ENDEREÇO -->
+        <div class="section-card" id="mudanca">
+            <div class="section-header">
+                <div class="section-icon">📦</div>
+                <div>
+                    <div class="section-title">Mudança de Endereço</div>
+                    <div class="section-subtitle">Coleta completa para transferência de instalação</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">🏙️</div>
+                <div class="item-body">
+                    <div class="item-label">Área Urbana x Rural</div>
+                    <div class="item-desc">Se o cliente for se mudar para área <span class="tag">Rural</span>, o sistema exibe um aviso para transferir o atendimento ao setor Comercial Rural — Viabilidade. Se for <span class="tag">Urbana</span>, o formulário completo de coleta é exibido.</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">📮</div>
+                <div class="item-body">
+                    <div class="item-label">Auto-fill de CEP</div>
+                    <div class="item-desc">Ao digitar o CEP do novo endereço e sair do campo, o sistema consulta automaticamente a API ViaCEP e preenche os campos de Estado, Cidade, Bairro e Rua. Você só precisa digitar o número da casa.</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">💰</div>
+                <div class="item-body">
+                    <div class="item-label">Taxa</div>
+                    <div class="item-desc">Indica se o cliente paga ou não pela mudança. <span class="tag">Isento</span> = sem cobrança. <span class="tag">Não Isento</span> = há cobrança de taxa. Essa informação é incluída no texto copiado.</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">📦</div>
+                <div class="item-body">
+                    <div class="item-label">Equipamentos</div>
+                    <div class="item-desc">Pergunta se o cliente vai levar os equipamentos (ONU/roteador) para o novo endereço ou se vai deixar para a equipe técnica buscar.</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">🏠</div>
+                <div class="item-body">
+                    <div class="item-label">Telhado</div>
+                    <div class="item-desc">Tipo de telhado do novo endereço. Importante para a equipe técnica saber o material antes da visita de instalação. Se selecionar <span class="tag">Outro</span>, aparece um campo para digitar o tipo.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SERVIÇOS -->
+        <div class="section-card" id="servicos">
+            <div class="section-header">
+                <div class="section-icon">🧰</div>
+                <div>
+                    <div class="section-title">Serviços — Mudança de Cômodo / Passagem de Cabo</div>
+                    <div class="section-subtitle">Agendamento de serviços internos pagos</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">🚪</div>
+                <div class="item-body">
+                    <div class="item-label">Mudança de Cômodo</div>
+                    <div class="item-desc">O cliente quer mudar o ponto de internet de um cômodo para outro dentro da mesma casa. O card exibe os valores e prazos automaticamente. Você só precisa preencher a disponibilidade, observações e PPPoE.</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">🔌</div>
+                <div class="item-body">
+                    <div class="item-label">Passagem de Cabo</div>
+                    <div class="item-desc">O cliente quer que a equipe técnica passe um cabo de rede em algum ponto da casa. Mesmo fluxo da mudança de cômodo — valores, disponibilidade e PPPoE.</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">📋</div>
+                <div class="item-body">
+                    <div class="item-label">Botão 📋 Copiar (no card de valores)</div>
+                    <div class="item-desc">Copia apenas o bloco de template com os valores e prazos — útil para enviar ao cliente via chat sem precisar preencher o formulário completo.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- SVA -->
+        <div class="section-card" id="sva">
+            <div class="section-header">
+                <div class="section-icon">🛠️</div>
+                <div>
+                    <div class="section-title">Suporte de SVA's</div>
+                    <div class="section-subtitle">Serviços de Valor Agregado — streaming, TV, etc.</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">🔑</div>
+                <div class="item-body">
+                    <div class="item-label">Acessos (CedNet Play e CedNet Plus)</div>
+                    <div class="item-desc">Exibe as credenciais padrão de acesso para cada plataforma. O botão <span class="tag">📋 Copiar</span> ao lado de cada plataforma copia o texto de login e senha formatado para enviar ao cliente.</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">📺</div>
+                <div class="item-body">
+                    <div class="item-label">GloboPlay, Setup BOX, CedNet Play, Premiere, Outro SVA</div>
+                    <div class="item-desc">Cada opção exibe um formulário com os problemas mais comuns daquele serviço. Selecione o problema relatado pelo cliente, adicione uma observação se necessário e clique em <span class="tag">📋 Copiar Atendimento</span>.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PAGAMENTO -->
+        <div class="section-card" id="pagamento">
+            <div class="section-header">
+                <div class="section-icon">💲</div>
+                <div>
+                    <div class="section-title">Financeiro</div>
+                    <div class="section-subtitle">Comprovante de pagamento e 2ª via de boleto</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">🧾</div>
+                <div class="item-body">
+                    <div class="item-label">Comprovante de Pagamento</div>
+                    <div class="item-desc">Use quando o cliente enviar um comprovante de pagamento. Preencha a forma de pagamento (PIX ou Boleto), se o pagamento consta no sistema e se o comprovante foi anexado na OS. O texto copiado registra tudo isso.</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">📄</div>
+                <div class="item-body">
+                    <div class="item-label">2ª Via de Boleto</div>
+                    <div class="item-desc">Use quando o cliente solicitar uma segunda via para pagamento. Selecione a forma (PIX, Boleto ou Ambos) e copie o registro. A 2ª via em si é gerada no sistema financeiro — este módulo apenas registra o atendimento.</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- DÚVIDAS -->
+        <div class="section-card" id="duvidas">
+            <div class="section-header">
+                <div class="section-icon">❓</div>
+                <div>
+                    <div class="section-title">Dúvidas</div>
+                    <div class="section-subtitle">Para atendimentos que não se encaixam nos outros módulos</div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">📂</div>
+                <div class="item-body">
+                    <div class="item-label">Tipos de dúvida</div>
+                    <div class="item-desc">
+                        <span class="tag">Suporte</span> — dúvidas técnicas gerais.<br>
+                        <span class="tag">Financeiro</span> — dúvidas sobre faturas, cobranças, etc.<br>
+                        <span class="tag">Comercial</span> — dúvidas sobre planos, upgrades, etc.<br>
+                        <span class="tag">Previsão</span> — cliente perguntando quando a visita técnica vai acontecer.
+                    </div>
+                </div>
+            </div>
+
+            <div class="item">
+                <div class="item-icon">📞</div>
+                <div class="item-body">
+                    <div class="item-label">Retornar Contato</div>
+                    <div class="item-desc">Se o cliente quiser que a CedNet retorne o contato, selecione <span class="tag">Sim</span>. Aparece um card para preencher o protocolo e a disponibilidade do cliente para receber a ligação.</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="watermark">
+            Desenvolvido por Pietro de Alexandria Picoli — <a href="https://github.com/PietroAlexandria" target="_blank">GitHub</a>
+        </div>
+
+    </div>
+
+    <div id="toast" class="toast"></div>
+    <script src="/js/sharedFunctions/functionDarkMode.js"></script>
+</body>
+</html>
