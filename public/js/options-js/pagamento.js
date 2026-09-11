@@ -85,7 +85,8 @@ function limparComprovante() {
 }
 
 function limpar2Via() {
-
+    document.querySelectorAll('input[name="formaPag-2via"]').forEach(el => el.checked = false);
+    document.querySelector('textarea[name="obs-2via"]').value = '';
 }
 
 function feedbackBtn(botao, textoOriginal) {
