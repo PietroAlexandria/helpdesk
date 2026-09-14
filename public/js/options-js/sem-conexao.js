@@ -398,6 +398,16 @@ function limparColeta() {
     ['card-fibra', 'card-radio'].forEach(id => document.getElementById(id).style.display = 'none');
 }
 
+function limparDescCardFibra() {
+    document.querySelectorAll('input[name="cx"], input[name="onu"], input[name="router"], input[name="los"]').forEach(el => el.checked = false);
+    document.querySelector('textarea[name="descricao"]').value = '';
+}
+
+function limparDescCardRadio() {
+    document.querySelectorAll('input[name="base"], input[name="radio"], input[name="pppoe-radio"]').forEach(el => el.checked = false);
+    document.querySelector('textarea[name="descricao-radio"]').value = '';
+}
+
 function limparAgendamentoFibra() {
     document.querySelector('input[name="nomeAg"]').value = '';
     document.querySelectorAll('#lista-contatos input').forEach(el => el.value = '');

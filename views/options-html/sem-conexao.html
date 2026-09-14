@@ -166,7 +166,10 @@
     Solicitado reboot e PatchCord, mas sem sucesso. 
     Alarme DmView: ONU Loss of signal, Receive dying gasp of ONU 
     Cliente com DGi e LOSi, possível problema na fibra."></textarea>
-                        <button class="btn-copy" onclick="copiarDescFibra(this)">📋 Copiar Descrição</button>
+                        <div class="btn-group">
+                            <button class="btn-copy" onclick="copiarDescFibra(this)">📋 Copiar Descrição</button>
+                            <button class="btn-clear" onclick="limparDescCardFibra(this)">🗑️ Limpar</button>
+                        </div>
                     </div>
 
                     <hr class="sep">
@@ -346,7 +349,10 @@
     Realizado Reboot no rádio.
     Cliente prossegue sem conexão.
     Verificado e necessário agendamento."></textarea>
-                        <button class="btn-copy" onclick="copiarDescRadio(this)">📋 Copiar Descrição</button>
+                        <div class="btn-group">
+                            <button class="btn-copy" onclick="copiarDescRadio(this)">📋 Copiar Descrição</button>
+                            <button class="btn-clear" onclick="limparDescCardRadio(this)">🗑️ Limpar</button>
+                        </div>
                     </div>
 
                     <hr class="sep">
