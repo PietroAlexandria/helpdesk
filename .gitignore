@@ -1,3 +1,6 @@
 node_modules/
 .env
 *.log
+IXC-Integracao.md
+routes/ixc.js
+mock-ixc-server.js
