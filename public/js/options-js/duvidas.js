@@ -27,31 +27,33 @@ function copiarDuvida(tipo, botao) {
 function copiarRetornoContato(tipo, botao) {
     const nome    = document.querySelector('input[name="nome"]')?.value || '';
     const contato = document.querySelector('input[name="contato"]')?.value || '';
-    const type    = document.querySelector('input[name="type"]:checked')?.value || '';
 
     if (!nome)    { mostrarAlerta('Preencha o campo NOME!'); return; }
     if (!contato || contato.length < 14) { mostrarAlerta('Preencha o campo CONTATO!'); return; }
-    if (!type)    { mostrarAlerta('Selecione o tipo de dúvida!'); return; }
-
-    const desc    = document.querySelector(`textarea[name="desc-${tipo}"]`)?.value || '';
-    if (!desc)  { mostrarAlerta('Preencha a DESCRIÇÃO DO OCORRIDO!'); return; }
 
     const prot = document.querySelector('input[name="protocolo"]')?.value || '';
     if (!prot) { mostrarAlerta('Insira o PROTOCOLO!'); return; }
 
-    const dispSelecionada = document.querySelector(`input[name="disponibilidade-agendamento"]:checked`)?.value || '';
+    const dispSelecionada = document.querySelector('input[name="disponibilidade-agendamento"]:checked')?.value || '';
+    if (!dispSelecionada) { mostrarAlerta('Selecione a DISPONIBILIDADE!'); return; }
+
     let disponibilidade = '';
-    if (dispSelecionada === 'manha')             { disponibilidade = 'Período da Manhã'; }
-    else if (dispSelecionada === 'tarde')         { disponibilidade = 'Período da Tarde'; }
-    else if (dispSelecionada === 'qualquerHoraio') { disponibilidade = 'Qualquer Horário'; }
+    if (dispSelecionada === 'manha')                { disponibilidade = 'Período da Manhã'; }
+    else if (dispSelecionada === 'tarde')            { disponibilidade = 'Período da Tarde'; }
+    else if (dispSelecionada === 'qualquerHoraio')   { disponibilidade = 'Qualquer Horário'; }
     else if (dispSelecionada === 'horario-especifico') { disponibilidade = document.querySelector('textarea[name="horarioEsp"]')?.value || ''; }
 
-    const texto = `Olá pessoal! \nProtocolo: ${prot} \nNome: ${nome} \nContato: ${contato} \nDisponibilidade: ${disponibilidade} \n\nMotivo: ${desc} \n\nPoderiam prosseguir com o atendimento? \nObrigado!`;
+    const tipoAtivo = document.querySelector('input[name="type"]:checked')?.value?.toLowerCase() || '';
+    const desc = document.querySelector(`textarea[name="desc-${tipoAtivo}"]`)?.value || '';
+
+    const title = document.querySelector(`input[name="tituloRetornar"]`)?.value || '';
+
+    const texto = `Olá pessoal! ${title ? `*${title}*` : ''} \nProtocolo: ${prot} \nNome: ${nome} \nContato: ${contato} \nDisponibilidade: ${disponibilidade} \n\nMotivo: ${desc} \n\nPoderiam prosseguir com o atendimento? \nObrigado!`;
 
     navigator.clipboard.writeText(texto)
         .then(() => feedbackBtn(botao, '📋 Copiar'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
-    try { salvarHistorico(texto, `Dúvidas - Retorno`); } catch(e) {}
+    try { salvarHistorico(texto, 'Dúvidas - Retorno'); } catch(e) {}
 }
 
 function limparCard(tipo) {

@@ -155,6 +155,11 @@
             <!-- Card Retornar Ctt -->
             <div class="card" id="card-contato" style="display:none">
                 <div class="field">
+                    <label>Título</label>
+                    <input type="text" name="tituloRetornar" id="tituloRetornar" placeholder="Ex: Dúvidas sobre fatura">
+                </div>
+
+                <div class="field">
                     <label>Protocolo</label>
                     <input type="text" name="protocolo" id="protocolo" placeholder="Ex: 202608178180">
                 </div>
@@ -177,8 +182,8 @@
                 </div>
 
                 <div class="btn-group">
-                    <button class="btn-copy" onclick="copiarRetornoContato(this)">📋 Copiar</button>
-                    <button class="btn-clear" onclick="limparCard(this)">🗑️ Limpar</button>
+                    <button class="btn-copy" onclick="copiarRetornoContato(null, this)">📋 Copiar</button>
+                    <button class="btn-clear" onclick="limparCard('suporte')">🗑️ Limpar</button>
                 </div>
             </div>
 
