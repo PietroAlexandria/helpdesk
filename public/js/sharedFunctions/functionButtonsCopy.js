@@ -124,3 +124,14 @@ function copyPatchCordRadio(botao) {
         .then(() => feedbackBtn(botao, '📋'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
 }
+
+function copyTemplateVerificacaoUrbana(botao) {
+    const texto = `Prazo: A Verificação de Rede Interna terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto 
+Valores: Mão de obra: R$ 50,00 
+Taxa: A taxa de R$ 50,00 (mão de obra) deverá ser paga antecipadamente 
+Poderá ser apresentado um orçamento adicional no local dependendo da avaliação do técnico `
+
+    navigator.clipboard.writeText(texto)
+        .then(() => feedbackBtn(botao, '📋'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+}
