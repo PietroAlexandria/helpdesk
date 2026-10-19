@@ -121,7 +121,12 @@ Senha PPPoE: ${senhaPPPOE}`;
     try { salvarHistorico(texto, 'O.S. Verificação de Rede Interna'); } catch(e) {}
 }
 
-// ── Copiar Passagem de Cabo ──────────────────────────────────────────────────
+// ── Selecionar Área Config ───────────────────────────────────────────────────
+function selecionarAreaConfig(valor) {
+    toggleCards(valor, { c_urbana: 'config-urbana', c_rural: 'config-rural' });
+}
+
+// ── Copiar Configuração de Roteador ──────────────────────────────────────────
 function copiarPassagem(tipo, botao) {
     const nome    = document.querySelector('input[name="nome"]')?.value || '';
     const contato = document.querySelector('input[name="contato"]')?.value || '';
@@ -134,21 +139,28 @@ function copiarPassagem(tipo, botao) {
     else if (dispSelecionada === 'horario-especifico') { disponibilidade = document.querySelector('textarea[name="horarioEsp-passagem"]')?.value || ''; }
     if (!disponibilidade) { mostrarAlerta('Selecione a disponibilidade!'); return; }
 
-    const obs          = document.querySelector('#card-config textarea[name="descricao"]')?.value || '';
-    const loginPPPOE   = document.getElementById('loginpppoe-passagem')?.value || '';
-    const senhaPPPOE   = document.getElementById('senhapppoe-passagem')?.value || '';
+    const areaSelecionada = document.querySelector('input[name="area-config"]:checked')?.value || '';
+    let area = '';
+    if (areaSelecionada === 'c_urbana')      { area = 'Urbana'; }
+    else if (areaSelecionada === 'c_rural')  { area = 'Rural'; }
+
+    const maoDeObra = area === 'Rural' ? 'R$ 100,00' : 'R$ 50,00';
+
+    const obs        = document.querySelector('#card-config textarea[name="descricao"]')?.value || '';
+    const loginPPPOE = document.getElementById('loginpppoe-passagem')?.value || '';
+    const senhaPPPOE = document.getElementById('senhapppoe-passagem')?.value || '';
 
     const texto = `Agendado por ${nome}
 Contato: ${contato}
 Disponibilidade: ${disponibilidade}
 
-Serviço: Passagem de Cabo
+Serviço: Configuração de Roteador${area ? ` - ${area}` : ''}
 Prazo: 48 horas úteis
-Mão de obra: R$ 100,00
-Metragem de cabo: R$ 3,75/m
+Mão de obra: ${maoDeObra}
+Taxa antecipada: ${maoDeObra}
+Metragem de cabo (se necessário): R$ 3,75/m
 Conector RJ45 (cada): R$ 2,50
 Cômodo adicional: R$ 50,00
-Taxa antecipada: R$ 100,00
 Metragem cobrada na próxima mensalidade
 Cliente ciente dos valores, taxas e prazos${obs ? `
 

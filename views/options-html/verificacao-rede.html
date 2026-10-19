@@ -69,7 +69,7 @@
                     </div>
                 </div>
 
-                <div id="verificacao-urbana">
+                <div id="verificacao-urbana" style="display:none">
                     <div class="info-box">
                         <div class="info-box-header">
                             <p class="info-box-title">Template + Valores</p>
@@ -82,7 +82,7 @@
                     </div> <br> 
                 </div> 
 
-                <div id="verificacao-rural">
+                <div id="verificacao-rural" style="display:none">
                     <div class="info-box">
                         <div class="info-box-header">
                             <p class="info-box-title">Template + Valores</p>
@@ -140,21 +140,49 @@
             </div>
 
             <div class="card" id="card-config" style="display:none">
-                <p class="card-title">Passagem de Cabo</p>
+                <p class="card-title">Configuração de Roteador</p>
 
-                <div class="info-box">
-                    <div class="info-box-header">
-                        <p class="info-box-title">Template + Valores</p>
-                        <button class="btn-copy-sm" onclick="copiarPassagem('passagem', this)">📋 Copiar</button>
+                <div class="field">
+                    <label class="field-subtitle">Área do Serviço</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="area-config" value="c_urbana" onchange="selecionarAreaConfig(this.value)"><span>Urbana</span></label>
+                        <label class="radio-btn"><input type="radio" name="area-config" value="c_rural"  onchange="selecionarAreaConfig(this.value)"><span>Rural</span></label>
                     </div>
-                    <p><span class="info-label">Prazo:</span> A passagem de cabo terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto.</p>
-                    <p><span class="info-label">Valores:</span> Mão de obra: R$ 100,00 </p>
-                    <p><span class="info-label">Metragem de cabo de rede:</span> R$ 3,75 </p>
-                    <p><span class="info-label">Conector RJ45 (cada):</span> R$ 2,50 </p>
-                    <p><span class="info-label">Cômodo adicional:</span> R$ 50,00 </p>
-                    <p><span class="info-label">Taxa:</span> A taxa de R$ 100,00 deverá ser paga antecipadamente </p>
-                    <p><span class="info-label">Prazo pagamento da metragem:</span> Metragem de cabo utilizado será cobrado na próxima mensalidade </p>
-                </div> <br>
+                </div>
+
+                <div id="config-urbana" style="display:none">
+                    <div class="info-box">
+                        <div class="info-box-header">
+                            <p class="info-box-title">Template + Valores</p>
+                            <button class="btn-copy-sm" onclick="copiarPassagem('passagem', this)">📋 Copiar</button>
+                        </div>
+                        <p><span class="info-label">Prazo:</span> A configuração de roteador terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto.</p>
+                        <p><span class="info-label">Valores:</span> Mão de obra: R$ 50,00 </p>
+                        <p><span class="info-label">Taxa:</span> A taxa de R$ 50,00 deverá ser paga antecipadamente </p>
+                        <p><span class="info-label">Caso deseje realizar a passagem de cabo durante a visita, esses são os valores:</span></p>
+                        <p><span class="info-label">Metragem de cabo de rede (caso necessário):</span> R$ 3,75 </p>
+                        <p><span class="info-label">Conector RJ45 (cada):</span> R$ 2,50 </p>
+                        <p><span class="info-label">Cômodo adicional:</span> R$ 50,00 </p>
+                        <p><span class="info-label">Prazo pagamento da metragem:</span> Metragem de cabo utilizado será cobrado na próxima mensalidade </p>
+                    </div> <br>
+                </div>
+
+                <div id="config-rural" style="display:none">
+                    <div class="info-box">
+                        <div class="info-box-header">
+                            <p class="info-box-title">Template + Valores</p>
+                            <button class="btn-copy-sm" onclick="copiarPassagem('passagem', this)">📋 Copiar</button>
+                        </div>
+                        <p><span class="info-label">Prazo:</span> A configuração de roteador terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto.</p>
+                        <p><span class="info-label">Valores:</span> Mão de obra: R$ 100,00 </p>
+                        <p><span class="info-label">Taxa:</span> A taxa de R$ 100,00 deverá ser paga antecipadamente </p>
+                        <p><span class="info-label">Caso deseje realizar a passagem de cabo durante a visita, esses são os valores:</span></p>
+                        <p><span class="info-label">Metragem de cabo de rede (caso necessário):</span> R$ 3,75 </p>
+                        <p><span class="info-label">Conector RJ45 (cada):</span> R$ 2,50 </p>
+                        <p><span class="info-label">Cômodo adicional:</span> R$ 50,00 </p>
+                        <p><span class="info-label">Prazo pagamento da metragem:</span> Metragem de cabo utilizado será cobrado na próxima mensalidade </p>
+                    </div> <br>
+                </div>
 
                 <div class="field">
                     <label class="field-subtitle">Disponibilidade</label>
