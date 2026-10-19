@@ -1,9 +1,25 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
+const jwt = require('jsonwebtoken');
 const { buscarContratoPorId } = require('./ixcModules/ixcClient'); // IXC
 
 const app = express();
+app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
+
+// ---------------------------------------- //
+// Auth N2
+function authN2(req, res, next) {
+    const token = req.headers['x-n2-token'];
+    if (!token) return res.status(401).json({ erro: 'Token ausente' });
+    try {
+        jwt.verify(token, process.env.JWT_SECRET);
+        next();
+    } catch {
+        res.status(401).json({ erro: 'Token inválido' });
+    }
+}
 
 // Porta dinâmica para funcionar no Render (e localmente também)
 const PORT = process.env.PORT || 3000;
@@ -47,6 +63,20 @@ app.get('/tutorial', (_, res) => res.sendFile(path.join(__dirname, 'views', 'tut
 
 // Rota temporária de teste IXC
 app.get('/teste-ixc', (_, res) => res.sendFile(path.join(__dirname, 'views', 'teste-ixc.html')));
+
+// ---------------------------------------- //
+// Rotas Nível 2
+app.get('/login-n2', (_, res) => res.sendFile(path.join(__dirname, 'views', 'login-n2.html')));
+app.get('/nivel2',   (_, res) => res.sendFile(path.join(__dirname, 'views', 'nivel2.html')));
+
+app.post('/api/auth/n2', (req, res) => {
+    const { senha } = req.body;
+    if (senha !== process.env.SENHA_N2) return res.status(401).json({ erro: 'Senha incorreta' });
+    const token = jwt.sign({ nivel: 2 }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN || '30d' });
+    res.json({ token });
+});
+
+app.post('/api/auth/n2/verify', authN2, (_, res) => res.json({ ok: true }));
 
 // ---------------------------------------- //
 // Rota para buscar contrato no IXC

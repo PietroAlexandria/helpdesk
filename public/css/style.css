@@ -164,6 +164,24 @@ body {
     background: linear-gradient(135deg, #065f35, #16a34a) !important;
 }
 
+.btn-menu-n2 {
+    background: linear-gradient(135deg, #4a1d96, #7c3aed) !important;
+    box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
+}
+
+.btn-menu-n2:hover {
+    background: linear-gradient(135deg, #3b0764, #6d28d9) !important;
+    box-shadow: 0 6px 20px rgba(124, 58, 237, 0.5) !important;
+}
+
+:root.dark .btn-menu-n2 {
+    background: linear-gradient(135deg, #2e1065, #5b21b6) !important;
+}
+
+:root.dark .btn-menu-n2:hover {
+    background: linear-gradient(135deg, #3b0764, #7c3aed) !important;
+}
+
 .watermark {
     font-size: 0.75rem;
     color: var(--watermark-color);
