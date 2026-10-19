@@ -124,3 +124,48 @@ function copyPatchCordRadio(botao) {
         .then(() => feedbackBtn(botao, '📋'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
 }
+
+function copyTemplateVerificacaoUrbana(botao) {
+    const texto = `Prazo: A Verificação de Rede Interna terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto 
+Valores: Mão de obra: R$ 50,00 
+Taxa: A taxa de R$ 50,00 (mão de obra) deverá ser paga antecipadamente 
+Poderá ser apresentado um orçamento adicional no local dependendo da avaliação do técnico `
+
+    navigator.clipboard.writeText(texto)
+        .then(() => feedbackBtn(botao, '📋'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+}
+
+function copyTemplateConfigRotUrbana(botao) {
+    const texto = `Prazo: A Configuração de Roteador terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto 
+Valores: Mão de obra: R$ 50,00 
+Taxa: A taxa de R$ 50,00 (mão de obra) deverá ser paga antecipadamente 
+Poderá ser apresentado um orçamento adicional no local dependendo da avaliação do técnico
+
+Caso deseje realizar a passagem de cabo durante a visita, esses são os valores:
+Metragem de cabo de rede (Caso necessário): R$ 3,75
+Conector RJ45 (cada): R$ 2,50
+Cômodo adicional: R$ 50,00
+Prazo pagamento da metragem: Metragem de cabo utilizado será cobrado na próxima mensalidade `
+
+    navigator.clipboard.writeText(texto)
+        .then(() => feedbackBtn(botao, '📋'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+}
+
+function copyTemplateConfigRotRural(botao) {
+    const texto = `Prazo: A Configuração de Roteador terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto 
+Valores: Mão de obra: R$ 1000,00 
+Taxa: A taxa de R$ 100,00 (mão de obra) deverá ser paga antecipadamente 
+Poderá ser apresentado um orçamento adicional no local dependendo da avaliação do técnico
+
+Caso deseje realizar a passagem de cabo durante a visita, esses são os valores:
+Metragem de cabo de rede (Caso necessário): R$ 3,75
+Conector RJ45 (cada): R$ 2,50
+Cômodo adicional: R$ 50,00
+Prazo pagamento da metragem: Metragem de cabo utilizado será cobrado na próxima mensalidade `
+
+    navigator.clipboard.writeText(texto)
+        .then(() => feedbackBtn(botao, '📋'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+}
