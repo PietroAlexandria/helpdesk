@@ -30,8 +30,11 @@ app.get('/mudanca-endereco', (_, res) => res.sendFile(path.join(__dirname, 'view
 // Rota - Suporte de SVA's
 app.get('/sva', (_, res) => res.sendFile(path.join(__dirname, 'views', 'options-html', 'sva.html')));
 
-// Rota - Mudança de Cômodo / Passagem de Cabo
+// Rota - Serviços (Mudança de Cômodo, Passagem de Cabo, Verificação de Rede, Config. Roteador)
 app.get('/servicos', (_, res) => res.sendFile(path.join(__dirname, 'views', 'options-html', 'servicos.html')));
+
+// Rota - Verificação de Rede (redireciona para /servicos)
+app.get('/verificacao-rede', (_, res) => res.redirect('/servicos'));
 
 // Rota - Pagamento
 app.get('/pagamento', (_, res) => res.sendFile(path.join(__dirname, 'views', 'options-html', 'pagamento.html')));
@@ -41,9 +44,6 @@ app.get('/duvidas', (_, res) => res.sendFile(path.join(__dirname, 'views', 'opti
 
 // Rota - Tutorial
 app.get('/tutorial', (_, res) => res.sendFile(path.join(__dirname, 'views', 'tutorial.html')));
-
-// Rota - Verificação de Rede
-app.get('/verificacao-rede', (_, res) => res.sendFile(path.join(__dirname, 'views', 'options-html', 'verificacao-rede.html')));
 
 // Rota temporária de teste IXC
 app.get('/teste-ixc', (_, res) => res.sendFile(path.join(__dirname, 'views', 'teste-ixc.html')));

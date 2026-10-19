@@ -17,10 +17,10 @@
         <div class="container">
             <div class="page-header">
                 <a href="/" class="btn-back">← Voltar</a>
-                <h1 class="page-title">🧰 Mudança de Cômodo/Passagem de Cabo</h1>
+                <h1 class="page-title">🧰 Serviços</h1>
             </div>
 
-        <!-- Coleta de Dados -->
+            <!-- Coleta de Dados -->
             <div class="card">
                 <p class="card-title">Coleta de Dados</p>
 
@@ -47,8 +47,10 @@
                 <div class="field">
                     <label class="field-subtitle">Tipo de Serviço</label>
                     <div class="radio-group">
-                        <label class="radio-btn"><input type="radio" name="tipoServico" value="comodo"   onchange="toggleCards(this.value, { comodo: 'card-mudanca-comodo', passagem: 'card-passagem-cabo' })"><span>Mudança de Cômodo</span></label>
-                        <label class="radio-btn"><input type="radio" name="tipoServico" value="passagem" onchange="toggleCards(this.value, { comodo: 'card-mudanca-comodo', passagem: 'card-passagem-cabo' })"><span>Passagem de Cabo</span></label>
+                        <label class="radio-btn"><input type="radio" name="tipoServico" value="comodo"       onchange="toggleCards(this.value, { comodo: 'card-mudanca-comodo', passagem: 'card-passagem-cabo', verificacao: 'card-verificacao-rede', config: 'card-config' })"><span>Mudança de Cômodo</span></label>
+                        <label class="radio-btn"><input type="radio" name="tipoServico" value="passagem"     onchange="toggleCards(this.value, { comodo: 'card-mudanca-comodo', passagem: 'card-passagem-cabo', verificacao: 'card-verificacao-rede', config: 'card-config' })"><span>Passagem de Cabo</span></label>
+                        <label class="radio-btn"><input type="radio" name="tipoServico" value="verificacao"  onchange="toggleCards(this.value, { comodo: 'card-mudanca-comodo', passagem: 'card-passagem-cabo', verificacao: 'card-verificacao-rede', config: 'card-config' })"><span>Verificação de Rede Interna</span></label>
+                        <label class="radio-btn"><input type="radio" name="tipoServico" value="config"       onchange="toggleCards(this.value, { comodo: 'card-mudanca-comodo', passagem: 'card-passagem-cabo', verificacao: 'card-verificacao-rede', config: 'card-config' })"><span>Configuração de Roteador</span></label>
                     </div>
                 </div>
 
@@ -58,13 +60,14 @@
                 </div>
             </div>
 
+            <!-- Card Mudança de Cômodo -->
             <div class="card" id="card-mudanca-comodo" style="display:none">
                 <p class="card-title">Mudança de Cômodo</p>
 
                 <div class="info-box">
                     <div class="info-box-header">
                         <p class="info-box-title">Template + Valores</p>
-                        <button class="btn-copy-sm" onclick="copiarMudancaComodo('mudanca', this)">📋 Copiar</button>
+                        <button class="btn-copy-sm" onclick="copiarMudancaComodo(this)">📋 Copiar</button>
                     </div>
                     <p><span class="info-label">Prazo:</span> A mudança de cômodo terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto.</p>
                     <p><span class="info-label">Valores:</span> Mão de obra: R$ 100,00 </p>
@@ -78,22 +81,20 @@
                 <div class="field">
                     <label class="field-subtitle">Disponibilidade</label>
                     <div class="radio-group">
-                        <label class="radio-btn"><input type="radio" name="disponibilidade-mudanca" value="manha" onchange="horarioEspecifico(this)"><span>Manhã</span></label>
-                        <label class="radio-btn"><input type="radio" name="disponibilidade-mudanca" value="tarde" onchange="horarioEspecifico(this)"><span>Tarde</span></label>
-                        <label class="radio-btn"><input type="radio" name="disponibilidade-mudanca" value="qualquerHoraio" onchange="horarioEspecifico(this)"><span>Qualquer Horário</span></label>
-                        <label class="radio-btn"><input type="radio" name="disponibilidade-mudanca" value="horario-especifico" onchange="horarioEspecifico(this)"><span>Horário Específico</span></label>
+                        <label class="radio-btn"><input type="radio" name="disp-comodo" value="manha"            onchange="horarioEspecifico(this)"><span>Manhã</span></label>
+                        <label class="radio-btn"><input type="radio" name="disp-comodo" value="tarde"            onchange="horarioEspecifico(this)"><span>Tarde</span></label>
+                        <label class="radio-btn"><input type="radio" name="disp-comodo" value="qualquerHoraio"   onchange="horarioEspecifico(this)"><span>Qualquer Horário</span></label>
+                        <label class="radio-btn"><input type="radio" name="disp-comodo" value="horario-especifico" onchange="horarioEspecifico(this)"><span>Horário Específico</span></label>
                     </div>
                 </div>
-                <div class="field" id="horario-especifico-mudanca" style="display:none">
+                <div class="field" id="horario-especifico-comodo" style="display:none">
                     <label class="field-subtitle">Horário Específico</label>
-                    <div>
-                        <textarea class="textarea-horario" name="horarioEsp-mudanca" placeholder="Ex: Após às 18h - 03/07&#10;Após 16h - 04/07"></textarea>
-                    </div>
+                    <textarea class="textarea-horario" name="horarioEsp-comodo" placeholder="Ex: Após às 18h - 03/07&#10;Após 16h - 04/07"></textarea>
                 </div>
 
                 <div class="field">
                     <label>Observações (Opcional)</label>
-                    <textarea name="descricao" rows="4" placeholder="Digite aqui suas observações..."></textarea>
+                    <textarea name="obs-comodo" rows="4" placeholder="Digite aqui suas observações..."></textarea>
                 </div>
 
                 <div class="field">
@@ -104,17 +105,18 @@
                 </div>
 
                 <div class="field">
-                    <button class="btn-copy" onclick="copiarMudancaComodo('mudanca', this)">📋 Copiar Atendimento</button>
+                    <button class="btn-copy" onclick="copiarMudancaComodo(this)">📋 Copiar Atendimento</button>
                 </div>
             </div>
 
+            <!-- Card Passagem de Cabo -->
             <div class="card" id="card-passagem-cabo" style="display:none">
                 <p class="card-title">Passagem de Cabo</p>
 
                 <div class="info-box">
                     <div class="info-box-header">
                         <p class="info-box-title">Template + Valores</p>
-                        <button class="btn-copy-sm" onclick="copiarPassagem('passagem', this)">📋 Copiar</button>
+                        <button class="btn-copy-sm" onclick="copiarPassagemCabo(this)">📋 Copiar</button>
                     </div>
                     <p><span class="info-label">Prazo:</span> A passagem de cabo terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto.</p>
                     <p><span class="info-label">Valores:</span> Mão de obra: R$ 100,00 </p>
@@ -128,22 +130,20 @@
                 <div class="field">
                     <label class="field-subtitle">Disponibilidade</label>
                     <div class="radio-group">
-                        <label class="radio-btn"><input type="radio" name="disponibilidade-passagem" value="manha" onchange="horarioEspecifico(this)"><span>Manhã</span></label>
-                        <label class="radio-btn"><input type="radio" name="disponibilidade-passagem" value="tarde" onchange="horarioEspecifico(this)"><span>Tarde</span></label>
-                        <label class="radio-btn"><input type="radio" name="disponibilidade-passagem" value="qualquerHoraio" onchange="horarioEspecifico(this)"><span>Qualquer Horário</span></label>
-                        <label class="radio-btn"><input type="radio" name="disponibilidade-passagem" value="horario-especifico" onchange="horarioEspecifico(this)"><span>Horário Específico</span></label>
+                        <label class="radio-btn"><input type="radio" name="disp-passagem" value="manha"             onchange="horarioEspecifico(this)"><span>Manhã</span></label>
+                        <label class="radio-btn"><input type="radio" name="disp-passagem" value="tarde"             onchange="horarioEspecifico(this)"><span>Tarde</span></label>
+                        <label class="radio-btn"><input type="radio" name="disp-passagem" value="qualquerHoraio"    onchange="horarioEspecifico(this)"><span>Qualquer Horário</span></label>
+                        <label class="radio-btn"><input type="radio" name="disp-passagem" value="horario-especifico" onchange="horarioEspecifico(this)"><span>Horário Específico</span></label>
                     </div>
                 </div>
                 <div class="field" id="horario-especifico-passagem" style="display:none">
                     <label class="field-subtitle">Horário Específico</label>
-                    <div>
-                        <textarea class="textarea-horario" name="horarioEsp-passagem" placeholder="Ex: Após às 18h - 03/07&#10;Após 16h - 04/07"></textarea>
-                    </div>
+                    <textarea class="textarea-horario" name="horarioEsp-passagem" placeholder="Ex: Após às 18h - 03/07&#10;Após 16h - 04/07"></textarea>
                 </div>
 
                 <div class="field">
                     <label>Observações (Opcional)</label>
-                    <textarea name="descricao" rows="4" placeholder="Digite aqui suas observações..."></textarea>
+                    <textarea name="obs-passagem" rows="4" placeholder="Digite aqui suas observações..."></textarea>
                 </div>
 
                 <div class="field">
@@ -154,11 +154,168 @@
                 </div>
 
                 <div class="field">
-                    <button class="btn-copy" onclick="copiarPassagem('passagem', this)">📋 Copiar Atendimento</button>
+                    <button class="btn-copy" onclick="copiarPassagemCabo(this)">📋 Copiar Atendimento</button>
                 </div>
             </div>
 
-            <!-- Watermark ------------------------------------------------------------------------------------------------------------------------------->
+            <!-- Card Verificação de Rede Interna -->
+            <div class="card" id="card-verificacao-rede" style="display:none">
+                <p class="card-title">Verificação de Rede Interna</p>
+
+                <div class="field">
+                    <label class="field-subtitle">Área do Serviço</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="area-verificacao" value="v_urbana" onchange="selecionarArea(this.value)"><span>Urbana</span></label>
+                        <label class="radio-btn"><input type="radio" name="area-verificacao" value="v_rural"  onchange="selecionarArea(this.value)"><span>Rural</span></label>
+                    </div>
+                </div>
+
+                <div id="verificacao-urbana" style="display:none">
+                    <div class="info-box">
+                        <div class="info-box-header">
+                            <p class="info-box-title">Template + Valores</p>
+                            <button class="btn-copy-sm" onclick="copiarVerificacao(this)">📋 Copiar</button>
+                        </div>
+                        <p><span class="info-label">Prazo:</span> A Verificação de Rede Interna terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto.</p>
+                        <p><span class="info-label">Valores:</span> Mão de obra: R$ 50,00 </p>
+                        <p><span class="info-label">Taxa:</span> A taxa de R$ 50,00 (mão de obra) deverá ser paga antecipadamente </p>
+                        <p><span class="info-label">Poderá ser apresentado um orçamento adicional no local dependendo da avaliação do técnico</span></p>
+                    </div> <br>
+                </div>
+
+                <div id="verificacao-rural" style="display:none">
+                    <div class="info-box">
+                        <div class="info-box-header">
+                            <p class="info-box-title">Template + Valores</p>
+                            <button class="btn-copy-sm" onclick="copiarVerificacao(this)">📋 Copiar</button>
+                        </div>
+                        <p><span class="info-label">Prazo:</span> A Verificação de Rede Interna terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto.</p>
+                        <p><span class="info-label">Valores:</span> Mão de obra: R$ 100,00 </p>
+                        <p><span class="info-label">Metragem de cabo de rede (caso necessário):</span> R$ 3,75 </p>
+                        <p><span class="info-label">Conector RJ45 (cada):</span> R$ 2,50 </p>
+                        <p><span class="info-label">Cômodo adicional:</span> R$ 50,00 </p>
+                        <p><span class="info-label">Taxa:</span> A taxa de R$ 100,00 deverá ser paga antecipadamente </p>
+                        <p><span class="info-label">Prazo pagamento da metragem:</span> Metragem de cabo utilizado será cobrado na próxima mensalidade </p>
+                    </div> <br>
+                </div>
+
+                <div class="field" id="campo-roteadores" style="display:none">
+                    <label class="field-subtitle">Quantos roteadores há no local?</label>
+                    <input type="number" id="qtd-roteadores" name="qtd-roteadores" min="1" max="20" placeholder="Ex: 2" oninput="calcularValorRoteadores()">
+                    <div id="resultado-roteadores" class="info-box" style="display:none; margin-top:8px">
+                        <p id="texto-resultado-roteadores"></p>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label class="field-subtitle">Disponibilidade</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="disp-verificacao" value="manha"             onchange="horarioEspecifico(this)"><span>Manhã</span></label>
+                        <label class="radio-btn"><input type="radio" name="disp-verificacao" value="tarde"             onchange="horarioEspecifico(this)"><span>Tarde</span></label>
+                        <label class="radio-btn"><input type="radio" name="disp-verificacao" value="qualquerHoraio"    onchange="horarioEspecifico(this)"><span>Qualquer Horário</span></label>
+                        <label class="radio-btn"><input type="radio" name="disp-verificacao" value="horario-especifico" onchange="horarioEspecifico(this)"><span>Horário Específico</span></label>
+                    </div>
+                </div>
+                <div class="field" id="horario-especifico-verificacao" style="display:none">
+                    <label class="field-subtitle">Horário Específico</label>
+                    <textarea class="textarea-horario" name="horarioEsp-verificacao" placeholder="Ex: Após às 18h - 03/07&#10;Após 16h - 04/07"></textarea>
+                </div>
+
+                <div class="field">
+                    <label>Observações (Opcional)</label>
+                    <textarea name="obs-verificacao" rows="4" placeholder="Digite aqui suas observações..."></textarea>
+                </div>
+
+                <div class="field">
+                    <label>Login PPPoE</label>
+                    <input type="text" name="loginpppoe-verificacao" id="loginpppoe-verificacao" placeholder="Ex: 123Pietro"> <br>
+                    <label>Senha PPPoE</label>
+                    <input type="text" name="senhapppoe-verificacao" id="senhapppoe-verificacao" placeholder="Ex: 456Pietro"> <br>
+                </div>
+
+                <div class="field">
+                    <button class="btn-copy" onclick="copiarVerificacao(this)">📋 Copiar Atendimento</button>
+                </div>
+            </div>
+
+            <!-- Card Configuração de Roteador -->
+            <div class="card" id="card-config" style="display:none">
+                <p class="card-title">Configuração de Roteador</p>
+
+                <div class="field">
+                    <label class="field-subtitle">Área do Serviço</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="area-config" value="c_urbana" onchange="selecionarAreaConfig(this.value)"><span>Urbana</span></label>
+                        <label class="radio-btn"><input type="radio" name="area-config" value="c_rural"  onchange="selecionarAreaConfig(this.value)"><span>Rural</span></label>
+                    </div>
+                </div>
+
+                <div id="config-urbana" style="display:none">
+                    <div class="info-box">
+                        <div class="info-box-header">
+                            <p class="info-box-title">Template + Valores</p>
+                            <button class="btn-copy-sm" onclick="copiarConfig(this)">📋 Copiar</button>
+                        </div>
+                        <p><span class="info-label">Prazo:</span> A configuração de roteador terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto.</p>
+                        <p><span class="info-label">Valores:</span> Mão de obra: R$ 50,00 </p>
+                        <p><span class="info-label">Taxa:</span> A taxa de R$ 50,00 deverá ser paga antecipadamente </p>
+                        <p><span class="info-label">Caso deseje realizar a passagem de cabo durante a visita, esses são os valores:</span></p>
+                        <p><span class="info-label">Metragem de cabo de rede (caso necessário):</span> R$ 3,75 </p>
+                        <p><span class="info-label">Conector RJ45 (cada):</span> R$ 2,50 </p>
+                        <p><span class="info-label">Cômodo adicional:</span> R$ 50,00 </p>
+                        <p><span class="info-label">Prazo pagamento da metragem:</span> Metragem de cabo utilizado será cobrado na próxima mensalidade </p>
+                    </div> <br>
+                </div>
+
+                <div id="config-rural" style="display:none">
+                    <div class="info-box">
+                        <div class="info-box-header">
+                            <p class="info-box-title">Template + Valores</p>
+                            <button class="btn-copy-sm" onclick="copiarConfig(this)">📋 Copiar</button>
+                        </div>
+                        <p><span class="info-label">Prazo:</span> A configuração de roteador terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto.</p>
+                        <p><span class="info-label">Valores:</span> Mão de obra: R$ 100,00 </p>
+                        <p><span class="info-label">Taxa:</span> A taxa de R$ 100,00 deverá ser paga antecipadamente </p>
+                        <p><span class="info-label">Caso deseje realizar a passagem de cabo durante a visita, esses são os valores:</span></p>
+                        <p><span class="info-label">Metragem de cabo de rede (caso necessário):</span> R$ 3,75 </p>
+                        <p><span class="info-label">Conector RJ45 (cada):</span> R$ 2,50 </p>
+                        <p><span class="info-label">Cômodo adicional:</span> R$ 50,00 </p>
+                        <p><span class="info-label">Prazo pagamento da metragem:</span> Metragem de cabo utilizado será cobrado na próxima mensalidade </p>
+                    </div> <br>
+                </div>
+
+                <div class="field">
+                    <label class="field-subtitle">Disponibilidade</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="disp-config" value="manha"             onchange="horarioEspecifico(this)"><span>Manhã</span></label>
+                        <label class="radio-btn"><input type="radio" name="disp-config" value="tarde"             onchange="horarioEspecifico(this)"><span>Tarde</span></label>
+                        <label class="radio-btn"><input type="radio" name="disp-config" value="qualquerHoraio"    onchange="horarioEspecifico(this)"><span>Qualquer Horário</span></label>
+                        <label class="radio-btn"><input type="radio" name="disp-config" value="horario-especifico" onchange="horarioEspecifico(this)"><span>Horário Específico</span></label>
+                    </div>
+                </div>
+                <div class="field" id="horario-especifico-config" style="display:none">
+                    <label class="field-subtitle">Horário Específico</label>
+                    <textarea class="textarea-horario" name="horarioEsp-config" placeholder="Ex: Após às 18h - 03/07&#10;Após 16h - 04/07"></textarea>
+                </div>
+
+                <div class="field">
+                    <label>Observações (Opcional)</label>
+                    <textarea name="obs-config" rows="4" placeholder="Digite aqui suas observações..."></textarea>
+                </div>
+
+                <div class="field">
+                    <label>Login PPPoE</label>
+                    <input type="text" name="loginpppoe-config" id="loginpppoe-config" placeholder="Ex: 123Pietro"> <br>
+                    <label>Senha PPPoE</label>
+                    <input type="text" name="senhapppoe-config" id="senhapppoe-config" placeholder="Ex: 456Pietro"> <br>
+                </div>
+
+                <div class="field">
+                    <button class="btn-copy" onclick="copiarConfig(this)">📋 Copiar Atendimento</button>
+                </div>
+            </div>
+
+            <!-- Watermark -->
             <div class="card">
                 <div class="watermark">Desenvolvido por Pietro de Alexandria Picoli — <a href="https://github.com/PietroAlexandria" target="_blank">GitHub</a></div>
             </div>
@@ -188,12 +345,14 @@
             </div>
         </div>
     </div>
-    
+
     <script>
         function horarioEspecifico(el) {
             const idMap = {
-                'disponibilidade-mudanca': 'horario-especifico-mudanca',
-                'disponibilidade-passagem': 'horario-especifico-passagem'
+                'disp-comodo':      'horario-especifico-comodo',
+                'disp-passagem':    'horario-especifico-passagem',
+                'disp-verificacao': 'horario-especifico-verificacao',
+                'disp-config':      'horario-especifico-config'
             };
             const targetId = idMap[el.name];
             if (!targetId) return;
