@@ -1,0 +1,253 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Troca de Titularidade — CedNet N2</title>
+    <link rel="icon" href="/images/LogoCedNet.ico">
+    <link rel="stylesheet" href="/css/sem-conexao.css">
+    <link rel="stylesheet" href="/css/sharedCss/darkMode.css">
+    <link rel="stylesheet" href="/css/sharedCss/historicoCard.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <button id="btn-dark-mode" class="btn-dark-mode" onclick="toggleDarkMode()" title="Alternar tema">🌙</button>
+    <div class="layout-with-history">
+        <div class="container">
+
+            <div class="page-header">
+                <a href="/nivel2" class="btn-back">← Voltar</a>
+                <h1 class="page-title">🔄 Troca de Titularidade</h1>
+            </div>
+
+            <!-- Tipo de Conexão -->
+            <div class="card">
+                <p class="card-title">Tipo de Conexão</p>
+                <div class="field">
+                    <label class="field-subtitle">Selecione o tipo</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="tipo-conexao" value="Fibra" onchange="toggleCards(this.value, { Fibra: 'card-fibra', Radio: 'card-radio' })"><span>Fibra</span></label>
+                        <label class="radio-btn"><input type="radio" name="tipo-conexao" value="Radio" onchange="toggleCards(this.value, { Fibra: 'card-fibra', Radio: 'card-radio' })"><span>Rádio</span></label>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Fibra -->
+            <div class="card" id="card-fibra" style="display:none">
+                <p class="card-title">Troca de Titularidade — Fibra</p>
+
+                <div class="field">
+                    <label>O.S. Antiga</label>
+                    <input type="text" name="os-antiga">
+                    <label>Contrato Antigo</label>
+                    <input type="text" name="contrato-antigo">
+                </div>
+
+                <div class="field">
+                    <label>O.S. Nova</label>
+                    <input type="text" name="os-nova">
+                    <label>Contrato Novo</label>
+                    <input type="text" name="contrato-novo">
+                </div>
+
+                <hr class="sep">
+
+                <div class="field">
+                    <label>Endereço</label>
+                    <input type="text" name="endereco-fibra">
+                </div>
+
+                <hr class="sep">
+
+                <div class="field">
+                    <label>Usuário PPPoE Antigo</label>
+                    <input type="text" name="pppoe-antigo-fibra">
+                    <label>Usuário PPPoE Novo</label>
+                    <input type="text" name="pppoe-novo-fibra">
+                    <label>Senha PPPoE</label>
+                    <input type="text" name="pppoe-senha-fibra">
+                </div>
+
+                <div class="field">
+                    <label class="field-subtitle">Tipo de IP</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="tipo-ip-fibra" value="NAT"  onchange="toggleIpFibra(this.value)"><span>NAT</span></label>
+                        <label class="radio-btn"><input type="radio" name="tipo-ip-fibra" value="FIXO" onchange="toggleIpFibra(this.value)"><span>IP Fixo</span></label>
+                    </div>
+                </div>
+                <div class="field" id="campo-ip-fibra" style="display:none">
+                    <label>IP Fixo</label>
+                    <input type="text" name="ip-fibra">
+                </div>
+
+                <hr class="sep">
+
+                <div class="field">
+                    <label>OLT</label>
+                    <input type="text" name="olt">
+                    <label>PON</label>
+                    <input type="text" name="pon">
+                    <label>CAIXA</label>
+                    <input type="text" name="caixa">
+                    <label>MAC ONU</label>
+                    <input type="text" name="mac-onu">
+                    <label>Serial ONU</label>
+                    <input type="text" name="serial-onu">
+                </div>
+
+                <hr class="sep">
+
+                <div class="field">
+                    <label class="field-subtitle">Modo de Operação</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="modo-fibra" value="Service" onchange="toggleModoFibra(this.value)"><span>Service (ONT)</span></label>
+                        <label class="radio-btn"><input type="radio" name="modo-fibra" value="Bridge"  onchange="toggleModoFibra(this.value)"><span>Bridge (ONU + Roteador)</span></label>
+                    </div>
+                </div>
+
+                <!-- Campos extras Bridge -->
+                <div id="campos-bridge" style="display:none">
+                    <div class="field">
+                        <label>Modelo ONU/ONT</label>
+                        <input type="text" name="modelo-onu">
+                        <label>Serial Number Roteador</label>
+                        <input type="text" name="serial-roteador">
+                    </div>
+                </div>
+
+                <hr class="sep">
+
+                <div class="field">
+                    <label>Nome do Cliente Novo</label>
+                    <input type="text" name="nome-cliente-fibra">
+                    <label>MAC Roteador</label>
+                    <input type="text" name="mac-roteador-fibra">
+                    <label>Modelo Roteador</label>
+                    <input type="text" name="modelo-roteador-fibra">
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn-copy" onclick="copiarBloco1Fibra(this)">📋 De/Para + Dados Técnicos</button>
+                    <button class="btn-clear" onclick="limparFibra()">🗑️ Limpar</button>
+                </div>
+                <div class="btn-group" style="margin-top:8px">
+                    <button class="btn-copy" onclick="copiarBloco2Fibra(this)">📋 Renomeio ONU</button>
+                    <button class="btn-copy" onclick="copiarBloco3Fibra(this)">📋 Dados Importados</button>
+                </div>
+            </div>
+
+            <!-- Card Rádio -->
+            <div class="card" id="card-radio" style="display:none">
+                <p class="card-title">Troca de Titularidade — Rádio</p>
+
+                <div class="field">
+                    <label>O.S. Antiga</label>
+                    <input type="text" name="os-antiga-radio">
+                    <label>Contrato Antigo</label>
+                    <input type="text" name="contrato-antigo-radio">
+                </div>
+
+                <div class="field">
+                    <label>O.S. Nova</label>
+                    <input type="text" name="os-nova-radio">
+                    <label>Contrato Novo</label>
+                    <input type="text" name="contrato-novo-radio">
+                </div>
+
+                <hr class="sep">
+
+                <div class="field">
+                    <label>Endereço</label>
+                    <input type="text" name="endereco-radio">
+                </div>
+
+                <hr class="sep">
+
+                <div class="field">
+                    <label>Usuário PPPoE Antigo</label>
+                    <input type="text" name="pppoe-antigo-radio">
+                    <label>Usuário PPPoE Novo</label>
+                    <input type="text" name="pppoe-novo-radio">
+                    <label>Senha PPPoE</label>
+                    <input type="text" name="pppoe-senha-radio">
+                </div>
+
+                <div class="field">
+                    <label class="field-subtitle">Tipo de IP</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="tipo-ip-radio" value="NAT"  onchange="toggleIpRadio(this.value)"><span>NAT</span></label>
+                        <label class="radio-btn"><input type="radio" name="tipo-ip-radio" value="FIXO" onchange="toggleIpRadio(this.value)"><span>IP Fixo</span></label>
+                    </div>
+                </div>
+                <div class="field" id="campo-ip-radio" style="display:none">
+                    <label>IP Fixo</label>
+                    <input type="text" name="ip-radio">
+                </div>
+
+                <hr class="sep">
+
+                <div class="field">
+                    <label>IP BASE</label>
+                    <input type="text" name="ip-base">
+                    <label>IP Rádio Cliente</label>
+                    <input type="text" name="ip-radio-cliente">
+                    <label>Modelo Rádio Cliente</label>
+                    <input type="text" name="modelo-radio">
+                    <label>MAC Rádio Cliente</label>
+                    <input type="text" name="mac-radio">
+                    <label>Nome do Rádio</label>
+                    <input type="text" name="nome-radio">
+                </div>
+
+                <hr class="sep">
+
+                <div class="field">
+                    <label>MAC Roteador (WAN)</label>
+                    <input type="text" name="mac-roteador-radio">
+                    <label>Modelo Roteador</label>
+                    <input type="text" name="modelo-roteador-radio">
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn-copy" onclick="copiarTrocaRadio(this)">📋 Copiar Texto OS</button>
+                    <button class="btn-clear" onclick="limparRadio()">🗑️ Limpar</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="watermark">Desenvolvido por Pietro de Alexandria Picoli — <a href="https://github.com/PietroAlexandria" target="_blank">GitHub</a></div>
+            </div>
+        </div>
+
+        <div class="history-container minimized" id="sidebar-panel">
+            <div class="panel-tabs">
+                <button class="panel-tab-btn" onclick="openPanel('historico')" title="Histórico">📋</button>
+                <button class="panel-tab-btn" onclick="openPanel('notepad')" title="Bloco de Notas">📝</button>
+            </div>
+            <div class="history-header">
+                <span id="panel-title">📋 Histórico</span>
+                <div style="display:flex;align-items:center;gap:6px">
+                    <button id="history-minimize-btn" class="history-minimize-btn" onclick="closePanel()" title="Fechar painel">▶</button>
+                    <button id="btn-limpar-historico" onclick="limparHistorico()">Limpar tudo</button>
+                    <button id="btn-copiar-notepad" onclick="copiarNotepad()" style="display:none">📋 Copiar</button>
+                    <button id="btn-limpar-notepad" onclick="limparNotepad()" style="display:none">Limpar</button>
+                </div>
+            </div>
+            <div class="history-content">
+                <div id="history-module" style="display:none"><div id="history-panel"></div></div>
+                <div id="notepad-module" style="display:none">
+                    <textarea id="notepad-textarea" class="notepad-textarea" placeholder="Anotações rápidas..."></textarea>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast"></div>
+    <script src="/js/sharedFunctions/functionDarkMode.js"></script>
+    <script src="/js/sharedFunctions/functionMostrarAlerta.js"></script>
+    <script src="/js/sharedFunctions/functionToggleCards.js"></script>
+    <script src="/js/n2/troca-titularidade.js"></script>
+    <script src="/js/sharedFunctions/functionCardHistory.js"></script>
+</body>
+</html>

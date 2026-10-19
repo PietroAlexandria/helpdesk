@@ -78,6 +78,9 @@ app.post('/api/auth/n2', (req, res) => {
 
 app.post('/api/auth/n2/verify', authN2, (_, res) => res.json({ ok: true }));
 
+// Rota - Troca de Titularidade (N2)
+app.get('/troca-titularidade', (_, res) => res.sendFile(path.join(__dirname, 'views', 'options-html', 'n2', 'troca-titularidade.html')));
+
 // ---------------------------------------- //
 // Rota para buscar contrato no IXC
 app.get('/api/contrato/:id', async (req, res) => {
