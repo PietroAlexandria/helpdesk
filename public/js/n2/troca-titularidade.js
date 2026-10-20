@@ -36,10 +36,13 @@ function coletarFibra() {
     const contratoAntigo = v('contrato-antigo');
     const osNova         = v('os-nova');
     const contratoNovo   = v('contrato-novo');
+    const nomeAntigo     = v('nome-antigo');
+    const nomeNovo       = v('nome-novo');
     const endereco       = v('endereco-fibra');
     const pppoeAntigo    = v('pppoe-antigo-fibra');
-    const pppoeNovo      = v('pppoe-novo-fibra');
+    const idLogin        = v('id-login-fibra');
     const pppoeSenha     = v('pppoe-senha-fibra');
+    const pppoeNovo      = idLogin + nomeNovo.trim().split(/\s+/)[0].toLowerCase();
     const tipoIp         = radio('tipo-ip-fibra');
     const ip             = tipoIp === 'FIXO' ? v('ip-fibra') : 'NAT';
     const olt            = v('olt');
@@ -50,17 +53,19 @@ function coletarFibra() {
     const modo           = radio('modo-fibra');
     const modeloOnu      = v('modelo-onu');
     const serialRoteador = v('serial-roteador');
-    const nomeCliente    = v('nome-cliente-fibra');
+    const nomeCliente    = v('nome-novo');
     const macRoteador    = v('mac-roteador-fibra').toUpperCase();
     const modeloRoteador = v('modelo-roteador-fibra');
 
+    if (!nomeAntigo)     { mostrarAlerta('Preencha o Nome do Titular Antigo!'); return null; }
     if (!osAntiga)       { mostrarAlerta('Preencha a O.S. Antiga!'); return null; }
     if (!contratoAntigo) { mostrarAlerta('Preencha o Contrato Antigo!'); return null; }
+    if (!nomeNovo)       { mostrarAlerta('Preencha o Nome do Titular Novo!'); return null; }
     if (!osNova)         { mostrarAlerta('Preencha a O.S. Nova!'); return null; }
     if (!contratoNovo)   { mostrarAlerta('Preencha o Contrato Novo!'); return null; }
     if (!endereco)       { mostrarAlerta('Preencha o Endereço!'); return null; }
     if (!pppoeAntigo)    { mostrarAlerta('Preencha o Usuário PPPoE Antigo!'); return null; }
-    if (!pppoeNovo)      { mostrarAlerta('Preencha o Usuário PPPoE Novo!'); return null; }
+    if (!idLogin)        { mostrarAlerta('Preencha o ID Login Novo!'); return null; }
     if (!pppoeSenha)     { mostrarAlerta('Preencha a Senha PPPoE!'); return null; }
     if (!tipoIp)         { mostrarAlerta('Selecione o Tipo de IP!'); return null; }
     if (tipoIp === 'FIXO' && !v('ip-fibra')) { mostrarAlerta('Preencha o IP Fixo!'); return null; }
@@ -89,8 +94,8 @@ Serial Number ONU/ONT: ${serialOnu}
 MAC Roteador: ${macRoteador || '-'}
 Modelo Roteador: ${modeloRoteador || '-'}`;
 
-    const bloco1 = `De: ${osAntiga} - Contrato Nº ${contratoAntigo}.
-Para: ${osNova} - Contrato Nº ${contratoNovo}.
+    const bloco1 = `De: ${nomeAntigo} - Protocolo ${osAntiga} - Contrato ${contratoAntigo}
+Para: ${nomeNovo} - Protocolo ${osNova} - Contrato ${contratoNovo}
 
 Dados importados:
 Endereço: ${endereco}
