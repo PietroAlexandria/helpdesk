@@ -1,0 +1,65 @@
+.menu-buttons-sm {
+    gap: 8px;
+    margin-bottom: 4px;
+}
+
+.btn-sm {
+    padding: 10px 14px !important;
+    font-size: 0.88rem !important;
+}
+
+.btn-sm .btn-icon {
+    width: 26px;
+    height: 26px;
+    font-size: 0.95rem;
+}
+
+.section-label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.8px;
+    color: var(--subtitle-color);
+    text-align: left;
+    margin: 16px 0 8px;
+    padding-left: 2px;
+}
+
+.section-label-n2 {
+    color: #7c3aed;
+}
+
+:root.dark .section-label-n2 {
+    color: #a78bfa;
+}
+
+.btn-logout {
+    width: 100%;
+    margin-top: 16px;
+    padding: 10px;
+    background: transparent;
+    border: 1.5px solid #e5e7eb;
+    border-radius: 10px;
+    font-size: 0.85rem;
+    font-weight: 500;
+    font-family: 'Inter', sans-serif;
+    color: var(--subtitle-color);
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.btn-logout:hover {
+    background: #fff0f0;
+    border-color: #fbb;
+    color: #dc2626;
+}
+
+:root.dark .btn-logout {
+    border-color: #1e2a3a;
+}
+
+:root.dark .btn-logout:hover {
+    background: #2a1010;
+    border-color: #7f1d1d;
+    color: #f87171;
+}
