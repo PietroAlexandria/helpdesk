@@ -155,15 +155,18 @@ function limparFibra() {
 
 // ── Rádio ─────────────────────────────────────────────────────────────────────
 
-function copiarTrocaRadio(botao) {
+function coletarRadio() {
+    const nomeAntigo     = v('nome-antigo-radio');
     const osAntiga       = v('os-antiga-radio');
     const contratoAntigo = v('contrato-antigo-radio');
+    const nomeNovo       = v('nome-novo-radio');
     const osNova         = v('os-nova-radio');
     const contratoNovo   = v('contrato-novo-radio');
     const endereco       = v('endereco-radio');
     const pppoeAntigo    = v('pppoe-antigo-radio');
-    const pppoeNovo      = v('pppoe-novo-radio');
+    const idLogin        = v('id-login-radio');
     const pppoeSenha     = v('pppoe-senha-radio');
+    const pppoeNovo      = idLogin + nomeNovo.trim().split(/\s+/)[0].toLowerCase();
     const tipoIp         = radio('tipo-ip-radio');
     const ip             = tipoIp === 'FIXO' ? v('ip-radio') : 'NAT';
     const ipBase         = v('ip-base');
@@ -174,25 +177,27 @@ function copiarTrocaRadio(botao) {
     const macRoteador    = v('mac-roteador-radio').toUpperCase();
     const modeloRoteador = v('modelo-roteador-radio');
 
-    if (!osAntiga)       { mostrarAlerta('Preencha a O.S. Antiga!'); return; }
-    if (!contratoAntigo) { mostrarAlerta('Preencha o Contrato Antigo!'); return; }
-    if (!osNova)         { mostrarAlerta('Preencha a O.S. Nova!'); return; }
-    if (!contratoNovo)   { mostrarAlerta('Preencha o Contrato Novo!'); return; }
-    if (!endereco)       { mostrarAlerta('Preencha o Endereço!'); return; }
-    if (!pppoeAntigo)    { mostrarAlerta('Preencha o Usuário PPPoE Antigo!'); return; }
-    if (!pppoeNovo)      { mostrarAlerta('Preencha o Usuário PPPoE Novo!'); return; }
-    if (!pppoeSenha)     { mostrarAlerta('Preencha a Senha PPPoE!'); return; }
-    if (!tipoIp)         { mostrarAlerta('Selecione o Tipo de IP!'); return; }
-    if (tipoIp === 'FIXO' && !v('ip-radio')) { mostrarAlerta('Preencha o IP Fixo!'); return; }
-    if (!ipBase)         { mostrarAlerta('Preencha o IP BASE!'); return; }
-    if (!ipRadioCliente) { mostrarAlerta('Preencha o IP Rádio Cliente!'); return; }
-    if (!macRadio)       { mostrarAlerta('Preencha o MAC Rádio Cliente!'); return; }
-    if (!nomeRadio)      { mostrarAlerta('Preencha o Nome do Rádio!'); return; }
+    if (!nomeAntigo)     { mostrarAlerta('Preencha o Nome do Titular Antigo!'); return null; }
+    if (!osAntiga)       { mostrarAlerta('Preencha a O.S. Antiga!'); return null; }
+    if (!contratoAntigo) { mostrarAlerta('Preencha o Contrato Antigo!'); return null; }
+    if (!nomeNovo)       { mostrarAlerta('Preencha o Nome do Titular Novo!'); return null; }
+    if (!osNova)         { mostrarAlerta('Preencha a O.S. Nova!'); return null; }
+    if (!contratoNovo)   { mostrarAlerta('Preencha o Contrato Novo!'); return null; }
+    if (!endereco)       { mostrarAlerta('Preencha o Endereço!'); return null; }
+    if (!pppoeAntigo)    { mostrarAlerta('Preencha o Usuário PPPoE Antigo!'); return null; }
+    if (!idLogin)        { mostrarAlerta('Preencha o ID Login Novo!'); return null; }
+    if (!pppoeSenha)     { mostrarAlerta('Preencha a Senha PPPoE!'); return null; }
+    if (!tipoIp)         { mostrarAlerta('Selecione o Tipo de IP!'); return null; }
+    if (tipoIp === 'FIXO' && !v('ip-radio')) { mostrarAlerta('Preencha o IP Fixo!'); return null; }
+    if (!ipBase)         { mostrarAlerta('Preencha o IP BASE!'); return null; }
+    if (!ipRadioCliente) { mostrarAlerta('Preencha o IP Rádio Cliente!'); return null; }
+    if (!macRadio)       { mostrarAlerta('Preencha o MAC Rádio Cliente!'); return null; }
+    if (!nomeRadio)      { mostrarAlerta('Preencha o Nome do Rádio!'); return null; }
 
     const loginAntigo = loginAntigoRenomeado(pppoeAntigo);
 
-    const texto = `De: ${osAntiga} - Contrato Nº ${contratoAntigo}.
-Para: ${osNova} - Contrato Nº ${contratoNovo}.
+    const bloco1 = `De: ${nomeAntigo} - Protocolo ${osAntiga} - Contrato ${contratoAntigo}
+Para: ${nomeNovo} - Protocolo ${osNova} - Contrato ${contratoNovo}
 
 Dados importados:
 Endereço: ${endereco}
@@ -210,13 +215,28 @@ MAC Rádio Cliente: ${macRadio}
 MAC Roteador (WAN): ${macRoteador || '-'}
 Modelo Roteador: ${modeloRoteador || '-'}
 Nome do Rádio: ${nomeRadio}
-Rádio renomeada via Air Control
+Rádio renomeada via Air Control`;
 
+    const bloco2 = `Rádio renomeada via Air Control: ${nomeRadio}
 Login antigo renomeado para: ${loginAntigo}`;
 
-    try { salvarHistorico(texto, 'Troca de Titularidade - Rádio'); } catch(e) {}
-    navigator.clipboard.writeText(texto)
-        .then(() => feedbackTroca(botao, '📋 Copiar Texto OS'))
+    return { bloco1, bloco2 };
+}
+
+function copiarBloco1Radio(botao) {
+    const d = coletarRadio();
+    if (!d) return;
+    try { salvarHistorico(d.bloco1, 'Troca Titularidade - Rádio De/Para + Técnicos'); } catch(e) {}
+    navigator.clipboard.writeText(d.bloco1)
+        .then(() => feedbackTroca(botao, '📋 De/Para + Dados Técnicos'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+}
+
+function copiarBloco2Radio(botao) {
+    const d = coletarRadio();
+    if (!d) return;
+    navigator.clipboard.writeText(d.bloco2)
+        .then(() => feedbackTroca(botao, '📋 Renomeio Rádio'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
 }
 
