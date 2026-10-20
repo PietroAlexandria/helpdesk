@@ -67,7 +67,7 @@
                 <div class="info-box">
                     <div class="info-box-header">
                         <p class="info-box-title">Template + Valores</p>
-                        <button class="btn-copy-sm" onclick="copiarMudancaComodo(this)">📋 Copiar</button>
+                        <button class="btn-copy-sm" onclick="copiarTemplateValores('comodo', this)">📋 Copiar</button>
                     </div>
                     <p><span class="info-label">Prazo:</span> A mudança de cômodo terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto.</p>
                     <p><span class="info-label">Valores:</span> Mão de obra: R$ 100,00 </p>
@@ -116,7 +116,7 @@
                 <div class="info-box">
                     <div class="info-box-header">
                         <p class="info-box-title">Template + Valores</p>
-                        <button class="btn-copy-sm" onclick="copiarPassagemCabo(this)">📋 Copiar</button>
+                        <button class="btn-copy-sm" onclick="copiarTemplateValores('passagem', this)">📋 Copiar</button>
                     </div>
                     <p><span class="info-label">Prazo:</span> A passagem de cabo terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto.</p>
                     <p><span class="info-label">Valores:</span> Mão de obra: R$ 100,00 </p>
@@ -174,7 +174,7 @@
                     <div class="info-box">
                         <div class="info-box-header">
                             <p class="info-box-title">Template + Valores</p>
-                            <button class="btn-copy-sm" onclick="copiarVerificacao(this)">📋 Copiar</button>
+                            <button class="btn-copy-sm" onclick="copiarTemplateValores('verificacao', this)">📋 Copiar</button>
                         </div>
                         <p><span class="info-label">Prazo:</span> A Verificação de Rede Interna terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto.</p>
                         <p><span class="info-label">Valores:</span> Mão de obra: R$ 50,00 </p>
@@ -187,7 +187,7 @@
                     <div class="info-box">
                         <div class="info-box-header">
                             <p class="info-box-title">Template + Valores</p>
-                            <button class="btn-copy-sm" onclick="copiarVerificacao(this)">📋 Copiar</button>
+                            <button class="btn-copy-sm" onclick="copiarTemplateValores('verificacao', this)">📋 Copiar</button>
                         </div>
                         <p><span class="info-label">Prazo:</span> A Verificação de Rede Interna terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto.</p>
                         <p><span class="info-label">Valores:</span> Mão de obra: R$ 100,00 </p>
@@ -254,7 +254,7 @@
                     <div class="info-box">
                         <div class="info-box-header">
                             <p class="info-box-title">Template + Valores</p>
-                            <button class="btn-copy-sm" onclick="copiarConfig(this)">📋 Copiar</button>
+                            <button class="btn-copy-sm" onclick="copiarTemplateValores('config', this)">📋 Copiar</button>
                         </div>
                         <p><span class="info-label">Prazo:</span> A configuração de roteador terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto.</p>
                         <p><span class="info-label">Valores:</span> Mão de obra: R$ 50,00 </p>
@@ -271,7 +271,7 @@
                     <div class="info-box">
                         <div class="info-box-header">
                             <p class="info-box-title">Template + Valores</p>
-                            <button class="btn-copy-sm" onclick="copiarConfig(this)">📋 Copiar</button>
+                            <button class="btn-copy-sm" onclick="copiarTemplateValores('config', this)">📋 Copiar</button>
                         </div>
                         <p><span class="info-label">Prazo:</span> A configuração de roteador terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto.</p>
                         <p><span class="info-label">Valores:</span> Mão de obra: R$ 100,00 </p>
@@ -364,6 +364,7 @@
     <script src="/js/sharedFunctions/functionToggleCards.js"   ></script>
     <script src="/js/sharedFunctions/functionContact.js"       ></script>
     <script src="/js/sharedFunctions/functionAddContact.js"    ></script>
+    <script src="/js/sharedFunctions/functionButtonsCopy.js"   ></script>
     <script src="/js/options-js/servicos.js"                   ></script>
     <script src="/js/sharedFunctions/functionCardHistory.js"   ></script>
     <script src="/js/sharedFunctions/functionPreencherColeta.js"></script>

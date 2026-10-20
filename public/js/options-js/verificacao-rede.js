@@ -116,7 +116,7 @@ Login PPPoE: ${loginPPPOE}
 Senha PPPoE: ${senhaPPPOE}`;
 
     navigator.clipboard.writeText(texto)
-        .then(() => feedbackBtn(botao, '📋 Copiar'))
+        .then(() => feedbackBtn(botao, '📋 Copiar Atendimento'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
     try { salvarHistorico(texto, 'O.S. Verificação de Rede Interna'); } catch(e) {}
 }
@@ -170,7 +170,7 @@ Login PPPoE: ${loginPPPOE}
 Senha PPPoE: ${senhaPPPOE}`;
 
     navigator.clipboard.writeText(texto)
-        .then(() => feedbackBtn(botao, '📋 Copiar'))
+        .then(() => feedbackBtn(botao, '📋 Copiar Atendimento'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
     try { salvarHistorico(texto, 'O.S. Passagem de Cabo'); } catch(e) {}
 }

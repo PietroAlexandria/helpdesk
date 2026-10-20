@@ -311,22 +311,106 @@
 #templates-module {
     display: flex;
     flex-direction: column;
+    gap: 8px;
+}
+
+.templates-toolbar {
+    display: flex;
+    flex-direction: column;
     gap: 6px;
+    position: sticky;
+    top: 0;
+    background: #0f1117;
+    padding-bottom: 6px;
+    border-bottom: 1px solid #1e2a3a;
+    z-index: 2;
+}
+
+.templates-filter-tabs {
+    display: flex;
+    gap: 4px;
+}
+
+.tpl-filter-btn {
+    flex: 1;
+    padding: 6px 8px;
+    background: #141920;
+    color: #8b9bb4;
+    border: 1px solid #1e2a3a;
+    border-radius: 6px;
+    font-size: 0.68rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.tpl-filter-btn:hover {
+    color: #c8d8f0;
+    border-color: #2a3f5a;
+}
+
+.tpl-filter-btn.active {
+    background: rgba(74,158,255,0.16);
+    color: #4a9eff;
+    border-color: #4a9eff;
+}
+
+.template-search-input {
+    width: 100%;
+    padding: 7px 10px;
+    background: #0d1520;
+    border: 1px solid #1e2a3a;
+    border-radius: 6px;
+    color: #c8d8f0;
+    font-size: 0.72rem;
+    font-family: 'Inter', sans-serif;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.template-search-input:focus {
+    border-color: #4a9eff;
+}
+
+.templates-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.template-group {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.template-group-title {
+    font-size: 0.66rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.6px;
+    color: #6495c7;
+    padding: 2px 4px 0;
 }
 
 .template-btn {
     width: 100%;
-    padding: 10px 12px;
+    padding: 9px 11px;
     background: #141920;
     color: #c8d8f0;
     border: 1px solid #1e2a3a;
     border-radius: 8px;
-    font-size: 0.75rem;
+    font-size: 0.73rem;
     font-weight: 600;
     font-family: 'Inter', sans-serif;
     cursor: pointer;
     text-align: left;
     transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
+    line-height: 1.35;
 }
 
 .template-btn:hover {

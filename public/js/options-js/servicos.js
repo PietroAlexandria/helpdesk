@@ -75,7 +75,7 @@ Login PPPoE: ${login}
 Senha PPPoE: ${senha}`;
 
     navigator.clipboard.writeText(texto)
-        .then(() => feedbackBtn(botao, '📋 Copiar'))
+        .then(() => feedbackBtn(botao, '📋 Copiar Atendimento'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
     try { salvarHistorico(texto, 'O.S. Mudança de Cômodo'); } catch(e) {}
 }
@@ -109,7 +109,7 @@ Login PPPoE: ${login}
 Senha PPPoE: ${senha}`;
 
     navigator.clipboard.writeText(texto)
-        .then(() => feedbackBtn(botao, '📋 Copiar'))
+        .then(() => feedbackBtn(botao, '📋 Copiar Atendimento'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
     try { salvarHistorico(texto, 'O.S. Passagem de Cabo'); } catch(e) {}
 }
@@ -184,7 +184,7 @@ Login PPPoE: ${login}
 Senha PPPoE: ${senha}`;
 
     navigator.clipboard.writeText(texto)
-        .then(() => feedbackBtn(botao, '📋 Copiar'))
+        .then(() => feedbackBtn(botao, '📋 Copiar Atendimento'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
     try { salvarHistorico(texto, 'O.S. Verificação de Rede Interna'); } catch(e) {}
 }
@@ -226,7 +226,7 @@ Login PPPoE: ${login}
 Senha PPPoE: ${senha}`;
 
     navigator.clipboard.writeText(texto)
-        .then(() => feedbackBtn(botao, '📋 Copiar'))
+        .then(() => feedbackBtn(botao, '📋 Copiar Atendimento'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
     try { salvarHistorico(texto, 'O.S. Configuração de Roteador'); } catch(e) {}
 }

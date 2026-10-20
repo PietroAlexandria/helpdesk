@@ -33,6 +33,9 @@ function openPanel(modulo) {
     if (btnLimparNotepad) btnLimparNotepad.style.display = modulo === 'notepad' ? 'inline-block' : 'none';
 
     if (modulo === 'historico') renderizarHistorico();
+    if (modulo === 'templates' && typeof renderizarTemplatesSidebar === 'function') {
+        renderizarTemplatesSidebar();
+    }
 }
 
 function closePanel() {
@@ -240,14 +243,11 @@ if (historyPanel) {
             const tplDiv = document.createElement('div');
             tplDiv.id = 'templates-module';
             tplDiv.style.display = 'none';
-            tplDiv.innerHTML = `
-                <button class="template-btn" onclick="copyMudancaEnderecoCompleta(this)">📦 MUDANÇA DE ENDEREÇO</button>
-                <button class="template-btn" onclick="copyReboot(this)">🔄 REBOOT</button>
-                <button class="template-btn" onclick="copyPatchCordService(this)">🔌 PATCH CORD SERVICE</button>
-                <button class="template-btn" onclick="copyPatchCordBridge(this)">🔌 PATCH CORD BRIDGE</button>
-                <button class="template-btn" onclick="copyPatchCordRadio(this)">🔌 PATCH CORD RADIO</button>
-            `;
             historyContent.appendChild(tplDiv);
+        }
+
+        if (typeof renderizarTemplatesSidebar === 'function') {
+            renderizarTemplatesSidebar();
         }
     }
 
