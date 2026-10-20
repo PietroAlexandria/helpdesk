@@ -9,7 +9,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 // ---------------------------------------- //
-// Auth N2
+// Helpers de Autenticação e Rate Limit (N2)
 function authN2(req, res, next) {
     const token = req.headers['x-n2-token'];
     if (!token) return res.status(401).json({ erro: 'Token ausente' });
@@ -19,6 +19,27 @@ function authN2(req, res, next) {
     } catch {
         res.status(401).json({ erro: 'Token inválido' });
     }
+}
+
+// Rate limit em memória para proteger o login N2 contra força bruta
+const loginAttempts = new Map();
+const MAX_LOGIN_ATTEMPTS = 10;
+const LOGIN_WINDOW_MS = 15 * 60 * 1000; // 15 minutos
+
+function rateLimitLogin(req, res, next) {
+    const ip = req.ip || req.socket.remoteAddress || 'unknown';
+    const now = Date.now();
+    const record = loginAttempts.get(ip);
+
+    if (record && now - record.startTime < LOGIN_WINDOW_MS) {
+        if (record.count >= MAX_LOGIN_ATTEMPTS) {
+            return res.status(429).json({ erro: 'Muitas tentativas. Aguarde alguns minutos.' });
+        }
+        record.count += 1;
+    } else {
+        loginAttempts.set(ip, { count: 1, startTime: now });
+    }
+    next();
 }
 
 // Porta dinâmica para funcionar no Render (e localmente também)
@@ -67,11 +88,13 @@ app.get('/teste-ixc', (_, res) => res.sendFile(path.join(__dirname, 'views', 'te
 // ---------------------------------------- //
 // Rotas Nível 2
 app.get('/login-n2', (_, res) => res.sendFile(path.join(__dirname, 'views', 'login-n2.html')));
-app.get('/nivel2',   (_, res) => res.sendFile(path.join(__dirname, 'views', 'nivel2.html')));
+app.get('/nivel2', (_, res) => res.sendFile(path.join(__dirname, 'views', 'nivel2.html')));
 
-app.post('/api/auth/n2', (req, res) => {
+app.post('/api/auth/n2', rateLimitLogin, (req, res) => {
     const { senha } = req.body;
-    if (senha !== process.env.SENHA_N2) return res.status(401).json({ erro: 'Senha incorreta' });
+    if (!senha || senha !== process.env.SENHA_N2) {
+        return res.status(401).json({ erro: 'Senha incorreta' });
+    }
     const token = jwt.sign({ nivel: 2 }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN || '30d' });
     res.json({ token });
 });
@@ -84,12 +107,16 @@ app.get('/troca-titularidade', (_, res) => res.sendFile(path.join(__dirname, 'vi
 // ---------------------------------------- //
 // Rota para buscar contrato no IXC
 app.get('/api/contrato/:id', async (req, res) => {
+    const id = String(req.params.id || '').trim();
+    if (!/^\d+$/.test(id)) {
+        return res.status(400).json({ erro: 'ID de contrato inválido' });
+    }
     try {
-        const dados = await buscarContratoPorId(req.params.id);
+        const dados = await buscarContratoPorId(id);
         res.json(dados);
     } catch (err) {
         console.error('ERRO IXC:', err.response?.data || err.message, err.code);
-        res.status(500).json({ erro: 'Falha ao consultar contrato no IXC', detalhe: err.message });
+        res.status(500).json({ erro: 'Falha ao consultar contrato no IXC' });
     }
 });
 

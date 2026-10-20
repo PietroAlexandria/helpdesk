@@ -14,7 +14,7 @@
     overflow: hidden;
     z-index: 999;
     font-family: 'Inter', sans-serif;
-    transition: width 0.3s ease, right 0.3s ease, border-radius 0.3s ease;
+    transition: width 0.25s ease, right 0.25s ease, border-radius 0.25s ease;
 }
 
 .history-container.minimized {
@@ -35,7 +35,7 @@
     width: 100%;
     flex: 1;
     padding: 8px 0;
-    gap: 4px;
+    gap: 6px;
 }
 
 .history-container.minimized .panel-tabs {
@@ -46,8 +46,8 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 32px;
-    height: 32px;
+    width: 34px;
+    height: 34px;
     margin: 0 auto;
     cursor: pointer;
     background: transparent;
@@ -55,14 +55,25 @@
     border-radius: 8px;
     color: #4a9eff;
     font-size: 1rem;
-    transition: background 0.2s, border-color 0.2s, transform 0.15s;
+    transition: background-color 0.2s ease, border-color 0.2s ease, transform 0.15s ease;
     flex-shrink: 0;
+    touch-action: manipulation;
 }
 
 .panel-tab-btn:hover {
     background: rgba(74,158,255,0.12);
     border-color: #4a9eff;
-    transform: scale(1.1);
+    transform: scale(1.08);
+}
+
+.panel-tab-btn:focus-visible,
+.history-minimize-btn:focus-visible,
+.history-copy:focus-visible,
+.history-remove:focus-visible,
+.template-btn:focus-visible,
+.history-header button:focus-visible {
+    outline: 2px solid #4a9eff;
+    outline-offset: 2px;
 }
 
 .notepad-textarea {
@@ -78,10 +89,13 @@
     box-sizing: border-box;
     resize: vertical;
     outline: none;
+    overscroll-behavior: contain;
 }
 
-.notepad-textarea:focus {
+.notepad-textarea:focus,
+.notepad-textarea:focus-visible {
     border-color: #4a9eff;
+    box-shadow: 0 0 0 2px rgba(74, 158, 255, 0.25);
 }
 
 .history-header {
@@ -109,10 +123,10 @@
     background: rgba(255,95,95,0.08);
     border: 1px solid rgba(255,95,95,0.2);
     border-radius: 6px;
-    padding: 3px 8px;
+    padding: 4px 8px;
     cursor: pointer;
     font-family: 'Inter', sans-serif;
-    transition: all 0.2s;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
 }
 
 .history-header button:hover {
@@ -120,8 +134,8 @@
 }
 
 .history-minimize-btn {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     background: transparent;
     border: 1px solid #1e2a3a !important;
     border-radius: 5px;
@@ -132,7 +146,7 @@
     align-items: center;
     justify-content: center;
     flex-shrink: 0;
-    transition: all 0.2s;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
     padding: 0 !important;
 }
 
@@ -143,6 +157,7 @@
 
 .history-content {
     overflow-y: auto;
+    overscroll-behavior: contain;
     flex: 1;
     padding: 10px;
     display: flex;
@@ -154,7 +169,7 @@
 
 .history-empty {
     text-align: center;
-    color: #3a4a5a;
+    color: #64748b;
     font-size: 0.8rem;
     padding: 24px 0;
 }
@@ -164,7 +179,7 @@
     border: 1px solid #1e2a3a;
     border-radius: 10px;
     padding: 10px 12px;
-    transition: border-color 0.2s;
+    transition: border-color 0.2s ease;
 }
 
 .history-card:hover {
@@ -193,7 +208,7 @@
 
 .history-time {
     font-size: 0.7rem;
-    color: #3d6b99;
+    color: #6495c7;
     font-weight: 500;
 }
 
@@ -206,7 +221,7 @@
 .history-arrow {
     font-size: 0.65rem;
     color: #4a9eff;
-    transition: transform 0.2s;
+    transition: transform 0.2s ease;
 }
 
 .history-body {
@@ -214,18 +229,18 @@
 }
 
 .history-remove {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     background: transparent;
     border: 1px solid #2a2a3a;
     border-radius: 5px;
     color: #ff5f5f;
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
     font-family: 'Inter', sans-serif;
     flex-shrink: 0;
 }
@@ -267,18 +282,18 @@
 }
 
 .history-copy {
-    width: 20px;
-    height: 20px;
+    width: 24px;
+    height: 24px;
     background: transparent;
     border: 1px solid #2a2a3a;
     border-radius: 5px;
     color: #4a9eff;
-    font-size: 0.65rem;
+    font-size: 0.7rem;
     cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: all 0.2s;
+    transition: background-color 0.2s ease, border-color 0.2s ease;
     flex-shrink: 0;
 }
 
@@ -293,6 +308,12 @@
     margin: 4px 0;
 }
 
+#templates-module {
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+}
+
 .template-btn {
     width: 100%;
     padding: 10px 12px;
@@ -305,11 +326,19 @@
     font-family: 'Inter', sans-serif;
     cursor: pointer;
     text-align: left;
-    transition: all 0.2s;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease;
 }
 
 .template-btn:hover {
     background: rgba(74,158,255,0.1);
     border-color: #4a9eff;
     color: #4a9eff;
+}
+
+@media (max-width: 720px) {
+    .history-container:not(.minimized) {
+        right: 8px;
+        width: calc(100vw - 16px);
+        max-width: 320px;
+    }
 }

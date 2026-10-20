@@ -21,19 +21,24 @@ O **CedNet Helpdesk** é um web service interno desenvolvido para operadores de 
 
 | Módulo | Descrição |
 |---|---|
+| 📖 **Tutorial** | Guia interativo de uso da ferramenta para novos operadores |
+| 🎧 **Coleta de Dados** | Triagem rápida (Via de Contato, Nome e Telefone) com encaminhamento automático para o módulo desejado |
 | 🔗 **Guia de Ativações** | Redireciona para o portal de SVAs do Grupo CedNet |
-| 📡 **Sem Conexão** | Diagnóstico de Fibra (CX, ONU, PPPoE) e Rádio (BASE, RÁDIO, PPPoE) com agendamento e integração JIRA |
+| 📡 **Sem Conexão** | Diagnóstico de Fibra (CX, ONU, PPPoE) e Rádio (BASE, RÁDIO, PPPoE) com agendamento e integração JIRA/Zabbix |
 | 🐢 **Conexão Lenta** | Fluxo de atendimento para instabilidade e lentidão, com suporte a Fibra e Rádio |
 | 📦 **Mudança de Endereço** | Coleta completa (endereço, CEP auto-fill, telhado, disponibilidade, equipamentos) |
+| 🧰 **Serviços** | Mudança de Cômodo, Passagem de Cabo, Verificação de Rede Interna e Configuração de Roteador |
 | 🛠️ **Suporte de SVA's** | Acessos (CedNet Play, CedNet Plus), GloboPlay, Setup BOX, CedNet Play, Premiere e Outro SVA |
-| 🧰 **Serviços** | Mudança de Cômodo e Passagem de Cabo com coleta de dados e agendamento |
+| 💲 **Financeiro** | Fluxos de pagamento, negociação, desbloqueio e segunda via |
+| ❓ **Dúvidas** | Registro estruturado de dúvidas gerais e informações comerciais/técnicas |
+| 🔐 **Nível 2 (Restrito)** | Área autenticada via JWT com ferramentas avançadas (ex.: **Troca de Titularidade** Fibra/Rádio) |
 
 ---
 
 ## 🛠️ Stack Técnica
 
-```
-backend      Node.js + Express 5
+```text
+backend      Node.js + Express 5 + JWT (Autenticação N2)
 frontend     HTML5 + CSS3 + JavaScript Vanilla
 fonte        Inter (Google Fonts)
 api externa  ViaCEP (autocomplete de endereço)
@@ -46,33 +51,52 @@ dev tool     Nodemon (hot-reload)
 
 ## 📁 Estrutura do Projeto
 
-```
+```text
 helpdesk/
-├── server.js                          # Entrada principal — configura Express e rotas
+├── server.js                          # Entrada principal — configura Express, autenticação N2 e rotas
 ├── mock-ixc-server.js                 # Servidor mock do IXC para testes locais
 ├── package.json
+├── .env.example                       # Exemplo de variáveis de ambiente
 │
 ├── ixcModules/
 │   └── ixcClient.js                   # Cliente HTTP para a API do IXC Provedor
 │
 ├── views/
-│   ├── index.html                     # Menu principal
+│   ├── index.html                     # Menu principal (N1)
+│   ├── atendimento.html               # Coleta inicial de dados do atendimento
+│   ├── tutorial.html                  # Tutorial de uso do sistema
+│   ├── login-n2.html                  # Tela de login restrito do Nível 2
+│   ├── nivel2.html                    # Painel principal do Nível 2
 │   ├── teste-ixc.html                 # Página de teste da integração IXC
 │   └── options-html/
 │       ├── sem-conexao.html           # Módulo sem conexão
 │       ├── conexao-lenta.html         # Módulo conexão lenta
 │       ├── mudanca-endereco.html      # Módulo mudança de endereço
-│       ├── servicos.html              # Módulo serviços (cômodo/cabo)
-│       └── sva.html                   # Módulo SVA
+│       ├── servicos.html              # Módulo serviços (cômodo/cabo/rede/roteador)
+│       ├── sva.html                   # Módulo SVA
+│       ├── pagamento.html             # Módulo financeiro
+│       ├── duvidas.html               # Módulo dúvidas
+│       └── n2/
+│           └── troca-titularidade.html # Módulo N2: Troca de Titularidade (Fibra e Rádio)
 │
 └── public/
     ├── css/
-    │   ├── style.css                  # Estilos do menu principal
-    │   ├── sem-conexao.css            # Estilos do módulo sem conexão
+    │   ├── style.css                  # Estilos globais e do menu principal
+    │   ├── atendimento.css            # Estilos da tela de coleta inicial
+    │   ├── sem-conexao.css            # Estilos base de formulários e módulo sem conexão
     │   ├── conexao-lenta.css          # Estilos do módulo conexão lenta
     │   ├── mudanca-endereco.css       # Estilos do módulo mudança de endereço
     │   ├── servicos.css               # Estilos do módulo serviços
-    │   └── sva.css                    # Estilos do módulo SVA
+    │   ├── sva.css                    # Estilos do módulo SVA
+    │   ├── pagamento.css              # Estilos do módulo financeiro
+    │   ├── duvidas.css                # Estilos do módulo dúvidas
+    │   ├── tutorial.css               # Estilos do tutorial
+    │   ├── login-n2.css               # Estilos do login Nível 2
+    │   ├── nivel2.css                 # Estilos do menu Nível 2
+    │   └── sharedCss/
+    │       ├── darkMode.css           # Tema escuro compartilhado
+    │       ├── historicoCard.css      # Painel lateral (Histórico, Notepad e Templates)
+    │       └── btnCopyAx.css          # Botões auxiliares de cópia rápida
     ├── images/
     │   └── LogoCedNet.ico
     └── js/
@@ -83,13 +107,13 @@ helpdesk/
         │   ├── functionMostrarAlerta.js # Toast notifications (erro e sucesso)
         │   ├── functionAddContact.js  # Adição dinâmica de múltiplos contatos
         │   ├── functionCopyName.js    # Sincronização de nome entre campos (linkName)
-        │   └── functionCardHistory.js # Histórico persistido via localStorage
-        └── options-js/                # Lógica específica de cada módulo
-            ├── sem-conexao.js
-            ├── conexao-lenta.js
-            ├── mudanca-endereco.js
-            ├── servicos.js
-            └── sva.js
+        │   ├── functionCardHistory.js # Histórico, Notepad e Templates no localStorage
+        │   ├── functionButtonsCopy.js # Textos prontos de cópia rápida e templates
+        │   ├── functionDarkMode.js    # Alternância e persistência de Dark Mode
+        │   └── functionPreencherColeta.js # Preenchimento automático vindo de /atendimento
+        ├── options-js/                # Lógica específica de cada módulo N1
+        └── n2/
+            └── troca-titularidade.js  # Lógica de Troca de Titularidade (N2)
 ```
 
 ---
@@ -98,7 +122,7 @@ helpdesk/
 
 **Pré-requisitos:** Node.js 18+
 
-## Instalação
+### Instalação
 
 1. Clone o repositório
 ```bash
@@ -115,49 +139,42 @@ npm install
 ```bash
 cp .env.example .env
 ```
-edite o .env com os valores corretos
+Edite o `.env` com os valores corretos.
 
 4. Inicie em modo desenvolvimento (com hot-reload)
 ```bash
 npm run dev
 ```
-ou em modo produção
+ou em modo produção:
 ```bash
 npm start
 ```
-####
 
 A aplicação sobe em [http://localhost:3000](http://localhost:3000).
 
-### Testando a integração IXC localmente
-
-Sem o token real, use o servidor mock em um segundo terminal:
-
-```bash
-node mock-ixc-server.js
-```
-
-Certifique-se que o `.env` aponta para o mock:
-
-```env
-IXC_HOST=http://localhost:4000
-```
-
-Acesse [http://localhost:3000/teste-ixc](http://localhost:3000/teste-ixc) para testar a busca de contratos.
-
 ---
 
-## 🔌 Rotas da API
+## 🔌 Rotas da Aplicação
 
 | Método | Rota | Descrição |
 |---|---|---|
 | `GET` | `/` | Menu principal |
+| `GET` | `/atendimento` | Coleta rápida de dados iniciais |
+| `GET` | `/tutorial` | Guia de uso da ferramenta |
 | `GET` | `/sem-conexao` | Módulo sem conexão |
 | `GET` | `/conexao-lenta` | Módulo conexão lenta |
 | `GET` | `/mudanca-endereco` | Módulo mudança de endereço |
-| `GET` | `/servicos` | Módulo serviços |
+| `GET` | `/servicos` | Módulo serviços (cômodo, cabo, verificação de rede, roteador) |
 | `GET` | `/sva` | Módulo suporte de SVA's |
-| `GET` | `/teste-ixc` | Página de teste da integração IXC |
+| `GET` | `/pagamento` | Módulo financeiro |
+| `GET` | `/duvidas` | Módulo dúvidas |
+| `GET` | `/login-n2` | Página de login do Nível 2 |
+| `GET` | `/nivel2` | Menu exclusivo do Nível 2 (protegido por JWT) |
+| `GET` | `/troca-titularidade` | Módulo N2: Troca de Titularidade (protegido por JWT) |
+| `POST` | `/api/auth/n2` | Autentica senha do N2, emite JWT e define cookie `HttpOnly` |
+| `POST` | `/api/auth/n2/verify` | Verifica validade do token JWT do Nível 2 |
+| `POST` | `/api/auth/n2/logout` | Encerra sessão do Nível 2 limpando cookie `HttpOnly` |
+| `GET` | `/api/contrato/:id` | Consulta contrato no IXC Provedor por ID numérico |
 
 ---
 
@@ -169,20 +186,9 @@ Acesse [http://localhost:3000/teste-ixc](http://localhost:3000/teste-ixc) para t
 | `IXC_HOST` | — | URL base do servidor IXC (ex: `https://ixc.suaempresa.com.br`) |
 | `IXC_USER_ID` | — | ID do usuário para autenticação na API do IXC |
 | `IXC_TOKEN` | — | Token de acesso à API do IXC |
-
----
-
-## 💡 Destaques Técnicos
-
-- **Auto-fill de CEP** — integração com a API pública [ViaCEP](https://viacep.com.br), preenchendo rua, bairro, UF e cidade automaticamente ao digitar o CEP no módulo de mudança de endereço.
-- **Máscara de telefone inteligente** — identifica fixo (10 dígitos) e celular (11 dígitos), inclusive ao colar números com DDI +55.
-- **Toggle de cards genérico** — `toggleCards(valor, mapa)` controla a visibilidade de seções por um mapa de valores sem duplicar lógica entre módulos.
-- **Toast notifications** — `mostrarAlerta(mensagem, tipo)` substitui `alert()` com notificações visuais não-bloqueantes de erro e sucesso.
-- **Múltiplos contatos dinâmicos** — `adicionarContato()` permite incluir e remover contatos em tempo real nos formulários de agendamento.
-- **Sincronização de nome** — `linkName(origem, destino)` espelha o nome da coleta de dados automaticamente nos cards de agendamento.
-- **Histórico persistido** — `functionCardHistory.js` salva todos os registros copiados no `localStorage`, com painel lateral fixo, recolhimento por card e botões de copiar/excluir.
-- **Integração IXC** — cliente HTTP (`ixcClient.js`) consulta contratos via Webservice do IXC Provedor com autenticação Basic Auth.
-- **Deploy com porta dinâmica** — usa `process.env.PORT || 3000`, compatível com Render e qualquer PaaS.
+| `SENHA_N2` | — | Senha de acesso aos módulos restritos do Nível 2 |
+| `JWT_SECRET` | — | Segredo para assinatura e verificação dos tokens JWT |
+| `JWT_EXPIRES_IN` | `30d` | Tempo de expiração do token JWT do Nível 2 |
 
 ---
 

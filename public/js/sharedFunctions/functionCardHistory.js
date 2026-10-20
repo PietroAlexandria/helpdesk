@@ -16,9 +16,9 @@ function openPanel(modulo) {
     const historyModule = document.getElementById('history-module');
     const notepadModule = document.getElementById('notepad-module');
     const templatesModule = document.getElementById('templates-module');
-    if (historyModule)  historyModule.style.display  = modulo === 'historico'  ? 'block' : 'none';
-    if (notepadModule)  notepadModule.style.display   = modulo === 'notepad'    ? 'block' : 'none';
-    if (templatesModule) templatesModule.style.display = modulo === 'templates' ? 'block' : 'none';
+    if (historyModule)   historyModule.style.display   = modulo === 'historico' ? 'block' : 'none';
+    if (notepadModule)   notepadModule.style.display   = modulo === 'notepad'   ? 'block' : 'none';
+    if (templatesModule) templatesModule.style.display = modulo === 'templates' ? 'flex'  : 'none';
 
     const titulos = { historico: '📋 Histórico', notepad: '📝 Notepad', templates: '💬 Templates' };
     const panelTitle = document.getElementById('panel-title');
@@ -129,20 +129,20 @@ function renderizarHistorico() {
                     <span class="history-time">${escapeHtml(item.nome)}</span>
                 </div>
                 <div class="history-card-actions">
-                    <span class="history-arrow">▼</span>
+                    <span class="history-arrow" aria-hidden="true">▼</span>
                     <div id="history-view-actions-${item.id}" style="display:flex;align-items:center;gap:6px">
-                        <button class="history-copy" onclick="event.stopPropagation(); copiarDoHistorico(${item.id})">📋</button>
-                        <button class="history-copy" onclick="event.stopPropagation(); editarHistorico(${item.id})">✏️</button>
-                        <button class="history-remove" onclick="event.stopPropagation(); removerHistorico(${item.id})">✕</button>
+                        <button class="history-copy" title="Copiar registro" aria-label="Copiar registro" onclick="event.stopPropagation(); copiarDoHistorico(${item.id})">📋</button>
+                        <button class="history-copy" title="Editar registro" aria-label="Editar registro" onclick="event.stopPropagation(); editarHistorico(${item.id})">✏️</button>
+                        <button class="history-remove" title="Remover registro" aria-label="Remover registro" onclick="event.stopPropagation(); removerHistorico(${item.id})">✕</button>
                     </div>
                     <div id="history-edit-actions-${item.id}" style="display:none;align-items:center;gap:6px">
-                        <button class="history-copy" onclick="event.stopPropagation(); salvarEdicaoHistorico(${item.id})">💾</button>
-                        <button class="history-remove" onclick="event.stopPropagation(); cancelarEdicaoHistorico(${item.id})">✕</button>
+                        <button class="history-copy" title="Salvar alterações" aria-label="Salvar alterações" onclick="event.stopPropagation(); salvarEdicaoHistorico(${item.id})">💾</button>
+                        <button class="history-remove" title="Cancelar edição" aria-label="Cancelar edição" onclick="event.stopPropagation(); cancelarEdicaoHistorico(${item.id})">✕</button>
                     </div>
                 </div>
             </div>
             <div class="history-body" style="display:none">
-                <textarea class="history-text" id="history-text-${item.id}" readonly>${escapeHtml(item.texto)}</textarea>
+                <textarea class="history-text" id="history-text-${item.id}" aria-label="Texto do registro" readonly>${escapeHtml(item.texto)}</textarea>
             </div>
         </div>
     `).join('');
@@ -220,6 +220,37 @@ if (historyPanel) {
 }
 
 (function () {
+    // Garante que todas as páginas com #sidebar-panel tenham a aba de Templates caso functionButtonsCopy esteja carregado
+    const sidebarPanel = document.getElementById('sidebar-panel');
+    if (sidebarPanel && typeof copyMudancaEnderecoCompleta === 'function') {
+        const panelTabs = sidebarPanel.querySelector('.panel-tabs');
+        const historyContent = sidebarPanel.querySelector('.history-content');
+
+        if (panelTabs && !panelTabs.querySelector('[onclick*="templates"]')) {
+            const btn = document.createElement('button');
+            btn.className = 'panel-tab-btn';
+            btn.title = 'Templates';
+            btn.setAttribute('aria-label', 'Abrir Templates');
+            btn.setAttribute('onclick', "openPanel('templates')");
+            btn.textContent = '💬';
+            panelTabs.appendChild(btn);
+        }
+
+        if (historyContent && !document.getElementById('templates-module')) {
+            const tplDiv = document.createElement('div');
+            tplDiv.id = 'templates-module';
+            tplDiv.style.display = 'none';
+            tplDiv.innerHTML = `
+                <button class="template-btn" onclick="copyMudancaEnderecoCompleta(this)">📦 MUDANÇA DE ENDEREÇO</button>
+                <button class="template-btn" onclick="copyReboot(this)">🔄 REBOOT</button>
+                <button class="template-btn" onclick="copyPatchCordService(this)">🔌 PATCH CORD SERVICE</button>
+                <button class="template-btn" onclick="copyPatchCordBridge(this)">🔌 PATCH CORD BRIDGE</button>
+                <button class="template-btn" onclick="copyPatchCordRadio(this)">🔌 PATCH CORD RADIO</button>
+            `;
+            historyContent.appendChild(tplDiv);
+        }
+    }
+
     // Notepad: restaura conteúdo salvo
     const notepadEl = document.getElementById('notepad-textarea');
     if (notepadEl) {
@@ -229,11 +260,9 @@ if (historyPanel) {
         });
     }
 
-    // Painel com abas (index)
-    const sidebarPanel = document.getElementById('sidebar-panel');
     if (sidebarPanel) return;
 
-    // Painel simples (outros módulos)
+    // Painel simples (outros módulos legados)
     if (localStorage.getItem('historico-minimizado') === '1') {
         const container = document.querySelector('.history-container');
         if (container) container.classList.add('minimized');

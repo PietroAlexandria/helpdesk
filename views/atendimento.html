@@ -8,77 +8,112 @@
     <link rel="stylesheet" href="/css/style.css">
     <link rel="stylesheet" href="/css/atendimento.css">
     <link rel="stylesheet" href="/css/sharedCss/darkMode.css">
+    <link rel="stylesheet" href="/css/sharedCss/historicoCard.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <button id="btn-dark-mode" class="btn-dark-mode" onclick="toggleDarkMode()" title="Alternar tema">🌙</button>
+    <button id="btn-dark-mode" class="btn-dark-mode" onclick="toggleDarkMode()" title="Alternar tema" aria-label="Alternar tema">🌙</button>
 
-    <div class="container">
-        <div class="atendimento-card">
-            <a href="/" class="btn-back-home">← Voltar ao menu</a>
+    <div class="layout-with-history">
+        <div class="container">
+            <div class="atendimento-card">
+                <a href="/" class="btn-back-home">← Voltar ao menu</a>
 
-            <div class="atendimento-header">
-                <span style="font-size:1.6rem">🎧</span>
-                <h1>Novo Atendimento</h1>
-            </div>
+                <div class="atendimento-header">
+                    <span style="font-size:1.6rem" aria-hidden="true">🎧</span>
+                    <h1>Novo Atendimento</h1>
+                </div>
 
-            <div class="field">
-                <label>Via de Contato</label>
-                <div class="radio-group">
-                    <label class="radio-btn"><input type="radio" name="via" value="Central"><span>Central</span></label>
-                    <label class="radio-btn"><input type="radio" name="via" value="OPA"><span>OPA! Suite</span></label>
+                <div class="field">
+                    <label>Via de Contato</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="via" value="Central"><span>Central</span></label>
+                        <label class="radio-btn"><input type="radio" name="via" value="OPA"><span>OPA! Suite</span></label>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="nome">Nome do Solicitante</label>
+                    <input type="text" id="nome" name="nome" autocomplete="off" placeholder="Ex: Pietro de Alexandria Picoli…">
+                </div>
+
+                <div class="field">
+                    <label for="telefone">Contato</label>
+                    <input type="tel" id="telefone" name="telefone" inputmode="tel" autocomplete="off" placeholder="Ex: (XX) XXXXX-XXXX…" maxlength="15" oninput="mascaraContato(this)">
+                </div>
+
+                <hr class="sep">
+
+                <p class="section-label">Selecione o módulo de atendimento</p>
+                <div class="modulos-grid">
+                    <button class="btn-modulo" onclick="irPara('/sem-conexao')">
+                        <span class="icon" aria-hidden="true">📡</span> Sem Conexão
+                    </button>
+                    <button class="btn-modulo" onclick="irPara('/conexao-lenta')">
+                        <span class="icon" aria-hidden="true">🐢</span> Conexão Lenta
+                    </button>
+                    <button class="btn-modulo" onclick="irPara('/mudanca-endereco')">
+                        <span class="icon" aria-hidden="true">📦</span> Mudança de Endereço
+                    </button>
+                    <button class="btn-modulo" onclick="irPara('/servicos')">
+                        <span class="icon" aria-hidden="true">🧰</span> Serviços
+                    </button>
+                    <button class="btn-modulo" onclick="irPara('/sva')">
+                        <span class="icon" aria-hidden="true">🛠️</span> Suporte SVA
+                    </button>
+                    <button class="btn-modulo" onclick="irPara('/duvidas')">
+                        <span class="icon" aria-hidden="true">❓</span> Dúvidas
+                    </button>
+                    <button class="btn-modulo" onclick="irPara('/pagamento')">
+                        <span class="icon" aria-hidden="true">💲</span> Pagamento
+                    </button>
+                </div>
+
+                <div class="watermark">
+                    Desenvolvido por Pietro de Alexandria Picoli — <a href="https://github.com/PietroAlexandria" target="_blank" rel="noopener noreferrer">GitHub</a>
                 </div>
             </div>
+        </div>
 
-            <div class="field">
-                <label>Nome do Solicitante</label>
-                <input type="text" id="nome" placeholder="Ex: Pietro de Alexandria Picoli">
+        <div class="history-container minimized" id="sidebar-panel">
+            <div class="panel-tabs">
+                <button class="panel-tab-btn" onclick="openPanel('historico')" title="Histórico" aria-label="Abrir Histórico">📋</button>
+                <button class="panel-tab-btn" onclick="openPanel('notepad')" title="Bloco de Notas" aria-label="Abrir Bloco de Notas">📝</button>
+                <button class="panel-tab-btn" onclick="openPanel('templates')" title="Templates" aria-label="Abrir Templates">💬</button>
             </div>
-
-            <div class="field">
-                <label>Contato</label>
-                <input type="text" id="telefone" placeholder="Ex: (XX) XXXXX-XXXX" maxlength="15" oninput="mascaraContato(this)">
+            <div class="history-header">
+                <span id="panel-title">📋 Histórico</span>
+                <div style="display:flex;align-items:center;gap:6px">
+                    <button id="history-minimize-btn" class="history-minimize-btn" onclick="closePanel()" title="Fechar painel" aria-label="Fechar painel">▶</button>
+                    <button id="btn-limpar-historico" onclick="limparHistorico()">Limpar tudo</button>
+                    <button id="btn-copiar-notepad" onclick="copiarNotepad()" style="display:none">📋 Copiar</button>
+                    <button id="btn-limpar-notepad" onclick="limparNotepad()" style="display:none">Limpar</button>
+                </div>
             </div>
-
-            <hr class="sep">
-
-            <p class="section-label">Selecione o módulo de atendimento</p>
-            <div class="modulos-grid">
-                <button class="btn-modulo" onclick="irPara('/sem-conexao')">
-                    <span class="icon">📡</span> Sem Conexão
-                </button>
-                <button class="btn-modulo" onclick="irPara('/conexao-lenta')">
-                    <span class="icon">🐢</span> Conexão Lenta
-                </button>
-                <button class="btn-modulo" onclick="irPara('/mudanca-endereco')">
-                    <span class="icon">📦</span> Mudança de Endereço
-                </button>
-                <button class="btn-modulo" onclick="irPara('/servicos')">
-                    <span class="icon">🧰</span> Serviços
-                </button>
-                <button class="btn-modulo" onclick="irPara('/sva')">
-                    <span class="icon">🛠️</span> Suporte SVA
-                </button>
-                <button class="btn-modulo" onclick="irPara('/duvidas')">
-                    <span class="icon">❓</span> Dúvidas
-                </button>
-                <button class="btn-modulo" onclick="irPara('/pagamento')">
-                    <span class="icon">💲</span> Pagamento
-                </button>
-            </div>
-
-            <div class="watermark">
-                Desenvolvido por Pietro de Alexandria Picoli — <a href="https://github.com/PietroAlexandria" target="_blank">GitHub</a>
+            <div class="history-content">
+                <div id="history-module" style="display:none"><div id="history-panel"></div></div>
+                <div id="notepad-module" style="display:none">
+                    <textarea id="notepad-textarea" class="notepad-textarea" aria-label="Anotações rápidas" placeholder="Anotações rápidas…"></textarea>
+                </div>
+                <div id="templates-module" style="display:none">
+                    <button class="template-btn" onclick="copyMudancaEnderecoCompleta(this)">📦 MUDANÇA DE ENDEREÇO</button>
+                    <button class="template-btn" onclick="copyReboot(this)">🔄 REBOOT</button>
+                    <button class="template-btn" onclick="copyPatchCordService(this)">🔌 PATCH CORD SERVICE</button>
+                    <button class="template-btn" onclick="copyPatchCordBridge(this)">🔌 PATCH CORD BRIDGE</button>
+                    <button class="template-btn" onclick="copyPatchCordRadio(this)">🔌 PATCH CORD RADIO</button>
+                </div>
             </div>
         </div>
     </div>
 
-    <div id="toast" class="toast"></div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
 
     <script src="/js/sharedFunctions/functionDarkMode.js"></script>
+    <script src="/js/sharedFunctions/functionButtonsCopy.js"></script>
     <script src="/js/sharedFunctions/functionMostrarAlerta.js"></script>
     <script src="/js/sharedFunctions/functionContact.js"></script>
     <script src="/js/options-js/atendimento.js"></script>
+    <script src="/js/sharedFunctions/functionCardHistory.js"></script>
 </body>
 </html>

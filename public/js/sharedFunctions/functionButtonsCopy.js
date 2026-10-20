@@ -1,9 +1,16 @@
 function feedbackBtn(botao, textoOriginal) {
     mostrarAlerta('Copiado com sucesso!', 'sucesso');
+    if (!botao) return;
+    if (!botao.dataset.originalText) {
+        botao.dataset.originalText = botao.classList.contains('template-btn')
+            ? botao.textContent
+            : (textoOriginal || botao.textContent);
+    }
+    const restaurar = botao.dataset.originalText;
     botao.textContent = '✅ Copiado!';
     botao.disabled = true;
     setTimeout(() => {
-        botao.textContent = textoOriginal;
+        botao.textContent = restaurar;
         botao.disabled = false;
     }, 1000);
 }

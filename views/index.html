@@ -12,42 +12,42 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <button id="btn-dark-mode" class="btn-dark-mode" onclick="toggleDarkMode()" title="Alternar tema">🌙</button>
+    <button id="btn-dark-mode" class="btn-dark-mode" onclick="toggleDarkMode()" title="Alternar tema" aria-label="Alternar tema">🌙</button>
     <div class="layout-with-history">
         <div class="container">
             <div class="menu-card">
                 <div class="header">
-                    <img src="/images/LogoCedNet.ico" alt="CedNet Logo" class="logo">
-                    <h1>Helpdesk <span class="globe">🌐</span></h1>
+                    <img src="/images/LogoCedNet.ico" alt="CedNet Logo" width="40" height="40" class="logo">
+                    <h1>Helpdesk <span class="globe" aria-hidden="true">🌐</span></h1>
                 </div>
                 <p class="menu-subtitle">Selecione o tipo de atendimento</p>
                 <div class="menu-buttons">
-                    <a href="/tutorial" class="btn-menu"><span class="btn-icon">📖</span><span class="btn-text">Tutorial</span></a>
-                    <a href="/atendimento" class="btn-menu btn-menu-destaque"><span class="btn-icon">🎧</span><span class="btn-text">Coleta de Dados</span></a>
-                    <a href="https://portal-svas.grupocednet.com.br/" target="_blank" class="btn-menu"><span class="btn-icon">🔗</span><span class="btn-text">Guia de Ativações</span></a>
-                    <a href="/sem-conexao" class="btn-menu"><span class="btn-icon">📡</span><span class="btn-text">Sem Conexão</span></a>
-                    <a href="/conexao-lenta" class="btn-menu"><span class="btn-icon">🐢</span><span class="btn-text">Conexão Lenta</span></a>
-                    <a href="/mudanca-endereco" class="btn-menu"><span class="btn-icon">📦</span><span class="btn-text">Mudança de Endereço</span></a>
-                    <a href="/servicos" class="btn-menu"><span class="btn-icon">🧰</span><span class="btn-text">Serviços</span></a>
-                    <a href="/sva" class="btn-menu"><span class="btn-icon">🛠️</span><span class="btn-text">Suporte de SVA's</span></a>
-                    <a href="/pagamento" class="btn-menu"><span class="btn-icon">💲</span><span class="btn-text">Financeiro</span></a>
-                    <a href="/duvidas" class="btn-menu"><span class="btn-icon">❓</span><span class="btn-text">Dúvidas</span></a>
-                    <a href="/login-n2" class="btn-menu btn-menu-n2"><span class="btn-icon">🔐</span><span class="btn-text">Nível 2</span></a>
+                    <a href="/tutorial" class="btn-menu"><span class="btn-icon" aria-hidden="true">📖</span><span class="btn-text">Tutorial</span></a>
+                    <a href="/atendimento" class="btn-menu btn-menu-destaque"><span class="btn-icon" aria-hidden="true">🎧</span><span class="btn-text">Coleta de Dados</span></a>
+                    <a href="https://portal-svas.grupocednet.com.br/" target="_blank" rel="noopener noreferrer" class="btn-menu"><span class="btn-icon" aria-hidden="true">🔗</span><span class="btn-text">Guia de Ativações</span></a>
+                    <a href="/sem-conexao" class="btn-menu"><span class="btn-icon" aria-hidden="true">📡</span><span class="btn-text">Sem Conexão</span></a>
+                    <a href="/conexao-lenta" class="btn-menu"><span class="btn-icon" aria-hidden="true">🐢</span><span class="btn-text">Conexão Lenta</span></a>
+                    <a href="/mudanca-endereco" class="btn-menu"><span class="btn-icon" aria-hidden="true">📦</span><span class="btn-text">Mudança de Endereço</span></a>
+                    <a href="/servicos" class="btn-menu"><span class="btn-icon" aria-hidden="true">🧰</span><span class="btn-text">Serviços</span></a>
+                    <a href="/sva" class="btn-menu"><span class="btn-icon" aria-hidden="true">🛠️</span><span class="btn-text">Suporte de SVA's</span></a>
+                    <a href="/pagamento" class="btn-menu"><span class="btn-icon" aria-hidden="true">💲</span><span class="btn-text">Financeiro</span></a>
+                    <a href="/duvidas" class="btn-menu"><span class="btn-icon" aria-hidden="true">❓</span><span class="btn-text">Dúvidas</span></a>
+                    <a href="/login-n2" class="btn-menu btn-menu-n2"><span class="btn-icon" aria-hidden="true">🔐</span><span class="btn-text">Nível 2</span></a>
                 </div>
-                <div class="watermark">Desenvolvido por Pietro de Alexandria Picoli — <a href="https://github.com/PietroAlexandria" target="_blank">GitHub</a></div>
+                <div class="watermark">Desenvolvido por Pietro de Alexandria Picoli — <a href="https://github.com/PietroAlexandria" target="_blank" rel="noopener noreferrer">GitHub</a></div>
             </div>
         </div>
 
         <div class="history-container minimized" id="sidebar-panel">
             <div class="panel-tabs">
-                <button class="panel-tab-btn" onclick="openPanel('historico')" title="Histórico">📋</button>
-                <button class="panel-tab-btn" onclick="openPanel('notepad')" title="Bloco de Notas">📝</button>
-                <button class="panel-tab-btn" onclick="openPanel('templates')" title="Templates">💬</button>
+                <button class="panel-tab-btn" onclick="openPanel('historico')" title="Histórico" aria-label="Abrir Histórico">📋</button>
+                <button class="panel-tab-btn" onclick="openPanel('notepad')" title="Bloco de Notas" aria-label="Abrir Bloco de Notas">📝</button>
+                <button class="panel-tab-btn" onclick="openPanel('templates')" title="Templates" aria-label="Abrir Templates">💬</button>
             </div>
             <div class="history-header">
                 <span id="panel-title">📋 Histórico</span>
                 <div style="display:flex;align-items:center;gap:6px">
-                    <button id="history-minimize-btn" class="history-minimize-btn" onclick="closePanel()" title="Fechar painel">▶</button>
+                    <button id="history-minimize-btn" class="history-minimize-btn" onclick="closePanel()" title="Fechar painel" aria-label="Fechar painel">▶</button>
                     <button id="btn-limpar-historico" onclick="limparHistorico()">Limpar tudo</button>
                     <button id="btn-copiar-notepad" onclick="copiarNotepad()" style="display:none">Copiar</button>
                     <button id="btn-limpar-notepad" onclick="limparNotepad()" style="display:none">Limpar</button>
@@ -58,7 +58,7 @@
                     <div id="history-panel"></div>
                 </div>
                 <div id="notepad-module" style="display:none">
-                    <textarea id="notepad-textarea" class="notepad-textarea" placeholder="Anotações rápidas..."></textarea>
+                    <textarea id="notepad-textarea" class="notepad-textarea" aria-label="Anotações rápidas" placeholder="Anotações rápidas…"></textarea>
                 </div>
                 <div id="templates-module" style="display:none">
                     <button class="template-btn" onclick="copyMudancaEnderecoCompleta(this)">📦 MUDANÇA DE ENDEREÇO</button>
@@ -66,17 +66,16 @@
                     <button class="template-btn" onclick="copyPatchCordService(this)">🔌 PATCH CORD SERVICE</button>
                     <button class="template-btn" onclick="copyPatchCordBridge(this)">🔌 PATCH CORD BRIDGE</button>
                     <button class="template-btn" onclick="copyPatchCordRadio(this)">🔌 PATCH CORD RADIO</button>
-                    <button class="template-btn" onclick=""> </button>
                 </div>
             </div>
         </div>
 
     </div>
 
-    <div id="toast" class="toast"></div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
     <script src="/js/sharedFunctions/functionDarkMode.js"></script>
-    <script src="/js/sharedFunctions/functionButtonsCopy.js"  ></script>
+    <script src="/js/sharedFunctions/functionButtonsCopy.js"></script>
     <script src="/js/sharedFunctions/functionMostrarAlerta.js"></script>
-    <script src="/js/sharedFunctions/functionCardHistory.js"  ></script>
+    <script src="/js/sharedFunctions/functionCardHistory.js"></script>
 </body>
 </html>

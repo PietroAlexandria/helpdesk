@@ -12,7 +12,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <button id="btn-dark-mode" class="btn-dark-mode" onclick="toggleDarkMode()" title="Alternar tema">🌙</button>
+    <button id="btn-dark-mode" class="btn-dark-mode" onclick="toggleDarkMode()" title="Alternar tema" aria-label="Alternar tema">🌙</button>
     <div class="layout-with-history">
         <div class="container">
 
@@ -38,39 +38,39 @@
                 <p class="card-title">Troca de Titularidade — Fibra</p>
 
                 <div class="field">
-                    <label>Nome Titular Antigo</label>
-                    <input type="text" name="nome-antigo">
-                    <label>O.S. Antiga</label>
-                    <input type="text" name="os-antiga">
-                    <label>Contrato Antigo</label>
-                    <input type="text" name="contrato-antigo">
+                    <label for="nome-antigo">Nome Titular Antigo</label>
+                    <input type="text" id="nome-antigo" name="nome-antigo">
+                    <label for="os-antiga">O.S. Antiga</label>
+                    <input type="text" id="os-antiga" name="os-antiga">
+                    <label for="contrato-antigo">Contrato Antigo</label>
+                    <input type="text" id="contrato-antigo" name="contrato-antigo">
                 </div>
 
                 <div class="field">
-                    <label>Nome Titular Novo</label>
-                    <input type="text" name="nome-novo">
-                    <label>O.S. Nova</label>
-                    <input type="text" name="os-nova">
-                    <label>Contrato Novo</label>
-                    <input type="text" name="contrato-novo">
-                </div>
-
-                <hr class="sep">
-
-                <div class="field">
-                    <label>Endereço</label>
-                    <input type="text" name="endereco-fibra">
+                    <label for="nome-novo">Nome Titular Novo</label>
+                    <input type="text" id="nome-novo" name="nome-novo">
+                    <label for="os-nova">O.S. Nova</label>
+                    <input type="text" id="os-nova" name="os-nova">
+                    <label for="contrato-novo">Contrato Novo</label>
+                    <input type="text" id="contrato-novo" name="contrato-novo">
                 </div>
 
                 <hr class="sep">
 
                 <div class="field">
-                    <label>Usuário PPPoE Antigo</label>
-                    <input type="text" name="pppoe-antigo-fibra">
-                    <label>ID Login Novo</label>
-                    <input type="text" name="id-login-fibra">
-                    <label>Senha PPPoE</label>
-                    <input type="text" name="pppoe-senha-fibra">
+                    <label for="endereco-fibra">Endereço</label>
+                    <input type="text" id="endereco-fibra" name="endereco-fibra">
+                </div>
+
+                <hr class="sep">
+
+                <div class="field">
+                    <label for="pppoe-antigo-fibra">Usuário PPPoE Antigo</label>
+                    <input type="text" id="pppoe-antigo-fibra" name="pppoe-antigo-fibra">
+                    <label for="id-login-fibra">ID Login Novo</label>
+                    <input type="text" id="id-login-fibra" name="id-login-fibra">
+                    <label for="pppoe-senha-fibra">Senha PPPoE</label>
+                    <input type="text" id="pppoe-senha-fibra" name="pppoe-senha-fibra">
                 </div>
 
                 <div class="field">
@@ -81,23 +81,23 @@
                     </div>
                 </div>
                 <div class="field" id="campo-ip-fibra" style="display:none">
-                    <label>IP Fixo</label>
-                    <input type="text" name="ip-fibra">
+                    <label for="ip-fibra">IP Fixo</label>
+                    <input type="text" id="ip-fibra" name="ip-fibra">
                 </div>
 
                 <hr class="sep">
 
                 <div class="field">
-                    <label>OLT</label>
-                    <input type="text" name="olt">
-                    <label>PON</label>
-                    <input type="text" name="pon">
-                    <label>CAIXA</label>
-                    <input type="text" name="caixa">
-                    <label>MAC ONU</label>
-                    <input type="text" name="mac-onu">
-                    <label>Serial ONU</label>
-                    <input type="text" name="serial-onu">
+                    <label for="olt">OLT</label>
+                    <input type="text" id="olt" name="olt">
+                    <label for="pon">PON</label>
+                    <input type="text" id="pon" name="pon">
+                    <label for="caixa">CAIXA</label>
+                    <input type="text" id="caixa" name="caixa">
+                    <label for="mac-onu">MAC ONU</label>
+                    <input type="text" id="mac-onu" name="mac-onu">
+                    <label for="serial-onu">Serial ONU</label>
+                    <input type="text" id="serial-onu" name="serial-onu">
                 </div>
 
                 <hr class="sep">
@@ -113,20 +113,20 @@
                 <!-- Campos extras Bridge -->
                 <div id="campos-bridge" style="display:none">
                     <div class="field">
-                        <label>Modelo ONU/ONT</label>
-                        <input type="text" name="modelo-onu">
-                        <label>Serial Number Roteador</label>
-                        <input type="text" name="serial-roteador">
+                        <label for="modelo-onu">Modelo ONU/ONT</label>
+                        <input type="text" id="modelo-onu" name="modelo-onu">
+                        <label for="serial-roteador">Serial Number Roteador</label>
+                        <input type="text" id="serial-roteador" name="serial-roteador">
                     </div>
                 </div>
 
                 <hr class="sep">
 
                 <div class="field">
-                    <label>MAC Roteador</label>
-                    <input type="text" name="mac-roteador-fibra">
-                    <label>Modelo Roteador</label>
-                    <input type="text" name="modelo-roteador-fibra">
+                    <label for="mac-roteador-fibra">MAC Roteador</label>
+                    <input type="text" id="mac-roteador-fibra" name="mac-roteador-fibra">
+                    <label for="modelo-roteador-fibra">Modelo Roteador</label>
+                    <input type="text" id="modelo-roteador-fibra" name="modelo-roteador-fibra">
                 </div>
 
                 <div class="btn-group">
@@ -144,39 +144,39 @@
                 <p class="card-title">Troca de Titularidade — Rádio</p>
 
                 <div class="field">
-                    <label>Nome Titular Antigo</label>
-                    <input type="text" name="nome-antigo-radio">
-                    <label>O.S. Antiga</label>
-                    <input type="text" name="os-antiga-radio">
-                    <label>Contrato Antigo</label>
-                    <input type="text" name="contrato-antigo-radio">
+                    <label for="nome-antigo-radio">Nome Titular Antigo</label>
+                    <input type="text" id="nome-antigo-radio" name="nome-antigo-radio">
+                    <label for="os-antiga-radio">O.S. Antiga</label>
+                    <input type="text" id="os-antiga-radio" name="os-antiga-radio">
+                    <label for="contrato-antigo-radio">Contrato Antigo</label>
+                    <input type="text" id="contrato-antigo-radio" name="contrato-antigo-radio">
                 </div>
 
                 <div class="field">
-                    <label>Nome Titular Novo</label>
-                    <input type="text" name="nome-novo-radio">
-                    <label>O.S. Nova</label>
-                    <input type="text" name="os-nova-radio">
-                    <label>Contrato Novo</label>
-                    <input type="text" name="contrato-novo-radio">
-                </div>
-
-                <hr class="sep">
-
-                <div class="field">
-                    <label>Endereço</label>
-                    <input type="text" name="endereco-radio">
+                    <label for="nome-novo-radio">Nome Titular Novo</label>
+                    <input type="text" id="nome-novo-radio" name="nome-novo-radio">
+                    <label for="os-nova-radio">O.S. Nova</label>
+                    <input type="text" id="os-nova-radio" name="os-nova-radio">
+                    <label for="contrato-novo-radio">Contrato Novo</label>
+                    <input type="text" id="contrato-novo-radio" name="contrato-novo-radio">
                 </div>
 
                 <hr class="sep">
 
                 <div class="field">
-                    <label>Usuário PPPoE Antigo</label>
-                    <input type="text" name="pppoe-antigo-radio">
-                    <label>ID Login Novo</label>
-                    <input type="text" name="id-login-radio">
-                    <label>Senha PPPoE</label>
-                    <input type="text" name="pppoe-senha-radio">
+                    <label for="endereco-radio">Endereço</label>
+                    <input type="text" id="endereco-radio" name="endereco-radio">
+                </div>
+
+                <hr class="sep">
+
+                <div class="field">
+                    <label for="pppoe-antigo-radio">Usuário PPPoE Antigo</label>
+                    <input type="text" id="pppoe-antigo-radio" name="pppoe-antigo-radio">
+                    <label for="id-login-radio">ID Login Novo</label>
+                    <input type="text" id="id-login-radio" name="id-login-radio">
+                    <label for="pppoe-senha-radio">Senha PPPoE</label>
+                    <input type="text" id="pppoe-senha-radio" name="pppoe-senha-radio">
                 </div>
 
                 <div class="field">
@@ -187,32 +187,32 @@
                     </div>
                 </div>
                 <div class="field" id="campo-ip-radio" style="display:none">
-                    <label>IP Fixo</label>
-                    <input type="text" name="ip-radio">
+                    <label for="ip-radio">IP Fixo</label>
+                    <input type="text" id="ip-radio" name="ip-radio">
                 </div>
 
                 <hr class="sep">
 
                 <div class="field">
-                    <label>IP BASE</label>
-                    <input type="text" name="ip-base">
-                    <label>IP Rádio Cliente</label>
-                    <input type="text" name="ip-radio-cliente">
-                    <label>Modelo Rádio Cliente</label>
-                    <input type="text" name="modelo-radio">
-                    <label>MAC Rádio Cliente</label>
-                    <input type="text" name="mac-radio">
-                    <label>Nome do Rádio</label>
-                    <input type="text" name="nome-radio">
+                    <label for="ip-base">IP BASE</label>
+                    <input type="text" id="ip-base" name="ip-base">
+                    <label for="ip-radio-cliente">IP Rádio Cliente</label>
+                    <input type="text" id="ip-radio-cliente" name="ip-radio-cliente">
+                    <label for="modelo-radio">Modelo Rádio Cliente</label>
+                    <input type="text" id="modelo-radio" name="modelo-radio">
+                    <label for="mac-radio">MAC Rádio Cliente</label>
+                    <input type="text" id="mac-radio" name="mac-radio">
+                    <label for="nome-radio">Nome do Rádio</label>
+                    <input type="text" id="nome-radio" name="nome-radio">
                 </div>
 
                 <hr class="sep">
 
                 <div class="field">
-                    <label>MAC Roteador (WAN)</label>
-                    <input type="text" name="mac-roteador-radio">
-                    <label>Modelo Roteador</label>
-                    <input type="text" name="modelo-roteador-radio">
+                    <label for="mac-roteador-radio">MAC Roteador (WAN)</label>
+                    <input type="text" id="mac-roteador-radio" name="mac-roteador-radio">
+                    <label for="modelo-roteador-radio">Modelo Roteador</label>
+                    <input type="text" id="modelo-roteador-radio" name="modelo-roteador-radio">
                 </div>
 
                 <div class="btn-group">
@@ -225,19 +225,20 @@
             </div>
 
             <div class="card">
-                <div class="watermark">Desenvolvido por Pietro de Alexandria Picoli — <a href="https://github.com/PietroAlexandria" target="_blank">GitHub</a></div>
+                <div class="watermark">Desenvolvido por Pietro de Alexandria Picoli — <a href="https://github.com/PietroAlexandria" target="_blank" rel="noopener noreferrer">GitHub</a></div>
             </div>
         </div>
 
         <div class="history-container minimized" id="sidebar-panel">
             <div class="panel-tabs">
-                <button class="panel-tab-btn" onclick="openPanel('historico')" title="Histórico">📋</button>
-                <button class="panel-tab-btn" onclick="openPanel('notepad')" title="Bloco de Notas">📝</button>
+                <button class="panel-tab-btn" onclick="openPanel('historico')" title="Histórico" aria-label="Abrir Histórico">📋</button>
+                <button class="panel-tab-btn" onclick="openPanel('notepad')" title="Bloco de Notas" aria-label="Abrir Bloco de Notas">📝</button>
+                <button class="panel-tab-btn" onclick="openPanel('templates')" title="Templates" aria-label="Abrir Templates">💬</button>
             </div>
             <div class="history-header">
                 <span id="panel-title">📋 Histórico</span>
                 <div style="display:flex;align-items:center;gap:6px">
-                    <button id="history-minimize-btn" class="history-minimize-btn" onclick="closePanel()" title="Fechar painel">▶</button>
+                    <button id="history-minimize-btn" class="history-minimize-btn" onclick="closePanel()" title="Fechar painel" aria-label="Fechar painel">▶</button>
                     <button id="btn-limpar-historico" onclick="limparHistorico()">Limpar tudo</button>
                     <button id="btn-copiar-notepad" onclick="copiarNotepad()" style="display:none">📋 Copiar</button>
                     <button id="btn-limpar-notepad" onclick="limparNotepad()" style="display:none">Limpar</button>
@@ -246,17 +247,43 @@
             <div class="history-content">
                 <div id="history-module" style="display:none"><div id="history-panel"></div></div>
                 <div id="notepad-module" style="display:none">
-                    <textarea id="notepad-textarea" class="notepad-textarea" placeholder="Anotações rápidas..."></textarea>
+                    <textarea id="notepad-textarea" class="notepad-textarea" aria-label="Anotações rápidas" placeholder="Anotações rápidas…"></textarea>
+                </div>
+                <div id="templates-module" style="display:none">
+                    <button class="template-btn" onclick="copyMudancaEnderecoCompleta(this)">📦 MUDANÇA DE ENDEREÇO</button>
+                    <button class="template-btn" onclick="copyReboot(this)">🔄 REBOOT</button>
+                    <button class="template-btn" onclick="copyPatchCordService(this)">🔌 PATCH CORD SERVICE</button>
+                    <button class="template-btn" onclick="copyPatchCordBridge(this)">🔌 PATCH CORD BRIDGE</button>
+                    <button class="template-btn" onclick="copyPatchCordRadio(this)">🔌 PATCH CORD RADIO</button>
                 </div>
             </div>
         </div>
     </div>
 
-    <div id="toast" class="toast"></div>
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
     <script src="/js/sharedFunctions/functionDarkMode.js"></script>
+    <script src="/js/sharedFunctions/functionButtonsCopy.js"></script>
     <script src="/js/sharedFunctions/functionMostrarAlerta.js"></script>
     <script src="/js/sharedFunctions/functionToggleCards.js"></script>
     <script src="/js/n2/troca-titularidade.js"></script>
     <script src="/js/sharedFunctions/functionCardHistory.js"></script>
+    <script>
+        (async function () {
+            const token = localStorage.getItem('n2-token');
+            if (!token) { window.location.replace('/login-n2'); return; }
+            try {
+                const r = await fetch('/api/auth/n2/verify', {
+                    method: 'POST',
+                    headers: { 'x-n2-token': token }
+                });
+                if (!r.ok) {
+                    localStorage.removeItem('n2-token');
+                    window.location.replace('/login-n2');
+                }
+            } catch {
+                window.location.replace('/login-n2');
+            }
+        })();
+    </script>
 </body>
 </html>

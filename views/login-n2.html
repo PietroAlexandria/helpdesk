@@ -12,43 +12,55 @@
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-    <button id="btn-dark-mode" class="btn-dark-mode" onclick="toggleDarkMode()" title="Alternar tema">🌙</button>
+    <button id="btn-dark-mode" class="btn-dark-mode" onclick="toggleDarkMode()" title="Alternar tema" aria-label="Alternar tema">🌙</button>
     <div class="container">
         <div class="menu-card">
             <div class="header">
-                <img src="/images/LogoCedNet.ico" alt="CedNet Logo" class="logo">
-                <h1>Login <span class="globe">🔐</span></h1>
+                <img src="/images/LogoCedNet.ico" alt="CedNet Logo" width="40" height="40" class="logo">
+                <h1>Login <span class="globe" aria-hidden="true">🔐</span></h1>
             </div>
             <p class="menu-subtitle">Acesso restrito — Nível 2</p>
 
             <div class="login-form">
                 <div class="input-group">
-                    <input type="password" id="input-senha" placeholder="Senha" autocomplete="current-password">
+                    <input type="password" id="input-senha" name="senha" aria-label="Senha do Nível 2" placeholder="Senha…" autocomplete="current-password">
                     <button type="button" id="btn-entrar" class="btn-menu btn-menu-destaque">Entrar</button>
                 </div>
-                <p id="erro-login" class="erro-msg" style="display:none">❌ Senha incorreta</p>
+                <p id="erro-login" class="erro-msg" role="alert" aria-live="polite" style="display:none">❌ Senha incorreta</p>
+                <a href="/" style="font-size:0.85rem;color:var(--subtitle-color);text-decoration:none;margin-top:4px">← Voltar ao menu principal</a>
             </div>
 
-            <div class="watermark">Desenvolvido por Pietro de Alexandria Picoli — <a href="https://github.com/PietroAlexandria" target="_blank">GitHub</a></div>
+            <div class="watermark">Desenvolvido por Pietro de Alexandria Picoli — <a href="https://github.com/PietroAlexandria" target="_blank" rel="noopener noreferrer">GitHub</a></div>
         </div>
     </div>
 
     <script src="/js/sharedFunctions/functionDarkMode.js"></script>
     <script>
-        // Se já tem token válido, vai direto pro N2
+        // Se já tem token válido no localStorage, vai direto pro N2
         (async function () {
             const token = localStorage.getItem('n2-token');
             if (!token) return;
             try {
-                const r = await fetch('/api/auth/n2/verify', { method: 'POST', headers: { 'x-n2-token': token } });
-                if (r.ok) window.location.replace('/nivel2');
+                const r = await fetch('/api/auth/n2/verify', {
+                    method: 'POST',
+                    headers: { 'x-n2-token': token }
+                });
+                if (r.ok) {
+                    window.location.replace('/nivel2');
+                } else {
+                    localStorage.removeItem('n2-token');
+                }
             } catch {}
         })();
 
         async function fazerLogin() {
-            const senha = document.getElementById('input-senha').value;
+            const input = document.getElementById('input-senha');
+            const btn   = document.getElementById('btn-entrar');
+            const senha = input.value;
             const erro  = document.getElementById('erro-login');
             erro.style.display = 'none';
+            btn.disabled = true;
+            btn.textContent = 'Entrando…';
 
             try {
                 const r = await fetch('/api/auth/n2', {
@@ -56,12 +68,22 @@
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ senha })
                 });
-                if (!r.ok) { erro.style.display = 'block'; return; }
+                if (!r.ok) {
+                    const data = await r.json().catch(() => ({}));
+                    erro.textContent = '❌ ' + (data.erro || 'Senha incorreta');
+                    erro.style.display = 'block';
+                    input.focus();
+                    return;
+                }
                 const { token } = await r.json();
                 localStorage.setItem('n2-token', token);
                 window.location.replace('/nivel2');
             } catch {
+                erro.textContent = '❌ Erro de conexão. Tente novamente.';
                 erro.style.display = 'block';
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Entrar';
             }
         }
 

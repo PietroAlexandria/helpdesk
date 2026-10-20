@@ -1,14 +1,19 @@
 {
-  "name": "ai-on",
+  "name": "cednet-helpdesk",
   "version": "1.0.0",
-  "description": "",
-  "main": "index.js",
+  "description": "Ferramenta interna de suporte técnico para operadores de ISP (Grupo CedNet)",
+  "main": "server.js",
   "scripts": {
     "start": "node server.js",
     "dev": "nodemon server.js"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": [
+    "helpdesk",
+    "isp",
+    "cednet",
+    "ixc"
+  ],
+  "author": "Pietro de Alexandria Picoli",
   "license": "ISC",
   "type": "commonjs",
   "dependencies": {

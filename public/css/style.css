@@ -1,4 +1,5 @@
 :root {
+    color-scheme: light;
     --bg-gradient: linear-gradient(135deg, #0a2a5e 0%, #1565c0 50%, #1e88e5 100%);
     --card-bg: #ffffff;
     --card-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
@@ -7,19 +8,22 @@
     --watermark-color: #a0aec0;
     --watermark-border: #e8edf5;
     --watermark-link: #1565c0;
+    --focus-ring: 0 0 0 3px rgba(30, 136, 229, 0.45);
 }
 
 :root.dark {
+    color-scheme: dark;
     --bg-gradient: linear-gradient(135deg, #0a0f1a 0%, #0d1b2e 50%, #0f2040 100%);
     --card-bg: #111827;
     --card-shadow: 0 20px 60px rgba(0, 0, 0, 0.6);
     --title-color: #93c5fd;
-    --subtitle-color: #6b7a99;
-    --watermark-color: #4b5563;
+    --subtitle-color: #94a3b8;
+    --watermark-color: #64748b;
     --watermark-border: #1e2a3a;
     --watermark-link: #4a9eff;
     --btn-menu-bg: linear-gradient(135deg, #0d1f3c, #0f2d5a);
     --btn-menu-color: #93c5fd;
+    --focus-ring: 0 0 0 3px rgba(74, 158, 255, 0.5);
 }
 
 * {
@@ -31,6 +35,7 @@
 body {
     font-family: 'Inter', sans-serif;
     min-height: 100vh;
+    min-height: 100dvh;
     background: var(--bg-gradient);
     display: flex;
     align-items: center;
@@ -39,6 +44,7 @@ body {
 
 .layout-with-history {
     display: block;
+    width: 100%;
 }
 
 .container {
@@ -108,14 +114,14 @@ body {
     font-weight: 500;
     font-family: 'Inter', sans-serif;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background 0.2s ease, transform 0.2s ease, box-shadow 0.2s ease;
     letter-spacing: 0.2px;
     display: flex;
     align-items: center;
     justify-content: flex-start;
     gap: 12px;
     text-decoration: none;
-    color: #ffffff;
+    touch-action: manipulation;
 }
 
 .btn-icon {
@@ -141,6 +147,11 @@ body {
     box-shadow: 0 6px 20px rgba(21, 101, 192, 0.4);
 }
 
+.btn-menu:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
+}
+
 .btn-menu:active {
     transform: translateY(0);
     box-shadow: none;
@@ -148,6 +159,7 @@ body {
 
 .btn-menu-destaque {
     background: linear-gradient(135deg, #0d6e3f, #16a34a) !important;
+    color: #ffffff !important;
     box-shadow: 0 4px 14px rgba(22, 163, 74, 0.35);
 }
 
@@ -166,6 +178,7 @@ body {
 
 .btn-menu-n2 {
     background: linear-gradient(135deg, #4a1d96, #7c3aed) !important;
+    color: #ffffff !important;
     box-shadow: 0 4px 14px rgba(124, 58, 237, 0.35);
 }
 
@@ -203,8 +216,8 @@ body {
     position: fixed;
     top: 16px;
     right: 60px;
-    width: 36px;
-    height: 36px;
+    width: 40px;
+    height: 40px;
     border-radius: 50%;
     border: 1px solid rgba(255,255,255,0.3);
     background: rgba(255,255,255,0.15);
@@ -214,12 +227,18 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    transition: background 0.2s, border-color 0.2s;
+    transition: background-color 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
     z-index: 1000;
+    touch-action: manipulation;
 }
 
 .btn-dark-mode:hover {
     background: rgba(255,255,255,0.25);
+}
+
+.btn-dark-mode:focus-visible {
+    outline: none;
+    box-shadow: var(--focus-ring);
 }
 
 .btn-clear {
@@ -232,8 +251,9 @@ body {
     font-weight: 600;
     font-family: 'Inter', sans-serif;
     cursor: pointer;
-    transition: all 0.2s ease;
+    transition: background-color 0.2s ease, border-color 0.2s ease, color 0.2s ease, transform 0.15s ease;
     white-space: nowrap;
+    touch-action: manipulation;
 }
 
 .btn-clear:hover {
@@ -261,9 +281,10 @@ body {
     align-items: center;
     gap: 10px;
     opacity: 0;
-    transition: all 0.3s ease;
+    transition: transform 0.25s ease, opacity 0.25s ease;
     z-index: 9999;
     white-space: nowrap;
+    pointer-events: none;
 }
 
 .toast.show {
