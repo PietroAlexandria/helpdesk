@@ -2,7 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const path = require('path');
 const jwt = require('jsonwebtoken');
-const { buscarContratoPorId } = require('./ixcModules/ixcClient'); // IXC
+const ixcRoutes = require('./ixcModules/ixcRoutes'); // IXC
 
 const app = express();
 app.use(express.json());
@@ -105,20 +105,10 @@ app.post('/api/auth/n2/verify', authN2, (_, res) => res.json({ ok: true }));
 app.get('/troca-titularidade', (_, res) => res.sendFile(path.join(__dirname, 'views', 'options-html', 'n2', 'troca-titularidade.html')));
 
 // ---------------------------------------- //
-// Rota para buscar contrato no IXC
-app.get('/api/contrato/:id', async (req, res) => {
-    const id = String(req.params.id || '').trim();
-    if (!/^\d+$/.test(id)) {
-        return res.status(400).json({ erro: 'ID de contrato inválido' });
-    }
-    try {
-        const dados = await buscarContratoPorId(id);
-        res.json(dados);
-    } catch (err) {
-        console.error('ERRO IXC:', err.response?.data || err.message, err.code);
-        res.status(500).json({ erro: 'Falha ao consultar contrato no IXC' });
-    }
-});
+// Rotas da integração IXC
+app.use('/api/ixc', ixcRoutes);
+// Compatibilidade com rota legada
+app.get('/api/contrato/:id', (req, res) => res.redirect('/api/ixc/contrato/' + req.params.id));
 
 // ---------------------------------------- //
 // Inicia o servidor na porta especificada

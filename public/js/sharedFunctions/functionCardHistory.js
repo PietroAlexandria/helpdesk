@@ -16,16 +16,20 @@ function openPanel(modulo) {
     const historyModule = document.getElementById('history-module');
     const notepadModule = document.getElementById('notepad-module');
     const templatesModule = document.getElementById('templates-module');
+    const contratosModule = document.getElementById('contratos-module');
+    if (contratosModule) contratosModule.style.display = modulo === 'contratos' ? 'block' : 'none';
     if (historyModule)   historyModule.style.display   = modulo === 'historico' ? 'block' : 'none';
     if (notepadModule)   notepadModule.style.display   = modulo === 'notepad'   ? 'block' : 'none';
     if (templatesModule) templatesModule.style.display = modulo === 'templates' ? 'flex'  : 'none';
 
-    const titulos = { historico: '📋 Histórico', notepad: '📝 Notepad', templates: '💬 Templates' };
+    const titulos = { historico: '📋 Histórico', notepad: '📝 Notepad', templates: '💬 Templates', contratos: '🔍 Contratos' };
     const panelTitle = document.getElementById('panel-title');
     if (panelTitle) panelTitle.textContent = titulos[modulo] || modulo;
 
     const btnLimpar = document.getElementById('btn-limpar-historico');
     if (btnLimpar) btnLimpar.style.display = modulo === 'historico' ? 'inline-block' : 'none';
+    const btnLimparContratos = document.getElementById('btn-limpar-contratos');
+    if (btnLimparContratos) btnLimparContratos.style.display = modulo === 'contratos' ? 'inline-block' : 'none';
 
     const btnCopiarNotepad = document.getElementById('btn-copiar-notepad');
     const btnLimparNotepad = document.getElementById('btn-limpar-notepad');
@@ -33,6 +37,7 @@ function openPanel(modulo) {
     if (btnLimparNotepad) btnLimparNotepad.style.display = modulo === 'notepad' ? 'inline-block' : 'none';
 
     if (modulo === 'historico') renderizarHistorico();
+    if (modulo === 'contratos') renderizarContratosRecentes();
     if (modulo === 'templates' && typeof renderizarTemplatesSidebar === 'function') {
         renderizarTemplatesSidebar();
     }
@@ -222,6 +227,66 @@ if (historyPanel) {
     });
 }
 
+
+function salvarContratoRecente(dados) {
+    if (!dados || !dados.id) return;
+    let lista = JSON.parse(localStorage.getItem('ixc_contratos_recentes') || '[]');
+    lista = lista.filter(c => String(c.id) !== String(dados.id));
+    lista.unshift({
+        id: dados.id,
+        nome: dados.nome || 'Cliente',
+        online: dados.online,
+        sinal_rx: dados.sinal_rx,
+        caixa: dados.caixa || '',
+        hora: new Date().toLocaleTimeString('pt-BR', { hour: '2-digit', minute: '2-digit' }),
+        data: new Date().toLocaleDateString('pt-BR')
+    });
+    if (lista.length > 10) lista = lista.slice(0, 10);
+    localStorage.setItem('ixc_contratos_recentes', JSON.stringify(lista));
+    if (typeof painelAtivo !== 'undefined' && painelAtivo === 'contratos') {
+        renderizarContratosRecentes();
+    }
+}
+
+function limparContratosRecentes() {
+    if (!confirm('Deseja limpar o histórico de contratos recentes?')) return;
+    localStorage.removeItem('ixc_contratos_recentes');
+    renderizarContratosRecentes();
+}
+
+function carregarContratoDoHistorico(id) {
+    const inputId = document.getElementById('id_contrato') || document.querySelector('input[name="id_contrato"]');
+    if (inputId) {
+        inputId.value = id;
+        if (typeof buscarContrato === 'function') {
+            buscarContrato();
+        }
+    }
+}
+
+function renderizarContratosRecentes() {
+    const container = document.getElementById('contratos-panel');
+    if (!container) return;
+    const lista = JSON.parse(localStorage.getItem('ixc_contratos_recentes') || '[]');
+    if (lista.length === 0) {
+        container.innerHTML = '<p class="history-empty">Nenhum contrato consultado ainda.</p>';
+        return;
+    }
+    container.innerHTML = lista.map(c => `
+        <div class="history-item" onclick="carregarContratoDoHistorico('${c.id}')" style="cursor:pointer" title="Clique para carregar este contrato">
+            <div class="history-item-header">
+                <strong>Contrato #${c.id}</strong>
+                <span class="history-time">${c.hora || ''}</span>
+            </div>
+            <div style="font-size: 13px; margin: 4px 0; color: #cbd5e1; font-weight: 500;">${c.nome}</div>
+            <div style="display:flex; justify-content:space-between; align-items:center; font-size:11px; margin-top:6px;">
+                <span style="font-weight:600; color:${c.online ? '#52c41a' : '#ff4d4f'}">${c.online ? '🟢 Conectado' : '🔴 Desconectado'}</span>
+                ${c.sinal_rx ? `<span style="color:#7eb8f7; background:rgba(126,184,247,0.1); padding:2px 6px; border-radius:4px;">📶 ${c.sinal_rx} dBm</span>` : ''}
+            </div>
+        </div>
+    `).join('');
+}
+
 (function () {
     // Garante que todas as páginas com #sidebar-panel tenham a aba de Templates caso functionButtonsCopy esteja carregado
     const sidebarPanel = document.getElementById('sidebar-panel');
@@ -259,6 +324,38 @@ if (historyPanel) {
             localStorage.setItem('notepad-conteudo', e.target.value);
         });
     }
+
+    
+        // Injeta aba de Contratos Recentes se existir sidebar-panel
+        const panelTabs = sidebarPanel.querySelector('.panel-tabs');
+        const historyContent = sidebarPanel.querySelector('.history-content');
+        if (panelTabs && !panelTabs.querySelector('[onclick*="contratos"]')) {
+            const btn = document.createElement('button');
+            btn.className = 'panel-tab-btn';
+            btn.title = 'Contratos Recentes';
+            btn.setAttribute('aria-label', 'Abrir Contratos Recentes');
+            btn.setAttribute('onclick', "openPanel('contratos')");
+            btn.textContent = '🔍';
+            panelTabs.appendChild(btn);
+        }
+
+        if (historyContent && !document.getElementById('contratos-module')) {
+            const cDiv = document.createElement('div');
+            cDiv.id = 'contratos-module';
+            cDiv.style.display = 'none';
+            cDiv.innerHTML = '<div id="contratos-panel"></div>';
+            historyContent.appendChild(cDiv);
+        }
+
+        const historyHeaderRight = sidebarPanel.querySelector('.history-header > div');
+        if (historyHeaderRight && !document.getElementById('btn-limpar-contratos')) {
+            const btnL = document.createElement('button');
+            btnL.id = 'btn-limpar-contratos';
+            btnL.style.display = 'none';
+            btnL.textContent = 'Limpar contratos';
+            btnL.setAttribute('onclick', 'limparContratosRecentes()');
+            historyHeaderRight.appendChild(btnL);
+        }
 
     if (sidebarPanel) return;
 
