@@ -121,17 +121,17 @@ function copyPatchCordRadio(botao) {
 }
 
 function copyTemplateVerificacaoUrbana(botao) {
-    const texto = `Verifiquei e é necessário realizar uma visita técnica com custo no local, pois o serviço seria uma Verificação de Rede Interna.\nO valor do serviço é de R$ 50,00. Sendo necessário realizar o pagamento antecipado.\nCaso haja necessidade de realizar algum serviço com cobrança no local, será informado pelo técnico e cobrado na próxima mensalidade.\n\nCustos adicionais caso deseje realizar no local:\nPassagem de cabo por Cômodo adicional: R$ 50,00\nMetragem de cabo de rede (caso necessário): R$ 3,75\nConector RJ45 (cada): R$ 2,50`;
+    const texto = `Verifiquei e é necessário realizar uma visita técnica com custo no local, pois o serviço seria uma Verificação de Rede Interna.\nO valor do serviço é de R$ 50,00. Sendo necessário realizar o pagamento antecipado.\nCaso haja necessidade de realizar algum serviço com cobrança no local, será informado pelo técnico e cobrado na próxima mensalidade.\n\nCustos adicionais caso deseje realizar no local:\nPassagem de cabo por Cômodo adicional: R$ 50,00\nMetragem de cabo de rede (caso necessário): R$ 4,20\nConector RJ45 (cada): R$ 2,50`;
     copiarTextoTemplate(texto, botao);
 }
 
 function copyTemplateConfigRotUrbana(botao) {
-    const texto = `Prazo: A Configuração de Roteador terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto\nValores: Mão de obra: R$ 50,00\nTaxa: A taxa de R$ 50,00 (mão de obra) deverá ser paga antecipadamente\nPoderá ser apresentado um orçamento adicional no local dependendo da avaliação do técnico\n\nCaso deseje realizar a passagem de cabo durante a visita, esses são os valores:\nMetragem de cabo de rede (Caso necessário): R$ 3,75\nConector RJ45 (cada): R$ 2,50\nCômodo adicional: R$ 50,00\nPrazo pagamento da metragem: Metragem de cabo utilizado será cobrado na próxima mensalidade`;
+    const texto = `Prazo: A Configuração de Roteador terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto\nValores: Mão de obra: R$ 50,00\nTaxa: A taxa de R$ 50,00 (mão de obra) deverá ser paga antecipadamente\nPoderá ser apresentado um orçamento adicional no local dependendo da avaliação do técnico\n\nCaso deseje realizar a passagem de cabo durante a visita, esses são os valores:\nMetragem de cabo de rede (Caso necessário): R$ 4,20\nConector RJ45 (cada): R$ 2,50\nCômodo adicional: R$ 50,00\nPrazo pagamento da metragem: Metragem de cabo utilizado será cobrado na próxima mensalidade`;
     copiarTextoTemplate(texto, botao);
 }
 
 function copyTemplateConfigRotRural(botao) {
-    const texto = `Prazo: A Configuração de Roteador terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto\nValores: Mão de obra: R$ 100,00\nTaxa: A taxa de R$ 100,00 (mão de obra) deverá ser paga antecipadamente\nPoderá ser apresentado um orçamento adicional no local dependendo da avaliação do técnico\n\nCaso deseje realizar a passagem de cabo durante a visita, esses são os valores:\nMetragem de cabo de rede (Caso necessário): R$ 3,75\nConector RJ45 (cada): R$ 2,50\nCômodo adicional: R$ 50,00\nPrazo pagamento da metragem: Metragem de cabo utilizado será cobrado na próxima mensalidade`;
+    const texto = `Prazo: A Configuração de Roteador terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto\nValores: Mão de obra: R$ 100,00\nTaxa: A taxa de R$ 100,00 (mão de obra) deverá ser paga antecipadamente\nPoderá ser apresentado um orçamento adicional no local dependendo da avaliação do técnico\n\nCaso deseje realizar a passagem de cabo durante a visita, esses são os valores:\nMetragem de cabo de rede (Caso necessário): R$ 4,20\nConector RJ45 (cada): R$ 2,50\nCômodo adicional: R$ 50,00\nPrazo pagamento da metragem: Metragem de cabo utilizado será cobrado na próxima mensalidade`;
     copiarTextoTemplate(texto, botao);
 }
 
@@ -540,42 +540,42 @@ const TEMPLATES_CATALOGO = [
         screens: ['/servicos'],
         categoria: '🧰 Valores e Prazos (Para Enviar ao Cliente)',
         titulo: '🚪 Valores: Mudança de Cômodo (R$ 100)',
-        texto: `A mudança de cômodo terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto.\n\nEste serviço possui os seguintes valores:\n\nMão de obra: R$ 100,00\nMetragem de cabo de rede (caso necessário): R$ 3,75\nConector RJ45 (cada): R$ 2,50\n\nSe precisar passar cabos em outros cômodos, será acrescentado um valor de R$ 50,00 por passagem adicional.\n\nA taxa de R$ 100,00 deverá ser paga antecipadamente para que possamos efetuar o agendamento, enquanto o valor referente à metragem de cabo utilizado será cobrado na próxima mensalidade.`
+        texto: `A mudança de cômodo terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto.\n\nEste serviço possui os seguintes valores:\n\nMão de obra: R$ 100,00\nMetragem de cabo de rede (caso necessário): R$ 4,20\nConector RJ45 (cada): R$ 2,50\n\nSe precisar passar cabos em outros cômodos, será acrescentado um valor de R$ 50,00 por passagem adicional.\n\nA taxa de R$ 100,00 deverá ser paga antecipadamente para que possamos efetuar o agendamento, enquanto o valor referente à metragem de cabo utilizado será cobrado na próxima mensalidade.`
     },
     {
         id: 'servicos-valores-passagem',
         screens: ['/servicos'],
         categoria: '🧰 Valores e Prazos (Para Enviar ao Cliente)',
         titulo: '🔌 Valores: Passagem de Cabo (R$ 100)',
-        texto: `A passagem de cabo de rede terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto.\n\nEste serviço possui os seguintes valores:\n\nMão de obra (primeira passagem): R$ 100,00\nMetragem de cabo de rede: R$ 3,75\nConector RJ45 (cada): R$ 2,50\n\nSe precisar passar cabos em outros cômodos, será acrescentado um valor de R$ 50,00 por passagem adicional.\n\nA taxa de R$ 100,00 deverá ser paga antecipadamente para que possamos efetuar o agendamento, enquanto o valor referente à metragem de cabo utilizado será cobrado na próxima mensalidade.`
+        texto: `A passagem de cabo de rede terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto.\n\nEste serviço possui os seguintes valores:\n\nMão de obra (primeira passagem): R$ 100,00\nMetragem de cabo de rede: R$ 4,20\nConector RJ45 (cada): R$ 2,50\n\nSe precisar passar cabos em outros cômodos, será acrescentado um valor de R$ 50,00 por passagem adicional.\n\nA taxa de R$ 100,00 deverá ser paga antecipadamente para que possamos efetuar o agendamento, enquanto o valor referente à metragem de cabo utilizado será cobrado na próxima mensalidade.`
     },
     {
         id: 'servicos-verificacao-urbana',
         screens: ['/servicos', '/verificacao-rede', '/conexao-lenta'],
         categoria: '🧰 Valores e Prazos (Para Enviar ao Cliente)',
         titulo: '🏠 Valores: Verificação Rede Interna Urbana (R$ 50)',
-        texto: `Verifiquei e é necessário realizar uma visita técnica com custo no local, pois o serviço seria uma Verificação de Rede Interna.\nO valor do serviço é de R$ 50,00. Sendo necessário realizar o pagamento antecipado.\nCaso haja necessidade de realizar algum serviço com cobrança no local, será informado pelo técnico e cobrado na próxima mensalidade.\n\nCustos adicionais caso deseje realizar no local:\nPassagem de cabo por Cômodo adicional: R$ 50,00\nMetragem de cabo de rede (caso necessário): R$ 3,75\nConector RJ45 (cada): R$ 2,50`
+        texto: `Verifiquei e é necessário realizar uma visita técnica com custo no local, pois o serviço seria uma Verificação de Rede Interna.\nO valor do serviço é de R$ 50,00. Sendo necessário realizar o pagamento antecipado.\nCaso haja necessidade de realizar algum serviço com cobrança no local, será informado pelo técnico e cobrado na próxima mensalidade.\n\nCustos adicionais caso deseje realizar no local:\nPassagem de cabo por Cômodo adicional: R$ 50,00\nMetragem de cabo de rede (caso necessário): R$ 4,20\nConector RJ45 (cada): R$ 2,50`
     },
     {
         id: 'servicos-verificacao-rural',
         screens: ['/servicos', '/verificacao-rede', '/conexao-lenta'],
         categoria: '🧰 Valores e Prazos (Para Enviar ao Cliente)',
         titulo: '🌾 Valores: Verificação Rural ou 3+ Roteadores (R$ 100)',
-        texto: `Verifiquei e é necessário realizar uma visita técnica com custo no local, pois o serviço seria uma Verificação de Rede Interna.\nO valor do serviço é de R$ 100,00. Sendo necessário realizar o pagamento antecipado.\nCaso haja necessidade de realizar algum serviço com cobrança no local, será informado pelo técnico e cobrado na próxima mensalidade.\n\nCustos adicionais caso deseje realizar no local:\nPassagem de cabo por Cômodo adicional: R$ 50,00\nMetragem de cabo de rede (caso necessário): R$ 3,75\nConector RJ45 (cada): R$ 2,50`
+        texto: `Verifiquei e é necessário realizar uma visita técnica com custo no local, pois o serviço seria uma Verificação de Rede Interna.\nO valor do serviço é de R$ 100,00. Sendo necessário realizar o pagamento antecipado.\nCaso haja necessidade de realizar algum serviço com cobrança no local, será informado pelo técnico e cobrado na próxima mensalidade.\n\nCustos adicionais caso deseje realizar no local:\nPassagem de cabo por Cômodo adicional: R$ 50,00\nMetragem de cabo de rede (caso necessário): R$ 4,20\nConector RJ45 (cada): R$ 2,50`
     },
     {
         id: 'servicos-config-urbana',
         screens: ['/servicos', '/verificacao-rede'],
         categoria: '🧰 Valores e Prazos (Para Enviar ao Cliente)',
         titulo: '⚙️ Valores: Config. Roteador Urbana (R$ 50)',
-        texto: `A configuração de roteador terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto.\n\nValores:\nMão de obra: R$ 50,00 (deverá ser paga antecipadamente)\n\nCaso deseje realizar a passagem de cabo durante a visita, esses são os valores:\nMetragem de cabo de rede (caso necessário): R$ 3,75\nConector RJ45 (cada): R$ 2,50\nCômodo adicional: R$ 50,00\nO valor referente à metragem de cabo utilizado será cobrado na próxima mensalidade.`
+        texto: `A configuração de roteador terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto.\n\nValores:\nMão de obra: R$ 50,00 (deverá ser paga antecipadamente)\n\nCaso deseje realizar a passagem de cabo durante a visita, esses são os valores:\nMetragem de cabo de rede (caso necessário): R$ 4,20\nConector RJ45 (cada): R$ 2,50\nCômodo adicional: R$ 50,00\nO valor referente à metragem de cabo utilizado será cobrado na próxima mensalidade.`
     },
     {
         id: 'servicos-config-rural',
         screens: ['/servicos', '/verificacao-rede'],
         categoria: '🧰 Valores e Prazos (Para Enviar ao Cliente)',
         titulo: '🌾 Valores: Config. Roteador Rural (R$ 100)',
-        texto: `A configuração de roteador terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto.\n\nValores:\nMão de obra: R$ 100,00 (deverá ser paga antecipadamente)\n\nCaso deseje realizar a passagem de cabo durante a visita, esses são os valores:\nMetragem de cabo de rede (caso necessário): R$ 3,75\nConector RJ45 (cada): R$ 2,50\nCômodo adicional: R$ 50,00\nO valor referente à metragem de cabo utilizado será cobrado na próxima mensalidade.`
+        texto: `A configuração de roteador terá um prazo de 48 horas úteis, caso não ocorra nenhum imprevisto.\n\nValores:\nMão de obra: R$ 100,00 (deverá ser paga antecipadamente)\n\nCaso deseje realizar a passagem de cabo durante a visita, esses são os valores:\nMetragem de cabo de rede (caso necessário): R$ 4,20\nConector RJ45 (cada): R$ 2,50\nCômodo adicional: R$ 50,00\nO valor referente à metragem de cabo utilizado será cobrado na próxima mensalidade.`
     },
 
     // ==================== SUPORTE DE SVA's ====================

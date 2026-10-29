@@ -102,7 +102,7 @@ Disponibilidade: ${disponibilidade}
 Serviço: Verificação de Rede Interna${area ? ` - ${area}` : ''}
 Prazo: 48 horas úteis
 Mão de obra: ${maoDeObra}
-Metragem de cabo (se necessário): R$ 3,75/m
+Metragem de cabo (se necessário): R$ 4,20/m
 Conector RJ45 (cada): R$ 2,50
 Cômodo adicional: R$ 50,00
 Taxa antecipada: R$ 100,00
@@ -158,7 +158,7 @@ Serviço: Configuração de Roteador${area ? ` - ${area}` : ''}
 Prazo: 48 horas úteis
 Mão de obra: ${maoDeObra}
 Taxa antecipada: ${maoDeObra}
-Metragem de cabo (se necessário): R$ 3,75/m
+Metragem de cabo (se necessário): R$ 4,20/m
 Conector RJ45 (cada): R$ 2,50
 Cômodo adicional: R$ 50,00
 Metragem cobrada na próxima mensalidade

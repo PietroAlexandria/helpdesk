@@ -1,10 +1,5 @@
-function toggleIpFibra(val) {
-    document.getElementById('campo-ip-fibra').style.display = val === 'FIXO' ? 'block' : 'none';
-}
-
-function toggleIpRadio(val) {
-    document.getElementById('campo-ip-radio').style.display = val === 'FIXO' ? 'block' : 'none';
-}
+function toggleIpFibra(val) {}
+function toggleIpRadio(val) {}
 
 function toggleModoFibra(val) {
     document.getElementById('campos-bridge').style.display = val === 'Bridge' ? 'block' : 'none';
@@ -44,7 +39,8 @@ function coletarFibra() {
     const pppoeSenha     = v('pppoe-senha-fibra');
     const pppoeNovo      = idLogin + nomeNovo.trim().split(/\s+/)[0].toLowerCase();
     const tipoIp         = radio('tipo-ip-fibra');
-    const ip             = tipoIp === 'FIXO' ? v('ip-fibra') : 'NAT';
+    const ipVal          = v('ip-fibra');
+    const ip             = ipVal || 'NAT';
     const olt            = v('olt');
     const pon            = v('pon');
     const caixa          = v('caixa');
@@ -53,9 +49,10 @@ function coletarFibra() {
     const modo           = radio('modo-fibra');
     const modeloOnu      = v('modelo-onu');
     const serialRoteador = v('serial-roteador');
+    const modeloRoteador = v('modelo-roteador-fibra');
+    const obs            = v('obs-fibra');
     const nomeCliente    = v('nome-novo');
     const macRoteador    = v('mac-roteador-fibra').toUpperCase();
-    const modeloRoteador = v('modelo-roteador-fibra');
 
     if (!nomeAntigo)     { mostrarAlerta('Preencha o Nome do Titular Antigo!'); return null; }
     if (!osAntiga)       { mostrarAlerta('Preencha a O.S. Antiga!'); return null; }
@@ -68,7 +65,6 @@ function coletarFibra() {
     if (!idLogin)        { mostrarAlerta('Preencha o ID Login Novo!'); return null; }
     if (!pppoeSenha)     { mostrarAlerta('Preencha a Senha PPPoE!'); return null; }
     if (!tipoIp)         { mostrarAlerta('Selecione o Tipo de IP!'); return null; }
-    if (tipoIp === 'FIXO' && !v('ip-fibra')) { mostrarAlerta('Preencha o IP Fixo!'); return null; }
     if (!olt)            { mostrarAlerta('Preencha a OLT!'); return null; }
     if (!pon)            { mostrarAlerta('Preencha a PON!'); return null; }
     if (!caixa)          { mostrarAlerta('Preencha a CAIXA!'); return null; }
@@ -103,6 +99,7 @@ PPPoE Client
 Usuário: ${pppoeAntigo}
 User Novo: ${pppoeNovo}
 Senha: ${pppoeSenha}
+ID Login: ${idLogin}
 IP: ${ip}
 
 Dados técnicos:
@@ -111,13 +108,14 @@ PON: ${pon}
 CAIXA: ${caixa}
 MAC ONU: ${macOnu}
 ONU renomeada via IXC para:
-${nomeOnuStr}`;
+${nomeOnuStr}${obs ? `
 
-    const bloco2 = `ONU renomeada via IXC para:
-${nomeOnuStr}
+Observações: ${obs}` : ''}`;
+
+    const bloco2 = `${nomeOnuStr}
 Login antigo renomeado para: ${loginAntigo}`;
 
-    return { bloco1, bloco2, blocoImportados };
+    return { bloco1, bloco2, blocoImportados, pppoeNovo };
 }
 
 function copiarBloco1Fibra(botao) {
@@ -134,6 +132,14 @@ function copiarBloco2Fibra(botao) {
     if (!d) return;
     navigator.clipboard.writeText(d.bloco2)
         .then(() => feedbackTroca(botao, '📋 Renomeio ONU'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+}
+
+function copiarNovoLoginFibra(botao) {
+    const d = coletarFibra();
+    if (!d) return;
+    navigator.clipboard.writeText(d.pppoeNovo)
+        .then(() => feedbackTroca(botao, '📋 Novo Login'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
 }
 
@@ -168,12 +174,14 @@ function coletarRadio() {
     const pppoeSenha     = v('pppoe-senha-radio');
     const pppoeNovo      = idLogin + nomeNovo.trim().split(/\s+/)[0].toLowerCase();
     const tipoIp         = radio('tipo-ip-radio');
-    const ip             = tipoIp === 'FIXO' ? v('ip-radio') : 'NAT';
+    const ipVal          = v('ip-radio');
+    const ip             = ipVal || 'NAT';
     const ipBase         = v('ip-base');
     const ipRadioCliente = v('ip-radio-cliente');
     const modeloRadio    = v('modelo-radio');
     const macRadio       = v('mac-radio').toUpperCase();
     const nomeRadio      = v('nome-radio');
+    const obs            = v('obs-radio');
     const macRoteador    = v('mac-roteador-radio').toUpperCase();
     const modeloRoteador = v('modelo-roteador-radio');
 
@@ -188,7 +196,6 @@ function coletarRadio() {
     if (!idLogin)        { mostrarAlerta('Preencha o ID Login Novo!'); return null; }
     if (!pppoeSenha)     { mostrarAlerta('Preencha a Senha PPPoE!'); return null; }
     if (!tipoIp)         { mostrarAlerta('Selecione o Tipo de IP!'); return null; }
-    if (tipoIp === 'FIXO' && !v('ip-radio')) { mostrarAlerta('Preencha o IP Fixo!'); return null; }
     if (!ipBase)         { mostrarAlerta('Preencha o IP BASE!'); return null; }
     if (!ipRadioCliente) { mostrarAlerta('Preencha o IP Rádio Cliente!'); return null; }
     if (!macRadio)       { mostrarAlerta('Preencha o MAC Rádio Cliente!'); return null; }
@@ -205,6 +212,7 @@ PPPoE Client
 Usuário: ${pppoeAntigo}
 User Novo: ${pppoeNovo}
 Senha: ${pppoeSenha}
+ID Login: ${idLogin}
 IP: ${ip}
 
 Dados técnicos:
@@ -215,12 +223,14 @@ MAC Rádio Cliente: ${macRadio}
 MAC Roteador (WAN): ${macRoteador || '-'}
 Modelo Roteador: ${modeloRoteador || '-'}
 Nome do Rádio: ${nomeRadio}
-Rádio renomeada via Air Control`;
+Rádio renomeada via Air Control${obs ? `
+
+Observações: ${obs}` : ''}`;
 
     const bloco2 = `Rádio renomeada via Air Control: ${nomeRadio}
 Login antigo renomeado para: ${loginAntigo}`;
 
-    return { bloco1, bloco2 };
+    return { bloco1, bloco2, pppoeNovo };
 }
 
 function copiarBloco1Radio(botao) {
@@ -237,6 +247,14 @@ function copiarBloco2Radio(botao) {
     if (!d) return;
     navigator.clipboard.writeText(d.bloco2)
         .then(() => feedbackTroca(botao, '📋 Renomeio Rádio'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+}
+
+function copiarNovoLoginRadio(botao) {
+    const d = coletarRadio();
+    if (!d) return;
+    navigator.clipboard.writeText(d.pppoeNovo)
+        .then(() => feedbackTroca(botao, '📋 Novo Login'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
 }
 

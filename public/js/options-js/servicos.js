@@ -64,7 +64,7 @@ Disponibilidade: ${disp}
 Serviço: Mudança de Cômodo
 Prazo: 48 horas úteis
 Mão de obra: R$ 100,00
-Metragem de cabo (se necessário): R$ 3,75/m
+Metragem de cabo (se necessário): R$ 4,20/m
 Conector RJ45 (cada): R$ 2,50
 Cômodo adicional: R$ 50,00
 Taxa antecipada: R$ 100,00
@@ -98,7 +98,7 @@ Disponibilidade: ${disp}
 Serviço: Passagem de Cabo
 Prazo: 48 horas úteis
 Mão de obra: R$ 100,00
-Metragem de cabo: R$ 3,75/m
+Metragem de cabo: R$ 4,20/m
 Conector RJ45 (cada): R$ 2,50
 Cômodo adicional: R$ 50,00
 Taxa antecipada: R$ 100,00
@@ -172,7 +172,7 @@ Disponibilidade: ${disp}
 Serviço: Verificação de Rede Interna${area ? ` - ${area}` : ''}
 Prazo: 48 horas úteis
 Mão de obra: ${mdo}
-Metragem de cabo (se necessário): R$ 3,75/m
+Metragem de cabo (se necessário): R$ 4,20/m
 Conector RJ45 (cada): R$ 2,50
 Cômodo adicional: R$ 50,00
 Taxa antecipada: ${mdo}
@@ -216,7 +216,7 @@ Serviço: Configuração de Roteador${area ? ` - ${area}` : ''}
 Prazo: 48 horas úteis
 Mão de obra: ${mdo}
 Taxa antecipada: ${mdo}
-Metragem de cabo (se necessário): R$ 3,75/m
+Metragem de cabo (se necessário): R$ 4,20/m
 Conector RJ45 (cada): R$ 2,50
 Cômodo adicional: R$ 50,00
 Metragem cobrada na próxima mensalidade

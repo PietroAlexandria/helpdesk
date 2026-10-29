@@ -67,10 +67,10 @@
                 <div class="field">
                     <label for="pppoe-antigo-fibra">Usuário PPPoE Antigo</label>
                     <input type="text" id="pppoe-antigo-fibra" name="pppoe-antigo-fibra">
-                    <label for="id-login-fibra">ID Login Novo</label>
-                    <input type="text" id="id-login-fibra" name="id-login-fibra">
                     <label for="pppoe-senha-fibra">Senha PPPoE</label>
                     <input type="text" id="pppoe-senha-fibra" name="pppoe-senha-fibra">
+                    <label for="id-login-fibra">ID Login Novo</label>
+                    <input type="text" id="id-login-fibra" name="id-login-fibra">
                 </div>
 
                 <div class="field">
@@ -80,8 +80,8 @@
                         <label class="radio-btn"><input type="radio" name="tipo-ip-fibra" value="FIXO" onchange="toggleIpFibra(this.value)"><span>IP Fixo</span></label>
                     </div>
                 </div>
-                <div class="field" id="campo-ip-fibra" style="display:none">
-                    <label for="ip-fibra">IP Fixo</label>
+                <div class="field">
+                    <label for="ip-fibra">IP <span style="font-weight:400;color:#64748b">(Opcional se NAT)</span></label>
                     <input type="text" id="ip-fibra" name="ip-fibra">
                 </div>
 
@@ -129,12 +129,20 @@
                     <input type="text" id="modelo-roteador-fibra" name="modelo-roteador-fibra">
                 </div>
 
+                <hr class="sep">
+
+                <div class="field">
+                    <label for="obs-fibra">Observações <span style="font-weight:400;color:#64748b">(Opcional)</span></label>
+                    <textarea id="obs-fibra" name="obs-fibra" rows="3"></textarea>
+                </div>
+
                 <div class="btn-group">
                     <button class="btn-copy" onclick="copiarBloco1Fibra(this)">📋 De/Para + Dados Técnicos</button>
                     <button class="btn-clear" onclick="limparFibra()">🗑️ Limpar</button>
                 </div>
                 <div class="btn-group" style="margin-top:8px">
                     <button class="btn-copy" onclick="copiarBloco2Fibra(this)">📋 Renomeio ONU</button>
+                    <button class="btn-copy" onclick="copiarNovoLoginFibra(this)">📋 Novo Login</button>
                     <button class="btn-copy" onclick="copiarBloco3Fibra(this)">📋 Dados Importados</button>
                 </div>
             </div>
@@ -173,10 +181,10 @@
                 <div class="field">
                     <label for="pppoe-antigo-radio">Usuário PPPoE Antigo</label>
                     <input type="text" id="pppoe-antigo-radio" name="pppoe-antigo-radio">
-                    <label for="id-login-radio">ID Login Novo</label>
-                    <input type="text" id="id-login-radio" name="id-login-radio">
                     <label for="pppoe-senha-radio">Senha PPPoE</label>
                     <input type="text" id="pppoe-senha-radio" name="pppoe-senha-radio">
+                    <label for="id-login-radio">ID Login Novo</label>
+                    <input type="text" id="id-login-radio" name="id-login-radio">
                 </div>
 
                 <div class="field">
@@ -186,8 +194,8 @@
                         <label class="radio-btn"><input type="radio" name="tipo-ip-radio" value="FIXO" onchange="toggleIpRadio(this.value)"><span>IP Fixo</span></label>
                     </div>
                 </div>
-                <div class="field" id="campo-ip-radio" style="display:none">
-                    <label for="ip-radio">IP Fixo</label>
+                <div class="field">
+                    <label for="ip-radio">IP <span style="font-weight:400;color:#64748b">(Opcional se NAT)</span></label>
                     <input type="text" id="ip-radio" name="ip-radio">
                 </div>
 
@@ -215,12 +223,20 @@
                     <input type="text" id="modelo-roteador-radio" name="modelo-roteador-radio">
                 </div>
 
+                <hr class="sep">
+
+                <div class="field">
+                    <label for="obs-radio">Observações <span style="font-weight:400;color:#64748b">(Opcional)</span></label>
+                    <textarea id="obs-radio" name="obs-radio" rows="3"></textarea>
+                </div>
+
                 <div class="btn-group">
                     <button class="btn-copy" onclick="copiarBloco1Radio(this)">📋 De/Para + Dados Técnicos</button>
                     <button class="btn-clear" onclick="limparRadio()">🗑️ Limpar</button>
                 </div>
                 <div class="btn-group" style="margin-top:8px">
                     <button class="btn-copy" onclick="copiarBloco2Radio(this)">📋 Renomeio Rádio</button>
+                    <button class="btn-copy" onclick="copiarNovoLoginRadio(this)">📋 Novo Login</button>
                 </div>
             </div>
 

@@ -96,7 +96,7 @@ Disponibilidade: ${disponibilidade}
 Cliente entrou em contato solicitando mudança de endereço. 
 CPF confirmado com o titular do cadastro. 
 Cliente ${taxa} da taxa. 
-Cliente ciente do custo de R$50,00 de mão de obra por cômodo + R$3,75 o metro do cabo de rede + R$2,50 por ponteira RJ45 caso for preciso realizar passagem de cabo de rede durante a mudança. 
+Cliente ciente do custo de R$50,00 de mão de obra por cômodo + R$4,20 o metro do cabo de rede + R$2,50 por ponteira RJ45 caso for preciso realizar passagem de cabo de rede durante a mudança. 
 Cliente ciente do prazo de 48 horas úteis para a mudança de endereço. 
 Cliente ${mudar}${dataFormatada ? ` em ${dataFormatada}` : ''} e ${equipamentos} os equipamentos. 
 
