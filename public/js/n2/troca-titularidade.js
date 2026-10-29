@@ -203,6 +203,10 @@ function coletarRadio() {
 
     const loginAntigo = loginAntigoRenomeado(pppoeAntigo);
 
+    const blocoImportadosRadio = `Dados importados.
+MAC Roteador (WAN): ${macRoteador || '-'}
+Modelo Roteador: ${modeloRoteador || '-'}`;
+
     const bloco1 = `De: ${nomeAntigo} - Protocolo ${osAntiga} - Contrato ${contratoAntigo}
 Para: ${nomeNovo} - Protocolo ${osNova} - Contrato ${contratoNovo}
 
@@ -230,7 +234,7 @@ Observações: ${obs}` : ''}`;
     const bloco2 = `Rádio renomeada via Air Control: ${nomeRadio}
 Login antigo renomeado para: ${loginAntigo}`;
 
-    return { bloco1, bloco2, pppoeNovo };
+    return { bloco1, bloco2, blocoImportadosRadio, pppoeNovo };
 }
 
 function copiarBloco1Radio(botao) {
@@ -255,6 +259,15 @@ function copiarNovoLoginRadio(botao) {
     if (!d) return;
     navigator.clipboard.writeText(d.pppoeNovo)
         .then(() => feedbackTroca(botao, '📋 Novo Login'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+}
+
+function copiarBloco3Radio(botao) {
+    const d = coletarRadio();
+    if (!d) return;
+    try { salvarHistorico(d.blocoImportadosRadio, 'Troca Titularidade - Rádio Dados Importados'); } catch(e) {}
+    navigator.clipboard.writeText(d.blocoImportadosRadio)
+        .then(() => feedbackTroca(botao, '📋 Dados Importados'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
 }
 
