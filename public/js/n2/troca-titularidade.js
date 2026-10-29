@@ -180,8 +180,9 @@ function coletarRadio() {
     const ipRadioCliente = v('ip-radio-cliente');
     const modeloRadio    = v('modelo-radio');
     const macRadio       = v('mac-radio').toUpperCase();
-    const nomeRadio      = v('nome-radio');
     const obs            = v('obs-radio');
+    const partesNome     = nomeNovo.trim().split(/\s+/);
+    const nomeRadioNovo  = `${contratoNovo}_${partesNome[0]}${partesNome[1] ? '_' + partesNome[1] : ''}`;
     const macRoteador    = v('mac-roteador-radio').toUpperCase();
     const modeloRoteador = v('modelo-roteador-radio');
 
@@ -199,11 +200,12 @@ function coletarRadio() {
     if (!ipBase)         { mostrarAlerta('Preencha o IP BASE!'); return null; }
     if (!ipRadioCliente) { mostrarAlerta('Preencha o IP Rádio Cliente!'); return null; }
     if (!macRadio)       { mostrarAlerta('Preencha o MAC Rádio Cliente!'); return null; }
-    if (!nomeRadio)      { mostrarAlerta('Preencha o Nome do Rádio!'); return null; }
 
     const loginAntigo = loginAntigoRenomeado(pppoeAntigo);
 
     const blocoImportadosRadio = `Dados importados.
+Modelo do Rádio: ${modeloRadio || '-'}
+MAC Rádio: ${macRadio || '-'}
 MAC Roteador (WAN): ${macRoteador || '-'}
 Modelo Roteador: ${modeloRoteador || '-'}`;
 
@@ -226,15 +228,15 @@ Modelo Rádio Cliente: ${modeloRadio || '-'}
 MAC Rádio Cliente: ${macRadio}
 MAC Roteador (WAN): ${macRoteador || '-'}
 Modelo Roteador: ${modeloRoteador || '-'}
-Nome do Rádio: ${nomeRadio}
+Nome do Rádio: ${nomeRadioNovo}
 Rádio renomeada via Air Control${obs ? `
 
 Observações: ${obs}` : ''}`;
 
-    const bloco2 = `Rádio renomeada via Air Control: ${nomeRadio}
+    const bloco2 = `Rádio renomeada via Air Control: ${nomeRadioNovo}
 Login antigo renomeado para: ${loginAntigo}`;
 
-    return { bloco1, bloco2, blocoImportadosRadio, pppoeNovo };
+    return { bloco1, bloco2, blocoImportadosRadio, pppoeNovo, nomeRadioNovo };
 }
 
 function copiarBloco1Radio(botao) {
@@ -251,6 +253,14 @@ function copiarBloco2Radio(botao) {
     if (!d) return;
     navigator.clipboard.writeText(d.bloco2)
         .then(() => feedbackTroca(botao, '📋 Renomeio Rádio'))
+        .catch(() => mostrarAlerta('Erro ao copiar!'));
+}
+
+function copiarNomeRadio(botao) {
+    const d = coletarRadio();
+    if (!d) return;
+    navigator.clipboard.writeText(d.nomeRadioNovo)
+        .then(() => feedbackTroca(botao, '📋 Novo Nome do Rádio'))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
 }
 
