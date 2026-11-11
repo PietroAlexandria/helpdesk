@@ -76,6 +76,16 @@
             <!-- Card Sem Conexão - FIBRA ------------------------------------------------------------------------------------------------------------------------------->
 
             <div class="card" id="card-fibra" style="display:none">
+                <div class="field">
+                    <label>ID Contrato</label>
+                    <div style="display:flex; gap:8px; align-items:center">
+                        <input type="text" name="id_contrato" id="id_contrato" placeholder="Ex: 91188" style="flex:1"
+                               onkeydown="if(event.key==='Enter'){event.preventDefault();buscarContrato();}">
+                        <button class="btn-copy" type="button" onclick="buscarContrato()" style="white-space:nowrap">🔍 Buscar</button>
+                    </div>
+                    <div id="ixc-feedback" class="ixc-feedback"></div>
+                    <div id="ixc-telemetria" style="display:none"></div>
+                </div>
 
                 <!-- Para futuras implementações!
                 <div class="field">
@@ -367,5 +377,6 @@
     <script src="/js/sharedFunctions/functionPreencherColeta.js"></script>
     <script> linkName('nome','nomeAg'); linkName('nome','nomeAg-radio'); </script>
     <div id="toast" class="toast"></div>
+    <script src="/js/sharedFunctions/ixcAutoFill.js"></script>
 </body>
 </html>
