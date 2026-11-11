@@ -330,6 +330,7 @@ function renderizarContratosRecentes() {
     }
 
     
+        /* Aba de Contratos Recentes desativada (ID do contrato/IXC em mock). Reativar com a API real.
         // Injeta aba de Contratos Recentes se existir sidebar-panel
         const panelTabs = sidebarPanel.querySelector('.panel-tabs');
         const historyContent = sidebarPanel.querySelector('.history-content');
@@ -360,6 +361,7 @@ function renderizarContratosRecentes() {
             btnL.setAttribute('onclick', 'limparContratosRecentes()');
             historyHeaderRight.appendChild(btnL);
         }
+        */
 
     if (sidebarPanel) return;
 
