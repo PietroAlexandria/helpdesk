@@ -53,13 +53,23 @@ dev tool     Nodemon (hot-reload)
 
 ```text
 helpdesk/
-├── server.js                          # Entrada principal — configura Express, autenticação N2 e rotas
-├── mock-ixc-server.js                 # Servidor mock do IXC para testes locais
+├── server.js                          # Entrada principal — Express, helmet, logins e rotas
+├── auth.js                            # JWT (operador/N2), cookie N2, rate limit de login
+├── audit.js                           # Log de auditoria (logs/audit.log, JSON por linha)
+├── mock-ixc-server.js                 # Servidor mock do IXC para testes locais (porta 4000)
+├── eslint.config.js                   # Configuração do ESLint (npm run lint)
 ├── package.json
 ├── .env.example                       # Exemplo de variáveis de ambiente
+├── .gitattributes                     # Padroniza fim de linha em LF
+│
+├── tests/
+│   └── api.test.js                    # Testes de API (npm test) com IXC falso embutido
 │
 ├── ixcModules/
-│   └── ixcClient.js                   # Cliente HTTP para a API do IXC Provedor
+│   ├── ixcClient.js                   # Cliente HTTP (axios, timeout) da API do IXC Provedor
+│   ├── ixcService.js                  # Consolida contrato, cliente, PPPoE e fibra
+│   ├── ixcRoutes.js                   # Rotas /api/ixc/* (exigem login de operador)
+│   └── ixcCache.js                    # Cache em memória (TTL de 3 min, máx. 500 itens)
 │
 ├── views/
 │   ├── index.html                     # Menu principal (N1)
@@ -67,7 +77,6 @@ helpdesk/
 │   ├── tutorial.html                  # Tutorial de uso do sistema
 │   ├── login-n2.html                  # Tela de login restrito do Nível 2
 │   ├── nivel2.html                    # Painel principal do Nível 2
-│   ├── teste-ixc.html                 # Página de teste da integração IXC
 │   └── options-html/
 │       ├── sem-conexao.html           # Módulo sem conexão
 │       ├── conexao-lenta.html         # Módulo conexão lenta
@@ -152,6 +161,23 @@ npm start
 
 A aplicação sobe em [http://localhost:3000](http://localhost:3000).
 
+### Scripts
+
+| Comando | O que faz |
+|---|---|
+| `npm start` | Sobe o servidor |
+| `npm run dev` | Sobe com hot-reload (nodemon) |
+| `npm test` | Roda a suíte de testes de API |
+| `npm run lint` | Roda o ESLint |
+
+Para testar a integração IXC localmente, rode `node mock-ixc-server.js` em outro terminal
+e use `IXC_HOST=http://localhost:4000`.
+
+> **Atenção:** a busca por ID de contrato (campo "ID Contrato", script `ixcAutoFill.js` e aba
+> "Contratos" da sidebar) está **comentada** nas telas enquanto a API do IXC está em mock.
+> O backend `/api/ixc/*` continua pronto; para reativar, descomente os blocos marcados com
+> "ID do contrato / integração IXC desativado".
+
 ---
 
 ## 🔌 Rotas da Aplicação
@@ -169,12 +195,15 @@ A aplicação sobe em [http://localhost:3000](http://localhost:3000).
 | `GET` | `/pagamento` | Módulo financeiro |
 | `GET` | `/duvidas` | Módulo dúvidas |
 | `GET` | `/login-n2` | Página de login do Nível 2 |
-| `GET` | `/nivel2` | Menu exclusivo do Nível 2 (protegido por JWT) |
-| `GET` | `/troca-titularidade` | Módulo N2: Troca de Titularidade (protegido por JWT) |
+| `GET` | `/nivel2` | Menu exclusivo do Nível 2 (exige cookie de sessão N2) |
+| `GET` | `/troca-titularidade` | Módulo N2: Troca de Titularidade (exige cookie de sessão N2) |
+| `GET` | `/health` | Healthcheck (`{ status: "ok", uptime }`) |
 | `POST` | `/api/auth/n2` | Autentica senha do N2, emite JWT e define cookie `HttpOnly` |
 | `POST` | `/api/auth/n2/verify` | Verifica validade do token JWT do Nível 2 |
 | `POST` | `/api/auth/n2/logout` | Encerra sessão do Nível 2 limpando cookie `HttpOnly` |
-| `GET` | `/api/contrato/:id` | Consulta contrato no IXC Provedor por ID numérico |
+| `POST` | `/api/auth/operador` | Autentica senha de operador (N1/N2) e emite JWT (`x-op-token`) |
+| `GET` | `/api/ixc/contrato/:id` | Consulta contrato no IXC (cliente, PPPoE, fibra). Exige operador ou N2 |
+| `POST` | `/api/ixc/desconectar/:idLogin` | Derruba a sessão PPPoE (body: `idContrato`). Exige operador ou N2; auditado |
 
 ---
 
@@ -186,9 +215,15 @@ A aplicação sobe em [http://localhost:3000](http://localhost:3000).
 | `IXC_HOST` | — | URL base do servidor IXC (ex: `https://ixc.suaempresa.com.br`) |
 | `IXC_USER_ID` | — | ID do usuário para autenticação na API do IXC |
 | `IXC_TOKEN` | — | Token de acesso à API do IXC |
+| `IXC_TIMEOUT_MS` | `15000` | Tempo máximo de espera por resposta do IXC |
 | `SENHA_N2` | — | Senha de acesso aos módulos restritos do Nível 2 |
-| `JWT_SECRET` | — | Segredo para assinatura e verificação dos tokens JWT |
-| `JWT_EXPIRES_IN` | `30d` | Tempo de expiração do token JWT do Nível 2 |
+| `SENHA_OPERADOR` | — | Senha de operador (N1/N2) para usar as rotas `/api/ixc/*` |
+| `JWT_SECRET` | — | **Obrigatório.** Segredo dos tokens JWT (o servidor não sobe sem ele) |
+| `JWT_EXPIRES_IN` | `12h` | Tempo de expiração dos tokens JWT |
+| `AUDIT_LOG_DIR` | `./logs` | Pasta do log de auditoria (`audit.log`) |
+
+> O servidor usa `trust proxy` (1 nível) para obter o IP real atrás do proxy do Render —
+> necessário para o rate limit de login (10 falhas por IP em 15 min).
 
 ---
 
