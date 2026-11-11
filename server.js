@@ -7,6 +7,7 @@ const {
     senhaConfere, authN2, assinarToken, criarLimitadorLogin,
     definirCookieN2, limparCookieN2, exigirN2Pagina,
 } = require('./auth');
+const { auditar } = require('./audit');
 
 if (!process.env.JWT_SECRET) {
     console.error('JWT_SECRET não configurado no .env — abortando.');
@@ -46,6 +47,9 @@ const limiteOperador = criarLimitadorLogin();
 
 // Porta dinâmica para funcionar no Render (e localmente também)
 const PORT = process.env.PORT || 3000;
+
+// Healthcheck (Render/monitoramento): não consulta o IXC nem exige login
+app.get('/health', (_, res) => res.json({ status: 'ok', uptime: Math.round(process.uptime()) }));
 
 // Serve para arquivos estáticos (css, js, images) da pasta public
 app.use(express.static(path.join(__dirname, 'public')));
@@ -93,9 +97,11 @@ app.post('/api/auth/operador', limiteOperador.verificar, (req, res) => {
     const senha = req.body?.senha;
     if (!senhaConfere(senha, process.env.SENHA_OPERADOR)) {
         limiteOperador.falha(req);
+        auditar('login.operador', { ok: false, ip: req.ip });
         return res.status(401).json({ erro: 'Senha incorreta' });
     }
     limiteOperador.sucesso(req);
+    auditar('login.operador', { ok: true, ip: req.ip });
     res.json({ token: assinarToken(1) });
 });
 
@@ -108,9 +114,11 @@ app.post('/api/auth/n2', limiteN2.verificar, (req, res) => {
     const senha = req.body?.senha;
     if (!senhaConfere(senha, process.env.SENHA_N2)) {
         limiteN2.falha(req);
+        auditar('login.n2', { ok: false, ip: req.ip });
         return res.status(401).json({ erro: 'Senha incorreta' });
     }
     limiteN2.sucesso(req);
+    auditar('login.n2', { ok: true, ip: req.ip });
     const token = assinarToken(2);
     definirCookieN2(req, res, token);
     res.json({ token });
@@ -135,5 +143,9 @@ app.get('/troca-titularidade', exigirN2Pagina, (_, res) => res.sendFile(path.joi
 app.use('/api/ixc', ixcRoutes);
 
 // ---------------------------------------- //
-// Inicia o servidor na porta especificada
-app.listen(PORT, () => console.log(`Rodando em http://localhost:${PORT}`));
+// Inicia o servidor só quando executado diretamente (os testes importam o app)
+if (require.main === module) {
+    app.listen(PORT, () => console.log(`Rodando em http://localhost:${PORT}`));
+}
+
+module.exports = app;

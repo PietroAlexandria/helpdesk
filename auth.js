@@ -32,7 +32,10 @@ function authN2(req, res, next) {
 function authOperador(req, res, next) {
   const op = lerPayload(req.headers['x-op-token']);
   const n2 = lerPayload(req.headers['x-n2-token']);
-  if ((op && op.nivel >= 1) || (n2 && n2.nivel === 2)) return next();
+  if ((op && op.nivel >= 1) || (n2 && n2.nivel === 2)) {
+    req.nivel = n2 && n2.nivel === 2 ? 2 : 1; // para auditoria
+    return next();
+  }
   return res.status(401).json({ erro: 'Não autenticado. Faça login de operador.' });
 }
 
@@ -77,7 +80,7 @@ function exigirN2Pagina(req, res, next) {
 }
 
 function assinarToken(nivel) {
-  return jwt.sign({ nivel }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN || '30d' });
+  return jwt.sign({ nivel }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN || '12h' });
 }
 
 // Rate limit em memória: conta apenas tentativas FALHAS por IP
