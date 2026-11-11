@@ -105,7 +105,9 @@
 
         function logoutN2() {
             localStorage.removeItem('n2-token');
-            window.location.replace('/');
+            fetch('/api/auth/n2/logout', { method: 'POST' })
+                .catch(() => {})
+                .finally(() => window.location.replace('/'));
         }
     </script>
 </body>

@@ -1,8 +1,12 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
+const helmet = require('helmet');
 const ixcRoutes = require('./ixcModules/ixcRoutes'); // IXC
-const { senhaConfere, authN2, assinarToken, criarLimitadorLogin } = require('./auth');
+const {
+    senhaConfere, authN2, assinarToken, criarLimitadorLogin,
+    definirCookieN2, limparCookieN2, exigirN2Pagina,
+} = require('./auth');
 
 if (!process.env.JWT_SECRET) {
     console.error('JWT_SECRET não configurado no .env — abortando.');
@@ -11,6 +15,26 @@ if (!process.env.JWT_SECRET) {
 
 const app = express();
 app.disable('x-powered-by');
+// Headers de segurança (CSP, anti-clickjacking, nosniff, HSTS em HTTPS...)
+// 'unsafe-inline' é necessário porque as telas usam onclick/<style> inline.
+app.use(helmet({
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ["'self'"],
+            scriptSrc: ["'self'", "'unsafe-inline'"],
+            scriptSrcAttr: ["'unsafe-inline'"],
+            styleSrc: ["'self'", "'unsafe-inline'", 'https://fonts.googleapis.com'],
+            fontSrc: ["'self'", 'https://fonts.gstatic.com'],
+            imgSrc: ["'self'", 'data:'],
+            connectSrc: ["'self'", 'https://viacep.com.br'],
+            objectSrc: ["'none'"],
+            baseUri: ["'self'"],
+            formAction: ["'self'"],
+            frameAncestors: ["'none'"],
+            upgradeInsecureRequests: null, // não força https em localhost
+        },
+    },
+}));
 // Atrás do proxy do Render: usa o IP real do cliente (necessário para o rate limit)
 app.set('trust proxy', 1);
 app.use(express.json());
@@ -78,7 +102,7 @@ app.post('/api/auth/operador', limiteOperador.verificar, (req, res) => {
 // ---------------------------------------- //
 // Rotas Nível 2
 app.get('/login-n2', (_, res) => res.sendFile(path.join(__dirname, 'views', 'login-n2.html')));
-app.get('/nivel2', (_, res) => res.sendFile(path.join(__dirname, 'views', 'nivel2.html')));
+app.get('/nivel2', exigirN2Pagina, (_, res) => res.sendFile(path.join(__dirname, 'views', 'nivel2.html')));
 
 app.post('/api/auth/n2', limiteN2.verificar, (req, res) => {
     const senha = req.body?.senha;
@@ -87,13 +111,24 @@ app.post('/api/auth/n2', limiteN2.verificar, (req, res) => {
         return res.status(401).json({ erro: 'Senha incorreta' });
     }
     limiteN2.sucesso(req);
-    res.json({ token: assinarToken(2) });
+    const token = assinarToken(2);
+    definirCookieN2(req, res, token);
+    res.json({ token });
 });
 
-app.post('/api/auth/n2/verify', authN2, (_, res) => res.json({ ok: true }));
+// Valida o token e renova o cookie das páginas (sessões antigas só tinham localStorage)
+app.post('/api/auth/n2/verify', authN2, (req, res) => {
+    definirCookieN2(req, res, req.headers['x-n2-token']);
+    res.json({ ok: true });
+});
+
+app.post('/api/auth/n2/logout', (req, res) => {
+    limparCookieN2(res);
+    res.json({ ok: true });
+});
 
 // Rota - Troca de Titularidade (N2)
-app.get('/troca-titularidade', (_, res) => res.sendFile(path.join(__dirname, 'views', 'options-html', 'n2', 'troca-titularidade.html')));
+app.get('/troca-titularidade', exigirN2Pagina, (_, res) => res.sendFile(path.join(__dirname, 'views', 'options-html', 'n2', 'troca-titularidade.html')));
 
 // ---------------------------------------- //
 // Rotas da integração IXC (exigem login de operador)

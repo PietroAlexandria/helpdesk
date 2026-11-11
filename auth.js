@@ -36,6 +36,46 @@ function authOperador(req, res, next) {
   return res.status(401).json({ erro: 'Não autenticado. Faça login de operador.' });
 }
 
+// --- Páginas N2: o navegador não envia headers customizados em navegação,
+// então a sessão N2 também é guardada em cookie httpOnly (além do localStorage da API).
+const COOKIE_N2 = 'n2';
+
+function lerCookie(req, nome) {
+  const bruto = req.headers.cookie;
+  if (!bruto) return null;
+  for (const parte of bruto.split(';')) {
+    const i = parte.indexOf('=');
+    if (i > 0 && parte.slice(0, i).trim() === nome) {
+      try {
+        return decodeURIComponent(parte.slice(i + 1).trim());
+      } catch {
+        return null;
+      }
+    }
+  }
+  return null;
+}
+
+function definirCookieN2(req, res, token) {
+  res.cookie(COOKIE_N2, token, {
+    httpOnly: true,
+    sameSite: 'strict',
+    secure: req.secure, // true atrás do proxy HTTPS (trust proxy)
+    path: '/',
+  });
+}
+
+function limparCookieN2(res) {
+  res.clearCookie(COOKIE_N2, { path: '/' });
+}
+
+// Protege páginas HTML do N2: sem cookie válido, redireciona para o login
+function exigirN2Pagina(req, res, next) {
+  const payload = lerPayload(lerCookie(req, COOKIE_N2));
+  if (payload && payload.nivel === 2) return next();
+  res.redirect('/login-n2');
+}
+
 function assinarToken(nivel) {
   return jwt.sign({ nivel }, process.env.JWT_SECRET, { expiresIn: process.env.JWT_EXPIRES_IN || '30d' });
 }
@@ -74,4 +114,7 @@ function criarLimitadorLogin({ max = 10, janelaMs = 15 * 60 * 1000 } = {}) {
   };
 }
 
-module.exports = { senhaConfere, authN2, authOperador, assinarToken, criarLimitadorLogin };
+module.exports = {
+  senhaConfere, authN2, authOperador, assinarToken, criarLimitadorLogin,
+  definirCookieN2, limparCookieN2, exigirN2Pagina,
+};
