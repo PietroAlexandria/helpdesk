@@ -16,8 +16,12 @@ function radio(name) {
 function nomeOnu(caixa, usuarioNovo, nomeCliente) {
     const caixaLimpa    = caixa.replace(/^OUR_/i, '');
     const numerologin   = usuarioNovo.match(/^\d+/)?.[0] ?? usuarioNovo;
-    const nomeFormatado = nomeCliente.trim().replace(/\s+/g, '_');
+    const nomeFormatado = removerAcentos(nomeCliente.trim()).replace(/\s+/g, '_');
     return `${caixaLimpa}-${numerologin}-${nomeFormatado}`;
+}
+
+function removerAcentos(str) {
+    return str.normalize('NFD').replace(/[\u0300-\u036f]/g, '');
 }
 
 function loginAntigoRenomeado(usuarioAntigo) {
@@ -37,7 +41,7 @@ function coletarFibra() {
     const pppoeAntigo    = v('pppoe-antigo-fibra');
     const idLogin        = v('id-login-fibra');
     const pppoeSenha     = v('pppoe-senha-fibra');
-    const pppoeNovo      = idLogin + nomeNovo.trim().split(/\s+/)[0].toLowerCase();
+    const pppoeNovo      = idLogin + removerAcentos(nomeNovo.trim().split(/\s+/)[0]).toLowerCase();
     const tipoIp         = radio('tipo-ip-fibra');
     const ipVal          = v('ip-fibra');
     const ip             = ipVal || 'NAT';
@@ -172,7 +176,7 @@ function coletarRadio() {
     const pppoeAntigo    = v('pppoe-antigo-radio');
     const idLogin        = v('id-login-radio');
     const pppoeSenha     = v('pppoe-senha-radio');
-    const pppoeNovo      = idLogin + nomeNovo.trim().split(/\s+/)[0].toLowerCase();
+    const pppoeNovo      = idLogin + removerAcentos(nomeNovo.trim().split(/\s+/)[0]).toLowerCase();
     const tipoIp         = radio('tipo-ip-radio');
     const ipVal          = v('ip-radio');
     const ip             = ipVal || 'NAT';
