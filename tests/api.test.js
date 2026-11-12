@@ -14,7 +14,8 @@ process.env.SENHA_N2 = 'senha-n2';
 process.env.SENHA_OPERADOR = 'senha-op';
 process.env.IXC_USER_ID = '1';
 process.env.IXC_TOKEN = 'token-teste';
-process.env.AUDIT_LOG_DIR = AUDIT_DIR;
+process.env.AUDIT_LOG_FILE = path.join(AUDIT_DIR, 'audit.log');
+process.env.AUDIT_STDOUT = '0'; // não poluir a saída dos testes
 
 const app = require('../server');
 const ixcCache = require('../ixcModules/ixcCache');
