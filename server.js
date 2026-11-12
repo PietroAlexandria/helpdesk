@@ -3,6 +3,8 @@ const express = require('express');
 const path = require('path');
 const helmet = require('helmet');
 const ixcRoutes = require('./ixcModules/ixcRoutes'); // IXC
+const { criarMonitor } = require('./statusModules/statusMonitor'); // Status de serviços (DownDetector)
+const { criarRotasStatus } = require('./statusModules/statusRoutes');
 const {
     senhaConfere, authN2, assinarToken, criarLimitadorLogin,
     definirCookieN2, limparCookieN2, exigirN2Pagina, criarLimitadorGeral,
@@ -92,6 +94,9 @@ app.get('/pagamento', (_, res) => res.sendFile(path.join(__dirname, 'views', 'op
 // Rota - Dúvidas
 app.get('/duvidas', (_, res) => res.sendFile(path.join(__dirname, 'views', 'options-html', 'duvidas.html')));
 
+// Rota - Status dos Serviços (DownDetector)
+app.get('/status', (_, res) => res.sendFile(path.join(__dirname, 'views', 'status.html')));
+
 // Rota - Tutorial
 app.get('/tutorial', (_, res) => res.sendFile(path.join(__dirname, 'views', 'tutorial.html')));
 
@@ -151,6 +156,12 @@ app.get('/troca-titularidade', exigirN2Pagina, (_, res) => res.sendFile(path.joi
 app.use('/api/ixc', criarLimitadorGeral({ max: 60, janelaMs: 60 * 1000 }), ixcRoutes);
 
 // ---------------------------------------- //
+// Status de serviços de terceiros (Meta, Google, Microsoft...). A coleta roda em segundo plano
+// (iniciada só no listen, abaixo); a rota apenas lê o último estado.
+const statusMonitor = criarMonitor();
+app.use('/api/status', criarLimitadorGeral({ max: 60, janelaMs: 60 * 1000 }), criarRotasStatus(statusMonitor));
+
+// ---------------------------------------- //
 // /api/* inexistente responde JSON (e não o HTML padrão do Express)
 app.use('/api', (_, res) => res.status(404).json({ erro: 'Rota não encontrada' }));
 
@@ -171,6 +182,7 @@ app.use((err, req, res, _next) => {
 // Inicia o servidor só quando executado diretamente (os testes importam o app)
 if (require.main === module) {
     const server = app.listen(PORT, () => console.log(`Rodando em http://localhost:${PORT}`));
+    if (process.env.STATUS_MONITOR !== '0') statusMonitor.iniciar(); // STATUS_MONITOR=0 desliga a coleta
 
     // Encerramento gracioso (o Render envia SIGTERM no redeploy): termina as requisições em andamento
     let encerrando = false;

@@ -199,6 +199,7 @@ e use `IXC_HOST=http://localhost:4000`.
 | `GET` | `/sva` | Módulo suporte de SVA's |
 | `GET` | `/pagamento` | Módulo financeiro |
 | `GET` | `/duvidas` | Módulo dúvidas |
+| `GET` | `/status` | Status dos serviços (Meta, YouTube, Google, Microsoft...) — "DownDetector" interno |
 | `GET` | `/login-n2` | Página de login do Nível 2 |
 | `GET` | `/nivel2` | Menu exclusivo do Nível 2 (exige cookie de sessão N2) |
 | `GET` | `/troca-titularidade` | Módulo N2: Troca de Titularidade (exige cookie de sessão N2) |
@@ -209,6 +210,7 @@ e use `IXC_HOST=http://localhost:4000`.
 | `POST` | `/api/auth/operador` | Autentica senha de operador (N1/N2) e emite JWT (`x-op-token`) |
 | `GET` | `/api/ixc/contrato/:id` | Consulta contrato no IXC (cliente, PPPoE, fibra). Exige operador ou N2 |
 | `POST` | `/api/ixc/desconectar/:idLogin` | Derruba a sessão PPPoE (body: `idContrato`). Exige operador ou N2; auditado |
+| `GET` | `/api/status` | Estado atual dos serviços monitorados (sondas HTTP + páginas de status oficiais, atualizado a cada 60s). Exige operador ou N2 |
 
 ---
 
@@ -227,6 +229,7 @@ e use `IXC_HOST=http://localhost:4000`.
 | `JWT_EXPIRES_IN` | `12h` | Tempo de expiração dos tokens JWT |
 | `AUDIT_LOG_FILE` | — | Se definido, grava também a auditoria neste arquivo. Por padrão só sai no stdout (o disco do Render é efêmero) |
 | `AUDIT_STDOUT` | `1` | `0` desliga a auditoria no stdout |
+| `STATUS_MONITOR` | `1` | `0` desliga a coleta em segundo plano do status dos serviços (lista em `statusModules/statusConfig.js`) |
 
 > O servidor usa `trust proxy` (1 nível) para obter o IP real atrás do proxy do Render —
 > necessário para o rate limit de login (10 falhas por IP em 15 min).
