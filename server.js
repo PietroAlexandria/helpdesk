@@ -5,8 +5,9 @@ const helmet = require('helmet');
 const ixcRoutes = require('./ixcModules/ixcRoutes'); // IXC
 const {
     senhaConfere, authN2, assinarToken, criarLimitadorLogin,
-    definirCookieN2, limparCookieN2, exigirN2Pagina,
+    definirCookieN2, limparCookieN2, exigirN2Pagina, criarLimitadorGeral,
 } = require('./auth');
+const crypto = require('crypto');
 const { auditar } = require('./audit');
 
 if (!process.env.JWT_SECRET) {
@@ -16,6 +17,12 @@ if (!process.env.JWT_SECRET) {
 
 const app = express();
 app.disable('x-powered-by');
+// Identificador por requisição (devolvido no header e nos erros) para rastrear problemas nos logs
+app.use((req, res, next) => {
+    req.id = crypto.randomUUID();
+    res.setHeader('X-Request-Id', req.id);
+    next();
+});
 // Headers de segurança (CSP, anti-clickjacking, nosniff, HSTS em HTTPS...)
 // 'unsafe-inline' é necessário porque as telas usam onclick/<style> inline.
 app.use(helmet({
@@ -140,12 +147,51 @@ app.get('/troca-titularidade', exigirN2Pagina, (_, res) => res.sendFile(path.joi
 
 // ---------------------------------------- //
 // Rotas da integração IXC (exigem login de operador)
-app.use('/api/ixc', ixcRoutes);
+// Limite geral (60 req/min por IP) antes mesmo da autenticação
+app.use('/api/ixc', criarLimitadorGeral({ max: 60, janelaMs: 60 * 1000 }), ixcRoutes);
+
+// ---------------------------------------- //
+// /api/* inexistente responde JSON (e não o HTML padrão do Express)
+app.use('/api', (_, res) => res.status(404).json({ erro: 'Rota não encontrada' }));
+
+// Handler global de erros: JSON padronizado, sem vazar stack trace
+app.use((err, req, res, _next) => {
+    if (err.type === 'entity.parse.failed') {
+        return res.status(400).json({ erro: 'JSON inválido' });
+    }
+    if (err.type === 'entity.too.large') {
+        return res.status(413).json({ erro: 'Corpo da requisição grande demais' });
+    }
+    console.error(JSON.stringify({ nivel: 'erro', requestId: req.id, metodo: req.method, url: req.originalUrl, msg: err.message, stack: err.stack }));
+    if (res.headersSent) return;
+    res.status(500).json({ erro: 'Erro interno do servidor', requestId: req.id });
+});
 
 // ---------------------------------------- //
 // Inicia o servidor só quando executado diretamente (os testes importam o app)
 if (require.main === module) {
-    app.listen(PORT, () => console.log(`Rodando em http://localhost:${PORT}`));
+    const server = app.listen(PORT, () => console.log(`Rodando em http://localhost:${PORT}`));
+
+    // Encerramento gracioso (o Render envia SIGTERM no redeploy): termina as requisições em andamento
+    let encerrando = false;
+    const encerrar = (sinal) => {
+        if (encerrando) return;
+        encerrando = true;
+        console.log(`${sinal} recebido — encerrando o servidor...`);
+        server.close(() => process.exit(0));
+        server.closeIdleConnections?.();
+        setTimeout(() => process.exit(1), 10000).unref(); // força a saída se travar
+    };
+    process.on('SIGTERM', () => encerrar('SIGTERM'));
+    process.on('SIGINT', () => encerrar('SIGINT'));
+
+    process.on('unhandledRejection', (motivo) => {
+        console.error(JSON.stringify({ nivel: 'erro', evento: 'unhandledRejection', msg: String(motivo?.message || motivo) }));
+    });
+    process.on('uncaughtException', (err) => {
+        console.error(JSON.stringify({ nivel: 'fatal', evento: 'uncaughtException', msg: err.message, stack: err.stack }));
+        encerrar('uncaughtException');
+    });
 }
 
 module.exports = app;

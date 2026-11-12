@@ -237,6 +237,56 @@ describe('área N2', () => {
   });
 });
 
+describe('robustez da API', () => {
+  test('responde com X-Request-Id único por requisição', async () => {
+    const a = await request(app).get('/health');
+    const b = await request(app).get('/health');
+    assert.ok(a.headers['x-request-id']);
+    assert.notEqual(a.headers['x-request-id'], b.headers['x-request-id']);
+  });
+
+  test('JSON malformado: 400 em JSON, sem stack trace', async () => {
+    const r = await request(app)
+      .post('/api/auth/operador')
+      .set('X-Forwarded-For', '10.6.0.1')
+      .set('Content-Type', 'application/json')
+      .send('{"senha": ');
+    assert.equal(r.status, 400);
+    assert.equal(r.body.erro, 'JSON inválido');
+    assert.ok(!JSON.stringify(r.body).includes('at '));
+  });
+
+  test('rota /api inexistente: 404 em JSON', async () => {
+    const r = await request(app).get('/api/nao-existe');
+    assert.equal(r.status, 404);
+    assert.equal(r.body.erro, 'Rota não encontrada');
+  });
+
+  test('rate limit geral: 61ª requisição em /api/ixc retorna 429 com Retry-After', async () => {
+    const ip = '10.5.0.1';
+    for (let i = 0; i < 60; i++) {
+      const r = await request(app).get('/api/ixc/contrato/abc').set('X-Forwarded-For', ip).set('x-op-token', tokenOp);
+      assert.equal(r.status, 400);
+    }
+    const r = await request(app).get('/api/ixc/contrato/abc').set('X-Forwarded-For', ip).set('x-op-token', tokenOp);
+    assert.equal(r.status, 429);
+    assert.ok(Number(r.headers['retry-after']) > 0);
+    // outro IP não é afetado
+    const outro = await request(app).get('/api/ixc/contrato/abc').set('X-Forwarded-For', '10.5.0.2').set('x-op-token', tokenOp);
+    assert.equal(outro.status, 400);
+  });
+
+  test('rate limit de desconectar: 11ª chamada no minuto retorna 429', async () => {
+    const ip = '10.4.0.1';
+    for (let i = 0; i < 10; i++) {
+      const r = await request(app).post('/api/ixc/desconectar/abc').set('X-Forwarded-For', ip).set('x-op-token', tokenOp).send({});
+      assert.equal(r.status, 400);
+    }
+    const r = await request(app).post('/api/ixc/desconectar/abc').set('X-Forwarded-For', ip).set('x-op-token', tokenOp).send({});
+    assert.equal(r.status, 429);
+  });
+});
+
 describe('ixcCache', () => {
   test('expira por TTL', async () => {
     ixcCache.set('ttl', { a: 1 }, 20);

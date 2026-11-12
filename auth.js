@@ -117,7 +117,35 @@ function criarLimitadorLogin({ max = 10, janelaMs = 15 * 60 * 1000 } = {}) {
   };
 }
 
+// Rate limit geral em memória: conta TODAS as requisições por IP numa janela fixa
+function criarLimitadorGeral({ max = 60, janelaMs = 60 * 1000 } = {}) {
+  const contagem = new Map();
+
+  setInterval(() => {
+    const agora = Date.now();
+    for (const [chave, r] of contagem) {
+      if (agora - r.inicio >= janelaMs) contagem.delete(chave);
+    }
+  }, janelaMs).unref();
+
+  return (req, res, next) => {
+    const chave = req.ip || req.socket.remoteAddress || 'unknown';
+    const agora = Date.now();
+    let r = contagem.get(chave);
+    if (!r || agora - r.inicio >= janelaMs) {
+      r = { count: 0, inicio: agora };
+      contagem.set(chave, r);
+    }
+    r.count += 1;
+    if (r.count > max) {
+      res.set('Retry-After', String(Math.ceil((r.inicio + janelaMs - agora) / 1000)));
+      return res.status(429).json({ erro: 'Muitas requisições. Tente novamente em instantes.' });
+    }
+    next();
+  };
+}
+
 module.exports = {
-  senhaConfere, authN2, authOperador, assinarToken, criarLimitadorLogin,
+  senhaConfere, authN2, authOperador, assinarToken, criarLimitadorLogin, criarLimitadorGeral,
   definirCookieN2, limparCookieN2, exigirN2Pagina,
 };

@@ -1,11 +1,14 @@
 const express = require('express');
 const router = express.Router();
 const { buscarDadosContrato, desconectarSessaoPPPoE } = require('./ixcService');
-const { authOperador } = require('../auth');
+const { authOperador, criarLimitadorGeral } = require('../auth');
 const { auditar } = require('../audit');
 
 // Todas as rotas do IXC exigem operador autenticado
 router.use(authOperador);
+
+// Derrubar PPPoE é a ação mais sensível: limite mais baixo (10 por minuto por IP)
+const limiteDesconectar = criarLimitadorGeral({ max: 10, janelaMs: 60 * 1000 });
 
 // Traduz erros de rede/IXC em mensagem amigável + status HTTP (sem vazar detalhes internos)
 function traduzirErro(err) {
@@ -42,7 +45,7 @@ router.get('/contrato/:id', async (req, res) => {
 });
 
 // POST /api/ixc/desconectar/:idLogin
-router.post('/desconectar/:idLogin', async (req, res) => {
+router.post('/desconectar/:idLogin', limiteDesconectar, async (req, res) => {
   const idLogin = String(req.params.idLogin || '').trim();
   const idContrato = String(req.body?.idContrato ?? '').trim();
 
