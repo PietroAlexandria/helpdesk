@@ -2,7 +2,7 @@
 
 > Ferramenta interna de suporte para operadores de ISP — agilize atendimentos e elimine o bloco de notas.
 
-[![Node.js](https://img.shields.io/badge/Node.js-18%2B-339933?style=flat-square&logo=nodedotjs)](https://nodejs.org/)
+[![Node.js](https://img.shields.io/badge/Node.js-20.19%2B-339933?style=flat-square&logo=nodedotjs)](https://nodejs.org/)
 [![Express](https://img.shields.io/badge/Express-5.x-000000?style=flat-square&logo=express)](https://expressjs.com/)
 [![Deploy](https://img.shields.io/badge/Deploy-Render-46E3B7?style=flat-square&logo=render)](https://helpdesk-izcw.onrender.com)
 [![License](https://img.shields.io/badge/License-ISC-blue?style=flat-square)](LICENSE)
@@ -55,7 +55,7 @@ dev tool     Nodemon (hot-reload)
 helpdesk/
 ├── server.js                          # Entrada principal — Express, helmet, logins e rotas
 ├── auth.js                            # JWT (operador/N2), cookie N2, rate limit de login
-├── audit.js                           # Log de auditoria (logs/audit.log, JSON por linha)
+├── audit.js                           # Log de auditoria (stdout; arquivo opcional), JSON por linha
 ├── mock-ixc-server.js                 # Servidor mock do IXC para testes locais (porta 4000)
 ├── eslint.config.js                   # Configuração do ESLint (npm run lint)
 ├── package.json
@@ -129,7 +129,7 @@ helpdesk/
 
 ## 🚀 Rodando Localmente
 
-**Pré-requisitos:** Node.js 18+
+**Pré-requisitos:** Node.js 20.19+ (veja `.nvmrc`; a CI testa Node 22 e 24)
 
 ### Instalação
 
@@ -169,6 +169,11 @@ A aplicação sobe em [http://localhost:3000](http://localhost:3000).
 | `npm run dev` | Sobe com hot-reload (nodemon) |
 | `npm test` | Roda a suíte de testes de API |
 | `npm run lint` | Roda o ESLint |
+
+A CI (`.github/workflows/ci.yml`) roda `npm run lint` e `npm test` em todo PR e push na `main`.
+
+> **Privacidade (LGPD):** o histórico de atendimentos e o bloco de notas ficam no `localStorage` do
+> navegador e são apagados automaticamente após 24h.
 
 Para testar a integração IXC localmente, rode `node mock-ixc-server.js` em outro terminal
 e use `IXC_HOST=http://localhost:4000`.
@@ -220,7 +225,8 @@ e use `IXC_HOST=http://localhost:4000`.
 | `SENHA_OPERADOR` | — | Senha de operador (N1/N2) para usar as rotas `/api/ixc/*` |
 | `JWT_SECRET` | — | **Obrigatório.** Segredo dos tokens JWT (o servidor não sobe sem ele) |
 | `JWT_EXPIRES_IN` | `12h` | Tempo de expiração dos tokens JWT |
-| `AUDIT_LOG_DIR` | `./logs` | Pasta do log de auditoria (`audit.log`) |
+| `AUDIT_LOG_FILE` | — | Se definido, grava também a auditoria neste arquivo. Por padrão só sai no stdout (o disco do Render é efêmero) |
+| `AUDIT_STDOUT` | `1` | `0` desliga a auditoria no stdout |
 
 > O servidor usa `trust proxy` (1 nível) para obter o IP real atrás do proxy do Render —
 > necessário para o rate limit de login (10 falhas por IP em 15 min).
