@@ -1,5 +1,41 @@
 let painelAtivo = null;
 
+// --- Retenção de dados no navegador (LGPD) ---
+// Histórico e notepad guardam nome/telefone/endereço de clientes; expiram após 24h.
+const RETENCAO_MS = 24 * 60 * 60 * 1000;
+
+function purgarDadosAntigos() {
+    try {
+        const agora = Date.now();
+
+        const historico = JSON.parse(localStorage.getItem('historico') || '[]');
+        // id = Date.now() de quando foi salvo; entradas sem id numérico são mantidas
+        const recentes = historico.filter(item => !(agora - Number(item.id) >= RETENCAO_MS));
+        if (recentes.length !== historico.length) {
+            localStorage.setItem('historico', JSON.stringify(recentes));
+        }
+
+        if (localStorage.getItem('notepad-conteudo')) {
+            const carimbo = Number(localStorage.getItem('notepad-atualizado'));
+            if (!carimbo) {
+                localStorage.setItem('notepad-atualizado', String(agora)); // conteúdo antigo sem data
+            } else if (agora - carimbo >= RETENCAO_MS) {
+                localStorage.removeItem('notepad-conteudo');
+                localStorage.removeItem('notepad-atualizado');
+            }
+        }
+    } catch { /* localStorage indisponível ou JSON inválido */ }
+}
+
+purgarDadosAntigos();
+// Abas ficam abertas o dia todo: reavalia a cada 30 min e atualiza o painel
+setInterval(() => {
+    purgarDadosAntigos();
+    renderizarHistorico();
+    const notepad = document.getElementById('notepad-textarea');
+    if (notepad && !localStorage.getItem('notepad-conteudo')) notepad.value = '';
+}, 30 * 60 * 1000);
+
 function openPanel(modulo) {
     const container = document.getElementById('sidebar-panel');
     if (!container) return;
@@ -97,6 +133,7 @@ function limparNotepad() {
     const el = document.getElementById('notepad-textarea');
     if (el) el.value = '';
     localStorage.removeItem('notepad-conteudo');
+    localStorage.removeItem('notepad-atualizado');
 }
 
 function toggleHistoricoCard(header) {
@@ -326,6 +363,7 @@ function renderizarContratosRecentes() {
         notepadEl.value = localStorage.getItem('notepad-conteudo') || '';
         notepadEl.addEventListener('input', (e) => {
             localStorage.setItem('notepad-conteudo', e.target.value);
+            localStorage.setItem('notepad-atualizado', String(Date.now()));
         });
     }
 
