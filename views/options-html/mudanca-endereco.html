@@ -26,6 +26,20 @@
             <div class="card">
                 <p class="card-title">Coleta de Dados</p>
 
+                <!-- ID do contrato / integração IXC desativado (API ainda em mock). Reativar quando a API real estiver disponível!
+                <div class="field">
+                    <label>ID Contrato</label>
+                    <div style="display:flex; gap:8px; align-items:center">
+                        <input type="text" name="id_contrato" id="id_contrato" placeholder="Ex: 91188" style="flex:1"
+                               onkeydown="if(event.key==='Enter'){event.preventDefault();buscarContrato('mudanca-endereco');}">
+                        <button class="btn-copy" type="button" onclick="buscarContrato('mudanca-endereco')" style="white-space:nowrap">🔍 Buscar</button>
+                    </div>
+                    <div id="ixc-feedback" class="ixc-feedback"></div>
+                    <div id="ixc-telemetria" style="display:none"></div>
+                </div>
+                -->
+                <hr class="sep">
+
                 <div class="field">
                     <label class="field-subtitle">Via de Contato</label>
                     <div class="radio-group">
@@ -314,7 +328,9 @@
     <script src="/js/options-js/mudanca-endereco.js"          ></script>
     <script src="/js/sharedFunctions/functionButtonsCopy.js"  ></script>
     <script src="/js/sharedFunctions/functionCardHistory.js"  ></script>
+    <script src="/js/sharedFunctions/functionStatusPanel.js"></script>
     <script src="/js/sharedFunctions/functionPreencherColeta.js"></script>
     <div id="toast" class="toast"></div>
+    <!-- <script src="/js/sharedFunctions/ixcAutoFill.js"></script> (desativado junto com o ID do contrato) -->
 </body>
 </html>

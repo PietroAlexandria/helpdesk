@@ -85,6 +85,7 @@
     <script src="/js/sharedFunctions/functionButtonsCopy.js"></script>
     <script src="/js/sharedFunctions/functionMostrarAlerta.js"></script>
     <script src="/js/sharedFunctions/functionCardHistory.js"></script>
+    <script src="/js/sharedFunctions/functionStatusPanel.js"></script>
     <script>
         (async function () {
             const token = localStorage.getItem('n2-token');
@@ -105,7 +106,9 @@
 
         function logoutN2() {
             localStorage.removeItem('n2-token');
-            window.location.replace('/');
+            fetch('/api/auth/n2/logout', { method: 'POST' })
+                .catch(() => {})
+                .finally(() => window.location.replace('/'));
         }
     </script>
 </body>

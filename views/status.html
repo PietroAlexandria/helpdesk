@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Status dos Serviços - CedNet Helpdesk</title>
+    <link rel="icon" href="/images/LogoCedNet.ico">
+    <link rel="stylesheet" href="/css/status.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <button id="btn-dark-mode" class="btn-dark-mode" onclick="toggleDarkMode()" title="Alternar tema" aria-label="Alternar tema">🌙</button>
+
+    <main class="container">
+        <div class="page-header">
+            <a href="/" class="btn-back">← Voltar</a>
+            <h1 class="page-title">📶 Status dos Serviços</h1>
+        </div>
+
+        <section class="card" aria-live="polite">
+            <div id="resumo" class="resumo">Carregando…</div>
+            <p id="aviso-conectividade" class="aviso" hidden>
+                ⚠️ O servidor parece estar sem conectividade externa — os resultados abaixo não são confiáveis.
+            </p>
+            <p id="atualizado" class="atualizado"></p>
+        </section>
+
+        <div id="grupos"></div>
+
+        <p class="rodape">
+            Verificação automática a cada minuto: teste de acesso a partir do servidor + páginas de status oficiais.
+            Não representa a rede dos clientes.
+        </p>
+    </main>
+
+    <script src="/js/sharedFunctions/functionDarkMode.js"></script>
+    <script src="/js/sharedFunctions/ixcAutoFill.js"></script>
+    <script src="/js/options-js/status.js"></script>
+</body>
+</html>
