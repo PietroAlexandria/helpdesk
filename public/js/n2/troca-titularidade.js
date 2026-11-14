@@ -2,7 +2,8 @@ function toggleIpFibra(val) {}
 function toggleIpRadio(val) {}
 
 function toggleModoFibra(val) {
-    document.getElementById('campos-bridge').style.display = val === 'Bridge' ? 'block' : 'none';
+    document.querySelectorAll('#card-fibra .campo-bridge')
+        .forEach(el => el.style.display = val === 'Bridge' ? 'block' : 'none');
 }
 
 function v(name) {
@@ -13,11 +14,33 @@ function radio(name) {
     return document.querySelector(`input[name="${name}"]:checked`)?.value || '';
 }
 
+// Limite de caracteres aceito pela OLT no comando "name" da ONU.
+// Para confirmar na OLT: dentro de config-gpon-onu, digite "name ?".
+const LIMITE_NOME_ONU = 30;
+
 function nomeOnu(caixa, usuarioNovo, nomeCliente) {
-    const caixaLimpa    = caixa.replace(/^OUR_/i, '');
-    const numerologin   = usuarioNovo.match(/^\d+/)?.[0] ?? usuarioNovo;
-    const nomeFormatado = removerAcentos(nomeCliente.trim()).replace(/\s+/g, '_');
-    return `${caixaLimpa}-${numerologin}-${nomeFormatado}`;
+    const caixaLimpa  = caixa.replace(/^OUR_/i, '');
+    const numerologin = usuarioNovo.match(/^\d+/)?.[0] ?? usuarioNovo;
+    const prefixo     = `${caixaLimpa}-${numerologin}-`;
+    const partes      = removerAcentos(nomeCliente.trim()).split(/\s+/).filter(Boolean);
+    const espaco      = LIMITE_NOME_ONU - prefixo.length;
+
+    // Tenta do mais completo ao mais curto até caber no limite:
+    // nome completo → primeiro + último → primeiro + inicial do último → só o primeiro
+    const primeiro = partes[0] || '';
+    const ultimo   = partes.length > 1 ? partes[partes.length - 1] : '';
+    const opcoes = [
+        partes.join('_'),
+        ultimo ? `${primeiro}_${ultimo}` : primeiro,
+        ultimo ? `${primeiro}_${ultimo[0]}` : primeiro,
+        primeiro,
+    ];
+    const nomeCabe = opcoes.find(o => o.length <= espaco);
+
+    // Se nem o primeiro nome couber, corta no limite
+    return nomeCabe !== undefined
+        ? prefixo + nomeCabe
+        : (prefixo + primeiro).slice(0, LIMITE_NOME_ONU);
 }
 
 function removerAcentos(str) {
@@ -78,21 +101,22 @@ function coletarFibra() {
     if (!nomeCliente)    { mostrarAlerta('Preencha o Nome do Cliente Novo!'); return null; }
 
     const nomeOnuStr  = nomeOnu(caixa, pppoeNovo, nomeCliente);
-    const loginAntigo = loginAntigoRenomeado(pppoeAntigo);
 
     const blocoImportados = modo === 'Bridge'
         ? `Dados importados.
+Modelo ONU/ONT: ${modeloOnu || '-'}
 MAC ONU/ONT: ${macOnu}
 Serial Number ONU/ONT: ${serialOnu}
-Modelo ONU/ONT: ${modeloOnu || '-'}
+
+Modelo Roteador: ${modeloRoteador || '-'}
 MAC Roteador: ${macRoteador || '-'}
-Serial Number Roteador: ${serialRoteador || '-'}
-Modelo Roteador: ${modeloRoteador || '-'}`
+Serial Number Roteador: ${serialRoteador || '-'}`
         : `Dados importados.
 MAC ONU/ONT: ${macOnu}
 Serial Number ONU/ONT: ${serialOnu}
-MAC Roteador: ${macRoteador || '-'}
-Modelo Roteador: ${modeloRoteador || '-'}`;
+
+Modelo Roteador: ${modeloRoteador || '-'}
+MAC Roteador: ${macRoteador || '-'}`;
 
     const bloco1 = `De: ${nomeAntigo} - Protocolo ${osAntiga} - Contrato ${contratoAntigo}
 Para: ${nomeNovo} - Protocolo ${osNova} - Contrato ${contratoNovo}
@@ -116,8 +140,7 @@ ${nomeOnuStr}${obs ? `
 
 Observações: ${obs}` : ''}`;
 
-    const bloco2 = `${nomeOnuStr}
-Login antigo renomeado para: ${loginAntigo}`;
+    const bloco2 = nomeOnuStr;
 
     return { bloco1, bloco2, blocoImportados, pppoeNovo };
 }
@@ -159,8 +182,7 @@ function copiarBloco3Fibra(botao) {
 function limparFibra() {
     document.querySelectorAll('#card-fibra input[type="text"]').forEach(el => el.value = '');
     document.querySelectorAll('#card-fibra input[type="radio"]').forEach(el => el.checked = false);
-    document.getElementById('campo-ip-fibra').style.display = 'none';
-    document.getElementById('campos-bridge').style.display = 'none';
+    toggleModoFibra('');
 }
 
 // ── Rádio ─────────────────────────────────────────────────────────────────────

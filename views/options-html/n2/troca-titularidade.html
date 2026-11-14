@@ -94,10 +94,6 @@
                     <input type="text" id="pon" name="pon">
                     <label for="caixa">CAIXA</label>
                     <input type="text" id="caixa" name="caixa">
-                    <label for="mac-onu">MAC ONU</label>
-                    <input type="text" id="mac-onu" name="mac-onu">
-                    <label for="serial-onu">Serial ONU</label>
-                    <input type="text" id="serial-onu" name="serial-onu">
                 </div>
 
                 <hr class="sep">
@@ -110,23 +106,32 @@
                     </div>
                 </div>
 
-                <!-- Campos extras Bridge -->
-                <div id="campos-bridge" style="display:none">
-                    <div class="field">
+                <!-- ONU/ONT -->
+                <div class="field">
+                    <label class="field-subtitle">ONU/ONT</label>
+                    <div class="campo-bridge" style="display:none">
                         <label for="modelo-onu">Modelo ONU/ONT</label>
                         <input type="text" id="modelo-onu" name="modelo-onu">
-                        <label for="serial-roteador">Serial Number Roteador</label>
-                        <input type="text" id="serial-roteador" name="serial-roteador">
                     </div>
+                    <label for="mac-onu">MAC ONU/ONT</label>
+                    <input type="text" id="mac-onu" name="mac-onu">
+                    <label for="serial-onu">Serial Number ONU/ONT</label>
+                    <input type="text" id="serial-onu" name="serial-onu">
                 </div>
 
                 <hr class="sep">
 
+                <!-- Roteador -->
                 <div class="field">
-                    <label for="mac-roteador-fibra">MAC Roteador</label>
-                    <input type="text" id="mac-roteador-fibra" name="mac-roteador-fibra">
+                    <label class="field-subtitle">Roteador</label>
                     <label for="modelo-roteador-fibra">Modelo Roteador</label>
                     <input type="text" id="modelo-roteador-fibra" name="modelo-roteador-fibra">
+                    <label for="mac-roteador-fibra">MAC Roteador</label>
+                    <input type="text" id="mac-roteador-fibra" name="mac-roteador-fibra">
+                    <div class="campo-bridge" style="display:none">
+                        <label for="serial-roteador">Serial Number Roteador</label>
+                        <input type="text" id="serial-roteador" name="serial-roteador">
+                    </div>
                 </div>
 
                 <hr class="sep">
