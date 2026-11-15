@@ -199,6 +199,7 @@ e use `IXC_HOST=http://localhost:4000`.
 | `GET` | `/sva` | Módulo suporte de SVA's |
 | `GET` | `/pagamento` | Módulo financeiro |
 | `GET` | `/duvidas` | Módulo dúvidas |
+| `GET` | `/consulta-pppoe` | Tela só de consulta da sessão PPPoE no concentrador (pede a `SENHA_PPPOE`) |
 | `GET` | `/status` | Status dos serviços (Meta, YouTube, Google, Microsoft...) — "DownDetector" interno |
 | `GET` | `/login-n2` | Página de login do Nível 2 |
 | `GET` | `/nivel2` | Menu exclusivo do Nível 2 (exige cookie de sessão N2) |
@@ -210,7 +211,7 @@ e use `IXC_HOST=http://localhost:4000`.
 | `POST` | `/api/auth/operador` | Autentica senha de operador (N1/N2) e emite JWT (`x-op-token`) |
 | `GET` | `/api/ixc/contrato/:id` | Consulta contrato no IXC (cliente, PPPoE, fibra). Exige operador ou N2 |
 | `POST` | `/api/ixc/desconectar/:idLogin` | Derruba a sessão PPPoE (body: `idContrato`). Exige operador ou N2; auditado |
-| `GET` | `/api/pppoe/:login` | Sessão PPPoE ao vivo no concentrador Huawei via SSH (IP, MAC, plano/QoS, tempo online, consumo). Exige operador ou N2; 20/min; auditado. Teste no equipamento real: [TESTE-PPPOE.md](TESTE-PPPOE.md) |
+| `GET` | `/api/pppoe/:login` | Sessão PPPoE ao vivo no concentrador Huawei via SSH (IP, MAC, plano/QoS, tempo online, consumo). Exige token da consulta PPPoE (`x-pppoe-token`, via `POST /api/auth/pppoe` com `SENHA_PPPOE`) ou N2; 10/min por IP, o mesmo login 1x a cada 15s e no máximo 2 sessões SSH simultâneas; auditado com id de sessão. O token PPPoE tem escopo próprio e não abre nenhuma outra rota. Nas telas Sem Conexão e Conexão Lenta há o bloco "Consulta PPPoE". Teste no equipamento real: [TESTE-PPPOE.md](TESTE-PPPOE.md) |
 | `GET` | `/api/status` | Estado atual dos serviços monitorados (sondas HTTP + páginas de status oficiais, atualizado a cada 60s). Exige operador ou N2 |
 
 ---
@@ -229,6 +230,9 @@ e use `IXC_HOST=http://localhost:4000`.
 | `PPPOE_SSH_USER` / `PPPOE_SSH_PASS` | — | Usuário SSH **somente leitura** do concentrador |
 | `PPPOE_SSH_HOST_FINGERPRINT` | — | Opcional: fixa a chave do host (`SHA256:...` do `ssh-keygen -lf`) |
 | `PPPOE_SSH_TIMEOUT_MS` | `15000` | Tempo máximo de uma consulta PPPoE |
+| `SENHA_PPPOE` | — | Senha que libera a consulta PPPoE nas telas (separada da de operador; N2 também acessa). Use 12+ caracteres; trocar a senha invalida todos os acessos já liberados |
+| `PPPOE_TOKEN_EXPIRES_IN` | `8h` | Validade do acesso liberado pela `SENHA_PPPOE` |
+| `PPPOE_MAX_SIMULTANEAS` | `2` | Máximo de sessões SSH simultâneas no concentrador (excedente recebe 503) |
 | `SENHA_N2` | — | Senha de acesso aos módulos restritos do Nível 2 |
 | `SENHA_OPERADOR` | — | Senha de operador (N1/N2) para usar as rotas `/api/ixc/*` |
 | `JWT_SECRET` | — | **Obrigatório.** Segredo dos tokens JWT (o servidor não sobe sem ele) |

@@ -12,6 +12,7 @@ const AUDIT_DIR = fs.mkdtempSync(path.join(os.tmpdir(), 'helpdesk-audit-'));
 process.env.JWT_SECRET = 'segredo-de-teste';
 process.env.SENHA_N2 = 'senha-n2';
 process.env.SENHA_OPERADOR = 'senha-op';
+process.env.SENHA_PPPOE = 'senha-pppoe';
 process.env.IXC_USER_ID = '1';
 process.env.IXC_TOKEN = 'token-teste';
 process.env.AUDIT_LOG_FILE = path.join(AUDIT_DIR, 'audit.log');
@@ -82,6 +83,33 @@ describe('infraestrutura', () => {
   test('rotas removidas (teste-ixc e legado) retornam 404', async () => {
     assert.equal((await request(app).get('/teste-ixc')).status, 404);
     assert.equal((await request(app).get('/api/contrato/1')).status, 404);
+  });
+});
+
+describe('login da consulta PPPoE', () => {
+  test('senha de operador não serve; senha própria devolve token; 5 falhas bloqueiam', async () => {
+    const ip = '10.7.7.7';
+    assert.equal((await request(app).post('/api/auth/pppoe').set('X-Forwarded-For', '10.7.7.1').send({ senha: 'senha-op' })).status, 401);
+    const ok = await request(app).post('/api/auth/pppoe').set('X-Forwarded-For', '10.7.7.2').send({ senha: 'senha-pppoe' });
+    assert.equal(ok.status, 200);
+    assert.ok(ok.body.token);
+    for (let i = 0; i < 5; i++) await request(app).post('/api/auth/pppoe').set('X-Forwarded-For', ip).send({ senha: 'x' });
+    assert.equal((await request(app).post('/api/auth/pppoe').set('X-Forwarded-For', ip).send({ senha: 'senha-pppoe' })).status, 429);
+  });
+
+  test('token de operador não acessa /api/pppoe', async () => {
+    assert.equal((await request(app).get('/api/pppoe/fulano').set('x-op-token', tokenOp)).status, 401);
+  });
+
+  test('token PPPoE não vale como operador nem N2 (IXC, desconectar, status, páginas N2)', async () => {
+    const t = (await request(app).post('/api/auth/pppoe').set('X-Forwarded-For', '10.7.7.3').send({ senha: 'senha-pppoe' })).body.token;
+    for (const header of ['x-op-token', 'x-n2-token']) {
+      assert.equal((await request(app).get('/api/ixc/contrato/123').set(header, t)).status, 401);
+      assert.equal((await request(app).post('/api/ixc/desconectar/77').set(header, t).send({ idContrato: '123' })).status, 401);
+      assert.equal((await request(app).get('/api/status').set(header, t)).status, 401);
+    }
+    assert.equal((await request(app).post('/api/auth/n2/verify').set('x-n2-token', t)).status, 401);
+    assert.equal((await request(app).get('/nivel2').set('Cookie', `n2=${t}`)).headers.location, '/login-n2');
   });
 });
 

@@ -9,7 +9,7 @@ const { criarMonitor } = require('./statusModules/statusMonitor'); // Status de 
 const { criarRotasStatus } = require('./statusModules/statusRoutes');
 const {
     senhaConfere, authN2, assinarToken, criarLimitadorLogin,
-    definirCookieN2, limparCookieN2, exigirN2Pagina, criarLimitadorGeral,
+    definirCookieN2, limparCookieN2, exigirN2Pagina, criarLimitadorGeral, assinarTokenPPPoE,
 } = require('./auth');
 const crypto = require('crypto');
 const { auditar } = require('./audit');
@@ -17,6 +17,16 @@ const { auditar } = require('./audit');
 if (!process.env.JWT_SECRET) {
     console.error('JWT_SECRET não configurado no .env — abortando.');
     process.exit(1);
+}
+
+// A SENHA_PPPOE libera sessões SSH no concentrador: avisa se estiver fraca ou repetida
+if (process.env.SENHA_PPPOE) {
+    if (process.env.SENHA_PPPOE.length < 12) {
+        console.warn('[seguranca] SENHA_PPPOE tem menos de 12 caracteres — use uma senha mais longa.');
+    }
+    if ([process.env.SENHA_OPERADOR, process.env.SENHA_N2].includes(process.env.SENHA_PPPOE)) {
+        console.warn('[seguranca] SENHA_PPPOE é igual à de operador ou N2 — a separação de acesso perde o sentido.');
+    }
 }
 
 const app = express();
@@ -55,6 +65,7 @@ app.use(express.urlencoded({ extended: false }));
 // Rate limit (só tentativas falhas) para proteger os logins contra força bruta
 const limiteN2 = criarLimitadorLogin();
 const limiteOperador = criarLimitadorLogin();
+const limitePPPoE = criarLimitadorLogin({ max: 5 });
 
 // Porta dinâmica para funcionar no Render (e localmente também)
 const PORT = process.env.PORT || 3000;
@@ -99,6 +110,9 @@ app.get('/duvidas', (_, res) => res.sendFile(path.join(__dirname, 'views', 'opti
 // Rota - Status dos Serviços (DownDetector)
 app.get('/status', (_, res) => res.sendFile(path.join(__dirname, 'views', 'status.html')));
 
+// Rota - Consulta PPPoE (tela só de consulta; a API exige SENHA_PPPOE ou N2)
+app.get('/consulta-pppoe', (_, res) => res.sendFile(path.join(__dirname, 'views', 'consulta-pppoe.html')));
+
 // Rota - Tutorial
 app.get('/tutorial', (_, res) => res.sendFile(path.join(__dirname, 'views', 'tutorial.html')));
 
@@ -117,6 +131,24 @@ app.post('/api/auth/operador', limiteOperador.verificar, (req, res) => {
     limiteOperador.sucesso(req);
     auditar('login.operador', { ok: true, ip: req.ip });
     res.json({ token: assinarToken(1) });
+});
+
+// ---------------------------------------- //
+// Login da consulta PPPoE — senha própria (SENHA_PPPOE), separada da de operador
+app.post('/api/auth/pppoe', limitePPPoE.verificar, (req, res) => {
+    if (!process.env.SENHA_PPPOE) {
+        return res.status(503).json({ erro: 'SENHA_PPPOE não configurada no servidor' });
+    }
+    const senha = req.body?.senha;
+    if (!senhaConfere(senha, process.env.SENHA_PPPOE)) {
+        limitePPPoE.falha(req);
+        auditar('login.pppoe', { ok: false, ip: req.ip });
+        return res.status(401).json({ erro: 'Senha incorreta' });
+    }
+    limitePPPoE.sucesso(req);
+    const { token, sessao } = assinarTokenPPPoE();
+    auditar('login.pppoe', { ok: true, ip: req.ip, sessao });
+    res.json({ token });
 });
 
 // ---------------------------------------- //

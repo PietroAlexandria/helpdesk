@@ -24,19 +24,85 @@ function authN2(req, res, next) {
   const token = req.headers['x-n2-token'];
   if (!token) return res.status(401).json({ erro: 'Token ausente' });
   const payload = lerPayload(token);
-  if (!payload || payload.nivel !== 2) return res.status(401).json({ erro: 'Token inválido' });
+  if (!tokenDeNivel(payload, 2)) return res.status(401).json({ erro: 'Token inválido' });
   next();
+}
+
+// Token "de nível" (operador/N2): tem `nivel` e NÃO tem escopo restrito.
+// Tokens com `escopo` (ex.: o da consulta PPPoE) nunca valem como operador/N2.
+function tokenDeNivel(payload, nivelMinimo) {
+  return Boolean(payload && !payload.escopo && Number.isInteger(payload.nivel) && payload.nivel >= nivelMinimo);
 }
 
 // Exige operador logado: token de operador (x-op-token, nivel >= 1) OU token N2 válido
 function authOperador(req, res, next) {
   const op = lerPayload(req.headers['x-op-token']);
   const n2 = lerPayload(req.headers['x-n2-token']);
-  if ((op && op.nivel >= 1) || (n2 && n2.nivel === 2)) {
-    req.nivel = n2 && n2.nivel === 2 ? 2 : 1; // para auditoria
+  const ehN2 = tokenDeNivel(n2, 2);
+  if (tokenDeNivel(op, 1) || ehN2) {
+    req.nivel = ehN2 ? 2 : 1; // para auditoria
     return next();
   }
   return res.status(401).json({ erro: 'Não autenticado. Faça login de operador.' });
+}
+
+// --- Consulta PPPoE: token de ESCOPO próprio, emitido com SENHA_PPPOE.
+// Não carrega `nivel`, então não abre nenhuma outra rota (IXC, status, N2).
+// Leva uma "versão" derivada da SENHA_PPPOE: trocar a senha invalida na hora todos os tokens já emitidos.
+function versaoSenhaPPPoE() {
+  return crypto.createHmac('sha256', process.env.JWT_SECRET || '')
+    .update(`pppoe:${process.env.SENHA_PPPOE || ''}`)
+    .digest('hex')
+    .slice(0, 16);
+}
+
+function assinarTokenPPPoE() {
+  const sessao = crypto.randomUUID(); // identifica a sessão na auditoria (a senha é compartilhada)
+  const token = jwt.sign(
+    { escopo: 'pppoe', v: versaoSenhaPPPoE() },
+    process.env.JWT_SECRET,
+    { expiresIn: process.env.PPPOE_TOKEN_EXPIRES_IN || '8h', jwtid: sessao },
+  );
+  return { token, sessao };
+}
+
+// Exige acesso à consulta PPPoE: token de escopo pppoe (x-pppoe-token) OU token N2.
+// O token de operador comum NÃO basta — cada consulta abre uma sessão SSH no concentrador.
+function authPPPoE(req, res, next) {
+  const n2 = lerPayload(req.headers['x-n2-token']);
+  if (tokenDeNivel(n2, 2)) {
+    req.nivel = 2;
+    return next();
+  }
+  const pppoe = lerPayload(req.headers['x-pppoe-token']);
+  if (pppoe && pppoe.escopo === 'pppoe' && process.env.SENHA_PPPOE && pppoe.v === versaoSenhaPPPoE()) {
+    req.nivel = 1;
+    req.sessao = pppoe.jti;
+    return next();
+  }
+  return res.status(401).json({ erro: 'Acesso à consulta PPPoE necessário.' });
+}
+
+// Limita por chave arbitrária (ex.: login consultado): no máximo 1 requisição a cada `intervaloMs`
+function criarLimitadorPorChave({ intervaloMs = 15 * 1000, chave }) {
+  const ultimo = new Map();
+  setInterval(() => {
+    const agora = Date.now();
+    for (const [k, t] of ultimo) if (agora - t >= intervaloMs) ultimo.delete(k);
+  }, Math.max(intervaloMs, 1000)).unref();
+
+  return (req, res, next) => {
+    const k = chave(req);
+    const agora = Date.now();
+    const t = ultimo.get(k);
+    if (t !== undefined && agora - t < intervaloMs) {
+      const espera = Math.ceil((t + intervaloMs - agora) / 1000);
+      res.set('Retry-After', String(espera));
+      return res.status(429).json({ erro: `Este login foi consultado agora há pouco. Aguarde ${espera}s.` });
+    }
+    ultimo.set(k, agora);
+    next();
+  };
 }
 
 // --- Páginas N2: o navegador não envia headers customizados em navegação,
@@ -75,7 +141,7 @@ function limparCookieN2(res) {
 // Protege páginas HTML do N2: sem cookie válido, redireciona para o login
 function exigirN2Pagina(req, res, next) {
   const payload = lerPayload(lerCookie(req, COOKIE_N2));
-  if (payload && payload.nivel === 2) return next();
+  if (tokenDeNivel(payload, 2)) return next();
   res.redirect('/login-n2');
 }
 
@@ -148,4 +214,5 @@ function criarLimitadorGeral({ max = 60, janelaMs = 60 * 1000 } = {}) {
 module.exports = {
   senhaConfere, authN2, authOperador, assinarToken, criarLimitadorLogin, criarLimitadorGeral,
   definirCookieN2, limparCookieN2, exigirN2Pagina,
+  authPPPoE, assinarTokenPPPoE, criarLimitadorPorChave,
 };

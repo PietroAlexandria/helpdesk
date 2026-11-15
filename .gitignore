@@ -4,3 +4,15 @@ node_modules/
 IXC-Integracao.md
 routes/ixc.js
 mock-ixc-server.js
+
+# Segredos e credenciais (nunca versionar)
+.env.*
+!.env.example
+*.pem
+*.key
+*.p12
+*.pfx
+id_rsa*
+id_ed25519*
+*.tmp.log
+audit.log

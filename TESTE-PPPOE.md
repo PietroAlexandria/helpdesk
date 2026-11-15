@@ -24,6 +24,7 @@ PPPOE_SSH_HOST=<host da sessão no MobaXterm>
 PPPOE_SSH_PORT=22
 PPPOE_SSH_USER=<usuário>
 PPPOE_SSH_PASS=<senha>
+SENHA_PPPOE=<senha que libera a consulta nas telas>
 ```
 
 - No MobaXterm, um usuário entre colchetes (ex.: `[nome]`) é o **nome da credencial salva**, não
@@ -47,25 +48,36 @@ npm run pppoe:testar -- <login-pppoe-online> --bruto
 | `FALHOU: ETIMEDOUT` | Rede bloqueada **ou** prompt diferente do esperado — rode com `--bruto` |
 | `FALHOU: client-socket` / `ECONNREFUSED` | Host/porta inacessíveis desta máquina |
 
-## 4. Testar pela API (opcional)
+## 4. Testar pelas telas ou pela API (opcional)
 
 ```bash
 npm start
 ```
 
-Em outro terminal, no PowerShell (troque `<senha-operador>` pela `SENHA_OPERADOR` do `.env`):
+A consulta exige a senha própria `SENHA_PPPOE` do `.env` (a de operador não serve).
+
+**Pelas telas:** a consulta só roda ao clicar em **🔍 Consultar** (Enter e colar não consultam).
+Na primeira consulta a tela pede a senha.
+
+- `/consulta-pppoe` — tela só de consulta (botão "Consulta PPPoE" no menu inicial).
+- `/sem-conexao` e `/conexao-lenta` — escolha Fibra (Caixa ONLINE) ou Rádio (Base ONLINE) e use o bloco
+  **Consulta PPPoE**. O login digitado vai para o campo "Login PPPoE" do agendamento.
+
+**Pela API**, em outro terminal, no PowerShell (troque `<senha-pppoe>` pela `SENHA_PPPOE` do `.env`):
 
 ```powershell
-$t = (Invoke-RestMethod -Method Post localhost:3000/api/auth/operador -ContentType 'application/json' -Body '{"senha":"<senha-operador>"}').token
-Invoke-RestMethod localhost:3000/api/pppoe/<login> -Headers @{ 'x-op-token' = $t }
+$t = (Invoke-RestMethod -Method Post localhost:3000/api/auth/pppoe -ContentType 'application/json' -Body '{"senha":"<senha-pppoe>"}').token
+Invoke-RestMethod localhost:3000/api/pppoe/<login> -Headers @{ 'x-pppoe-token' = $t }
 ```
 
 No bash/Git Bash:
 
 ```bash
-TOKEN=$(curl -s -X POST localhost:3000/api/auth/operador -H 'Content-Type: application/json' -d '{"senha":"<senha-operador>"}' | node -pe 'JSON.parse(require("fs").readFileSync(0)).token')
-curl -s localhost:3000/api/pppoe/<login> -H "x-op-token: $TOKEN"
+TOKEN=$(curl -s -X POST localhost:3000/api/auth/pppoe -H 'Content-Type: application/json' -d '{"senha":"<senha-pppoe>"}' | node -pe 'JSON.parse(require("fs").readFileSync(0)).token')
+curl -s localhost:3000/api/pppoe/<login> -H "x-pppoe-token: $TOKEN"
 ```
+
+Limites: 10 consultas/min por IP e o mesmo login só uma vez a cada 15s (responde 429).
 
 ## 5. O que mandar de volta
 

@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Consulta PPPoE - CedNet Helpdesk</title>
+    <link rel="icon" href="/images/LogoCedNet.ico">
+    <link rel="stylesheet" href="/css/sem-conexao.css">
+    <link rel="stylesheet" href="/css/sharedCss/darkMode.css">
+    <link rel="stylesheet" href="/css/sharedCss/consultaPPPoE.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <button id="btn-dark-mode" class="btn-dark-mode" onclick="toggleDarkMode()" title="Alternar tema" aria-label="Alternar tema">🌙</button>
+
+    <main class="container">
+        <div class="page-header">
+            <a href="/" class="btn-back">← Voltar</a>
+            <h1 class="page-title">🔎 Consulta PPPoE</h1>
+        </div>
+
+        <section class="card">
+            <p class="card-title">Sessão no concentrador</p>
+            <div class="field pppoe-consulta"></div>
+            <p class="pppoe-rodape">
+                Consulta ao vivo no concentrador Huawei. Acesso restrito por senha; cada consulta fica registrada.
+                O mesmo login só pode ser consultado uma vez a cada 15 segundos.
+            </p>
+        </section>
+
+        <section class="card">
+            <div class="watermark">Desenvolvido por Pietro de Alexandria Picoli — <a href="https://github.com/PietroAlexandria" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+        </section>
+    </main>
+
+    <script src="/js/sharedFunctions/functionDarkMode.js"></script>
+    <script src="/js/sharedFunctions/consultaPPPoE.js"></script>
+</body>
+</html>

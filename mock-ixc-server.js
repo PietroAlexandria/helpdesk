@@ -54,7 +54,7 @@ app.post('/webservice/v1/:tabela', (req, res) => {
           id: '5012',
           id_contrato: String(queryId),
           login: 'joao.silva',
-          senha: 'cednet@user2026',
+          senha: 'senha-ficticia-mock',
           online: global.__mockDesconectado ? 'N' : 'S',
           ip: '100.64.12.45',
           mac: 'ZTEGD1FA0B65',

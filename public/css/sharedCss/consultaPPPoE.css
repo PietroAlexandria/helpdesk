@@ -1,0 +1,151 @@
+/* consultaPPPoE.css — bloco "Consulta PPPoE (concentrador)" de Sem Conexão e Conexão Lenta */
+
+.pppoe-consulta {
+    --pppoe-on: #16a34a;
+    --pppoe-on-bg: #ecfdf3;
+    --pppoe-off: #dc2626;
+    --pppoe-off-bg: #fff0f0;
+    --pppoe-info: #64748b;
+}
+
+:root.dark .pppoe-consulta {
+    --pppoe-on: #4ade80;
+    --pppoe-on-bg: #0f2a1c;
+    --pppoe-off: #f87171;
+    --pppoe-off-bg: #2a1214;
+    --pppoe-info: #6482a6;
+}
+
+.pppoe-linha {
+    display: flex;
+    gap: 8px;
+    align-items: stretch;
+}
+
+.pppoe-linha input {
+    flex: 1;
+    min-width: 0;
+    padding: 11px 14px;
+    border: 1.5px solid var(--input-border, #dbe4f0);
+    border-radius: 10px;
+    background: var(--input-bg, #fff);
+    color: var(--input-color, #0a2a5e);
+    font-size: 0.9rem;
+    font-family: 'Inter', sans-serif;
+    outline: none;
+}
+
+.pppoe-linha input:focus {
+    border-color: #1565c0;
+    box-shadow: var(--focus-ring, 0 0 0 3px rgba(21, 101, 192, 0.15));
+}
+
+.pppoe-linha .btn-copy {
+    width: auto;
+    white-space: nowrap;
+}
+
+.pppoe-linha .btn-copy:disabled {
+    opacity: 0.6;
+    cursor: wait;
+}
+
+.pppoe-feedback {
+    min-height: 1.1em;
+    margin-top: 6px;
+    font-size: 0.8rem;
+    color: var(--pppoe-info);
+}
+
+.pppoe-feedback-erro { color: var(--pppoe-off); font-weight: 500; }
+.pppoe-feedback-ok { color: var(--pppoe-info); }
+
+.pppoe-resultado:empty { display: none; }
+
+.pppoe-resultado {
+    margin-top: 8px;
+    padding: 12px 14px;
+    border: 1.5px solid var(--input-border, #dbe4f0);
+    border-radius: 10px;
+    background: var(--radio-span-bg, #f8fafc);
+}
+
+.pppoe-topo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.pppoe-badge {
+    padding: 3px 10px;
+    border-radius: 999px;
+    font-size: 0.75rem;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+}
+
+.pppoe-on { color: var(--pppoe-on); background: var(--pppoe-on-bg); }
+.pppoe-off { color: var(--pppoe-off); background: var(--pppoe-off-bg); }
+
+.pppoe-login {
+    font-weight: 600;
+    color: var(--label-color, #0a2a5e);
+    overflow-wrap: anywhere;
+}
+
+.pppoe-btn-mini {
+    margin-left: auto;
+    padding: 4px 10px;
+    border: 1.5px solid var(--btn-copy-border, #c7d9f8);
+    border-radius: 8px;
+    background: var(--btn-copy-bg, #f0f5ff);
+    color: var(--btn-copy-color, #1565c0);
+    font-size: 0.75rem;
+    font-weight: 600;
+    font-family: 'Inter', sans-serif;
+    cursor: pointer;
+}
+
+.pppoe-grid {
+    display: grid;
+    grid-template-columns: max-content 1fr;
+    gap: 5px 14px;
+    margin-top: 10px;
+    font-size: 0.84rem;
+}
+
+.pppoe-k {
+    color: var(--field-subtitle-color, #64748b);
+}
+
+.pppoe-v {
+    color: var(--input-color, #0a2a5e);
+    font-variant-numeric: tabular-nums;
+    overflow-wrap: anywhere;
+    white-space: pre-wrap;
+}
+
+.pppoe-v-destaque { font-weight: 600; }
+
+.pppoe-msg {
+    margin: 8px 0 0;
+    font-size: 0.84rem;
+    color: var(--input-color, #0a2a5e);
+}
+
+.pppoe-acesso .pppoe-msg { margin: 0 0 8px; }
+
+/* Tela própria /consulta-pppoe */
+.pppoe-rodape {
+    margin: 14px 0 0;
+    font-size: 0.78rem;
+    line-height: 1.5;
+    color: var(--field-subtitle-color, #64748b);
+}
+
+@media (max-width: 520px) {
+    .pppoe-grid { grid-template-columns: 1fr; gap: 0; }
+    .pppoe-k { margin-top: 6px; font-size: 0.75rem; }
+    .pppoe-btn-mini { margin-left: 0; }
+}

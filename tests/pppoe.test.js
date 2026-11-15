@@ -8,13 +8,14 @@ const express = require('express');
 const request = require('supertest');
 
 process.env.JWT_SECRET = process.env.JWT_SECRET || 'segredo-de-teste';
+process.env.SENHA_PPPOE = process.env.SENHA_PPPOE || 'senha-pppoe-teste';
 process.env.AUDIT_LOG_FILE = path.join(fs.mkdtempSync(path.join(os.tmpdir(), 'pppoe-audit-')), 'audit.log');
 process.env.AUDIT_STDOUT = '0';
 
 const { interpretarAccessUser, hmsParaSegundos, contador64 } = require('../pppoeModules/huaweiParser');
 const { criarServicoPPPoE } = require('../pppoeModules/pppoeService');
 const { criarRotasPPPoE } = require('../pppoeModules/pppoeRoutes');
-const { assinarToken } = require('../auth');
+const { assinarToken, assinarTokenPPPoE } = require('../auth');
 
 const SAIDA_ONLINE = fs.readFileSync(path.join(__dirname, 'fixtures', 'huawei-access-user-online.txt'), 'utf8');
 
@@ -159,42 +160,101 @@ describe('SSH interativo contra um VRP simulado', () => {
 });
 
 describe('rota GET /api/pppoe/:login', () => {
-  function montarApp(servico) {
+  function montarApp(servico, opcoes) {
     const app = express();
-    app.use('/api/pppoe', criarRotasPPPoE(servico));
+    app.use('/api/pppoe', criarRotasPPPoE(servico, opcoes));
     return app;
   }
   const servicoFalso = (consultar, configurado = true) => ({ consultar, configurado: () => configurado });
-  const token = () => assinarToken(1);
+  const token = () => assinarTokenPPPoE().token;
 
   test('sem token: 401', async () => {
     const res = await request(montarApp(servicoFalso(async () => ({})))).get('/api/pppoe/fulano');
     assert.equal(res.status, 401);
   });
 
+  test('token de operador comum não basta: 401; token N2 pode', async () => {
+    const app = montarApp(servicoFalso(async (login) => ({ login, online: false })));
+    assert.equal((await request(app).get('/api/pppoe/fulano').set('x-op-token', assinarToken(1))).status, 401);
+    assert.equal((await request(app).get('/api/pppoe/fulano').set('x-n2-token', assinarToken(2))).status, 200);
+  });
+
+  test('mesmo login repetido em menos de 15s: 429 com Retry-After; outro login passa', async () => {
+    const app = montarApp(servicoFalso(async (login) => ({ login, online: false })));
+    const t = token();
+    assert.equal((await request(app).get('/api/pppoe/fulano').set('x-pppoe-token', t)).status, 200);
+    const repetido = await request(app).get('/api/pppoe/FULANO').set('x-pppoe-token', t);
+    assert.equal(repetido.status, 429);
+    assert.ok(Number(repetido.headers['retry-after']) > 0);
+    assert.equal((await request(app).get('/api/pppoe/ciclano').set('x-pppoe-token', t)).status, 200);
+  });
+
+  test('trocar a SENHA_PPPOE invalida os tokens já emitidos', async () => {
+    const app = montarApp(servicoFalso(async (login) => ({ login, online: false })));
+    const antigo = token();
+    const original = process.env.SENHA_PPPOE;
+    process.env.SENHA_PPPOE = 'outra-senha-pppoe';
+    try {
+      assert.equal((await request(app).get('/api/pppoe/troca1').set('x-pppoe-token', antigo)).status, 401);
+      assert.equal((await request(app).get('/api/pppoe/troca2').set('x-pppoe-token', token())).status, 200);
+    } finally {
+      process.env.SENHA_PPPOE = original;
+    }
+  });
+
+  test('login fora do formato: 400 sem chegar ao concentrador', async () => {
+    let chamou = false;
+    const app = montarApp(servicoFalso(async () => { chamou = true; return {}; }));
+    const res = await request(app).get(`/api/pppoe/${encodeURIComponent('a;display current-configuration')}`).set('x-pppoe-token', token());
+    assert.equal(res.status, 400);
+    assert.equal(chamou, false);
+  });
+
+  test('teto de consultas simultâneas: excedente recebe 503 com Retry-After', async () => {
+    let liberar;
+    const travada = new Promise((r) => { liberar = r; });
+    const app = montarApp(servicoFalso(async (login) => { await travada; return { login, online: false }; }), { maxSimultaneas: 1 });
+    const t = token();
+    const primeira = request(app).get('/api/pppoe/simult1').set('x-pppoe-token', t).then((r) => r);
+    await new Promise((r) => setTimeout(r, 50)); // garante que a primeira já está "no concentrador"
+    const segunda = await request(app).get('/api/pppoe/simult2').set('x-pppoe-token', t);
+    assert.equal(segunda.status, 503);
+    assert.equal(segunda.headers['retry-after'], '5');
+    liberar();
+    assert.equal((await primeira).status, 200);
+  });
+
   test('não configurado: 503', async () => {
     const res = await request(montarApp(servicoFalso(async () => ({}), false)))
-      .get('/api/pppoe/fulano').set('x-op-token', token());
+      .get('/api/pppoe/fulano').set('x-pppoe-token', token());
     assert.equal(res.status, 503);
   });
 
   test('consulta ok devolve JSON, sem cache e grava auditoria', async () => {
     const servico = criarServicoPPPoE({ executar: async () => SAIDA_ONLINE });
     servico.configurado = () => true;
-    const res = await request(montarApp(servico)).get('/api/pppoe/12345fulano').set('x-op-token', token());
+    const res = await request(montarApp(servico)).get('/api/pppoe/12345fulano').set('x-pppoe-token', token());
     assert.equal(res.status, 200);
     assert.equal(res.body.ip, '203.0.113.10');
     assert.equal(res.headers['cache-control'], 'no-store');
-    const linhas = fs.readFileSync(process.env.AUDIT_LOG_FILE, 'utf8').trim().split('\n').map((l) => JSON.parse(l));
-    assert.ok(linhas.some((l) => l.evento === 'pppoe.consulta' && l.login === '12345fulano' && l.ok === true));
+    // A auditoria grava com fs.appendFile (assíncrono): espera a linha aparecer em vez de ler uma vez só
+    const achou = (l) => l.evento === 'pppoe.consulta' && l.login === '12345fulano' && l.ok === true && l.sessao;
+    let linhas = [];
+    for (let i = 0; i < 50 && !linhas.some(achou); i++) {
+      if (i) await new Promise((r) => setTimeout(r, 20));
+      try {
+        linhas = fs.readFileSync(process.env.AUDIT_LOG_FILE, 'utf8').trim().split('\n').filter(Boolean).map((l) => JSON.parse(l));
+      } catch { /* arquivo ainda não criado */ }
+    }
+    assert.ok(linhas.some(achou), 'linha de auditoria pppoe.consulta (com sessao) não encontrada');
   });
 
   test('login inválido: 400; timeout: 504; falha de autenticação SSH: 502', async () => {
     const erro = (props) => async () => { throw Object.assign(new Error('x'), props); };
     const t = token();
-    assert.equal((await request(montarApp(servicoFalso(erro({ code: 'LOGIN_INVALIDO' })))).get('/api/pppoe/a').set('x-op-token', t)).status, 400);
-    assert.equal((await request(montarApp(servicoFalso(erro({ code: 'ETIMEDOUT' })))).get('/api/pppoe/a').set('x-op-token', t)).status, 504);
-    const r = await request(montarApp(servicoFalso(erro({ level: 'client-authentication' })))).get('/api/pppoe/a').set('x-op-token', t);
+    assert.equal((await request(montarApp(servicoFalso(erro({ code: 'LOGIN_INVALIDO' })))).get('/api/pppoe/a').set('x-pppoe-token', t)).status, 400);
+    assert.equal((await request(montarApp(servicoFalso(erro({ code: 'ETIMEDOUT' })))).get('/api/pppoe/a').set('x-pppoe-token', t)).status, 504);
+    const r = await request(montarApp(servicoFalso(erro({ level: 'client-authentication' })))).get('/api/pppoe/a').set('x-pppoe-token', t);
     assert.equal(r.status, 502);
     assert.match(r.body.erro, /credenciais SSH/);
   });

@@ -9,6 +9,7 @@
     <link rel="stylesheet" href="/css/sharedCss/darkMode.css">
     <link rel="stylesheet" href="/css/sharedCss/historicoCard.css">
     <link rel="stylesheet" href="/css/sharedCss/btnCopyAx.css">
+    <link rel="stylesheet" href="/css/sharedCss/consultaPPPoE.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 </head>
@@ -103,6 +104,10 @@
                             <a class="btn-thermix-link" href="http://191.37.38.74:30001/" target="_blank"><span class="badge-t">T</span> Thermix</a>
                         </div>
                     </div>
+
+                    <hr class="sep">
+
+                    <div class="field pppoe-consulta" data-destino="loginpppoe"></div>
 
                     <hr class="sep">
 
@@ -218,6 +223,10 @@
                         <a class="btn-airControl-link" href="https://191.37.38.146:9082/#/devices" target="_blank"><span><img src="/images/airControl.png" alt="AirControl" class="airControl-img"></span> AirControl</a>
                         <a class="btn-grafana-link" href="https://grafana.grupocednet.com.br/" target="_blank"><img src="/images/grafanaLogo.png" alt="Grafana" class="grafana-img"> Grafana</a>
                     </div>
+
+                    <hr class="sep">
+
+                    <div class="field pppoe-consulta" data-destino="loginpppoe-radio"></div>
 
                     <hr class="sep">
 
@@ -378,6 +387,7 @@
     <script src="/js/sharedFunctions/functionStatusPanel.js"></script>
     <script src="/js/options-js/conexao-lenta.js"              ></script>
     <script src="/js/sharedFunctions/functionPreencherColeta.js"></script>
+    <script src="/js/sharedFunctions/consultaPPPoE.js"></script>
     <script> linkName('nome','nomeAg'); linkName('nome','nomeAg-radio'); </script>
     <div id="toast" class="toast"></div>
     <!-- <script src="/js/sharedFunctions/ixcAutoFill.js"></script> (desativado junto com o ID do contrato) -->
