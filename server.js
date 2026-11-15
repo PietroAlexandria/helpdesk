@@ -57,8 +57,16 @@ app.use(helmet({
         },
     },
 }));
-// Atrás do proxy do Render: usa o IP real do cliente (necessário para o rate limit)
-app.set('trust proxy', 1);
+// IP real do cliente atrás de proxy (necessário para o rate limit). TRUST_PROXY:
+//   (vazio) -> 1 salto, como no Render | "loopback" -> só um proxy na mesma máquina (Caddy/IIS local)
+//   "0"/"false" -> nenhum proxy (acesso direto) | número ou IP/sub-rede -> repassado ao Express
+function lerTrustProxy(valor) {
+    if (valor === undefined || valor === '') return 1;
+    if (/^(0|false|nao|não)$/i.test(valor)) return false;
+    if (/^\d+$/.test(valor)) return Number(valor);
+    return valor;
+}
+app.set('trust proxy', lerTrustProxy(process.env.TRUST_PROXY));
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
@@ -219,7 +227,9 @@ app.use((err, req, res, _next) => {
 // ---------------------------------------- //
 // Inicia o servidor só quando executado diretamente (os testes importam o app)
 if (require.main === module) {
-    const server = app.listen(PORT, () => console.log(`Rodando em http://localhost:${PORT}`));
+    // HOST=127.0.0.1 aceita conexões só da própria máquina (o proxy HTTPS), sem atalho pela porta direta
+    const HOST = process.env.HOST || undefined;
+    const server = app.listen(PORT, HOST, () => console.log(`Rodando em http://${HOST || 'localhost'}:${PORT}`));
     if (process.env.STATUS_MONITOR !== '0') statusMonitor.iniciar(); // STATUS_MONITOR=0 desliga a coleta
 
     // Encerramento gracioso (o Render envia SIGTERM no redeploy): termina as requisições em andamento
@@ -245,3 +255,4 @@ if (require.main === module) {
 }
 
 module.exports = app;
+module.exports.lerTrustProxy = lerTrustProxy;

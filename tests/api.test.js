@@ -332,3 +332,30 @@ describe('ixcCache', () => {
     ixcCache.clear();
   });
 });
+
+describe('TRUST_PROXY (Render x rede interna)', () => {
+  const express = require('express');
+  const { lerTrustProxy } = require('../server');
+
+  test('interpreta os valores do .env', () => {
+    assert.equal(lerTrustProxy(undefined), 1);   // padrão = Render
+    assert.equal(lerTrustProxy(''), 1);
+    assert.equal(lerTrustProxy('0'), false);
+    assert.equal(lerTrustProxy('false'), false);
+    assert.equal(lerTrustProxy('2'), 2);
+    assert.equal(lerTrustProxy('loopback'), 'loopback');
+  });
+
+  test('sem proxy confiável, X-Forwarded-For forjado não muda o IP usado no rate limit', async () => {
+    const montar = (valor) => {
+      const a = express();
+      a.set('trust proxy', lerTrustProxy(valor));
+      a.get('/ip', (req, res) => res.json({ ip: req.ip }));
+      return a;
+    };
+    const forjado = (await request(montar('0')).get('/ip').set('X-Forwarded-For', '6.6.6.6')).body.ip;
+    assert.notEqual(forjado, '6.6.6.6');
+    const viaProxyLocal = (await request(montar('loopback')).get('/ip').set('X-Forwarded-For', '10.0.0.9')).body.ip;
+    assert.equal(viaProxyLocal, '10.0.0.9'); // o Caddy local (127.0.0.1) repassa o IP real
+  });
+});

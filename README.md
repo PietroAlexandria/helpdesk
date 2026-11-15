@@ -241,8 +241,11 @@ e use `IXC_HOST=http://localhost:4000`.
 | `AUDIT_STDOUT` | `1` | `0` desliga a auditoria no stdout |
 | `STATUS_MONITOR` | `1` | `0` desliga a coleta em segundo plano do status dos serviços (lista em `statusModules/statusConfig.js`) |
 
-> O servidor usa `trust proxy` (1 nível) para obter o IP real atrás do proxy do Render —
-> necessário para o rate limit de login (10 falhas por IP em 15 min).
+| `HOST` | todas as interfaces | Endereço em que o servidor escuta. Na rede interna use `127.0.0.1` (só o proxy HTTPS local chega nele) |
+| `TRUST_PROXY` | `1` | Proxy confiável para obter o IP real do cliente (rate limit). `1` no Render; `loopback` com Caddy/IIS na mesma máquina; `0` sem proxy |
+
+> **Rede interna (Windows + HTTPS):** passo a passo em [IMPLANTACAO-WINDOWS.md](IMPLANTACAO-WINDOWS.md) —
+> necessário para a consulta PPPoE, já que o SSH do concentrador só responde de dentro da rede.
 
 ---
 

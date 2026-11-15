@@ -1,0 +1,25 @@
+# Caddyfile — proxy HTTPS do helpdesk na rede interna (Windows)
+# Copie para C:\caddy\Caddyfile e ajuste o nome e o certificado.
+
+helpdesk.grupocednet.com.br {
+	# Opção A (recomendada): certificado da empresa (ex.: wildcard *.grupocednet.com.br)
+	tls C:\caddy\certs\grupocednet.crt C:\caddy\certs\grupocednet.key
+
+	# Opção B: sem certificado da empresa -> CA interna do Caddy.
+	# Comente a linha de cima e descomente esta; depois instale a raiz da CA
+	# do Caddy nos PCs dos atendentes (ver IMPLANTACAO-WINDOWS.md).
+	# tls internal
+
+	# O helpdesk escuta só em 127.0.0.1:3000 (HOST no .env); só o Caddy chega nele
+	reverse_proxy 127.0.0.1:3000
+
+	encode gzip
+	log {
+		output file C:\caddy\logs\acesso.log {
+			roll_size 10MiB
+			roll_keep 10
+		}
+	}
+}
+
+# Quem digitar http:// é redirecionado para https:// automaticamente pelo Caddy.
