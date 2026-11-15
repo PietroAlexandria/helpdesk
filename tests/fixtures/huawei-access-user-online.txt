@@ -1,0 +1,70 @@
+N
+          ^
+Error: Unrecognized command found at '^' position.
+<bras.exemplo.com.br>display access-user username 12345fulano verbose
+  -------------------------------------------------------------------
+Basic:
+  User access index             : 41956
+  State                         : Used
+  User name                     : 12345fulano
+  Domain name                   : cednet_ixc
+  User backup state             : No
+  RUI user state                : -
+  User access interface         : Eth-Trunk1.560
+  User access physical interface: 100GE0/3/1
+  User session (limit,online)   : (1,1)
+  User access PeVlan/CeVlan     : 560/-
+  User access slot              : 0
+  User MAC                      : 02aa-bbcc-ddee
+  User IP address               : 203.0.113.10(Radius)
+  User IP netmask               : 255.255.255.255
+  User gateway address          : 203.0.113.1
+  User Primary-DNS              : 198.51.100.53(Radius)
+  User Secondary-DNS            : 8.8.8.8(Radius)
+  User IPv6 NDRA Prefix         : 2001:DB8:1000:DE35::/64
+  User IPv6 PD Prefix           : 2001:DB8:C1A7::/48
+  User Authen IP Type           : ipv4/ipv6/ipv6-pd
+  User access type              : PPPoE
+  User authentication type      : PPP authentication
+  Access start time             : 2026-10-28 14:56:52
+  User-Group                    : -
+
+AAA:
+  RADIUS-server-template        : cednet_ixc
+  Current authen method         : RADIUS authentication
+  Authen result                 : Success
+  Author result                 : Success
+  Accounting start time         : 2026-10-28 14:57:02
+  Online time (h:min:sec)       : 431:18:40
+  Accounting state              : Accounting
+  Accounting session ID         : bras.0000000000000000AAAAAAAA
+  MTU                           : 1492
+  IPv6 MTU                      : 1492
+  Realtime speed                : 6900 kbyte/min
+  Realtime speed inbound        : 300 kbyte/min
+  Realtime speed outbound       : 6600 kbyte/min
+  Calling-station-id            : 02:aa:bb:cc:dd:ee
+
+ACL&QoS:
+  Inbound QOS-profile-name      : 700M(Radius)
+  Outbound QOS-profile-name     : 700M(Radius)
+  Inbound qos configuration     : User-CAR
+  Inbound cir                   : 716800(kbps)
+  Inbound pir                   : 716800(kbps)
+  Outbound qos configuration    : User-CAR
+  Outbound cir                  : 716800(kbps)
+  Outbound pir                  : 716800(kbps)
+
+Flow Statistic:
+  Up packets number(high,low)   : (0,143183286)
+  Up bytes number(high,low)     : (9,443744036)
+  Down packets number(high,low) : (0,555103244)
+  Down bytes number(high,low)   : (171,2542981488)
+
+Dslam information :
+  Circuit ID                       :-
+  Actual datarate upstream         :0(Kbps)
+  Max delay upstream               :0(s)
+  ---- More ----[16D                [16D  Max delay downstream               :0(s)
+  Access loop encapsulation        :0x000000
+  -------------------------------------------------------------------

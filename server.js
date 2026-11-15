@@ -3,6 +3,8 @@ const express = require('express');
 const path = require('path');
 const helmet = require('helmet');
 const ixcRoutes = require('./ixcModules/ixcRoutes'); // IXC
+const { criarServicoPPPoE } = require('./pppoeModules/pppoeService'); // BRAS Huawei (SSH)
+const { criarRotasPPPoE } = require('./pppoeModules/pppoeRoutes');
 const { criarMonitor } = require('./statusModules/statusMonitor'); // Status de serviços (DownDetector)
 const { criarRotasStatus } = require('./statusModules/statusRoutes');
 const {
@@ -154,6 +156,10 @@ app.get('/troca-titularidade', exigirN2Pagina, (_, res) => res.sendFile(path.joi
 // Rotas da integração IXC (exigem login de operador)
 // Limite geral (60 req/min por IP) antes mesmo da autenticação
 app.use('/api/ixc', criarLimitadorGeral({ max: 60, janelaMs: 60 * 1000 }), ixcRoutes);
+
+// ---------------------------------------- //
+// Consulta de sessão PPPoE direto no concentrador (SSH, usuário somente leitura)
+app.use('/api/pppoe', criarLimitadorGeral({ max: 60, janelaMs: 60 * 1000 }), criarRotasPPPoE(criarServicoPPPoE()));
 
 // ---------------------------------------- //
 // Status de serviços de terceiros (Meta, Google, Microsoft...). A coleta roda em segundo plano

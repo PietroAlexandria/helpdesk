@@ -210,6 +210,7 @@ e use `IXC_HOST=http://localhost:4000`.
 | `POST` | `/api/auth/operador` | Autentica senha de operador (N1/N2) e emite JWT (`x-op-token`) |
 | `GET` | `/api/ixc/contrato/:id` | Consulta contrato no IXC (cliente, PPPoE, fibra). Exige operador ou N2 |
 | `POST` | `/api/ixc/desconectar/:idLogin` | Derruba a sessão PPPoE (body: `idContrato`). Exige operador ou N2; auditado |
+| `GET` | `/api/pppoe/:login` | Sessão PPPoE ao vivo no concentrador Huawei via SSH (IP, MAC, plano/QoS, tempo online, consumo). Exige operador ou N2; 20/min; auditado. Teste no equipamento real: [TESTE-PPPOE.md](TESTE-PPPOE.md) |
 | `GET` | `/api/status` | Estado atual dos serviços monitorados (sondas HTTP + páginas de status oficiais, atualizado a cada 60s). Exige operador ou N2 |
 
 ---
@@ -223,6 +224,11 @@ e use `IXC_HOST=http://localhost:4000`.
 | `IXC_USER_ID` | — | ID do usuário para autenticação na API do IXC |
 | `IXC_TOKEN` | — | Token de acesso à API do IXC |
 | `IXC_TIMEOUT_MS` | `15000` | Tempo máximo de espera por resposta do IXC |
+| `PPPOE_SSH_HOST` | — | Concentrador (BRAS Huawei) consultado por `/api/pppoe/:login` |
+| `PPPOE_SSH_PORT` | `22` | Porta SSH do concentrador |
+| `PPPOE_SSH_USER` / `PPPOE_SSH_PASS` | — | Usuário SSH **somente leitura** do concentrador |
+| `PPPOE_SSH_HOST_FINGERPRINT` | — | Opcional: fixa a chave do host (`SHA256:...` do `ssh-keygen -lf`) |
+| `PPPOE_SSH_TIMEOUT_MS` | `15000` | Tempo máximo de uma consulta PPPoE |
 | `SENHA_N2` | — | Senha de acesso aos módulos restritos do Nível 2 |
 | `SENHA_OPERADOR` | — | Senha de operador (N1/N2) para usar as rotas `/api/ixc/*` |
 | `JWT_SECRET` | — | **Obrigatório.** Segredo dos tokens JWT (o servidor não sobe sem ele) |
