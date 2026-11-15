@@ -8,8 +8,15 @@ cuja porta SSH só responde de dentro da rede.
 Atendente ──HTTPS:443──▶ Caddy (mesmo Windows) ──HTTP──▶ helpdesk em 127.0.0.1:3000 ──SSH:22──▶ Ultron
 ```
 
-- **Caddy** cuida do HTTPS e é a única porta aberta para a rede (443).
+- **Caddy** cuida do HTTPS e é a única porta aberta para a rede (443). Ele recusa (403) qualquer
+  acesso que não venha de um IP interno ou da VPN. Se alguém um dia expuser a porta para a
+  internet por engano, o helpdesk continua fechado.
 - O **helpdesk** escuta só em `127.0.0.1`: ninguém consegue pular o HTTPS acessando a porta 3000.
+- **Duas camadas:** estar na rede é a primeira barreira. A segunda são as senhas do próprio app,
+  e futuramente o login por e-mail `@grupocednet.com.br`. Não tire o login só porque o acesso é interno.
+
+> Confirme com a equipe de rede a faixa de IP que a **VPN** entrega aos usuários. Se não for
+> privada (10.x, 172.16–31.x, 192.168.x), acrescente-a no `Caddyfile`.
 
 > Nenhuma senha ou token vai neste arquivo nem no GitHub: tudo fica no `.env` **do servidor**.
 
@@ -145,6 +152,7 @@ Não abra a porta 3000. Mesmo que alguém a abra, o helpdesk só escuta em `127.
 - De outro PC da rede, abra `https://helpdesk.grupocednet.com.br`. O cadeado deve aparecer sem alerta.
 - Faça uma consulta em `/consulta-pppoe`.
 - `http://<ip-do-servidor>:3000` **não** deve abrir de outro PC.
+- Com a VPN ligada, de casa, deve abrir. Com a VPN desligada, não deve nem resolver o nome.
 - `C:\helpdesk\dados\audit.log` deve registrar `login.pppoe` e `pppoe.consulta`.
 
 ## Atualizar para uma versão nova

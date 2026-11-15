@@ -10,6 +10,12 @@ helpdesk.grupocednet.com.br {
 	# do Caddy nos PCs dos atendentes (ver IMPLANTACAO-WINDOWS.md).
 	# tls internal
 
+	# Só a rede da CedNet (inclusive quem entra pela VPN) pode abrir o helpdesk.
+	# private_ranges = 10.0.0.0/8, 172.16.0.0/12, 192.168.0.0/16, 127.0.0.1 e equivalentes IPv6.
+	# Se a VPN ou alguma filial usar outra faixa, acrescente-a aqui (ex.: private_ranges 100.64.0.0/10).
+	@foraDaRede not remote_ip private_ranges
+	respond @foraDaRede "Acesso permitido somente pela rede da CedNet ou VPN." 403
+
 	# O helpdesk escuta só em 127.0.0.1:3000 (HOST no .env); só o Caddy chega nele
 	reverse_proxy 127.0.0.1:3000
 
