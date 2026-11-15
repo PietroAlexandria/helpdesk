@@ -101,7 +101,7 @@ Deve responder `"online": false` com `Info: No online user!`. Se der `FALHOU`, v
 ## 4. Caddy (HTTPS)
 
 1. Baixe o `caddy.exe` para Windows em caddyserver.com/download e salve em `C:\caddy\`.
-2. Copie [deploy/Caddyfile.exemplo](deploy/Caddyfile.exemplo) para `C:\caddy\Caddyfile`.
+2. Copie [deploy/Caddyfile.exemplo](../deploy/Caddyfile.exemplo) para `C:\caddy\Caddyfile`.
 3. Escolha o certificado:
    - **Opção A, certificado da empresa:** coloque o `.crt` e o `.key` em `C:\caddy\certs\` e mantenha
      a linha `tls C:\caddy\certs\...`. Restrinja o acesso ao `.key` com `icacls`, como no `.env`.

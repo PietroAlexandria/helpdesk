@@ -60,6 +60,11 @@ helpdesk/
 ├── eslint.config.js                   # Configuração do ESLint (npm run lint)
 ├── package.json
 ├── .env.example                       # Exemplo de variáveis de ambiente
+├── docs/                              # Documentação (fora o README)
+│   ├── TESTE-PPPOE.md                 # Roteiro de teste da consulta PPPoE no concentrador real
+│   └── IMPLANTACAO-WINDOWS.md         # Implantação na rede interna (Windows + Caddy/HTTPS)
+├── deploy/
+│   └── Caddyfile.exemplo              # Proxy HTTPS que só aceita a rede interna/VPN
 ├── .gitattributes                     # Padroniza fim de linha em LF
 │
 ├── tests/
@@ -211,7 +216,7 @@ e use `IXC_HOST=http://localhost:4000`.
 | `POST` | `/api/auth/operador` | Autentica senha de operador (N1/N2) e emite JWT (`x-op-token`) |
 | `GET` | `/api/ixc/contrato/:id` | Consulta contrato no IXC (cliente, PPPoE, fibra). Exige operador ou N2 |
 | `POST` | `/api/ixc/desconectar/:idLogin` | Derruba a sessão PPPoE (body: `idContrato`). Exige operador ou N2; auditado |
-| `GET` | `/api/pppoe/:login` | Sessão PPPoE ao vivo no concentrador Huawei via SSH (IP, MAC, plano/QoS, tempo online, consumo). Exige token da consulta PPPoE (`x-pppoe-token`, via `POST /api/auth/pppoe` com `SENHA_PPPOE`) ou N2; 10/min por IP, o mesmo login 1x a cada 15s e no máximo 2 sessões SSH simultâneas; auditado com id de sessão. O token PPPoE tem escopo próprio e não abre nenhuma outra rota. Nas telas Sem Conexão e Conexão Lenta há o bloco "Consulta PPPoE". Teste no equipamento real: [TESTE-PPPOE.md](TESTE-PPPOE.md) |
+| `GET` | `/api/pppoe/:login` | Sessão PPPoE ao vivo no concentrador Huawei via SSH (IP, MAC, plano/QoS, tempo online, consumo). Exige token da consulta PPPoE (`x-pppoe-token`, via `POST /api/auth/pppoe` com `SENHA_PPPOE`) ou N2; 10/min por IP, o mesmo login 1x a cada 15s e no máximo 2 sessões SSH simultâneas; auditado com id de sessão. O token PPPoE tem escopo próprio e não abre nenhuma outra rota. Nas telas Sem Conexão e Conexão Lenta há o bloco "Consulta PPPoE". Teste no equipamento real: [docs/TESTE-PPPOE.md](docs/TESTE-PPPOE.md) |
 | `GET` | `/api/status` | Estado atual dos serviços monitorados (sondas HTTP + páginas de status oficiais, atualizado a cada 60s). Exige operador ou N2 |
 
 ---
@@ -244,7 +249,7 @@ e use `IXC_HOST=http://localhost:4000`.
 | `HOST` | todas as interfaces | Endereço em que o servidor escuta. Na rede interna use `127.0.0.1` (só o proxy HTTPS local chega nele) |
 | `TRUST_PROXY` | `1` | Proxy confiável para obter o IP real do cliente (rate limit). `1` no Render; `loopback` com Caddy/IIS na mesma máquina; `0` sem proxy |
 
-> **Rede interna (Windows + HTTPS):** passo a passo em [IMPLANTACAO-WINDOWS.md](IMPLANTACAO-WINDOWS.md) —
+> **Rede interna (Windows + HTTPS):** passo a passo em [docs/IMPLANTACAO-WINDOWS.md](docs/IMPLANTACAO-WINDOWS.md) —
 > necessário para a consulta PPPoE, já que o SSH do concentrador só responde de dentro da rede.
 
 ---

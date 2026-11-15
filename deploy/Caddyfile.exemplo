@@ -7,7 +7,7 @@ helpdesk.grupocednet.com.br {
 
 	# Opção B: sem certificado da empresa -> CA interna do Caddy.
 	# Comente a linha de cima e descomente esta; depois instale a raiz da CA
-	# do Caddy nos PCs dos atendentes (ver IMPLANTACAO-WINDOWS.md).
+	# do Caddy nos PCs dos atendentes (ver docs/IMPLANTACAO-WINDOWS.md).
 	# tls internal
 
 	# Só a rede da CedNet (inclusive quem entra pela VPN) pode abrir o helpdesk.
