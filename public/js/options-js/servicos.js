@@ -63,11 +63,11 @@ Disponibilidade: ${disp}
 
 Serviço: Mudança de Cômodo
 Prazo: 48 horas úteis
-Mão de obra: R$ 100,00
+Mão de obra: R$ 150,00
 Metragem de cabo (se necessário): R$ 4,20/m
 Conector RJ45 (cada): R$ 2,50
-Cômodo adicional: R$ 50,00
-Taxa antecipada: R$ 100,00
+Cômodo adicional: R$ 75,00
+Taxa antecipada: R$ 150,00
 Metragem cobrada na próxima mensalidade
 Cliente ciente dos valores, taxas e prazos${obs ? `\n\nObservações: ${obs}` : ''}
 
@@ -97,11 +97,11 @@ Disponibilidade: ${disp}
 
 Serviço: Passagem de Cabo
 Prazo: 48 horas úteis
-Mão de obra: R$ 100,00
+Mão de obra: R$ 150,00
 Metragem de cabo: R$ 4,20/m
 Conector RJ45 (cada): R$ 2,50
-Cômodo adicional: R$ 50,00
-Taxa antecipada: R$ 100,00
+Cômodo adicional: R$ 75,00
+Taxa antecipada: R$ 150,00
 Metragem cobrada na próxima mensalidade
 Cliente ciente dos valores, taxas e prazos${obs ? `\n\nObservações: ${obs}` : ''}
 
@@ -117,30 +117,6 @@ Senha PPPoE: ${senha}`;
 // ── Verificação de Rede Interna ───────────────────────────────────────────────
 function selecionarArea(valor) {
     toggleCards(valor, { v_urbana: 'verificacao-urbana', v_rural: 'verificacao-rural' });
-    document.getElementById('campo-roteadores').style.display = 'block';
-    calcularValorRoteadores();
-}
-
-function calcularValorRoteadores() {
-    const input    = document.getElementById('qtd-roteadores');
-    const resultado = document.getElementById('resultado-roteadores');
-    const textoEl  = document.getElementById('texto-resultado-roteadores');
-    const qtd      = parseInt(input.value);
-    if (!qtd || qtd < 1) { resultado.style.display = 'none'; return; }
-
-    const area = document.querySelector('input[name="area-verificacao"]:checked')?.value || '';
-    let descricao = '';
-
-    if (qtd <= 2) {
-        descricao = `✅ ${qtd} roteador(es) — <strong>R$ 50,00</strong> (sem cobrança adicional)`;
-    } else {
-        const adicionais = qtd - 2;
-        const total = 50 + (adicionais * 50);
-        descricao = `📌 ${qtd} roteadores — <strong>R$ ${total.toFixed(2).replace('.', ',')}</strong> (R$ 50,00 + ${adicionais} adicional(is) × R$ 50,00)`;
-    }
-
-    textoEl.innerHTML = descricao;
-    resultado.style.display = 'block';
 }
 
 function copiarVerificacao(botao) {
@@ -151,15 +127,7 @@ function copiarVerificacao(botao) {
 
     const areaSel = document.querySelector('input[name="area-verificacao"]:checked')?.value || '';
     const area    = areaSel === 'v_rural' ? 'Rural' : areaSel === 'v_urbana' ? 'Urbana' : '';
-    const mdo     = area === 'Rural' ? 'R$ 100,00' : 'R$ 50,00';
-
-    const qtd = parseInt(document.getElementById('qtd-roteadores')?.value) || 0;
-    let textoRot = '';
-    if (qtd > 0) {
-        const adicionais = qtd <= 2 ? 0 : qtd - 2;
-        const total = 50 + (adicionais * 50);
-        textoRot = `\nRoteadores no local: ${qtd} — Total: R$ ${total.toFixed(2).replace('.', ',')}`;
-    }
+    const mdo     = area === 'Rural' ? 'R$ 160,00' : 'R$ 150,00';
 
     const obs   = document.querySelector('textarea[name="obs-verificacao"]')?.value || '';
     const login = document.getElementById('loginpppoe-verificacao')?.value || '';
@@ -174,9 +142,9 @@ Prazo: 48 horas úteis
 Mão de obra: ${mdo}
 Metragem de cabo (se necessário): R$ 4,20/m
 Conector RJ45 (cada): R$ 2,50
-Cômodo adicional: R$ 50,00
+Cômodo adicional: R$ 75,00
 Taxa antecipada: ${mdo}
-Metragem cobrada na próxima mensalidade${textoRot}
+Metragem cobrada na próxima mensalidade
 
 Cliente ciente dos valores, taxas e prazos${obs ? `\n\nObservações: ${obs}` : ''}
 
@@ -202,7 +170,7 @@ function copiarConfig(botao) {
 
     const areaSel = document.querySelector('input[name="area-config"]:checked')?.value || '';
     const area    = areaSel === 'c_rural' ? 'Rural' : areaSel === 'c_urbana' ? 'Urbana' : '';
-    const mdo     = area === 'Rural' ? 'R$ 100,00' : 'R$ 50,00';
+    const mdo     = area === 'Rural' ? 'R$ 150,00' : 'R$ 80,00';
 
     const obs   = document.querySelector('textarea[name="obs-config"]')?.value || '';
     const login = document.getElementById('loginpppoe-config')?.value || '';
@@ -218,7 +186,7 @@ Mão de obra: ${mdo}
 Taxa antecipada: ${mdo}
 Metragem de cabo (se necessário): R$ 4,20/m
 Conector RJ45 (cada): R$ 2,50
-Cômodo adicional: R$ 50,00
+Cômodo adicional: R$ 75,00
 Metragem cobrada na próxima mensalidade
 Cliente ciente dos valores, taxas e prazos${obs ? `\n\nObservações: ${obs}` : ''}
 
