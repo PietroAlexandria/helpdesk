@@ -14,33 +14,17 @@ function radio(name) {
     return document.querySelector(`input[name="${name}"]:checked`)?.value || '';
 }
 
-// Limite de caracteres aceito pela OLT no comando "name" da ONU.
-// Para confirmar na OLT: dentro de config-gpon-onu, digite "name ?".
-const LIMITE_NOME_ONU = 30;
+// Preposições/conectivos removidos do nome da ONU (ex.: "Maria DE Moraes" -> "Maria_Moraes")
+const CONECTIVOS_NOME = new Set(['de', 'da', 'do', 'das', 'dos', 'e', 'di', 'du', 'del', 'della', 'van', 'von']);
 
 function nomeOnu(caixa, usuarioNovo, nomeCliente) {
     const caixaLimpa  = caixa.replace(/^OUR_/i, '');
     const numerologin = usuarioNovo.match(/^\d+/)?.[0] ?? usuarioNovo;
-    const prefixo     = `${caixaLimpa}-${numerologin}-`;
-    const partes      = removerAcentos(nomeCliente.trim()).split(/\s+/).map(apenasSeguro).filter(Boolean);
-    const espaco      = LIMITE_NOME_ONU - prefixo.length;
+    const partes      = removerAcentos(nomeCliente.trim()).split(/\s+/)
+        .map(apenasSeguro)
+        .filter(p => p && !CONECTIVOS_NOME.has(p.toLowerCase()));
 
-    // Tenta do mais completo ao mais curto até caber no limite:
-    // nome completo → primeiro + último → primeiro + inicial do último → só o primeiro
-    const primeiro = partes[0] || '';
-    const ultimo   = partes.length > 1 ? partes[partes.length - 1] : '';
-    const opcoes = [
-        partes.join('_'),
-        ultimo ? `${primeiro}_${ultimo}` : primeiro,
-        ultimo ? `${primeiro}_${ultimo[0]}` : primeiro,
-        primeiro,
-    ];
-    const nomeCabe = opcoes.find(o => o.length <= espaco);
-
-    // Se nem o primeiro nome couber, corta no limite
-    return nomeCabe !== undefined
-        ? prefixo + nomeCabe
-        : (prefixo + primeiro).slice(0, LIMITE_NOME_ONU);
+    return `${caixaLimpa}-${numerologin}-${partes.join('_')}`;
 }
 
 function removerAcentos(str) {
