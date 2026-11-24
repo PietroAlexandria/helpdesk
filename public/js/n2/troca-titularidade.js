@@ -218,8 +218,7 @@ function coletarRadio() {
     const modeloRadio    = v('modelo-radio');
     const macRadio       = v('mac-radio').toUpperCase();
     const obs            = v('obs-radio');
-    const partesNome     = nomeNovo.trim().split(/\s+/);
-    const nomeRadioNovo  = `${contratoNovo}_${partesNome[0]}${partesNome[1] ? '_' + partesNome[1] : ''}`;
+    const nomeRadioNovo  = `${idLogin}_${primeiroNomeSeguro(nomeNovo).toUpperCase()}`;
     const macRoteador    = v('mac-roteador-radio').toUpperCase();
     const modeloRoteador = v('modelo-roteador-radio');
 
