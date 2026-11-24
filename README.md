@@ -86,7 +86,8 @@ helpdesk/
 │       ├── pagamento.html             # Módulo financeiro
 │       ├── duvidas.html               # Módulo dúvidas
 │       └── n2/
-│           └── troca-titularidade.html # Módulo N2: Troca de Titularidade (Fibra e Rádio)
+│           ├── troca-titularidade.html # Módulo N2: Troca de Titularidade (Fibra e Rádio)
+│           └── suporte-hospedagem.html # Módulo N2: Anotação de Suporte Hospedagem
 │
 └── public/
     ├── css/
@@ -122,7 +123,8 @@ helpdesk/
         │   └── functionPreencherColeta.js # Preenchimento automático vindo de /atendimento
         ├── options-js/                # Lógica específica de cada módulo N1
         └── n2/
-            └── troca-titularidade.js  # Lógica de Troca de Titularidade (N2)
+            ├── troca-titularidade.js  # Lógica de Troca de Titularidade (N2)
+            └── suporte-hospedagem.js  # Lógica de Suporte Hospedagem (N2)
 ```
 
 ---
@@ -203,6 +205,7 @@ e use `IXC_HOST=http://localhost:4000`.
 | `GET` | `/login-n2` | Página de login do Nível 2 |
 | `GET` | `/nivel2` | Menu exclusivo do Nível 2 (exige cookie de sessão N2) |
 | `GET` | `/troca-titularidade` | Módulo N2: Troca de Titularidade (exige cookie de sessão N2) |
+| `GET` | `/suporte-hospedagem` | Módulo N2: Anotação de Suporte Hospedagem (exige cookie de sessão N2) |
 | `GET` | `/health` | Healthcheck (`{ status: "ok", uptime }`) |
 | `POST` | `/api/auth/n2` | Autentica senha do N2, emite JWT e define cookie `HttpOnly` |
 | `POST` | `/api/auth/n2/verify` | Verifica validade do token JWT do Nível 2 |

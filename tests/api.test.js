@@ -205,7 +205,7 @@ describe('área N2', () => {
   });
 
   test('páginas N2 sem cookie redirecionam para o login', async () => {
-    for (const rota of ['/nivel2', '/troca-titularidade']) {
+    for (const rota of ['/nivel2', '/troca-titularidade', '/suporte-hospedagem']) {
       const r = await request(app).get(rota);
       assert.equal(r.status, 302);
       assert.equal(r.headers.location, '/login-n2');
@@ -226,6 +226,7 @@ describe('área N2', () => {
     const pares = cookie.split(';')[0];
     assert.equal((await request(app).get('/nivel2').set('Cookie', pares)).status, 200);
     assert.equal((await request(app).get('/troca-titularidade').set('Cookie', pares)).status, 200);
+    assert.equal((await request(app).get('/suporte-hospedagem').set('Cookie', pares)).status, 200);
   });
 
   test('verify renova o cookie e logout o remove', async () => {

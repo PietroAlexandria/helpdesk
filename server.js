@@ -150,6 +150,9 @@ app.post('/api/auth/n2/logout', (req, res) => {
 // Rota - Troca de Titularidade (N2)
 app.get('/troca-titularidade', exigirN2Pagina, (_, res) => res.sendFile(path.join(__dirname, 'views', 'options-html', 'n2', 'troca-titularidade.html')));
 
+// Rota - Suporte Hospedagem (N2)
+app.get('/suporte-hospedagem', exigirN2Pagina, (_, res) => res.sendFile(path.join(__dirname, 'views', 'options-html', 'n2', 'suporte-hospedagem.html')));
+
 // ---------------------------------------- //
 // Rotas da integração IXC (exigem login de operador)
 // Limite geral (60 req/min por IP) antes mesmo da autenticação

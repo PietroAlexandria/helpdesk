@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suporte Hospedagem — CedNet N2</title>
+    <link rel="icon" href="/images/LogoCedNet.ico">
+    <link rel="stylesheet" href="/css/sem-conexao.css">
+    <link rel="stylesheet" href="/css/sharedCss/darkMode.css">
+    <link rel="stylesheet" href="/css/sharedCss/historicoCard.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <button id="btn-dark-mode" class="btn-dark-mode" onclick="toggleDarkMode()" title="Alternar tema" aria-label="Alternar tema">🌙</button>
+    <div class="layout-with-history">
+        <div class="container">
+
+            <div class="page-header">
+                <a href="/nivel2" class="btn-back">← Voltar</a>
+                <h1 class="page-title">🌐 Suporte Hospedagem</h1>
+            </div>
+
+            <div class="card" id="card-hospedagem">
+                <p class="card-title">Anotação — Suporte Hospedagem</p>
+
+                <div class="field">
+                    <label class="field-subtitle">Cliente entrou em contato via</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="canal-hospedagem" value="Uzera"><span>Uzera</span></label>
+                        <label class="radio-btn"><input type="radio" name="canal-hospedagem" value="ChatWoot"><span>ChatWoot</span></label>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="nome-hospedagem">Nome</label>
+                    <input type="text" id="nome-hospedagem" name="nome-hospedagem">
+                </div>
+
+                <div class="field">
+                    <label class="field-subtitle">Motivo</label>
+                    <div class="radio-group">
+                        <label class="radio-btn"><input type="radio" name="motivo-hospedagem" value="Suporte Hospedagem" onchange="toggleMotivoOutro(this.value)"><span>Suporte Hospedagem</span></label>
+                        <label class="radio-btn"><input type="radio" name="motivo-hospedagem" value="Outro" onchange="toggleMotivoOutro(this.value)"><span>Outro</span></label>
+                    </div>
+                </div>
+                <div class="field" id="campo-motivo-outro" style="display:none">
+                    <label for="motivo-outro-hospedagem">Qual o motivo?</label>
+                    <input type="text" id="motivo-outro-hospedagem" name="motivo-outro-hospedagem">
+                </div>
+
+                <div class="field">
+                    <label for="descricao-hospedagem">Descrição</label>
+                    <textarea id="descricao-hospedagem" name="descricao-hospedagem" rows="5" placeholder="Descreva o atendimento..."></textarea>
+                </div>
+
+                <div class="btn-group">
+                    <button class="btn-copy" onclick="copiarHospedagem(this)">📋 Copiar Anotação</button>
+                    <button class="btn-clear" onclick="limparHospedagem()">🗑️ Limpar</button>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="watermark">Desenvolvido por Pietro de Alexandria Picoli — <a href="https://github.com/PietroAlexandria" target="_blank" rel="noopener noreferrer">GitHub</a></div>
+            </div>
+        </div>
+
+        <div class="history-container minimized" id="sidebar-panel">
+            <div class="panel-tabs">
+                <button class="panel-tab-btn" onclick="openPanel('historico')" title="Histórico" aria-label="Abrir Histórico">📋</button>
+                <button class="panel-tab-btn" onclick="openPanel('notepad')" title="Bloco de Notas" aria-label="Abrir Bloco de Notas">📝</button>
+                <button class="panel-tab-btn" onclick="openPanel('templates')" title="Templates" aria-label="Abrir Templates">💬</button>
+            </div>
+            <div class="history-header">
+                <span id="panel-title">📋 Histórico</span>
+                <div style="display:flex;align-items:center;gap:6px">
+                    <button id="history-minimize-btn" class="history-minimize-btn" onclick="closePanel()" title="Fechar painel" aria-label="Fechar painel">▶</button>
+                    <button id="btn-limpar-historico" onclick="limparHistorico()">Limpar tudo</button>
+                    <button id="btn-copiar-notepad" onclick="copiarNotepad()" style="display:none">📋 Copiar</button>
+                    <button id="btn-limpar-notepad" onclick="limparNotepad()" style="display:none">Limpar</button>
+                </div>
+            </div>
+            <div class="history-content">
+                <div id="history-module" style="display:none"><div id="history-panel"></div></div>
+                <div id="notepad-module" style="display:none">
+                    <textarea id="notepad-textarea" class="notepad-textarea" aria-label="Anotações rápidas" placeholder="Anotações rápidas…"></textarea>
+                </div>
+                <div id="templates-module" style="display:none">
+                    <button class="template-btn" onclick="copyMudancaEnderecoCompleta(this)">📦 MUDANÇA DE ENDEREÇO</button>
+                    <button class="template-btn" onclick="copyReboot(this)">🔄 REBOOT</button>
+                    <button class="template-btn" onclick="copyPatchCordService(this)">🔌 PATCH CORD SERVICE</button>
+                    <button class="template-btn" onclick="copyPatchCordBridge(this)">🔌 PATCH CORD BRIDGE</button>
+                    <button class="template-btn" onclick="copyPatchCordRadio(this)">🔌 PATCH CORD RADIO</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="toast" class="toast" role="status" aria-live="polite"></div>
+    <script src="/js/sharedFunctions/functionDarkMode.js"></script>
+    <script src="/js/sharedFunctions/functionButtonsCopy.js"></script>
+    <script src="/js/sharedFunctions/functionMostrarAlerta.js"></script>
+    <script src="/js/n2/suporte-hospedagem.js"></script>
+    <script src="/js/sharedFunctions/functionCardHistory.js"></script>
+    <script src="/js/sharedFunctions/functionStatusPanel.js"></script>
+    <script>
+        (async function () {
+            const token = localStorage.getItem('n2-token');
+            if (!token) { window.location.replace('/login-n2'); return; }
+            try {
+                const r = await fetch('/api/auth/n2/verify', {
+                    method: 'POST',
+                    headers: { 'x-n2-token': token }
+                });
+                if (!r.ok) {
+                    localStorage.removeItem('n2-token');
+                    window.location.replace('/login-n2');
+                }
+            } catch {
+                window.location.replace('/login-n2');
+            }
+        })();
+    </script>
+</body>
+</html>

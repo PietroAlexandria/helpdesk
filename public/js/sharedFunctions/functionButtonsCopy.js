@@ -851,7 +851,8 @@ function renderizarTemplatesSidebar() {
         '/pagamento': 'Financeiro',
         '/duvidas': 'Dúvidas',
         '/nivel2': 'Nível 2',
-        '/troca-titularidade': 'Troca de Titularidade'
+        '/troca-titularidade': 'Troca de Titularidade',
+        '/suporte-hospedagem': 'Suporte Hospedagem'
     };
     const nomeTela = nomesTelas[screenAtual] || 'Tela Atual';
 
@@ -1151,7 +1152,8 @@ function renderizarConteudoModalGuia() {
         '/pagamento': 'Financeiro',
         '/duvidas': 'Dúvidas',
         '/nivel2': 'Nível 2',
-        '/troca-titularidade': 'Troca de Titularidade'
+        '/troca-titularidade': 'Troca de Titularidade',
+        '/suporte-hospedagem': 'Suporte Hospedagem'
     };
     const nomeTela = nomesTelas[screenAtual] || 'Tela Atual';
     const qtdTela = TEMPLATES_CATALOGO.filter(t => t.screens.includes(screenAtual)).length;
