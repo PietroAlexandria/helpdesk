@@ -1,9 +1,21 @@
 function toggleIpFibra(val) {}
 function toggleIpRadio(val) {}
 
+// Service = ONT (faz o papel de roteador); Bridge = ONU + roteador separado
+function termoEquipamento(modo) {
+    if (modo === 'Service') return 'ONT';
+    if (modo === 'Bridge')  return 'ONU';
+    return 'ONU/ONT';
+}
+
 function toggleModoFibra(val) {
     document.querySelectorAll('#card-fibra .campo-bridge')
         .forEach(el => el.style.display = val === 'Bridge' ? 'block' : 'none');
+
+    const termo = termoEquipamento(val);
+    document.querySelectorAll('#card-fibra .termo-equip').forEach(el => el.textContent = termo);
+    const btnRenomeio = document.getElementById('btn-renomeio-fibra');
+    if (btnRenomeio && !btnRenomeio.disabled) btnRenomeio.textContent = `📋 Renomeio ${termo}`;
 }
 
 function v(name) {
@@ -90,28 +102,27 @@ function coletarFibra() {
     if (!olt)            { mostrarAlerta('Preencha a OLT!'); return null; }
     if (!pon)            { mostrarAlerta('Preencha a PON!'); return null; }
     if (!caixa)          { mostrarAlerta('Preencha a CAIXA!'); return null; }
-    if (!macOnu)         { mostrarAlerta('Preencha o MAC ONU!'); return null; }
-    if (!serialOnu)      { mostrarAlerta('Preencha o Serial ONU!'); return null; }
     if (!modo)           { mostrarAlerta('Selecione o Modo de Operação (Bridge/Service)!'); return null; }
+
+    const termo = termoEquipamento(modo);
+
+    if (!macOnu)         { mostrarAlerta(`Preencha o MAC ${termo}!`); return null; }
     if (!nomeCliente)    { mostrarAlerta('Preencha o Nome do Cliente Novo!'); return null; }
 
     const nomeOnuStr  = nomeOnu(caixa, pppoeNovo, nomeCliente);
 
     const blocoImportados = modo === 'Bridge'
         ? `Dados importados.
-Modelo ONU/ONT: ${modeloOnu || '-'}
-MAC ONU/ONT: ${macOnu}
-Serial Number ONU/ONT: ${serialOnu}
+Modelo ${termo}: ${modeloOnu || '-'}
+MAC ${termo}: ${macOnu}
+Serial Number ${termo}: ${serialOnu || '-'}
 
 Modelo Roteador: ${modeloRoteador || '-'}
 MAC Roteador: ${macRoteador || '-'}
 Serial Number Roteador: ${serialRoteador || '-'}`
         : `Dados importados.
-MAC ONU/ONT: ${macOnu}
-Serial Number ONU/ONT: ${serialOnu}
-
-Modelo Roteador: ${modeloRoteador || '-'}
-MAC Roteador: ${macRoteador || '-'}`;
+MAC ${termo}: ${macOnu}
+Serial Number ${termo}: ${serialOnu || '-'}`;
 
     const bloco1 = `De: ${nomeAntigo} - Protocolo ${osAntiga} - Contrato ${contratoAntigo}
 Para: ${nomeNovo} - Protocolo ${osNova} - Contrato ${contratoNovo}
@@ -129,15 +140,16 @@ Dados técnicos:
 OLT: ${olt}
 PON: ${pon}
 CAIXA: ${caixa}
-MAC ONU: ${macOnu}
-ONU renomeada via IXC para:
+Modo de Operação: ${modo} (${modo === 'Bridge' ? 'ONU + Roteador' : 'ONT'})
+MAC ${termo}: ${macOnu}
+${termo} renomeada via IXC para:
 ${nomeOnuStr}${obs ? `
 
 Observações: ${obs}` : ''}`;
 
     const bloco2 = nomeOnuStr;
 
-    return { bloco1, bloco2, blocoImportados, pppoeNovo };
+    return { bloco1, bloco2, blocoImportados, pppoeNovo, termo };
 }
 
 function copiarBloco1Fibra(botao) {
@@ -153,7 +165,7 @@ function copiarBloco2Fibra(botao) {
     const d = coletarFibra();
     if (!d) return;
     navigator.clipboard.writeText(d.bloco2)
-        .then(() => feedbackTroca(botao, '📋 Renomeio ONU'))
+        .then(() => feedbackTroca(botao, `📋 Renomeio ${d.termo}`))
         .catch(() => mostrarAlerta('Erro ao copiar!'));
 }
 

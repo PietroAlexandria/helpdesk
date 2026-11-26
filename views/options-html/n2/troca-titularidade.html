@@ -106,30 +106,29 @@
                     </div>
                 </div>
 
-                <!-- ONU/ONT -->
+                <!-- ONT (Service) ou ONU (Bridge): o termo acompanha o Modo de Operação -->
                 <div class="field">
-                    <label class="field-subtitle">ONU/ONT</label>
+                    <label class="field-subtitle"><span class="termo-equip">ONU/ONT</span></label>
                     <div class="campo-bridge" style="display:none">
-                        <label for="modelo-onu">Modelo ONU/ONT</label>
+                        <label for="modelo-onu">Modelo <span class="termo-equip">ONU/ONT</span></label>
                         <input type="text" id="modelo-onu" name="modelo-onu">
                     </div>
-                    <label for="mac-onu">MAC ONU/ONT</label>
+                    <label for="mac-onu">MAC <span class="termo-equip">ONU/ONT</span></label>
                     <input type="text" id="mac-onu" name="mac-onu">
-                    <label for="serial-onu">Serial Number ONU/ONT</label>
+                    <label for="serial-onu">Serial Number <span class="termo-equip">ONU/ONT</span> <span style="font-weight:400;color:#64748b">(Opcional)</span></label>
                     <input type="text" id="serial-onu" name="serial-onu">
                 </div>
 
-                <hr class="sep">
-
-                <!-- Roteador -->
-                <div class="field">
-                    <label class="field-subtitle">Roteador</label>
-                    <label for="modelo-roteador-fibra">Modelo Roteador</label>
-                    <input type="text" id="modelo-roteador-fibra" name="modelo-roteador-fibra">
-                    <label for="mac-roteador-fibra">MAC Roteador</label>
-                    <input type="text" id="mac-roteador-fibra" name="mac-roteador-fibra">
-                    <div class="campo-bridge" style="display:none">
-                        <label for="serial-roteador">Serial Number Roteador</label>
+                <!-- Roteador: só existe no modo Bridge (em Service a ONT faz o papel de roteador) -->
+                <div class="campo-bridge" style="display:none">
+                    <hr class="sep">
+                    <div class="field">
+                        <label class="field-subtitle">Roteador</label>
+                        <label for="modelo-roteador-fibra">Modelo Roteador</label>
+                        <input type="text" id="modelo-roteador-fibra" name="modelo-roteador-fibra">
+                        <label for="mac-roteador-fibra">MAC Roteador</label>
+                        <input type="text" id="mac-roteador-fibra" name="mac-roteador-fibra">
+                        <label for="serial-roteador">Serial Number Roteador <span style="font-weight:400;color:#64748b">(Opcional)</span></label>
                         <input type="text" id="serial-roteador" name="serial-roteador">
                     </div>
                 </div>
@@ -146,7 +145,7 @@
                     <button class="btn-clear" onclick="limparFibra()">🗑️ Limpar</button>
                 </div>
                 <div class="btn-group" style="margin-top:8px">
-                    <button class="btn-copy" onclick="copiarBloco2Fibra(this)">📋 Renomeio ONU</button>
+                    <button class="btn-copy" id="btn-renomeio-fibra" onclick="copiarBloco2Fibra(this)">📋 Renomeio ONU/ONT</button>
                 </div>
                 <div class="btn-group" style="margin-top:8px">
                     <button class="btn-copy" onclick="copiarNovoLoginFibra(this)">📋 Novo Login</button>
