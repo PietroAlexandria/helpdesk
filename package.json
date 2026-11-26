@@ -17,7 +17,7 @@
     "ixc"
   ],
   "author": "Pietro de Alexandria Picoli",
-  "license": "ISC",
+  "license": "SEE LICENSE IN LICENSE",
   "type": "commonjs",
   "engines": {
     "node": ">=20.19"

@@ -5,6 +5,7 @@
 [![Node.js](https://img.shields.io/badge/Node.js-20.19%2B-339933?style=flat-square&logo=nodedotjs)](https://nodejs.org/)
 [![Express](https://img.shields.io/badge/Express-5.x-000000?style=flat-square&logo=express)](https://expressjs.com/)
 [![Deploy](https://img.shields.io/badge/Deploy-Render-46E3B7?style=flat-square&logo=render)](https://helpdesk-izcw.onrender.com)
+[![License](https://img.shields.io/badge/License-Propriet%C3%A1rio-red?style=flat-square)](LICENSE)
 
 ---
 
